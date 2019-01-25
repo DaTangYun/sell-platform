@@ -10,7 +10,7 @@
     </div>
     <div class="showme-content">
       <ul class="showme-ul">
-        <li v-for="(item,index) in lis" :key="index">
+        <li v-for="(item, index) of lis" :key="index">
           <showMeContent></showMeContent>
         </li>
       </ul>
@@ -20,7 +20,7 @@
 <script>
 import showMeContent from './showMeContent'
 export default {
-  name: 'showMeBox',
+  name: 'ShowMeBox',
   components: {
     showMeContent
   },

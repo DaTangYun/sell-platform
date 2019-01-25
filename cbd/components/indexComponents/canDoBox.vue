@@ -4,26 +4,24 @@
     <div class="canDome-title">
       <div class="canDo-bg"></div>
       <div class="chinese">
-        <p>惠带</p>
+        <p>{{ desc }}</p>
         <p>能帮会干</p>
       </div>
     </div>
     <div class="canDome-content">
-      <ul class="canDome-ul">
-        <li v-for="(item,index) in lis" :key="index">
-          <CanDoContent></CanDoContent>
-        </li>
-      </ul>
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
-import CanDoContent from './canDoContent'
 export default {
   name: 'CanDoBox',
-  components: {
-    CanDoContent
+  props: {
+    desc: {
+      type: String,
+      default: '惠带'
+    }
   },
   data() {
     return {
@@ -33,10 +31,13 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@url: '~assets/images/logo-bg.png';
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .canDome {
   width: 950px;
   height: 606px;
-  background: #fff;
+  background: @common_bgc;
   border-radius: 6px;
   margin-right: 10px;
   margin-bottom: 20px;
@@ -77,18 +78,19 @@ export default {
       font-size: 16px;
     }
     .canDo-bg {
-      background-image: url('../../assets/images/logo-bg.png');
+      .bgc(@url);
       position: absolute;
       top: 0;
       left: 0;
       width: 99px;
       height: 99px;
-      border-radius: 0 0 99px 0;
+      border-radius: 6px 0 99px 0;
       z-index: -1;
     }
   }
   .canDome-content {
     width: 950px;
+    padding: 0 25px;
     box-sizing: border-box;
     position: relative;
     height: 528px;

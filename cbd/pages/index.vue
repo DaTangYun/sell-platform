@@ -1,18 +1,17 @@
 <template>
   <section class="index">
     <div class="w">
-      <showMe></showMe>   
-      <canDo></canDo>   
+      <can-do-box :desc="'云传'"></can-do-box>
+      <can-do-box :desc="'智帮'"></can-do-box>
+      <can-do-box :desc="'惠带'"></can-do-box>
     </div>
   </section> 
 </template>
 <script>
-import canDo from '../components/indexComponents/canDo'
-import showMe from '../components/indexComponents/showMe'
+import canDoBox from 'components/indexComponents/canDoBox'
 export default {
   components: {
-    canDo,
-    showMe
+    canDoBox
   }
 }
 </script>

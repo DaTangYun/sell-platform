@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'showMeContent'
+  name: 'ShowMeContent'
 }
 </script>
 <style lang='less' scoped>
