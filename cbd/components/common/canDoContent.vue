@@ -23,6 +23,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .canDome-li-content {
   width: 284px;
   height: 258px;
@@ -43,9 +45,7 @@ export default {
     font-weight: 400;
     color: rgba(40, 45, 56, 1);
     font-size: 16px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .ellipsis();
     display: block;
   }
   .price {
