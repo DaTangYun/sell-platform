@@ -3,9 +3,10 @@
   <header>
     <div class="w">
       <div class="header-top">
-        <div class="change-city">
+        <a class="change-city" @click="changeChild">
           [切换城市]
-        </div>
+          <Dialog v-if="showChild"></Dialog>
+        </a>
         <div class="login-register">
           <nuxt-link to="/login">
             登录/注册
@@ -38,7 +39,6 @@
             mode="horizontal"
             text-color="#282d38"
             active-text-color="#039be5"
-            @select="handleSelect"
           >
             <el-menu-item index="1">
               首页
@@ -59,7 +59,11 @@
   </header>
 </template>
 <script>
+import Dialog from '../components/indexComponents/dialog'
 export default {
+  components: {
+    Dialog
+  },
   data() {
     return {
       options: [
@@ -74,12 +78,14 @@ export default {
       ],
       value: '选项2',
       activeIndex: '1',
-      activeIndex2: '1'
+      activeIndex2: '1',
+      showChild: false
     }
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+    changeChild() {
+      // this.showChild = true
+      console.log(666)
     }
   }
 }

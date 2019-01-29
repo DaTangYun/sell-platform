@@ -14,12 +14,14 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "area-data": "^5.0.6",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
     "express": "^4.16.4",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "nuxt": "^2.3.4"
+    "nuxt": "^2.3.4",
+    "vue-area-linkage": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
