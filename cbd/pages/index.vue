@@ -1,57 +1,50 @@
 <template>
   <section class="index">
     <div class="w">
-      <Dialog></Dialog>
       <div class="index-top">
-        <topHead></topHead>
-        <bigSlider></bigSlider>
+        <TopHead></TopHead>
+        <BigSlider></BigSlider>
         <div class="index-top-right">
-          <publishinTopic :publish="'发表需求'"></publishinTopic>
-          <cooperative></cooperative>
+          <PublishinTopic :publish="'发表需求'"></PublishinTopic>
+          <Cooperative></Cooperative>
         </div>
       </div>
-      <can-do-box :desc="'云传'" class="specical-box" :list="['头条','信息']" @showMe="showMeMessage">
+      <CanDoBox :desc="'云传'" class="specical-box" :list="['头条','信息']" @showMe="showMeMessage">
         <div v-if="show == 0" class="message">
-          <topLine></topLine>
+          <Topline></TopLine>
         </div>
         <div v-if="show == 1" class="title">
           666
         </div>
-      </can-do-box>
+      </CanDoBox>
       <div class="showMeContain">
-        <can-do-box :desc="'智帮'" :list="['秀秀我']">
+        <CanDoBox :desc="'智帮'" :list="['秀秀我']">
           <ul class="showmeList">
             <li v-for="item of showMeList" :key="item" class="showMeitem">
-              <showMeContent></showMeContent>
+              <ShowMeContent></ShowMeContent>
             </li>
           </ul>
-        </can-do-box>
+        </CanDoBox>
         <div class="showMeRight">
           <wisdomBank :wis="'智慧库'">
-            <wisdomBankCont></wisdomBankCont>
+            <Wisdomcbox></Wisdomcbox>
           </wisdomBank>
-          <wisdomBank class="cloud-i" :wis="'云智慧'">
-            <ul class="cloud-ul">
-              <li v-for="(item,index) in cloudlis" :key="index" class="cloud-li">
-                <img src="../assets/images/small.png" alt="">
-              </li>
-            </ul>
-          </wisdomBank>
+          <Cloudwisdom></Cloudwisdom>
         </div>
       </div>
       <div class="showMeContain">
-        <can-do-box :desc="'惠带'" :list="['能帮会干']">
+        <CanDoBox :desc="'惠带'" :list="['能帮会干']">
           <ul class="can-do-List">
             <li v-for="item of canDoList" :key="item" class="can-do-item">
-              <canDoContent></canDoContent>
+              <CanDoContent></CanDoContent>
             </li>
           </ul>
-        </can-do-box>
+        </CanDoBox>
         <div class="showMeRight">
-          <wisdomBank :wis="'帮帮我'">
-            <wisdomBankCont :url="imgUrl"></wisdomBankCont>
-          </wisdomBank>
-          <wisdomBank :wis="'优惠活动'" class="preferential">
+          <WisdomBank :wis="'帮帮我'">
+            <Wisdomcbox :url="imgUrl"></Wisdomcbox>
+          </WisdomBank>
+          <WisdomBank :wis="'优惠活动'" class="preferential">
             <ul class="wisdom-ul">
               <li v-for="(item,index) in list" :key="index" class="wisdom-li">
                 <div class="wisdom-tri">
@@ -62,38 +55,38 @@
                 </p>
               </li>
             </ul>
-          </wisdomBank>
+          </WisdomBank>
         </div>
       </div>
     </div>
   </section> 
 </template>
 <script>
-import canDoBox from 'components/indexComponents/canDoBox'
-import canDoContent from 'common/canDoContent'
-import showMeContent from 'common/showMeContent'
-import wisdomBank from 'components/indexComponents/wisdomBank'
-import topLine from 'components/indexComponents/topLine'
-import topHead from 'components/indexComponents/topHead'
-import bigSlider from 'components/indexComponents/bigSlider'
-import Dialog from 'components/indexComponents/Dialog'
-import wisdomBankCont from 'common/wisdomBankCont'
-import cooperative from 'common/cooperative'
-import publishinTopic from 'common/publishinTopic'
+import CanDoBox from 'components/indexComponents/CanDoBox'
+import CanDoContent from 'common/CanDoContent'
+import ShowMeContent from 'common/ShowMeContent'
+import WisdomBank from 'components/indexComponents/WisdomBank'
+import Topline from 'components/indexComponents/Topline'
+import TopHead from 'components/indexComponents/TopHead'
+import BigSlider from 'components/indexComponents/BigSlider'
+import Cloudwisdom from 'components/indexComponents/cloudwisdom'
+import Wisdomcbox from 'common/Wisdomcbox'
+import Cooperative from 'common/Cooperative'
+import PublishinTopic from 'common/PublishinTopic'
 export default {
   name: 'Home',
   components: {
-    canDoBox,
-    canDoContent,
-    showMeContent,
-    wisdomBank,
-    wisdomBankCont,
-    topLine,
-    topHead,
-    bigSlider,
-    cooperative,
-    publishinTopic,
-    Dialog
+    CanDoBox,
+    CanDoContent,
+    ShowMeContent,
+    WisdomBank,
+    Wisdomcbox,
+    Topline,
+    TopHead,
+    BigSlider,
+    Cooperative,
+    PublishinTopic,
+    Cloudwisdom
   },
   data() {
     return {
@@ -102,8 +95,7 @@ export default {
       imgUrl: require('assets/images/small.png'),
       arr: ['能帮会干', '信息', '头条'],
       show: 0,
-      list: [0, 1, 2, 3, 4, 5, 6],
-      cloudlis: [0, 1, 2, 3]
+      list: [0, 1, 2, 3, 4, 5, 6]
     }
   },
   methods: {
@@ -212,24 +204,6 @@ export default {
       p {
         .ellipsis();
         width: 191px;
-      }
-    }
-  }
-  .cloud-i {
-    margin-top: 12px;
-    width: 248px;
-    border-radius: 6px;
-    box-sizing: border-box;
-    background-color: #fff;
-    .cloud-ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .cloud-li {
-        margin-bottom: 10px;
-        img {
-          width: 100%;
-        }
       }
     }
   }

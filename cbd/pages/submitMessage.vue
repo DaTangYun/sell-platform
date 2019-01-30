@@ -1,7 +1,6 @@
 <template>
   <div class="submitMessage">
     <div class="w">
-      <band></band>
       <div class="submit-button">
         <div class="submit-anniu">
           <nuxt-link to="/messageComp" class="submit-head">
@@ -16,12 +15,8 @@
   </div>
 </template>
 <script>
-import band from 'common/band.vue'
 export default {
-  layout: 'default',
-  components: {
-    band
-  }
+  layout: 'default'
 }
 </script>
 

@@ -1,44 +1,50 @@
-<!--  -->
 <template>
   <div class="dialog">
     <div class="area">
       <div class="area-title">
         切换城市
       </div>
-      <area-select v-model="selected" :data="pcaa" :level="2"></area-select>
+      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
       <div class="button">
-        <button>
+        <button @click.stop="commit">
           确定
         </button>
-        <button>
+        <button @click.stop="changesho">
           取消
         </button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import { AreaCascader } from 'vue-area-linkage'
 import { pca, pcaa } from 'area-data'
 export default {
   name: 'Dialog',
   data() {
     return {
       selected: [],
-      AreaCascader: AreaCascader,
       pca: pca,
       pcaa: pcaa
+    }
+  },
+  methods: {
+    changesho() {
+      this.$emit('changeQQQ', false)
+    },
+    commit() {
+      console.log(this.selected[2])
+      this.$emit('sendXian', this.selected[2])
+      sessionStorage.setItem('xian', this.selected[2])
     }
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .dialog {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
   z-index: 999;
@@ -80,6 +86,14 @@ export default {
           background-color: #00a0e9;
           color: #fff;
         }
+      }
+    }
+  }
+  #specicalselect {
+    .area-select {
+      .area-selected-trigger {
+        padding: 0px 3px 19px 51px;
+        line-height: 30px;
       }
     }
   }

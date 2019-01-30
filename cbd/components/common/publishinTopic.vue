@@ -11,7 +11,7 @@ export default {
   props: {
     publish: {
       type: String,
-      default: ''
+      default: '发表需求'
     }
   },
   data() {
@@ -37,6 +37,7 @@ export default {
     border: 0;
     outline: none;
     font-size: 20px;
+    cursor: pointer;
   }
 }
 </style>

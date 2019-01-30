@@ -2,19 +2,18 @@
 <template>
   <div class="submit-message">
     <div class="w">
-      <band></band>
+      <band :bands="['首页','发布信息']"></band>
       <div class="submit-center">
         <div class="messageCon-title">
-          发布信息
+          发布头条
         </div>
         <div class="form">
           <el-form label-position="left" label-width="80px">
             <el-form-item label="所属地区">
-              <div class="areainp">
-              </div>
+              <el-input></el-input>
             </el-form-item>
             <el-form-item label="标题">
-              <input type="text">
+              <el-input></el-input>
             </el-form-item>
             <el-form-item label="分类">
               <el-select v-model="value" placeholder="请选择">
@@ -33,16 +32,16 @@
               </div>
             </el-form-item>
             <el-form-item label="描述">
-              <input type="text">
+              <el-input></el-input>
             </el-form-item>
             <el-form-item label="内容">
-              <textarea name="" cols="30" rows="10"></textarea>
+              <el-input type="textarea"></el-input>
             </el-form-item>
             <el-form-item label="电话">
-              <input type="number" name="">
+              <el-input></el-input>
             </el-form-item>
             <el-form-item label="联系人">
-              <input type="text" name="">
+              <el-input></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -85,7 +84,7 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 @import 'vue-area-linkage/dist/index.css';
 .submit-center {
   box-sizing: border-box;
@@ -99,10 +98,9 @@ export default {
     color: rgba(40, 45, 56, 1);
   }
   .form {
-    input {
+    .el-input__inner {
       width: 345px;
       height: 32px;
-      border: 1px solid #ddd;
     }
     .tupian {
       width: 226px;

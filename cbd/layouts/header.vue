@@ -3,19 +3,26 @@
   <header>
     <div class="w">
       <div class="header-top">
-        <a class="change-city" @click="changeChild">
-          [切换城市]
-          <Dialog v-if="showChild"></Dialog>
-        </a>
+        <div class="change-city" @click="changeshozhi">
+          [{{ city }}]
+          <Dialog v-show="showDialog" @changeQQQ="showDialog = false" @sendXian="sendXian"></Dialog>
+        </div>
         <div class="login-register">
+          <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
+            认证
+          </nuxt-link>
           <nuxt-link to="/login">
-            登录/注册
-          </nuxt-link>  
+            登录
+          </nuxt-link>
+          <span>/</span>
+          <nuxt-link to="/register">
+            注册
+          </nuxt-link>
         </div>
       </div>
       <div class="header-bottom">
         <div class="header-logo"></div>
-        <div class="header-classification">
+        <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
           <div class="classification">
             <el-select v-model="value">
               <el-option
@@ -39,6 +46,7 @@
             mode="horizontal"
             text-color="#282d38"
             active-text-color="#039be5"
+            @select="handleSelect"
           >
             <el-menu-item index="1">
               首页
@@ -54,12 +62,12 @@
             </el-menu-item>
           </el-menu>
         </div>
-      </div>
+      </div>    
     </div>
   </header>
 </template>
 <script>
-import Dialog from '../components/indexComponents/dialog'
+import Dialog from 'components/indexComponents/Dialog'
 export default {
   components: {
     Dialog
@@ -79,13 +87,25 @@ export default {
       value: '选项2',
       activeIndex: '1',
       activeIndex2: '1',
-      showChild: false
+      city: '切换城市',
+      showDialog: false
     }
   },
+  mounted() {
+    this.city = sessionStorage.getItem('xian')
+  },
   methods: {
-    changeChild() {
-      // this.showChild = true
-      console.log(666)
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath)
+    },
+    changeshozhi() {
+      console.log(66666)
+      this.showDialog = true
+    },
+    sendXian(data) {
+      this.city = data
+      this.showDialog = false
+      // console.log($nuxt.$router.options.routes[0].path)
     }
   }
 }
@@ -119,6 +139,7 @@ header {
     height: 70px;
     box-sizing: border-box;
     display: flex;
+    position: relative;
     .header-logo {
       width: 58px;
       height: 100%;
@@ -154,6 +175,9 @@ header {
     .header-tips {
       width: 440px;
       height: 100%;
+      position: absolute;
+      right: 0;
+      bottom: 0;
       ul {
         border: none;
         height: 100%;
