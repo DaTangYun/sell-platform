@@ -62,6 +62,7 @@ export default {
   border-radius: 6px;
   padding: 16px 19px 17px;
   box-sizing: border-box;
+  overflow: hidden;
   .tabs-ul {
     display: flex;
     box-sizing: border-box;
@@ -84,6 +85,7 @@ export default {
 }
 .tabCon {
   box-sizing: border-box;
+  overflow: hidden;
   .topHead {
     ul {
       height: 294px;

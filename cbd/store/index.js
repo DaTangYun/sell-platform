@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import app from '@/datastore/module/app'
-import getters from '@/datastore/getters'
+import app from './module/app'
+import getters from './getters/getters'
 Vue.use(Vuex)
 const store = () =>
   new Vuex.Store({

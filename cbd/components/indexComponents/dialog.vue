@@ -4,7 +4,9 @@
       <div class="area-title">
         切换城市
       </div>
-      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      <no-ssr>
+        <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      </no-ssr>
       <div class="button">
         <button @click.stop="commit">
           确定
@@ -32,9 +34,9 @@ export default {
       this.$emit('changeQQQ', false)
     },
     commit() {
-      console.log(this.selected[2])
-      this.$emit('sendXian', this.selected[2])
-      sessionStorage.setItem('xian', this.selected[2])
+      const selectedcity = this.selected[2]
+      sessionStorage.setItem('LOCATION', selectedcity)
+      this.$emit('sendXian', selectedcity)
     }
   }
 }
@@ -68,6 +70,9 @@ export default {
     }
     .area-select-wrap {
       margin: 40px 10px 50px;
+      .area-selectable-list-wrap {
+        margin-top: 0px;
+      }
     }
     .button {
       text-align: center;

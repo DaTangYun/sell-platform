@@ -87,28 +87,28 @@ export default {
       value: '选项2',
       activeIndex: '1',
       activeIndex2: '1',
-      city: '切换城市',
-      showDialog: false
+      showDialog: false,
+      city: '切换城市'
     }
   },
-  created() {
-    this.getCity()
+  mounted() {
+    this.getLocation()
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     changeshozhi() {
-      console.log(66666)
+      // console.log(66666)
       this.showDialog = true
     },
     sendXian(data) {
-      this.city = data
       this.showDialog = false
+      this.city = data
     },
-    getCity() {
+    getLocation() {
       try {
-        const city = sessionStorage.getItem('xian')
+        const city = sessionStorage.getItem('LOCATION')
         if (city) {
           this.city = city
         }
@@ -126,7 +126,6 @@ header {
     justify-content: space-between;
     border-bottom: 1px solid #dadfe5;
     .change-city {
-      width: 70px;
       height: 100%;
       line-height: 50px;
       font-size: 14px;

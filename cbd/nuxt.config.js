@@ -40,21 +40,13 @@ module.exports = {
   /*
     ** Global CSS
     */
-  css: [
-    'assets/less/index.less',
-    'element-ui/lib/theme-chalk/index.css',
-    'vue-area-linkage/dist/index.css',
-    'swiper/dist/css/swiper.css'
-  ],
+  css: [{ src: "swiper/dist/css/swiper.css" },'element-ui/lib/theme-chalk/index.css','vue-area-linkage/dist/index.css','assets/less/index.less'
+],
 
   /*
     ** Plugins to load before mounting the App
     */
-  plugins: [
-    '@/plugins/element-ui',
-    '@/plugins/vue-swiper',
-    '@/plugins/province'
-  ],
+  plugins: ['@/plugins/element-ui',{ src: "~/plugins/vue-swiper.js", ssr: false }, '@/plugins/province'],
 
   /*
     ** Nuxt.js modules
