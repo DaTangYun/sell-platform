@@ -68,7 +68,7 @@
 </template>
 <script>
 import Dialog from 'components/indexComponents/Dialog'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Dialog
@@ -92,35 +92,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      city: 'city'
-    })
+    ...mapGetters(['city'])
   },
-  created() {},
+  created() {
+    // console.log(this.$store)
+  },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     changeshozhi() {
-      console.log(66666)
+      // console.log(66666)
       this.showDialog = true
     },
     sendXian(data) {
-      this.city = data
-      this.setcity(data)
       this.showDialog = false
-    },
-    getCity() {
-      try {
-        const city = sessionStorage.getItem('xian')
-        if (city) {
-          this.city = city
-        }
-      } catch (error) {}
-    },
-    ...mapActions({
-      setcity: 'set_city'
-    })
+    }
   }
 }
 </script>
@@ -133,7 +120,6 @@ header {
     justify-content: space-between;
     border-bottom: 1px solid #dadfe5;
     .change-city {
-      width: 70px;
       height: 100%;
       line-height: 50px;
       font-size: 14px;

@@ -1,8 +1,7 @@
 let defaultcity = '切换城市'
 try {
-  const xian = sessionStorage.getItem('xian')
-  if (sessionStorage.getItem('xian')) {
-    defaultcity = xian
+  if (sessionStorage.xian) {
+    defaultcity = sessionStorage.xian
   }
 } catch (error) {}
 const app = {
@@ -15,8 +14,13 @@ const app = {
     }
   },
   actions: {
-    set_city: ({ commit }, city) => {
-      commit('SET_CITY', city)
+    async set_city({ commit }, city) {
+      await commit('SET_CITY', city)
+    }
+  },
+  getters: {
+    city(state) {
+      return state.city
     }
   }
 }

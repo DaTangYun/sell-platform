@@ -18,6 +18,7 @@
 </template>
 <script>
 import { pca, pcaa } from 'area-data'
+import { mapActions } from 'vuex'
 export default {
   name: 'Dialog',
   data() {
@@ -27,15 +28,23 @@ export default {
       pcaa: pcaa
     }
   },
+  mounted() {
+    const city = sessionStorage.getItem('xian')
+    if (city) this.setcity(city)
+  },
   methods: {
     changesho() {
       this.$emit('changeQQQ', false)
     },
     commit() {
-      console.log(this.selected[2])
-      this.$emit('sendXian', this.selected[2])
       sessionStorage.setItem('xian', this.selected[2])
-    }
+      const selectedcity = this.selected[2]
+      this.$emit('sendXian', this.selected[2])
+      this.setcity(selectedcity)
+    },
+    ...mapActions({
+      setcity: 'set_city'
+    })
   }
 }
 </script>
@@ -68,6 +77,9 @@ export default {
     }
     .area-select-wrap {
       margin: 40px 10px 50px;
+      .area-selectable-list-wrap {
+        margin-top: 0px;
+      }
     }
     .button {
       text-align: center;
