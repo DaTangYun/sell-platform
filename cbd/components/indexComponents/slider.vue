@@ -46,6 +46,11 @@ export default {
         }
       }
     }
+  },
+  beforeCreate() {
+    if (process.client) {
+      require('vue-awesome-swiper')
+    }
   }
 }
 </script>

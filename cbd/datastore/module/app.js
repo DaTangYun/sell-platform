@@ -5,17 +5,18 @@ try {
     defaultcity = xian
   }
 } catch (error) {}
+
 const app = {
   store: {
     city: defaultcity
   },
-  mutation: {
+  mutations: {
     SET_CITY: (state, city) => {
       state.city = city
     }
   },
-  action: {
-    setcc: ({ commit }, city) => {
+  actions: {
+    setCity: ({ commit }, city) => {
       commit('SET_CITY', city)
     }
   }
