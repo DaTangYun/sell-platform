@@ -51,9 +51,7 @@
             </div>
           </div>
         </div>
-        <nuxt-link to="/messageComp">
-          <RightComponent :publish="'发表需求'"></RightComponent>
-        </nuxt-link>
+        <RightComponent></RightComponent>
       </div>
     </div>
   </div>

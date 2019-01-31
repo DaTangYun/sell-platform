@@ -91,8 +91,8 @@ export default {
       showDialog: false
     }
   },
-  mounted() {
-    this.city = sessionStorage.getItem('xian')
+  created() {
+    this.getCity()
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -105,7 +105,14 @@ export default {
     sendXian(data) {
       this.city = data
       this.showDialog = false
-      // console.log($nuxt.$router.options.routes[0].path)
+    },
+    getCity() {
+      try {
+        const city = sessionStorage.getItem('xian')
+        if (city) {
+          this.city = city
+        }
+      } catch (error) {}
     }
   }
 }
