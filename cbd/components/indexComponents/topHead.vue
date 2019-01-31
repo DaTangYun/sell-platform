@@ -9,7 +9,9 @@
       </ul>
       <div class="tabCon">
         <div v-if="show == 0" class="topHead">
-          <slider></slider>
+          <no-ssr>
+            <slider></slider>
+          </no-ssr>
         </div>
         <div v-if="show == 1" class="topMeaage">
           <slider></slider>

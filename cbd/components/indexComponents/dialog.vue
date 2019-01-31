@@ -4,7 +4,9 @@
       <div class="area-title">
         切换城市
       </div>
-      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      <no-ssr>
+        <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      </no-ssr>
       <div class="button">
         <button @click.stop="commit">
           确定
@@ -18,7 +20,6 @@
 </template>
 <script>
 import { pca, pcaa } from 'area-data'
-import { mapActions } from 'vuex'
 export default {
   name: 'Dialog',
   data() {
@@ -28,23 +29,15 @@ export default {
       pcaa: pcaa
     }
   },
-  mounted() {
-    const city = sessionStorage.getItem('xian')
-    if (city) this.setcity(city)
-  },
   methods: {
     changesho() {
       this.$emit('changeQQQ', false)
     },
     commit() {
-      sessionStorage.setItem('xian', this.selected[2])
       const selectedcity = this.selected[2]
-      this.$emit('sendXian', this.selected[2])
-      this.setcity(selectedcity)
-    },
-    ...mapActions({
-      setcity: 'set_city'
-    })
+      sessionStorage.setItem('LOCATION', selectedcity)
+      this.$emit('sendXian', selectedcity)
+    }
   }
 }
 </script>

@@ -46,7 +46,7 @@ module.exports = {
   /*
     ** Plugins to load before mounting the App
     */
-  plugins: ['@/plugins/element-ui',{ src: "~/plugins/vue-swiper.js", ssr: false },{ src: '~/plugins/province', ssr: false }],
+  plugins: ['@/plugins/element-ui',{ src: "~/plugins/vue-swiper.js", ssr: false }, '@/plugins/province'],
 
   /*
     ** Nuxt.js modules

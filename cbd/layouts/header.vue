@@ -68,7 +68,6 @@
 </template>
 <script>
 import Dialog from 'components/indexComponents/Dialog'
-import { mapGetters } from 'vuex'
 export default {
   components: {
     Dialog
@@ -88,14 +87,12 @@ export default {
       value: '选项2',
       activeIndex: '1',
       activeIndex2: '1',
-      showDialog: false
+      showDialog: false,
+      city: '切换城市'
     }
   },
-  computed: {
-    ...mapGetters(['city'])
-  },
-  created() {
-    // console.log(this.$store)
+  mounted() {
+    this.getLocation()
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -107,6 +104,15 @@ export default {
     },
     sendXian(data) {
       this.showDialog = false
+      this.city = data
+    },
+    getLocation() {
+      try {
+        const city = sessionStorage.getItem('LOCATION')
+        if (city) {
+          this.city = city
+        }
+      } catch (error) {}
     }
   }
 }
