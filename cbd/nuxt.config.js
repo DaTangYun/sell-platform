@@ -40,7 +40,7 @@ module.exports = {
   /*
     ** Global CSS
     */
-  css: ['element-ui/lib/theme-chalk/index.css', 'assets/less/index.less',{ src: "swiper/dist/css/swiper.css" },'vue-area-linkage/dist/index.css','vue-area-linkage/dist/index.css'
+  css: ['element-ui/lib/theme-chalk/index.css', 'assets/less/index.less',{ src: "swiper/dist/css/swiper.css" },'vue-area-linkage/dist/index.css'
 ],
 
   /*

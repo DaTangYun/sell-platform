@@ -1,4 +1,4 @@
-let defaultcity = ''
+let defaultcity = '切换城市'
 try {
   const xian = sessionStorage.getItem('xian')
   if (sessionStorage.getItem('xian')) {
@@ -6,16 +6,16 @@ try {
   }
 } catch (error) {}
 const app = {
-  store: {
+  state: {
     city: defaultcity
   },
-  mutation: {
+  mutations: {
     SET_CITY: (state, city) => {
       state.city = city
     }
   },
-  action: {
-    setcc: ({ commit }, city) => {
+  actions: {
+    set_city: ({ commit }, city) => {
       commit('SET_CITY', city)
     }
   }

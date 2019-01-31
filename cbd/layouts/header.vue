@@ -68,6 +68,7 @@
 </template>
 <script>
 import Dialog from 'components/indexComponents/Dialog'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     Dialog
@@ -87,13 +88,15 @@ export default {
       value: '选项2',
       activeIndex: '1',
       activeIndex2: '1',
-      city: '切换城市',
       showDialog: false
     }
   },
-  created() {
-    this.getCity()
+  computed: {
+    ...mapGetters({
+      city: 'city'
+    })
   },
+  created() {},
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath)
@@ -104,6 +107,7 @@ export default {
     },
     sendXian(data) {
       this.city = data
+      this.setcity(data)
       this.showDialog = false
     },
     getCity() {
@@ -113,7 +117,10 @@ export default {
           this.city = city
         }
       } catch (error) {}
-    }
+    },
+    ...mapActions({
+      setcity: 'set_city'
+    })
   }
 }
 </script>

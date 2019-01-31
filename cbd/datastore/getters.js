@@ -1,4 +1,4 @@
 const getters = {
-  city: state => state.city
+  city: state => state.app.city
 }
 export default getters
