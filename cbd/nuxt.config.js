@@ -40,13 +40,21 @@ module.exports = {
   /*
     ** Global CSS
     */
-  css: [{ src: "swiper/dist/css/swiper.css" },'element-ui/lib/theme-chalk/index.css','vue-area-linkage/dist/index.css','assets/less/index.less'
-],
+  css: [
+    { src: 'swiper/dist/css/swiper.css' },
+    'element-ui/lib/theme-chalk/index.css',
+    'vue-area-linkage/dist/index.css',
+    'assets/less/index.less'
+  ],
 
   /*
     ** Plugins to load before mounting the App
     */
-  plugins: ['@/plugins/element-ui',{ src: "~/plugins/vue-swiper.js", ssr: false }, '@/plugins/province'],
+  plugins: [
+    '@/plugins/element-ui',
+    { src: '~/plugins/vue-swiper', ssr: false },
+    { src: '~/plugins/province', ssr: false }
+  ],
 
   /*
     ** Nuxt.js modules
@@ -69,6 +77,7 @@ module.exports = {
     /*
       ** You can extend webpack config here
       */
+    // analyze: true,
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -89,6 +98,33 @@ module.exports = {
           assets: path.resolve(__dirname, './assets')
         }
       )
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        automaticNameDelimiter: '.',
+        maxAsyncRequests: 7,
+        cacheGroups: {
+          elementui: {
+            test: /node_modules[\\/]element-ui/,
+            chunks: 'all',
+            priority: 21,
+            name: true
+          },
+          vueswiper: {
+            test: /node_modules[\\/]swiper/,
+            chunks: 'all',
+            priority: 21,
+            name: true
+          },
+          vuearea: {
+            test: /node_modules[\\/]vue-area-linkage/,
+            chunks: 'all',
+            priority: 21,
+            name: true
+          }
+        }
+      }
     }
   }
 }

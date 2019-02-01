@@ -39,7 +39,6 @@
               action="https://jsonplaceholder.typicode.com/posts/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
             >
               <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -51,7 +50,7 @@
           <el-form-item label="过期时间:" class="yonghumingcheng">
             <el-input v-model="form.time"></el-input>
           </el-form-item>
-          <el-form-item label="所在地区:" class="yonghumingcheng">
+          <el-form-item label="所在地区:" class="yonghumingcheng">  
             <area-select
               v-model="selected"
               type="text"

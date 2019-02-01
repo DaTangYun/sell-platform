@@ -4,9 +4,7 @@
       <div class="area-title">
         切换城市
       </div>
-      <no-ssr>
-        <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
-      </no-ssr>
+      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
       <div class="button">
         <button @click.stop="commit">
           确定
@@ -19,13 +17,12 @@
   </div>
 </template>
 <script>
-import { pca, pcaa } from 'area-data'
+import { pcaa } from 'area-data'
 export default {
   name: 'Dialog',
   data() {
     return {
       selected: [],
-      pca: pca,
       pcaa: pcaa
     }
   },

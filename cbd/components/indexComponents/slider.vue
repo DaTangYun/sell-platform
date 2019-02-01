@@ -32,11 +32,6 @@ export default {
         height: 300
       }
     }
-  },
-  beforeCreate() {
-    if (process.client) {
-      require('vue-awesome-swiper')
-    }
   }
 }
 </script>
