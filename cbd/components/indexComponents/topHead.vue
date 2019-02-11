@@ -86,6 +86,8 @@ export default {
 .tabCon {
   box-sizing: border-box;
   overflow: hidden;
+  height: 290px;
+  overflow: hidden;
   .topHead {
     ul {
       height: 294px;
