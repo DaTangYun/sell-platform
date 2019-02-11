@@ -2,7 +2,7 @@
 <template>
   <div class="head">
     <div class="w">
-      <band :bands="['首页','云传','信息需求']"></band>
+      <band :bands="['首页','云传','头条信息']"></band>
       <div class="head-index">
         <div class="head-left">
           <div class="headline-category">

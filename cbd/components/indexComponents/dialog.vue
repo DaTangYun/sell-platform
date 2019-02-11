@@ -4,7 +4,13 @@
       <div class="area-title">
         切换城市
       </div>
-      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      <area-select 
+        id="specicalselect"
+        v-model="selected"
+        type="text"
+        :data="pcaa"
+        :level="2"
+      ></area-select>
       <div class="button">
         <button @click.stop="commit">
           确定

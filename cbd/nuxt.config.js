@@ -52,6 +52,9 @@ module.exports = {
     */
   plugins: [
     '@/plugins/element-ui',
+    // '@/plugins/vue-swiper',
+    // '@/plugins/province'
+    // { src: '@/plugins/element-ui', ssr: false },
     { src: '~/plugins/vue-swiper', ssr: false },
     { src: '~/plugins/province', ssr: false }
   ],
