@@ -49,23 +49,17 @@
             @select="handleSelect"
           >
             <el-menu-item index="1">
-              <nuxt-link to="/">
-                首页
-              </nuxt-link>
+              首页
             </el-menu-item>
             <el-submenu index="2">
               <template slot="title">
                 云传
               </template>
               <el-menu-item index="2-1">
-                <nuxt-link to="/cloud">
-                  头条
-                </nuxt-link>
+                头条
               </el-menu-item>
               <el-menu-item index="2-2">
-                <nuxt-link to="/">
-                  信息
-                </nuxt-link>
+                信息
               </el-menu-item>
             </el-submenu>
             <el-menu-item index="3">
