@@ -1,6 +1,5 @@
 import Vue from 'vue'
+import VueAreaLinkage from 'vue-area-linkage'
 export default () => {
-  if (process.client) {
-    Vue.use(require('vue-area-linkage'))
-  }
+  Vue.use(VueAreaLinkage)
 }

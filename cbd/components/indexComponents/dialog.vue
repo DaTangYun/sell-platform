@@ -4,7 +4,9 @@
       <div class="area-title">
         切换城市
       </div>
-      <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      <no-ssr>
+        <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+      </no-ssr>
       <div class="button">
         <button @click.stop="commit">
           确定
@@ -26,6 +28,9 @@ export default {
       pcaa: pcaa
     }
   },
+  mounted() {
+    this.initArea()
+  },
   methods: {
     changesho() {
       this.$emit('changeQQQ', false)
@@ -34,6 +39,11 @@ export default {
       const selectedcity = this.selected[2]
       sessionStorage.setItem('LOCATION', selectedcity)
       this.$emit('sendXian', selectedcity)
+    },
+    initArea() {
+      if (process.client) {
+        require('vue-area-linkage')
+      }
     }
   }
 }

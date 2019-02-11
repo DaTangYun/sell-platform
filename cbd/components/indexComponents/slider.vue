@@ -32,6 +32,16 @@ export default {
         height: 300
       }
     }
+  },
+  mounted() {
+    this.initSwiper()
+  },
+  methods: {
+    initSwiper() {
+      if (process.client) {
+        require('vue-awesome-swiper/dist/ssr')
+      }
+    }
   }
 }
 </script>
