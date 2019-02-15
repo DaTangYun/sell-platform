@@ -38,6 +38,10 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+.rightComponent {
+  display: inline-block;
+  margin-left: 12px;
+}
 .public {
   margin-bottom: 20px;
 }

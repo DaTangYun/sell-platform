@@ -19,11 +19,7 @@
       </CanDoBox>
       <div class="showMeContain">
         <CanDoBox :desc="'智帮'" :list="['秀秀我']">
-          <ul class="showmeList">
-            <li v-for="item of showMeList" :key="item" class="showMeitem">
-              <ShowMeContent></ShowMeContent>
-            </li>
-          </ul>
+          <showmelist></showmelist>
         </CanDoBox>
         <div class="showMeRight">
           <wisdomBank :wis="'智慧库'">
@@ -64,7 +60,6 @@
 <script>
 import CanDoBox from 'components/indexComponents/CanDoBox'
 import CanDoContent from 'common/CanDoContent'
-import ShowMeContent from 'common/ShowMeContent'
 import WisdomBank from 'components/indexComponents/WisdomBank'
 import Topline from 'components/indexComponents/Topline'
 import TopHead from 'components/indexComponents/TopHead'
@@ -73,12 +68,12 @@ import Cloudwisdom from 'components/indexComponents/cloudwisdom'
 import Wisdomcbox from 'common/Wisdomcbox'
 import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
+import showmelist from 'common/showmelist'
 export default {
   name: 'Home',
   components: {
     CanDoBox,
     CanDoContent,
-    ShowMeContent,
     WisdomBank,
     Wisdomcbox,
     Topline,
@@ -86,12 +81,12 @@ export default {
     BigSlider,
     Cooperative,
     PublishinTopic,
-    Cloudwisdom
+    Cloudwisdom,
+    showmelist
   },
   data() {
     return {
       canDoList: [0, 1, 2, 3, 4, 5],
-      showMeList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       imgUrl: require('assets/images/small.png'),
       arr: ['能帮会干', '信息', '头条'],
       show: 0,
@@ -145,32 +140,6 @@ export default {
   .showMeContain {
     width: 100%;
     display: flex;
-    .showmeList {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      .showMeitem {
-        display: flex;
-        margin-right: 50px;
-        margin-bottom: 72px;
-        box-sizing: border-box;
-        &:nth-of-type(4n) {
-          margin-right: 0;
-        }
-        &:nth-of-type(9) {
-          margin-bottom: 40px;
-        }
-        &:nth-of-type(10) {
-          margin-bottom: 40px;
-        }
-        &:nth-of-type(11) {
-          margin-bottom: 40px;
-        }
-        &:nth-of-type(12) {
-          margin-bottom: 40px;
-        }
-      }
-    }
     .showMeRight {
       width: 248px;
       height: 500px;

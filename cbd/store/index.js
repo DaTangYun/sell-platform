@@ -8,6 +8,9 @@ const store = () =>
     modules: {
       app
     },
+    state: {
+      counter: 0
+    },
     getters
   })
 export default store

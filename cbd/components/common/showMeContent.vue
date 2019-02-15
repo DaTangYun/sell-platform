@@ -8,7 +8,7 @@
           会员名称
         </div>
         <div class="showMetext">
-          会员会员会员会员会员会员
+          {{ showmetext | ellipsis(showmetext) }}
         </div>
       </div>
     </div>
@@ -17,7 +17,12 @@
 
 <script>
 export default {
-  name: 'ShowMeContent'
+  name: 'ShowMeContent',
+  data() {
+    return {
+      showmetext: '会员会员会员会员会员会员'
+    }
+  }
 }
 </script>
 <style lang='less' scoped>

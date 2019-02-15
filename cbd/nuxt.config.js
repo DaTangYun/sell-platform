@@ -36,6 +36,9 @@ module.exports = {
   loading: {
     color: '#fff'
   },
+  router: {
+    middleware: 'routers'
+  },
 
   /*
     ** Global CSS
@@ -56,7 +59,8 @@ module.exports = {
     // '@/plugins/province'
     // { src: '@/plugins/element-ui', ssr: false },
     { src: '~/plugins/vue-swiper', ssr: false },
-    { src: '~/plugins/province', ssr: false }
+    { src: '~/plugins/province', ssr: false },
+    '~plugins/ellipsis.js'
   ],
 
   /*
@@ -129,5 +133,10 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  meta: [
+    {
+      title: '首页'
+    }
+  ]
 }

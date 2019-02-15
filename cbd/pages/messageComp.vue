@@ -2,7 +2,6 @@
 <template>
   <div class="submit-message">
     <div class="w">
-      <band :bands="['首页','发布信息']"></band>
       <div class="submit-center">
         <div class="messageCon-title">
           发布头条
@@ -50,11 +49,7 @@
   </div>
 </template>
 <script>
-import band from 'common/band.vue'
 export default {
-  components: {
-    band
-  },
   data() {
     return {
       options: [

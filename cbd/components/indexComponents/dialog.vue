@@ -104,7 +104,7 @@ export default {
   #specicalselect {
     .area-select {
       .area-selected-trigger {
-        padding: 0px 3px 19px 51px;
+        padding: 0px 3px 19px 25px;
         line-height: 30px;
       }
     }

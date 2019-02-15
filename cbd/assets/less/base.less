@@ -31,12 +31,6 @@ a {
     color: #2d374b;
     text-decoration: none
 }
-
-a:hover {
-    color: #cd0200;
-    text-decoration: underline
-}
-
 em {
     font-style: normal
 }
@@ -69,6 +63,7 @@ body {
 input,
 button {
     outline: none;
+    border: none;
 }
 
 input::-webkit-outer-spin-button,
@@ -96,8 +91,14 @@ a:visited {
     text-decoration: none; 
 }
 a:hover { 
-    color: #000;
-    text-decoration: none; 
+    text-decoration: none;
+    color: rgb(3, 155, 229);
+}
+a:focus {
+    color: rgb(3, 155, 229);
+}
+a:active {
+    color: rgb(3, 155, 229);
 }
 .icon {
     width: 30px; height: 30px;
@@ -122,3 +123,38 @@ a:hover {
  .el-menu--horizontal>.el-submenu .el-submenu__title {
      height: 70px;
  }
+ .el-menu--horizontal .el-menu .el-menu-item {
+     height: 50px;
+     font-size: 16px;
+     padding-left: 30px;
+     width: 110px;
+ }
+ .el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
+     min-width: 110px;
+ }
+.el-tabs__item {
+    font-size: 16px;
+    height: 55px;
+}
+.el-menu-item {
+    font-size: 16px;
+    height: 66px;
+    line-height: 66px;
+}
+.el-submenu__title a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.el-menu--horizontal>.el-submenu .el-submenu__icon-arrow {
+    position: absolute;
+    top: 25px;
+    left: 73px;
+}
+.el-menu-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;   
+}

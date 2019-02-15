@@ -1,74 +1,57 @@
 <!--  -->
 <template>
   <div class="head">
-    <div class="w">
-      <band :bands="['首页','云传','头条信息']"></band>
-      <div class="head-index">
-        <div class="head-left">
-          <div class="headline-category">
-            <span>头条类别：</span>
-            <ul>
-              <li v-for="(item,index) in heads" :key="index">
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-          <div class="headline-content">
-            <ul class="headline-contentul">
-              <li v-for="(item,index) in contentlis" :key="index">
-                <div class="headlineimg">
-                  <img src="" alt="">
-                </div>
-                <div class="headlinelic">
-                  <h3>移动互联网架构开发</h3>
-                  <p>
-                    TO是多边机构，不是美国一家开的。WTO成员是平等的，不是美国一家说了算的权理事会
-                    虽然注定是痴人说梦，但它也充分暴露了美方强权霸凌的嘴脸和唯我独尊的心态。据不权理，
-                    了联合国教科文组织、联合国人权理事会。                       
-                  </p>
-                  <div class="headlispan">
-                    <span>
-                      生活服务
-                    </span>
-                    <span>
-                      2018-12-07
-                    </span>
-                    <span>
-                      <img src="../../assets/images/eye.png" alt="">
-                      6666
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <div class="pagnation">
-              <el-pagination
-                background
-                layout="pager"
-                :total="40"
-              >
-              </el-pagination>
+    <div class="head-left">
+      <cloudTitle :titlename="'信息需求：'"></cloudTitle>
+      <div class="headline-content">
+        <ul class="headline-contentul">
+          <li v-for="(item,index) in contentlis" :key="index">
+            <div class="headlineimg">
+              <img src="" alt="">
             </div>
-          </div>
+            <div class="headlinelic">
+              <h3>移动互联网架构开发</h3>
+              <p>
+                TO是多边机构，不是美国一家开的。                      
+              </p>
+              <div class="headlispan">
+                <span>
+                  生活服务
+                </span>
+                <span>
+                  2018-12-07
+                </span>
+                <span>
+                  <img src="../../assets/images/eye.png" alt="">
+                  6666
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="pagnation">
+          <el-pagination
+            background
+            layout="pager"
+            :total="40"
+          >
+          </el-pagination>
         </div>
-        <RightComponent></RightComponent>
       </div>
     </div>
   </div>
 </template>
-
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
-import band from 'components/common/band'
+import cloudTitle from 'components/cloudComponents/cloudTitle.vue'
 export default {
-  layout: 'default',
   components: {
-    band,
-    RightComponent
+    cloudTitle
+  },
+  meta: {
+    title: '信息'
   },
   data() {
     return {
-      heads: ['待定011', '待定012', '待定013', '待定014', '待定015', '待定016'],
       contentlis: [0, 1, 2, 3, 4]
     }
   }
@@ -76,13 +59,13 @@ export default {
 </script>
 <style lang='less' scoped>
 .head {
-  border-bottom: 4px solid #00a0e9;
+  width: 100%;
+  height: 100%;
 }
 .head-index {
   width: 1210px;
   margin: 0 auto;
   display: flex;
-  padding-top: 20px;
   padding-bottom: 56px;
   box-sizing: border-box;
   .head-left {

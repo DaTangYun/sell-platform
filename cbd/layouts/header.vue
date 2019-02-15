@@ -1,84 +1,132 @@
 <!--  -->
 <template>
-  <header>
+  <div class="header">
+    <header>
+      <div class="w">
+        <div class="header-top">
+          <div class="change-city" @click="changeshozhi">
+            [{{ city }}]
+            <Dialog v-show="showDialog" @changeQQQ="showDialog = false" @sendXian="sendXian"></Dialog>
+          </div>
+          <div class="login-register">
+            <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
+              认证
+            </nuxt-link>
+            <nuxt-link to="/login">
+              登录
+            </nuxt-link>
+            <span>/</span>
+            <nuxt-link to="/register">
+              注册
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="header-bottom">
+          <div class="header-logo"></div>
+          <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
+            <div class="classification">
+              <el-select v-model="value">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </div>
+            <div class="search">
+              <el-input placeholder="请输入搜索内容">
+                <i slot="suffix" class="el-input__icon el-icon-search"></i>
+              </el-input>
+            </div>
+          </div>
+          <div class="header-tips">
+            <el-menu 
+              mode="horizontal"
+              text-color="#282d38"
+              active-text-color="#039be5"
+              @select="handleSelect"
+            >
+              <el-menu-item index="1">
+                <nuxt-link :to="{path:'/',meta:{title:'首页'}}">
+                  首页
+                </nuxt-link>
+              </el-menu-item>
+              <el-submenu index="2">
+                <template slot="title">
+                  传
+                </template>
+                <el-menu-item index="21">
+                  <nuxt-link to="/cloud/cloudhead">
+                    头条
+                  </nuxt-link>
+                </el-menu-item>
+                <el-menu-item index="22">
+                  <nuxt-link to="/cloud/cloudInfo">
+                    信息
+                  </nuxt-link>
+                </el-menu-item>
+              </el-submenu>
+              <el-submenu index="3">
+                <template slot="title">
+                  <nuxt-link to="/help">
+                    帮
+                  </nuxt-link>
+                </template>
+                <el-menu-item index="3-1">
+                  <nuxt-link to="/help">
+                    云智慧
+                  </nuxt-link>
+                </el-menu-item>
+                <el-menu-item index="3-2">
+                  <nuxt-link to="/help/wisdombank">
+                    智慧库
+                  </nuxt-link>
+                </el-menu-item>
+                <el-menu-item index="3-3">
+                  秀秀我
+                </el-menu-item>
+              </el-submenu>
+              <el-submenu index="4">
+                <template slot="title">
+                  <nuxt-link to="discont">
+                    带
+                  </nuxt-link>
+                </template>
+                <el-menu-item index="4-1">
+                  <nuxt-link to="/discont">
+                    能帮会干
+                  </nuxt-link>
+                </el-menu-item>
+                <el-menu-item index="4-2">
+                  <nuxt-link to="/discont/help">
+                    帮帮我
+                  </nuxt-link>
+                </el-menu-item>
+                <el-menu-item index="4-3">
+                  <nuxt-link to="/discont/active">
+                    优惠活动
+                  </nuxt-link>
+                </el-menu-item>
+              </el-submenu>
+            </el-menu>
+          </div>
+        </div> 
+      </div> 
+    </header>
     <div class="w">
-      <div class="header-top">
-        <div class="change-city" @click="changeshozhi">
-          [{{ city }}]
-          <Dialog v-show="showDialog" @changeQQQ="showDialog = false" @sendXian="sendXian"></Dialog>
-        </div>
-        <div class="login-register">
-          <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
-            认证
-          </nuxt-link>
-          <nuxt-link to="/login">
-            登录
-          </nuxt-link>
-          <span>/</span>
-          <nuxt-link to="/register">
-            注册
-          </nuxt-link>
-        </div>
-      </div>
-      <div class="header-bottom">
-        <div class="header-logo"></div>
-        <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
-          <div class="classification">
-            <el-select v-model="value">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-select>
-          </div>
-          <div class="search">
-            <el-input placeholder="请输入搜索内容">
-              <i slot="suffix" class="el-input__icon el-icon-search"></i>
-            </el-input>
-          </div>
-        </div>
-        <div class="header-tips">
-          <el-menu 
-            :default-active="activeIndex2"
-            mode="horizontal"
-            text-color="#282d38"
-            active-text-color="#039be5"
-            @select="handleSelect"
-          >
-            <el-menu-item index="1">
-              首页
-            </el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">
-                云传
-              </template>
-              <el-menu-item index="2-1">
-                头条
-              </el-menu-item>
-              <el-menu-item index="2-2">
-                信息
-              </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="3">
-              智帮
-            </el-menu-item>
-            <el-menu-item index="4">
-              惠带
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </div>    
-    </div>
-  </header>
+      <band v-show="$nuxt.$route.path != '/'"></band>
+    </div>   
+  </div>
 </template>
 <script>
 import Dialog from 'components/indexComponents/Dialog'
+import band from 'components/common/band'
 export default {
   components: {
-    Dialog
+    Dialog,
+    band
   },
   data() {
     return {
@@ -92,9 +140,8 @@ export default {
           label: '信息'
         }
       ],
-      value: '选项2',
+      value: '选项1',
       activeIndex: '1',
-      activeIndex2: '1',
       showDialog: false,
       city: '切换城市'
     }
@@ -104,10 +151,9 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      // console.log(key, keyPath)
+      // console.log(key)
     },
     changeshozhi() {
-      // console.log(66666)
       this.showDialog = true
     },
     sendXian(data) {
