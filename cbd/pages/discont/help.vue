@@ -1,38 +1,34 @@
 <!--  -->
 <template>
-  <div>
-    <div class="w">
-      <div class="help">
-        <div class="help-content">
-          <ul>
-            <li v-for="(item,index) in help" :key="index">
-              <div>
-                <img src="" alt="">
-              </div>
-              <h5>                          
-                《企业所得税税前扣除凭证管理办理办...
-              </h5>
-              <span>
-                耿镇京东分拣150元一天 要求男要求男要求男
-                女不限，年龄18-40岁，要求男要求男最少...          
-              </span>
-            </li>
-          </ul>
-          <pagination></pagination>
-        </div>
-        <RightComponent></RightComponent>
-      </div>
+  <div class="help">
+    <div class="help-content">
+      <ul>
+        <li v-for="(item,index) in help" :key="index">
+          <div>
+            <img src="" alt="">
+          </div>
+          <h5>                          
+            《企业所得税税前扣除凭证管理办理办...
+          </h5>
+          <span>
+            耿镇京东分拣150元一天 要求男要求男要求男
+            女不限，年龄18-40岁，要求男要求男最少...          
+          </span>
+        </li>
+      </ul>
+      <pagination></pagination>
     </div>
   </div>
 </template>
 
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
   components: {
-    RightComponent,
     pagination
+  },
+  meta: {
+    title: '帮帮我'
   },
   data() {
     return {

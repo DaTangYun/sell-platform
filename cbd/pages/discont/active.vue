@@ -1,55 +1,51 @@
 <template>
-  <div class="w">
-    <div class="box">
-      <div class="activity">
-        <ul class="activity-ul">
-          <li v-for="(item,index) in active" :key="index" class="activity-li">
-            <div class="activity-li-left">
-              <div class="top">
-                <h4>活动标题</h4>
-                <span>昵称</span>
-                <span>2018-12-07</span>
-              </div>
-              <div class="bottom">
-                WTO是多边机构，不是美国一家开的。WTO成员是平等的，不是美国一家说了算的权
-              </div>
-            </div>
-            <div :class="item.flag ? 'oldpage' :'nowpage'" class="activity-li-right " @click="item.flag = false;item.take = '已领取'">
-              <div class="right-content">
-                <div class="right-content-left">
-                  <h5>
-                    标题标题标题标题标题
-                  </h5>
-                  <div>
-                    2018/12/31过期
-                  </div>
-                </div>
-              </div>
-              <div class="right-content-right">
-                <div class="calc">
-                  满1000减999
-                </div>
-                <span>
-                  {{ item.take }}
-                </span>
+  <div class="activity">
+    <ul class="activity-ul">
+      <li v-for="(item,index) in active" :key="index" class="activity-li">
+        <div class="activity-li-left">
+          <div class="top">
+            <h4>活动标题</h4>
+            <span>昵称</span>
+            <span>2018-12-07</span>
+          </div>
+          <div class="bottom">
+            WTO是多边机构，不是美国一家开的。WTO成员是平等的，不是美国一家说了算的权
+          </div>
+        </div>
+        <div :class="item.flag ? 'oldpage' :'nowpage'" class="activity-li-right " @click="item.flag = false;item.take = '已领取'">
+          <div class="right-content">
+            <div class="right-content-left">
+              <h5>
+                标题标题标题标题标题
+              </h5>
+              <div>
+                2018/12/31过期
               </div>
             </div>
-          </li>
-        </ul>
-        <pagination></pagination>
-      </div>
-      <RightComponent></RightComponent>
-    </div>
+          </div>
+          <div class="right-content-right">
+            <div class="calc">
+              满1000减999
+            </div>
+            <span>
+              {{ item.take }}
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <pagination></pagination>
   </div>
 </template>
 
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
   components: {
-    RightComponent,
     pagination
+  },
+  meta: {
+    title: '优惠活动'
   },
   data() {
     return {
@@ -67,10 +63,6 @@ export default {
 <style lang='less' scoped>
 @import '~style/variable.less';
 @import '~style/mixin.less';
-.box {
-  display: flex;
-  margin-bottom: 139px;
-}
 .activity {
   width: 950px;
   background-color: #fff;

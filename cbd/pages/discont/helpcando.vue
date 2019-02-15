@@ -1,30 +1,26 @@
 <!--  -->
 <template>
-  <div>
-    <div class="w">
-      <div class="discont">
-        <div class="discont-cont">
-          <ul>
-            <li v-for="(item,index) in discont" :key="index">
-              <CanDoContent></CanDoContent>
-            </li>
-          </ul>
-          <pagination></pagination>
-        </div>
-        <RightComponent></RightComponent>
-      </div>   
-    </div>    
-  </div>
+  <div class="discont">
+    <div class="discont-cont">
+      <ul>
+        <li v-for="(item,index) in discont" :key="index">
+          <CanDoContent></CanDoContent>
+        </li>
+      </ul>
+      <pagination></pagination>
+    </div>
+  </div>   
 </template>
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
 import CanDoContent from 'common/CanDoContent'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
   components: {
     CanDoContent,
-    RightComponent,
     pagination
+  },
+  meta: {
+    title: '能帮会干'
   },
   data() {
     return {

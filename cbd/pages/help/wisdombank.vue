@@ -34,6 +34,9 @@ export default {
     rules,
     words
   },
+  meta: {
+    title: '智慧库'
+  },
   data() {
     return {
       bankindex: 1,

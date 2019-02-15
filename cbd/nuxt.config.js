@@ -37,7 +37,8 @@ module.exports = {
     color: '#fff'
   },
   router: {
-    middleware: 'routers'
+    middleware: ['redirect', 'routers'],
+    linkActiveClass: 'active-link'
   },
 
   /*

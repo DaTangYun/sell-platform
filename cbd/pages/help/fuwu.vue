@@ -125,6 +125,9 @@ export default {
   components: {
     pagination
   },
+  meta: {
+    title: '服务'
+  },
   data() {
     return {
       activeName: 'first',

@@ -6,7 +6,7 @@
         当前位置:
       </div>
       <div class="band">
-        <el-breadcrumb class="breadcrumb-container" separator-class="el-icon-arrow-right">
+        <el-breadcrumb v-if="levelList.length" class="breadcrumb-container" separator-class="el-icon-arrow-right">
           <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.path">
             {{ item.title }}
           </el-breadcrumb-item>
@@ -30,16 +30,18 @@ export default {
     }
   },
   created() {
+    console.log(22222)
+  },
+  mounted() {
     this.getBreadcrumb()
   },
   methods: {
     getBreadcrumb() {
-      console.log(this.$route.matched)
-      let matched = this.$route.matched.filter(item => {
-        if (item.name === 'cloud') {
-          item.path = '/cloud/cloudInfo'
-        }
-        console.log(item.title)
+      const history = JSON.parse(sessionStorage.getItem('HISTORY'))
+      console.log(history)
+      if (!Array.isArray(history)) return
+      let matched = this.$route.matched.filter((item, index) => {
+        item.title = history[index].title
         return item
       })
       const first = matched[0]
