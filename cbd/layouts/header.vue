@@ -43,10 +43,10 @@
           </div>
           <div class="header-tips">
             <ul class="header-tips-ul">
-              <nuxt-link to="/" exact>
+              <nuxt-link to="/" exact tag="li">
                 首页
               </nuxt-link>
-              <nuxt-link to="/cloud">
+              <nuxt-link to="/cloud" tag="li">
                 传
                 <div class="header-tips-ul-img">
                   <img src="~assets/images/down3.png" alt="">
@@ -64,7 +64,7 @@
                   </li>
                 </ul>
               </nuxt-link>
-              <nuxt-link to="/help">
+              <nuxt-link to="/help" tag="li">
                 帮
                 <div class="header-tips-ul-img img2">
                   <img src="~assets/images/down3.png" alt="">
@@ -87,20 +87,20 @@
                   </li>
                 </ul>
               </nuxt-link>
-              <nuxt-link to="/discont">
+              <nuxt-link to="/discont" tag="li">
                 带
                 <div class="header-tips-ul-img img3">
                   <img src="~assets/images/down3.png" alt="">
                 </div>
                 <ul class="secondul">
                   <li class="secondli">
-                    <nuxt-link to="/discont/help">
-                      帮帮我
+                    <nuxt-link to="/discont/helpcando">
+                      能帮会干
                     </nuxt-link>
                   </li>
                   <li class="secondli">
-                    <nuxt-link to="/discont/helpcando">
-                      能帮会干
+                    <nuxt-link to="/discont/help">
+                      帮帮我
                     </nuxt-link>
                   </li>
                   <li class="secondli">
@@ -262,6 +262,11 @@ header {
         border: none;
         height: 100%;
         position: relative;
+        .indexli {
+          width: 50px;
+          height: 100%;
+          line-height: 70px;
+        }
         .header-tips-ul-img {
           position: absolute;
           z-index: 100;
@@ -274,15 +279,16 @@ header {
         .img3 {
           right: 245px;
         }
-        a {
+        li {
           width: 25%;
           height: 100%;
           text-align: center;
           font-weight: 500;
           font-size: 16px;
           line-height: 70px;
-          margin-right: 5px;
-          &:hover .secondul .secondli a {
+          margin-right: 25px;
+          cursor: pointer;
+          &:hover .secondul {
             display: block;
           }
           .secondul {
@@ -293,15 +299,19 @@ header {
             border: none;
             border-radius: 2px;
             box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            display: none;
             .secondli {
               box-sizing: border-box;
               padding: 0 15px;
+              width: 100%;
               a {
-                display: none;
                 width: 100%;
                 height: 100%;
                 text-align: center;
                 line-height: 70px;
+                &.active-link {
+                  border: none;
+                }
               }
             }
           }
