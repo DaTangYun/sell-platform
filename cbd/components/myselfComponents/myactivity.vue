@@ -3,7 +3,7 @@
   <div class="myactivity">
     <el-tabs>
       <el-tab-pane label="我组织的活动">
-        <mylist></mylist>
+        <mylist :caozuo="['使用','删除']"></mylist>
       </el-tab-pane>
       <el-tab-pane label="我参与的活动">
         <mylist :demand="['标题','优惠金额','使用期限','状态','操作']" :wid="'180'" :spans="['标题标题标题标题标题','满68-78','2018-06-27至2018-06-27','已使用']" :wids="'180'" :caozuo="['使用','删除']"></mylist>

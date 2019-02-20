@@ -3,11 +3,11 @@
   <div>
     <ul class="showmeList">
       <nuxt-link
-        v-for="item of showme"
-        :key="item"
+        v-for="(item,index) of showme"
+        :key="index"
         class="showMeitem"
         tag="li"
-        :to="{path: '/help/show/1'}"
+        to="/myqzone"
       >
         <ShowMeContent></ShowMeContent>
       </nuxt-link>       

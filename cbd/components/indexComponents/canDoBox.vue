@@ -10,7 +10,7 @@
             {{ item }}
           </li>
         </ul>
-        <nuxt-link to="" class="more">
+        <nuxt-link :to="{name:'help-show'}" class="more">
           更多
         </nuxt-link>
       </div>

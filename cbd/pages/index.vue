@@ -18,7 +18,7 @@
         </div>
       </CanDoBox>
       <div class="showMeContain">
-        <CanDoBox :desc="'智帮'" :list="['秀秀我']">
+        <CanDoBox :desc="'智帮'" :list="['秀秀我']" :to="{name:'help-show'}">
           <showmelist></showmelist>
         </CanDoBox>
         <div class="showMeRight">
@@ -29,12 +29,8 @@
         </div>
       </div>
       <div class="showMeContain">
-        <CanDoBox :desc="'惠带'" :list="['能帮会干']">
-          <ul class="can-do-List">
-            <li v-for="item of canDoList" :key="item" class="can-do-item">
-              <CanDoContent></CanDoContent>
-            </li>
-          </ul>
+        <CanDoBox :desc="'惠带'" :list="['能帮会干']" :to="'/discont/helpcando'">
+          <CanDoContent></CanDoContent>
         </CanDoBox>
         <div class="showMeRight">
           <WisdomBank :wis="'帮帮我'">

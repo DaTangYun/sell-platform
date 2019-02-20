@@ -3,8 +3,8 @@
   <div>
     <div class="topLine-ul-top">
       <ul>
-        <li v-for="(item,index) in topLists" :key="index">
-          <div class="li-img">
+        <li v-for="(item,index) in toplists" :key="index">
+          <div class="li-img" :style="{ width: wids + 'px',height: hei + 'px' }">
             <img src="" alt="">
           </div>
           <p>
@@ -15,7 +15,7 @@
     </div>
     <div class="topLine-ul-bottom">
       <ul>
-        <li v-for="(item,index) in bottomList" :key="index">
+        <li v-for="(item,index) in bottomlist" :key="index" :style="{ width: wid }">
           <div>成才教育</div>
           <p>2018年10月份新增失信联合惩戒对象公示</p>
           <span>11-09</span>
@@ -26,11 +26,31 @@
 </template>
 <script>
 export default {
-  name: 'TopLine',
-  data() {
-    return {
-      topLists: [0, 1, 2, 3],
-      bottomList: [0, 1, 2, 3, 4, 5, 6, 7]
+  name: 'Topline',
+  props: {
+    toplists: {
+      type: Array,
+      default() {
+        return [0, 1, 2, 3]
+      }
+    },
+    bottomlist: {
+      type: Array,
+      default() {
+        return [0, 1, 2, 3, 4, 5, 6, 7]
+      }
+    },
+    wid: {
+      type: String,
+      default: '50%'
+    },
+    wids: {
+      type: String,
+      default: '281'
+    },
+    hei: {
+      type: String,
+      default: '196'
     }
   }
 }

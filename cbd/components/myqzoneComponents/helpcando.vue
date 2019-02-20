@@ -1,34 +1,31 @@
 <!--  -->
 <template>
-  <div class="discont">
-    <div class="discont-cont">
+  <div>
+    <helpbox :wid="'950'" :head="'能帮会干'">
       <CanDoContent></CanDoContent>
       <pagination></pagination>
-    </div>
-  </div>   
+    </helpbox>  
+  </div>
 </template>
 <script>
+import helpbox from 'components/myqzoneComponents/helpbox'
 import CanDoContent from 'common/CanDoContent'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
+  name: 'Helpcando',
   components: {
+    helpbox,
     CanDoContent,
     pagination
   },
-  meta: {
-    title: '能帮会干'
+  data() {
+    return {}
   }
 }
 </script>
 <style lang='less' scoped>
-.discont {
-  display: flex;
-  margin-bottom: 56px;
-  .discont-cont {
-    width: 950px;
-    background-color: #fff;
-    box-sizing: border-box;
-    padding: 24px;
-  }
+.helpme {
+  border-bottom: 1px dashed #e1e2e6;
+  margin-bottom: 10px;
 }
 </style>
