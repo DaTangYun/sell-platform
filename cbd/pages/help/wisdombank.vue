@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     handleSelect(index) {
-      console.log(index)
       this.bankindex = index
     }
   }

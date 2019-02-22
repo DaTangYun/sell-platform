@@ -34,17 +34,7 @@ export default {
       show: 0
     }
   },
-  mounted() {
-    console.log('app init', this)
-    setTimeout(() => {
-      console.log('banners update')
-    }, 300000)
-    console.log(
-      'This is current swiper instance object',
-      this.mySwiper,
-      'I will slideTo banners 3'
-    )
-  },
+  mounted() {},
   methods: {
     tab: function(index) {
       this.show = index

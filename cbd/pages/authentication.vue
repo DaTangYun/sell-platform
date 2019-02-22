@@ -102,7 +102,6 @@ export default {
   methods: {
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      console.log(index)
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
@@ -116,7 +115,7 @@ export default {
       return isJPG && isLt2M
     },
     onSubmit() {
-      console.log('submit')
+      // console.log('submit')
     }
   }
 }

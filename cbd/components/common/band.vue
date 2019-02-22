@@ -8,7 +8,7 @@
       <div class="band">
         <el-breadcrumb class="breadcrumb-container" separator-class="el-icon-arrow-right">
           <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.path">
-            {{ item.title }}
+            {{ item.name }}
           </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -21,7 +21,8 @@ export default {
   name: 'Band',
   data() {
     return {
-      levelList: []
+      levelList: [],
+      meat: []
     }
   },
   watch: {
@@ -30,16 +31,20 @@ export default {
     }
   },
   created() {
+    this.getMeta()
+  },
+  mounted() {
     this.getBreadcrumb()
   },
   methods: {
+    getMeta() {
+      this.meat = this.$route.meta
+    },
     getBreadcrumb() {
-      console.log(this.$route.matched)
-      let matched = this.$route.matched.filter(item => {
+      let matched = this.$route.matched.filter((item, index) => {
         if (item.name === 'cloud') {
           item.path = '/cloud/cloudInfo'
         }
-        console.log(item.title)
         return item
       })
       const first = matched[0]
@@ -52,7 +57,6 @@ export default {
         ].concat(matched)
       }
       this.levelList = matched
-      console.log(this.levelList)
     }
   }
 }

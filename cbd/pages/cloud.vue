@@ -23,7 +23,8 @@ export default {
   },
   methods: {
     ll() {
-      console.log(this.$route.path)
+      console.log(1)
+      // console.log(this.$route.path)
     }
   }
 }
