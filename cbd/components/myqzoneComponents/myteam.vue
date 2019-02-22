@@ -3,23 +3,27 @@
   <div>
     <helpbox :wid="'950'" :head="'我的团队'">
       <div class="team">
-        <el-form label-width="80px">
-          <el-form-item label="团队名称">
-            团队名称
-          </el-form-item>
-          <el-form-item label="团队图片">
-            <div class="teamimg">
-              <img src="" alt="">
-            </div>
-          </el-form-item>
-          <el-form-item label="团队简介">
-            <p>
-              团队简介团队简介团队简介团队简介团队简介团队简介团队简介
-            </p>
-          </el-form-item>
-        </el-form>
+        <div class="team-form">
+          <el-form label-width="80px">
+            <el-form-item label="团队名称">
+              团队名称
+            </el-form-item>
+            <el-form-item label="团队图片">
+              <div class="teamimg">
+                <img src="" alt="">
+              </div>
+            </el-form-item>
+            <el-form-item label="团队简介">
+              <p>
+                团队简介团队简介团队简介团队简介团队简介团队简介团队简介
+              </p>
+            </el-form-item>
+          </el-form>
+        </div>
         <div class="member">
-          团队成员
+          <span>
+            团队成员
+          </span>
         </div>
         <ul>
           <li v-for="(item,index) in teamlist" :key="index">
@@ -68,6 +72,9 @@ export default {
 <style lang='less' scoped>
 .team {
   position: relative;
+  .team-form {
+    margin-bottom: 20px;
+  }
   .teamimg {
     width: 284px;
     height: 201px;
@@ -79,20 +86,23 @@ export default {
     line-height: 40px;
     background: rgba(241, 242, 246, 1);
     margin-bottom: 10px;
-    position: absolute;
+    position: relative;
     width: 950px;
-    bottom: 359px;
-    left: -19px;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
     box-sizing: border-box;
     padding-left: 20px;
+    span {
+      position: absolute;
+    }
   }
   ul {
     margin-top: 50px;
     li {
-      height: 122px;
       border-bottom: 1px dashed #e1e2e6;
       box-sizing: border-box;
-      padding-top: 20px;
+      padding-bottom: 10px;
       span {
         display: inline-block;
         margin: 0 20px 20px 0;

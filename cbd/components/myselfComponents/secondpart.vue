@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="secondpart-top">
-      <send :send="{title:'发布新的能帮会干', path:'/releaseDemand'}"></send>
+      <send :send="{title:'发布新的能帮会干', path:'/submitnbhg'}"></send>
     </div>
     <div class="demand-top">
       <span v-for="(item,index) in demand" :key="index">

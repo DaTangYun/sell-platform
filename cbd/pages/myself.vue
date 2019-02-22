@@ -69,7 +69,6 @@
           </div>
           <div v-show="nowIndex===4" class="divTab">
             <mycase></mycase>
-            <pagination></pagination>
           </div>
         </div>
         <div v-if="bankindex == 2" class="secondpart">

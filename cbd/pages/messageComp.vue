@@ -9,7 +9,9 @@
         <div class="form">
           <el-form label-position="left" label-width="80px">
             <el-form-item label="所属地区">
-              <el-input></el-input>
+              <no-ssr>
+                <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+              </no-ssr>
             </el-form-item>
             <el-form-item label="标题">
               <el-input></el-input>
@@ -26,30 +28,38 @@
               </el-select>
             </el-form-item>
             <el-form-item label="图片">
-              <div class="tupian">
-                <img src="" alt="">
-              </div>
+              <el-upload
+                class="upload-demo"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button size="small" type="primary">
+                  点击上传
+                </el-button>
+              </el-upload>
             </el-form-item>
             <el-form-item label="描述">
               <el-input></el-input>
-            </el-form-item>
+            </el-form-item>            
             <el-form-item label="内容">
               <el-input type="textarea"></el-input>
             </el-form-item>
-            <el-form-item label="电话">
-              <el-input></el-input>
-            </el-form-item>
-            <el-form-item label="联系人">
-              <el-input></el-input>
-            </el-form-item>
           </el-form>
+          <div class="button">
+            <el-button type="primary">
+              确认
+            </el-button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { pcaa } from 'area-data'
 export default {
+  meta: {
+    title: '发布能帮会干'
+  },
   data() {
     return {
       options: [
@@ -74,7 +84,9 @@ export default {
           label: '北京烤鸭'
         }
       ],
-      value: ''
+      value: '',
+      selected: [],
+      pcaa: pcaa
     }
   }
 }
@@ -109,5 +121,8 @@ export default {
       resize: none;
     }
   }
+}
+.button {
+  margin: 0 0 20px 85px;
 }
 </style>
