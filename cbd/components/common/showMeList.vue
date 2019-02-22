@@ -2,13 +2,18 @@
 <template>
   <div>
     <ul class="showmeList">
-      <li v-for="item of showme" :key="item" class="showMeitem">
+      <nuxt-link
+        v-for="(item,index) of showme"
+        :key="index"
+        class="showMeitem"
+        tag="li"
+        to="/myqzone"
+      >
         <ShowMeContent></ShowMeContent>
-      </li>
+      </nuxt-link>       
     </ul>   
   </div>
 </template>
-
 <script>
 import ShowMeContent from 'common/ShowMeContent'
 export default {
@@ -36,6 +41,7 @@ export default {
     margin-right: 50px;
     margin-bottom: 72px;
     box-sizing: border-box;
+    cursor: pointer;
     &:nth-of-type(4n) {
       margin-right: 0;
     }

@@ -164,6 +164,9 @@ footer {
                 &:active {
                   color: rgba(255, 255, 255, 1);
                 }
+                &:hover {
+                  color: rgba(255, 255, 255, 1);
+                }
               }
             }
           }

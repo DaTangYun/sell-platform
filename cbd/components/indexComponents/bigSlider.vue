@@ -2,24 +2,22 @@
 <template>
   <div class="bigSlider">
     <el-carousel class="bigslifer-el">
-      <el-carousel-item v-for="(item,index) in imglist" :key="index">
-        <img :src="item.idView">
+      <el-carousel-item v-for="(item,index) of slider" :key="index">
+        <img :src="item.image">
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'BigSlider',
   data() {
-    return {
-      imglist: [
-        { id: 0, idView: require('../../assets/images/slider.jpg') },
-        { id: 1, idView: require('../../assets/images/slider.jpg') },
-        { id: 2, idView: require('../../assets/images/slider.jpg') }
-      ]
-    }
+    return {}
+  },
+  computed: {
+    ...mapGetters(['slider'])
   }
 }
 </script>

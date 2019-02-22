@@ -4,8 +4,8 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
   /*
-    ** Headers of the page
-    */
+   ** Headers of the page
+   */
   head: {
     title: pkg.name,
     meta: [
@@ -31,18 +31,19 @@ module.exports = {
     ]
   },
   /*
-    ** Customize the progress-bar color
-    */
+   ** Customize the progress-bar color
+   */
   loading: {
     color: '#fff'
   },
   router: {
-    middleware: 'routers'
+    middleware: ['redirect', 'routers'],
+    linkActiveClass: 'active-link'
   },
 
   /*
-    ** Global CSS
-    */
+   ** Global CSS
+   */
   css: [
     { src: 'swiper/dist/css/swiper.css' },
     'element-ui/lib/theme-chalk/index.css',
@@ -51,8 +52,8 @@ module.exports = {
   ],
 
   /*
-    ** Plugins to load before mounting the App
-    */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
     '@/plugins/element-ui',
     // '@/plugins/vue-swiper',
@@ -60,32 +61,35 @@ module.exports = {
     // { src: '@/plugins/element-ui', ssr: false },
     { src: '~/plugins/vue-swiper', ssr: false },
     { src: '~/plugins/province', ssr: false },
+    { src: '~/plugins/api', ssr: false },
     '~plugins/ellipsis.js'
   ],
 
   /*
-    ** Nuxt.js modules
-    */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
-    ** Axios module configuration
-    */
+   ** Axios module configuration
+   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
   },
 
   /*
-    ** Build configuration
-    */
+   ** Build configuration
+   */
   build: {
     /*
-      ** You can extend webpack config here
-      */
+     ** You can extend webpack config here
+     */
     // analyze: true,
-    extend(config, ctx) {
+    extend (config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -134,9 +138,14 @@ module.exports = {
       }
     }
   },
-  meta: [
-    {
-      title: '首页'
-    }
+  proxy: [
+    [
+      '/api',
+      {
+        target: 'http://cbd.zyuu.cn', // api主机
+        pathRewrite: { '^/api': '/' },
+        changeOrigin: true
+      }
+    ]
   ]
 }

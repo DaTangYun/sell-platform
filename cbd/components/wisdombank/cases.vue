@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="case">
+  <div>
     <ul>
       <li v-for="(item,index) in cases" :key="index">
         <div class="case-img">
@@ -29,29 +29,26 @@ export default {
 }
 </script>
 <style lang='less' scoped>
-.case {
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 24px;
-    li:nth-child(3n) {
-      margin-right: 0px;
-    }
-    li {
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  li:nth-child(3n) {
+    margin-right: 0px;
+  }
+  li {
+    width: 284px;
+    margin-right: 18px;
+    margin-bottom: 10px;
+    .case-img {
       width: 284px;
-      margin-right: 20px;
-      margin-bottom: 10px;
-      .case-img {
-        width: 284px;
-        height: 201px;
-        background: rgba(179, 179, 179, 1);
-        border-radius: 6px;
-        margin-right: 24px;
-      }
-      .case-title {
-        color: #282d38;
-        line-height: 25px;
-      }
+      height: 201px;
+      background: rgba(179, 179, 179, 1);
+      border-radius: 6px;
+      margin-right: 24px;
+    }
+    .case-title {
+      color: #282d38;
+      line-height: 25px;
     }
   }
 }

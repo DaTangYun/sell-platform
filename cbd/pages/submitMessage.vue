@@ -16,7 +16,10 @@
 </template>
 <script>
 export default {
-  layout: 'default'
+  layout: 'default',
+  meta: {
+    title: '发布信息'
+  }
 }
 </script>
 

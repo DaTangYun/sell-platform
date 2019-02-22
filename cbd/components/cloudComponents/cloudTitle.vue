@@ -4,7 +4,7 @@
     <div class="headline-category">
       <span>{{ titlename }}</span>
       <ul>
-        <li v-for="(item,index) in heads" :key="index">
+        <li v-for="(item,index) in heads" :key="index" @click="huoqu">
           {{ item }}
         </li>
       </ul>
@@ -25,6 +25,9 @@ export default {
     return {
       heads: ['待定011', '待定012', '待定013', '待定014', '待定015', '待定016']
     }
+  },
+  methods: {
+    huoqu() {}
   }
 }
 </script>

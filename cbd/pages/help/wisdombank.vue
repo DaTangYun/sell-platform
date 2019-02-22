@@ -19,7 +19,9 @@
       <div class="bank-right">
         <rules v-show="bankindex == 1"></rules>
         <words v-show="bankindex == 2"></words>
-        <cases v-show="bankindex == 3"></cases>
+        <div class="case">
+          <cases v-show="bankindex == 3"></cases>
+        </div>
       </div>
     </div>
   </div>
@@ -33,6 +35,9 @@ export default {
     cases,
     rules,
     words
+  },
+  meta: {
+    title: '智慧库'
   },
   data() {
     return {
@@ -73,5 +78,9 @@ export default {
     border-radius: 6px;
     box-sizing: border-box;
   }
+}
+.case {
+  box-sizing: border-box;
+  padding: 24px;
 }
 </style>

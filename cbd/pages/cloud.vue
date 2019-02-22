@@ -3,7 +3,7 @@
   <div class="cloud">
     <div class="w">
       <div class="head-index">
-        <div class="left" @click="ll">
+        <div class="left">
           <nuxt-child class="child" />
         </div>
         <RightComponent></RightComponent>
@@ -16,16 +16,10 @@ import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
   layout: 'default',
   meta: {
-    title: '云传'
+    title: '传'
   },
   components: {
     RightComponent
-  },
-  methods: {
-    ll() {
-      console.log(1)
-      // console.log(this.$route.path)
-    }
   }
 }
 </script>

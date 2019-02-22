@@ -1,12 +1,12 @@
 <!--  -->
 <template>
-  <div>
+  <div v-if="!showPath">
     <div class="submit-mb">
       <div class="weizhi">
-        当前位置:
+        当前位置:{{ band.path }}
       </div>
       <div class="band">
-        <el-breadcrumb class="breadcrumb-container" separator-class="el-icon-arrow-right">
+        <el-breadcrumb v-if="levelList.length" class="breadcrumb-container" separator-class="el-icon-arrow-right">
           <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.path">
             {{ item.name }}
           </el-breadcrumb-item>
@@ -22,16 +22,25 @@ export default {
   data() {
     return {
       levelList: [],
-      meat: []
+      showband: true,
+      band: {
+        path: '',
+        flag: true
+      }
+    }
+  },
+  computed: {
+    showPath() {
+      return this.$route.path === '/' || this.$route.path === '/myqzone'
     }
   },
   watch: {
     $route(to, from) {
       this.getBreadcrumb()
-    }
-  },
-  created() {
-    this.getMeta()
+      console.log(to.path)
+      console.log(from.path)
+    },
+    hideband: 'hideband'
   },
   mounted() {
     this.getBreadcrumb()
@@ -41,10 +50,10 @@ export default {
       this.meat = this.$route.meta
     },
     getBreadcrumb() {
+      const history = JSON.parse(sessionStorage.getItem('HISTORY'))
+      if (!Array.isArray(history)) return
       let matched = this.$route.matched.filter((item, index) => {
-        if (item.name === 'cloud') {
-          item.path = '/cloud/cloudInfo'
-        }
+        item.title = history[index].title
         return item
       })
       const first = matched[0]
@@ -57,6 +66,9 @@ export default {
         ].concat(matched)
       }
       this.levelList = matched
+    },
+    hideband() {
+      console.log(this.$route.path)
     }
   }
 }
