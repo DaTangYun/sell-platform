@@ -7,7 +7,7 @@
       </li>
     </ul>
     <ul class="rules-news">
-      <li v-for="(item,index) in rulesnew" :key="index">
+      <nuxt-link v-for="(item,index) in rulesnew" :key="index" tag="li" to="/ruledetail">
         <div></div>
         <p>
           国家税务总局公告2018年第28号 国家税务总局关于发布《企业所得税税前扣除凭证管理管理...
@@ -15,7 +15,7 @@
         <span>
           2018-12-07
         </span>
-      </li>
+      </nuxt-link>
     </ul>
     <pagination></pagination>
   </div>
