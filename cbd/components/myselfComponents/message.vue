@@ -2,7 +2,7 @@
 <template>
   <div class="message">
     <div class="send">
-      <send :send="{title:'发布信息', path:'/messageComp'}"></send>
+      <send :send="{title:'发布信息', path:'/submitxx'}"></send>
     </div>
     <messagelist></messagelist>
   </div>

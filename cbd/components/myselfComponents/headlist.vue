@@ -2,7 +2,7 @@
 <template>
   <div class="headlist">
     <div class="send">
-      <send :send="{title:'发布头条', path:'/submitmessage'}"></send>
+      <send :send="{title:'发布头条', path:'/messageComp'}"></send>
     </div>
     <messagelist></messagelist>
   </div>

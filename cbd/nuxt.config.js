@@ -61,7 +61,8 @@ module.exports = {
     // { src: '@/plugins/element-ui', ssr: false },
     { src: '~/plugins/vue-swiper', ssr: false },
     { src: '~/plugins/province', ssr: false },
-    '~plugins/ellipsis.js'
+    '~plugins/ellipsis.js',
+    { src: '~/plugins/axios'}
   ],
 
   /*
@@ -76,6 +77,7 @@ module.exports = {
     */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
   },
 
   /*
@@ -135,9 +137,14 @@ module.exports = {
       }
     }
   },
-  meta: [
-    {
-      title: '首页'
-    }
+  proxy: [
+    [
+      '/api', 
+      { 
+        target: 'http://cbd.zyuu.cn', // api主机
+        pathRewrite: { '^/api' : '/' },
+        changeOrigin: true
+      }
+    ]
   ]
 }

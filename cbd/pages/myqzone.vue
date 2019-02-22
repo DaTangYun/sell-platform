@@ -2,6 +2,14 @@
 <template>
   <div class="myqzone">
     <div class="w">
+      <div class="myband">
+        当前位置：
+        <nuxt-link to="/">
+          首页
+        </nuxt-link>
+        >
+        个人空间
+      </div>
       <div class="myqzone-top">
         <div class="mqzone-t">
           <img src="" alt="">
@@ -10,7 +18,7 @@
           <h3>
             昵称/企业名称
           </h3>
-          <img src="~assets/images/vip.png" alt="">
+          <img :src=" i == 0 ? srcs : nosrc" alt="">
         </div>
         <p>
           个人简介
@@ -92,7 +100,10 @@ export default {
   data() {
     return {
       activeIndex: '1',
-      bankindex: 1
+      bankindex: 1,
+      i: 1,
+      srcs: require('assets/images/vip.png'),
+      nosrc: require('assets/images/vipm.png')
     }
   },
   methods: {
@@ -108,6 +119,16 @@ export default {
   background-image: url('~assets/images/cloud.png');
   background-size: 100% 100%;
   width: 100%;
+  box-sizing: border-box;
+  padding-top: 20px;
+  .myband {
+    margin: 0 0 20px 0;
+    color: #fff;
+    font-size: 12px;
+    a {
+      color: #fff;
+    }
+  }
 }
 .myqzone-top {
   width: 1210px;
@@ -157,6 +178,7 @@ export default {
     box-sizing: border-box;
     padding-top: 20px;
     padding-bottom: 30px;
+    margin-bottom: 20px;
     h4 {
       color: #282d38;
       font-size: 24px;

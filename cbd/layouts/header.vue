@@ -12,13 +12,18 @@
             <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
               认证
             </nuxt-link>
-            <nuxt-link to="/login">
-              登录
+            <nuxt-link v-show="nickname.name" to="/myself" style="color:#039be5">
+              昵称
             </nuxt-link>
-            <span>/</span>
-            <nuxt-link to="/register">
-              注册
-            </nuxt-link>
+            <div v-show="nickname.login">
+              <nuxt-link to="/login">
+                登录
+              </nuxt-link>
+              <span>/</span>
+              <nuxt-link to="/register">
+                注册
+              </nuxt-link>
+            </div>
           </div>
         </div>
         <div class="header-bottom">
@@ -43,14 +48,12 @@
           </div>
           <div class="header-tips">
             <ul class="header-tips-ul">
-              <nuxt-link to="/" exact tag="li">
+              <nuxt-link to="/" exact tag="li" class="header-tips-li">
                 首页
               </nuxt-link>
-              <nuxt-link to="/cloud" tag="li">
+              <nuxt-link to="/cloud" tag="li" class="header-tips-li">
                 传
-                <div class="header-tips-ul-img">
-                  <img src="~assets/images/down3.png" alt="">
-                </div>
+                <img src="~assets/images/down3.png" alt="">
                 <ul class="secondul">
                   <li class="secondli">
                     <nuxt-link to="/cloud/cloudInfo">
@@ -64,11 +67,9 @@
                   </li>
                 </ul>
               </nuxt-link>
-              <nuxt-link to="/help" tag="li">
+              <nuxt-link to="/help" tag="li" class="header-tips-li">
                 帮
-                <div class="header-tips-ul-img img2">
-                  <img src="~assets/images/down3.png" alt="">
-                </div>
+                <img src="~assets/images/down3.png" alt="">
                 <ul class="secondul">
                   <li class="secondli">
                     <nuxt-link to="/help/cloudwisdom">
@@ -87,11 +88,9 @@
                   </li>
                 </ul>
               </nuxt-link>
-              <nuxt-link to="/discont" tag="li">
+              <nuxt-link to="/discont" tag="li" class="header-tips-li">
                 带
-                <div class="header-tips-ul-img img3">
-                  <img src="~assets/images/down3.png" alt="">
-                </div>
+                <img src="~assets/images/down3.png" alt="">
                 <ul class="secondul">
                   <li class="secondli">
                     <nuxt-link to="/discont/helpcando">
@@ -116,7 +115,7 @@
       </div> 
     </header>
     <div class="w">
-      <band v-show="$nuxt.$route.path != '/'"></band>
+      <band></band>
     </div>   
   </div>
 </template>
@@ -144,7 +143,11 @@ export default {
       activeIndex: '',
       showDialog: false,
       city: '切换城市',
-      path: ['/cloud', '/help', '/discont']
+      path: ['/cloud', '/help', '/discont'],
+      nickname: {
+        name: true,
+        login: true
+      }
     }
   },
   watch: {
@@ -211,7 +214,12 @@ header {
       color: rgba(40, 45, 56, 1);
       height: 100%;
       line-height: 50px;
+      display: flex;
       cursor: pointer;
+      span {
+        color: #00a0e9;
+        margin-right: 10px;
+      }
     }
   }
   .header-bottom {
@@ -279,7 +287,7 @@ header {
         .img3 {
           right: 245px;
         }
-        li {
+        .header-tips-li {
           width: 25%;
           height: 100%;
           text-align: center;
@@ -290,12 +298,14 @@ header {
           cursor: pointer;
           &:hover .secondul {
             display: block;
+            transition: all 0.6s linear;
           }
           .secondul {
+            margin-top: 10px;
             width: 105px;
             background-color: #fff;
             position: absolute;
-            z-index: 100;
+            z-index: 1000;
             border: none;
             border-radius: 2px;
             box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

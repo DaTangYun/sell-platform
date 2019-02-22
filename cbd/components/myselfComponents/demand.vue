@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="demand">
-    <send :send="{title:'发布新需求', path:'/messageComp'}"></send>
+    <send :send="{title:'发布新需求', path:'/submitxq'}"></send>
     <div class="demand-top">
       <span v-for="(item,index) in demand" :key="index">
         {{ item }}

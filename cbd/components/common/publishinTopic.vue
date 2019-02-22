@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="publishTopic">
-    <nuxt-link to="/submitMessage">
+    <nuxt-link to="/submitxq">
       <button>{{ publish }}</button>
     </nuxt-link>
   </div>

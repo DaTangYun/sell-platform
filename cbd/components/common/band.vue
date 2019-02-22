@@ -1,9 +1,9 @@
 <!--  -->
 <template>
-  <div>
+  <div v-if="this.$route.path !== '/' || this.$route.path !== '/myqzone'">
     <div class="submit-mb">
       <div class="weizhi">
-        当前位置:
+        当前位置:{{ band.path }}
       </div>
       <div class="band">
         <el-breadcrumb v-if="levelList.length" class="breadcrumb-container" separator-class="el-icon-arrow-right">
@@ -21,16 +21,21 @@ export default {
   name: 'Band',
   data() {
     return {
-      levelList: []
+      levelList: [],
+      showband: true,
+      band: {
+        path: '',
+        flag: true
+      }
     }
   },
   watch: {
     $route(to, from) {
       this.getBreadcrumb()
-    }
-  },
-  created() {
-    console.log(22222)
+      console.log(to.path)
+      console.log(from.path)
+    },
+    hideband: 'hideband'
   },
   mounted() {
     this.getBreadcrumb()
@@ -38,7 +43,6 @@ export default {
   methods: {
     getBreadcrumb() {
       const history = JSON.parse(sessionStorage.getItem('HISTORY'))
-      console.log(history)
       if (!Array.isArray(history)) return
       let matched = this.$route.matched.filter((item, index) => {
         item.title = history[index].title
@@ -54,7 +58,9 @@ export default {
         ].concat(matched)
       }
       this.levelList = matched
-      console.log(this.levelList)
+    },
+    hideband() {
+      console.log(this.$route.path)
     }
   }
 }

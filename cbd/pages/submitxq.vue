@@ -4,7 +4,7 @@
     <div class="w">
       <div class="submit-center">
         <div class="messageCon-title">
-          发布头条
+          发布需求
         </div>
         <div class="form">
           <el-form label-position="left" label-width="80px">
@@ -27,6 +27,18 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <el-form-item label="有效期">
+              <el-input></el-input>
+            </el-form-item>    
+            <el-form-item label="价格">
+              <el-input></el-input>
+            </el-form-item>
+            <el-form-item label="电话">
+              <el-input></el-input>
+            </el-form-item>
+            <el-form-item label="联系人">
+              <el-input></el-input>
+            </el-form-item>
             <el-form-item label="图片">
               <el-upload
                 class="upload-demo"
@@ -37,9 +49,6 @@
                 </el-button>
               </el-upload>
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input></el-input>
-            </el-form-item>            
             <el-form-item label="内容">
               <el-input type="textarea"></el-input>
             </el-form-item>
