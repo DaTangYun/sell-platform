@@ -4,16 +4,9 @@
     <div class="send" @click="changeindex()">
       发布案例
     </div>
-    <ul v-if="noIndex===0">
-      <li v-for="(item,index) in cases" :key="index">
-        <div class="img">
-          <img src="" alt="">
-        </div>
-        <p>                      
-          《企业所得税税前扣除凭证管理办...                 
-        </p>
-      </li>
-    </ul>
+    <div v-if="noIndex===0">
+      <mylist :demand="['标题','状态','操作']" :wid="'306'" :spans="['标题标题标题标题标题标题标题标题标题标题','待审核/已审核']" :wids="'306'" :caozuo="['详情','编辑','删除']"></mylist>
+    </div>
     <div v-if="noIndex===1" class="mycase">
       <el-form :label-position="'left'" label-width="80px">
         <el-form-item label="所属地区">
@@ -62,8 +55,12 @@
 </template>
 <script>
 import { pcaa } from 'area-data'
+import mylist from 'components/myselfComponents/list'
 export default {
   name: 'Mycase',
+  components: {
+    mylist
+  },
   data() {
     return {
       cases: [0, 1, 2],

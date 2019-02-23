@@ -3,12 +3,12 @@
   <div v-if="!showPath">
     <div class="submit-mb">
       <div class="weizhi">
-        当前位置:{{ band.path }}
+        当前位置:
       </div>
       <div class="band">
         <el-breadcrumb v-if="levelList.length" class="breadcrumb-container" separator-class="el-icon-arrow-right">
           <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.path">
-            {{ item.name }}
+            {{ item.title }}
           </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -76,13 +76,13 @@ export default {
 <style lang='less' scoped>
 .submit-mb {
   width: 1210px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 0 auto;
   display: flex;
   font-size: 12px;
   font-family: SourceHanSansCN-Normal;
   font-weight: 400;
   color: rgba(119, 128, 143, 1);
+  padding: 20px 0;
   .weizhi {
     margin-right: 5px;
   }
