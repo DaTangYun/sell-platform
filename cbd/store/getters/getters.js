@@ -20,6 +20,18 @@ const getters = {
   // 首页秀秀我
   showme: state => {
     return state.help.showme
+  },
+  showerror: state => {
+    return state.showme.error
+  },
+  cloudInfo: state => {
+    return state.cloudinfo.cloudInfo
+  },
+  cloudhead: state => {
+    return state.cloudhead.cloudHead
+  },
+  helpcloud: state => {
+    return state.helpcloud.helpcloud
   }
 }
 export default getters
