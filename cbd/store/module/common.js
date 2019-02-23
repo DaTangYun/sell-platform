@@ -16,6 +16,8 @@ const common = {
         const slider = data.data
         commit('setSlider', slider.carousel)
       }
+      const dd = await api.common.getSlider()
+      console.log(dd)
     }
   }
 }
