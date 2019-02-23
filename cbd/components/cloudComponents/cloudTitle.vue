@@ -2,32 +2,46 @@
 <template>
   <div>
     <div class="headline-category">
-      <span>{{ titlename }}</span>
+      <span>{{ titlename }}：</span>
       <ul>
-        <li v-for="(item,index) in heads" :key="index" @click="huoqu">
-          {{ item }}
+        <li v-for="(item,index) in info" :key="index" @click="huoqu">
+          {{ item.cate_name }}
         </li>
       </ul>
     </div>   
   </div>
 </template>
-
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'CloudTitle',
   props: {
     titlename: {
       type: String,
-      default: '头条类别：'
+      default: '头条类别'
     }
   },
   data() {
     return {
-      heads: ['待定011', '待定012', '待定013', '待定014', '待定015', '待定016']
+      info: []
     }
   },
+  computed: {
+    ...mapGetters(['cloudInfo', 'cloudhead'])
+  },
+  created() {
+    this.getInfo()
+  },
   methods: {
-    huoqu() {}
+    huoqu() {},
+    getInfo() {
+      const { titlename } = this
+      if (titlename === '头条类别') {
+        this.info = this.cloudhead
+      } else {
+        this.info = this.cloudInfo
+      }
+    }
   }
 }
 </script>
@@ -57,6 +71,7 @@ export default {
       margin-right: 21px;
       text-align: center;
       line-height: 31px;
+      padding: 0 5px;
       cursor: pointer;
       &:hover {
         background-color: #00a0e9;

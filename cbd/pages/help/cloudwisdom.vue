@@ -2,11 +2,11 @@
   <div class="w">
     <div class="cloudwisdom">
       <ul class="cloudwisdomui">
-        <li v-for="item in imglist" :key="item.id">
+        <nuxt-link v-for="item in helpcloud" :key="item.id" tag="li" :to="item.url">
           <div>
-            <img :src="item.idView">
+            <img :src="item.image">
           </div>
-        </li>
+        </nuxt-link>
       </ul>
       <pagination></pagination>
     </div>
@@ -14,6 +14,7 @@
 </template>
 <script>
 import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     pagination
@@ -22,18 +23,10 @@ export default {
     title: '云智慧'
   },
   data() {
-    return {
-      imglist: [
-        { id: 0, idView: require('assets/images/logo1.png') },
-        { id: 1, idView: require('assets/images/logo1.png') },
-        { id: 2, idView: require('assets/images/logo1.png') },
-        { id: 3, idView: require('assets/images/logo1.png') },
-        { id: 4, idView: require('assets/images/logo1.png') },
-        { id: 5, idView: require('assets/images/logo1.png') },
-        { id: 6, idView: require('assets/images/logo1.png') },
-        { id: 7, idView: require('assets/images/logo1.png') }
-      ]
-    }
+    return {}
+  },
+  computed: {
+    ...mapGetters(['helpcloud'])
   }
 }
 </script>
@@ -58,6 +51,15 @@ export default {
       text-align: center;
       border-radius: 6px;
       border: 1px solid transparent;
+      margin-bottom: 10px;
+      div {
+        width: 291px;
+        height: 168px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
       &:hover {
         border: 1px solid rgba(230, 230, 230, 1);
         box-shadow: 0px 5px 12px 0px rgba(5, 5, 5, 0.14);

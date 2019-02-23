@@ -71,7 +71,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@gauseen/nuxt-proxy'
   ],
   /*
    ** Axios module configuration
@@ -138,14 +138,12 @@ module.exports = {
       }
     }
   },
-  proxy: [
-    [
-      '/api',
-      {
-        target: 'http://cbd.zyuu.cn', // api主机
-        pathRewrite: { '^/api': '/' },
-        changeOrigin: true
+  proxy: {
+    '/api': {
+      target: 'http://cbd.zyuu.cn',
+      pathRewrite: {
+        '^/api' : '/'
       }
-    ]
-  ]
+    }
+  }
 }
