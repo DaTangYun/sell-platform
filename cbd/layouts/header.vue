@@ -27,7 +27,9 @@
           </div>
         </div>
         <div class="header-bottom">
-          <div class="header-logo"></div>
+          <div class="header-logo">
+            <img :src="banquan.header_logo" alt="">
+          </div>
           <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
             <div class="classification">
               <el-select v-model="value">
@@ -114,12 +116,11 @@
         </div> 
       </div> 
     </header>
-    <div class="w">
-      <band></band>
-    </div>   
+    <band></band> 
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Dialog from 'components/indexComponents/Dialog'
 import band from 'components/common/band'
 export default {
@@ -149,6 +150,9 @@ export default {
         login: true
       }
     }
+  },
+  computed: {
+    ...mapGetters(['banquan'])
   },
   watch: {
     $route(route) {
@@ -228,11 +232,15 @@ header {
     display: flex;
     position: relative;
     .header-logo {
-      width: 58px;
+      width: 103px;
       height: 100%;
       padding: 12px 0;
       box-sizing: border-box;
       margin-right: 197px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     .header-classification {
       width: 428px;
@@ -301,7 +309,6 @@ header {
             transition: all 0.6s linear;
           }
           .secondul {
-            margin-top: 10px;
             width: 105px;
             background-color: #fff;
             position: absolute;
