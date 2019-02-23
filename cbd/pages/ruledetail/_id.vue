@@ -36,10 +36,26 @@
 <script>
 export default {
   meta: {
-    title: '智慧库'
+    title: '智慧库详情页'
   },
   data() {
     return {}
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initMeta()
+    })
+  },
+  methods: {
+    initMeta() {
+      // const { title } = this.$route.query
+      // this.meta.title = title
+      if (this.$route.path === '/ruledetail') {
+        document
+          .querySelector('body')
+          .setAttribute('style', 'background-color:#fff')
+      }
+    }
   }
 }
 </script>

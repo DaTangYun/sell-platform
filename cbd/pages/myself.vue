@@ -26,13 +26,16 @@
             <el-menu-item index="5">
               我的交易
             </el-menu-item>
+            <el-menu-item index="6">
+              我的评价
+            </el-menu-item>
             <el-menu-item index="7">
               安全设置
             </el-menu-item>
             <el-menu-item index="8">
               账号设置
             </el-menu-item>
-            <el-menu-item index="6">
+            <el-menu-item index="9">
               退出
             </el-menu-item>
           </el-menu>
@@ -83,6 +86,9 @@
         <div v-if="bankindex == 5" class="myteam">
           <transaction></transaction>
         </div>
+        <div v-if="bankindex == 6" class="myteam">
+          <mypingjia></mypingjia>
+        </div>
         <div v-if="bankindex == 7" class="myteam">
           <safe></safe>
         </div>
@@ -104,6 +110,7 @@ import secondpart from 'components/myselfComponents/secondpart'
 import myteam from 'components/myselfComponents/myteam'
 import myactivity from 'components/myselfComponents/myactivity'
 import transaction from 'components/myselfComponents/transaction'
+import mypingjia from 'components/myselfComponents/mypingjia'
 import safe from 'components/myselfComponents/safe'
 import setting from 'components/myselfComponents/setting'
 export default {
@@ -119,6 +126,7 @@ export default {
     myactivity,
     transaction,
     safe,
+    mypingjia,
     setting
   },
   meta: {
@@ -177,6 +185,7 @@ export default {
     border-radius: 6px;
     padding: 16px 16px;
     box-sizing: border-box;
+    overflow: hidden;
     .tabs {
       display: flex;
       border-bottom: 2px solid #f1f2f6;

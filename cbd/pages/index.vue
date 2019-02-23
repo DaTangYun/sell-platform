@@ -65,6 +65,7 @@ import Wisdomcbox from 'common/Wisdomcbox'
 import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Home',
   components: {
@@ -89,9 +90,22 @@ export default {
       list: [0, 1, 2, 3, 4, 5, 6]
     }
   },
+  computed: {
+    ...mapGetters(['showmelist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.getShowme()
+    })
+  },
   methods: {
     showMeMessage(data) {
       this.show = data
+    },
+    getShowme() {
+      this.$store.dispatch('showMeList', { page: 1, limit: 12 }).then(() => {
+        console.log(11111)
+      })
     }
   }
 }

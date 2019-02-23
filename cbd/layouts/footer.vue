@@ -7,97 +7,91 @@
           <div class="left-dl">
             <dl>
               <dt>
-                <router-link to="">
+                <router-link to="/cloud">
                   云传
                 </router-link>
               </dt>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/cloud/cloudhead">
+                  信息
                 </router-link>
               </dd>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/cloud/cloudInfo">
+                  头条
                 </router-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="">
-                  云传
+                <router-link to="/help">
+                  智帮
                 </router-link>
               </dt>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/help/show">
+                  秀秀我
                 </router-link>
               </dd>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/help/wisdombank">
+                  智慧库
                 </router-link>
               </dd>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/help/cloudwisdom">
+                  云智慧
                 </router-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="">
-                  云传
+                <router-link to="/discont">
+                  惠带
                 </router-link>
               </dt>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/discont/helpcando">
+                  能帮会干
                 </router-link>
               </dd>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/discont/help">
+                  帮帮我
                 </router-link>
               </dd>
               <dd>
-                <router-link to="">
-                  云传
-                </router-link>
-              </dd>
-              <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/discont/active">
+                  优惠活动
                 </router-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="">
-                  云传
+                <router-link to="/callme">
+                  服务支持
                 </router-link>
               </dt>
               <dd>
-                <router-link to="">
-                  云传
+                <router-link to="/callme">
+                  联系我们
                 </router-link>
               </dd>
               <dd>
                 <router-link to="">
-                  云传
+                  服务条款
                 </router-link>
               </dd>
             </dl>
           </div>
-          <dl>
-            <dt>友情链接</dt>
-            <a href="">
-              链接1
-            </a>
-            <a href="">
-              链接1
-            </a>
-          </dl>
+          <div class="youqing">
+            友情链接
+          </div>
+          <div class="link">            
+            <nuxt-link v-for="(item, index) in lianjie" :key="index" tag="span" class="lianjie" to="item.link_url">
+              {{ item.link_name }}
+            </nuxt-link>
+          </div>
         </div>
         <div class="footer-right">
           <div class="footer-con">
@@ -105,33 +99,58 @@
               联系我们
             </div>
             <div class="footer-ewm">
-              <div class="img"></div>
-              <div class="img"></div>
+              <div class="img">
+                <img :src="banquan.company_code" alt="">
+              </div>
+              <div class="img">
+                <img :src="banquan.person_code" alt="">
+              </div>
             </div>
             <div class="footer-phone">
               <div class="phone">
                 <span>咨询热线</span>
-                <p>400-000-1000</p>
+                <p>{{ banquan.mobile }}</p>
               </div>
               <div class="phone">
                 <span>咨询热线</span>
-                <p>400-000-1000</p>
+                <p>{{ banquan.phone }}</p>
               </div>
             </div>
           </div>
-          <div class="footer-logo"></div>
+          <div class="footer-logo">
+            <img :src="banquan.footer_logo" alt="">
+          </div>
         </div>
       </div>
       <p class="copyright">
-        版权asdadasdsadasdsd
+        {{ banquan.banquan }}
       </p>
     </div>
   </footer>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['lianjie', 'error', 'banquan'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initError()
+    })
+  },
+  methods: {
+    initError() {
+      if (this.error.length) {
+        this.$message.error({ message: this.error, duration: 1000 })
+      }
+    }
+  }
+}
+</script>
 <style lang='less' scoped>
 footer {
   width: 100%;
-  height: 388px;
   background: #1d2129;
   padding-top: 63px;
   box-sizing: border-box;
@@ -144,7 +163,6 @@ footer {
         width: 62%;
         .left-dl {
           width: 100%;
-          height: 100%;
           display: flex;
           dl {
             width: 168px;
@@ -152,8 +170,10 @@ footer {
               width: 100%;
               font-size: 14px;
               font-weight: 400;
-              color: rgba(133, 133, 133, 1);
               height: 37px;
+              a {
+                color: rgba(133, 133, 133, 1);
+              }
             }
             dd {
               width: 100%;
@@ -161,6 +181,7 @@ footer {
               font-size: 14px;
               height: 25px;
               a {
+                color: rgba(133, 133, 133, 1);
                 &:active {
                   color: rgba(255, 255, 255, 1);
                 }
@@ -171,17 +192,26 @@ footer {
             }
           }
         }
-        dl {
-          dt {
-            height: 35px;
+        .youqing {
+          color: rgba(133, 133, 133, 1);
+          height: 50px;
+          line-height: 50px;
+        }
+        .link {
+          color: rgba(133, 133, 133, 1);
+          display: flex;
+          flex-wrap: wrap;
+          div {
+            display: block;
             font-size: 14px;
-            font-weight: 400;
-            color: rgba(133, 133, 133, 1);
           }
-          a {
-            color: rgba(179, 179, 179, 1);
-            text-decoration: none;
-            margin-right: 29px;
+          span {
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            &:hover {
+              color: #fff;
+            }
           }
         }
       }
@@ -199,11 +229,6 @@ footer {
             padding: 24px 0 15px 0;
             display: flex;
             justify-content: space-around;
-            .img {
-              width: 93px;
-              height: 93px;
-              background-color: pink;
-            }
           }
           .footer-phone {
             .phone {
@@ -228,7 +253,24 @@ footer {
       width: 100%;
       text-align: center;
       color: rgba(128, 128, 128, 1);
-      margin-top: 50px;
+      font-size: 14px;
+    }
+  }
+  .img {
+    width: 93px;
+    height: 93px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .footer-logo {
+    width: 103px;
+    height: 93px;
+    margin-top: 43px;
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 }

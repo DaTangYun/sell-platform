@@ -7,7 +7,7 @@
       </li>
     </ul>
     <ul class="rules-news">
-      <nuxt-link v-for="(item,index) in rulesnew" :key="index" tag="li" to="/ruledetail">
+      <li v-for="(item,index) in rulesnew" :key="index" @click="handledetail(index)">
         <div></div>
         <p>
           国家税务总局公告2018年第28号 国家税务总局关于发布《企业所得税税前扣除凭证管理管理...
@@ -15,7 +15,7 @@
         <span>
           2018-12-07
         </span>
-      </nuxt-link>
+      </li>
     </ul>
     <pagination></pagination>
   </div>
@@ -31,6 +31,12 @@ export default {
     return {
       rulesspan: ['合同', '报表', '财经法规', '合同'],
       rulesnew: [0, 1, 2]
+    }
+  },
+  methods: {
+    handledetail(index) {
+      const id = 1
+      this.$router.push({ path: `/ruledetail/${id}`, query: { title: index } })
     }
   }
 }
