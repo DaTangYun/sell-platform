@@ -22,13 +22,7 @@ module.exports = {
         content: pkg.description
       }
     ],
-    link: [
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
    ** Customize the progress-bar color
@@ -45,7 +39,9 @@ module.exports = {
    ** Global CSS
    */
   css: [
-    { src: 'swiper/dist/css/swiper.css' },
+    {
+      src: 'swiper/dist/css/swiper.css'
+    },
     'element-ui/lib/theme-chalk/index.css',
     'vue-area-linkage/dist/index.css',
     'assets/less/index.less'
@@ -59,28 +55,25 @@ module.exports = {
     // '@/plugins/vue-swiper',
     // '@/plugins/province'
     // { src: '@/plugins/element-ui', ssr: false },
-    { src: '~/plugins/vue-swiper', ssr: false },
-    { src: '~/plugins/province', ssr: false },
-    { src: '~/plugins/api', ssr: false },
+    {
+      src: '~/plugins/vue-swiper',
+      ssr: false
+    },
+    {
+      src: '~/plugins/province',
+      ssr: false
+    },
     '~plugins/ellipsis.js'
   ],
 
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/proxy'
-  ],
-  /*
-   ** Axios module configuration
-   */
+  modules: ['@nuxtjs/axios', '@nuxtjs/proxy'],
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
     proxy: true
   },
-
+  proxy: [['/api', { target: 'http://cbd.zyuu.cn' }]],
   /*
    ** Build configuration
    */
@@ -89,7 +82,18 @@ module.exports = {
      ** You can extend webpack config here
      */
     // analyze: true,
-    extend (config, ctx) {
+    babel: {
+      'plugins': [
+        [
+          'component',
+          {
+            'libraryName': 'element-ui',
+            'styleLibraryName': 'theme-chalk'
+          }
+        ]
+      ]
+    },
+    extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -101,7 +105,9 @@ module.exports = {
       }
       config.resolve.alias = Object.assign(
         {},
-        { ...config.resolve.alias },
+        {
+          ...config.resolve.alias
+        },
         {
           style: path.resolve(__dirname, './assets/less'),
           components: path.resolve(__dirname, './components'),
@@ -116,12 +122,6 @@ module.exports = {
         automaticNameDelimiter: '.',
         maxAsyncRequests: 7,
         cacheGroups: {
-          elementui: {
-            test: /node_modules[\\/]element-ui/,
-            chunks: 'all',
-            priority: 21,
-            name: true
-          },
           vueswiper: {
             test: /node_modules[\\/]swiper/,
             chunks: 'all',
@@ -137,15 +137,5 @@ module.exports = {
         }
       }
     }
-  },
-  proxy: [
-    [
-      '/api',
-      {
-        target: 'http://cbd.zyuu.cn', // api主机
-        pathRewrite: { '^/api': '/' },
-        changeOrigin: true
-      }
-    ]
-  ]
+  }
 }

@@ -20,10 +20,13 @@ const errorHandle = (status, other) => {
   }
 }
 // 创建拦截器
-// const host = process.env.NODE_ENV === 'development' ? 'dev api host' : 'prod api host'
+const host = process.client ? '' : base.dev
+if (process.client) {
+  console.log(base.dev)
+}
 const instance = axios.create({
   timeout: 1000 * 10,
-  baseURL: base.dev
+  baseURL: host
 })
 // 请求头
 instance.defaults.headers.post['Content-type'] =

@@ -93,7 +93,7 @@ export default {
   computed: {
     ...mapGetters(['showmelist'])
   },
-  mounted() {
+  created() {
     this.$nextTick(() => {
       this.getShowme()
     })
@@ -102,10 +102,12 @@ export default {
     showMeMessage(data) {
       this.show = data
     },
-    getShowme() {
-      this.$store.dispatch('showMeList', { page: 1, limit: 12 }).then(() => {
-        console.log(11111)
+    async getShowme() {
+      const info = await this.$store.dispatch('showMeList', {
+        page: 1,
+        limit: 12
       })
+      console.log(info)
     }
   }
 }
