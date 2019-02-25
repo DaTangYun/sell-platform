@@ -23,9 +23,12 @@
       <div class="s-from-row">
         <span>验证码 ：</span>
         <input type="text">
-        <div class="obtain">
+        <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
           获取验证码
-        </div>
+        </span>
+        <span v-show="!sendAuthCode" class="obtain">
+          {{ time }}秒后发送验证码
+        </span>
       </div>
       <div class="checked">
         <el-checkbox v-model="checked">
@@ -33,17 +36,50 @@
         </el-checkbox>
       </div>
     </div>
-    <button class="submit-btn">
+    <button class="submit-btn" @click="getLogin">
       登录
     </button>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   layout: 'login',
   data() {
     return {
-      checked: true
+      checked: true,
+      sendAuthCode: true,
+      time: 0
+    }
+  },
+  methods: {
+    getLogin() {
+      if (!this.checked) {
+        this.$message({
+          message: '请勾选服务条款',
+          duration: 3000
+        })
+      } else {
+        axios
+          .post('/api/user/login')
+          .then(res => {
+            console.log(res)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
+    },
+    getAuthCode() {
+      this.sendAuthCode = false
+      this.time = 60
+      const timetimer = setInterval(() => {
+        this.time--
+        if (this.time <= 0) {
+          this.sendAuthCode = true
+          clearInterval(timetimer)
+        }
+      }, 1000)
     }
   }
 }
@@ -100,6 +136,7 @@ export default {
       bottom: 10px;
       color: rgba(0, 160, 233, 1);
       cursor: pointer;
+      width: 131px;
     }
   }
   .checked {

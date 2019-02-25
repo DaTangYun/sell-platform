@@ -2,7 +2,7 @@
 <template>
   <div class="head">
     <div class="head-left">
-      <cloudTitle :titlename="'信息需求：'"></cloudTitle>
+      <cloudTitle :titlename="'信息需求'"></cloudTitle>
       <div class="headline-content">
         <ul class="headline-contentul">
           <li v-for="(item,index) in contentlis" :key="index">

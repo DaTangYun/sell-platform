@@ -66,6 +66,7 @@ import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
 import { mapGetters } from 'vuex'
+import store from '@/store/index'
 export default {
   name: 'Home',
   components: {
@@ -91,24 +92,34 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['showmelist'])
+    ...mapGetters(['showmelist', 'showerror'])
   },
   created() {
     this.$nextTick(() => {
-      this.getShowme()
+      // this.getShowme()
     })
   },
   methods: {
     showMeMessage(data) {
       this.show = data
     },
-    async getShowme() {
-      const info = await this.$store.dispatch('showMeList', {
-        page: 1,
-        limit: 12
+    initError() {
+      if (this.showerror.length) {
+        this.$message.error({ message: this.showerror, duration: 1000 })
+      }
+    },
+    getShowme() {
+      this.$store.dispatch('showMeList', { page: 1, limit: 12 }).then(() => {
+        // commit('showMeList', data)
       })
-      console.log(info)
     }
+  },
+  asyncData() {
+    store()
+      .dispatch('showMeList', { page: 1, limit: 12 })
+      .then(() => {
+        // commit('showMeList', data)
+      })
   }
 }
 </script>
