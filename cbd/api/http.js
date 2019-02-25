@@ -21,9 +21,6 @@ const errorHandle = (status, other) => {
 }
 // 创建拦截器
 const host = process.client ? '' : base.dev
-if (process.client) {
-  console.log(base.dev)
-}
 const instance = axios.create({
   timeout: 1000 * 10,
   baseURL: host

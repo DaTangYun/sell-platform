@@ -33,14 +33,11 @@ const common = {
         const lianjies = info[1].data.data
         commit('setLianjie', lianjies.link)
         const banquans = info[2].data.data
-        // console.log(banquans.site)
         commit('setBanquan', banquans.site)
       } else {
         const data = '请稍后再试'
         commit('catchError', data)
       }
-      const dd = await api.common.getSlider()
-      console.log(dd)
     }
   }
 }

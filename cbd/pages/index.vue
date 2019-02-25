@@ -105,7 +105,7 @@ export default {
     },
     initError() {
       if (this.showerror.length) {
-        this.$message.error({ message: this.showerror, duration: 1000 })
+        // this.$message.error({ message: this.showerror, duration: 1000 })
       }
     },
     getShowme() {

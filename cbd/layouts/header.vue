@@ -160,7 +160,6 @@ export default {
         this.activeIndex = '1'
       } else {
         this.path.map((item, index) => {
-          console.log(route.path.indexOf(item))
           if (route.path.indexOf(item) > -1) {
             this.activeIndex = (index + 2).toString()
           }

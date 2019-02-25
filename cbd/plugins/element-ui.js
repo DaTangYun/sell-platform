@@ -58,9 +58,9 @@ export default () => {
   Vue.use(CarouselItem, {
     locale
   })
-  Vue.use(Message, {
-    locale
-  })
+  // Vue.use(Message, {
+  //   locale
+  // })
   Vue.use(Loading, {
     locale
   })
