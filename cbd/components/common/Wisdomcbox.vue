@@ -1,8 +1,6 @@
 <!--  -->
 <template>
   <div class="wisdom-c-box">
-    <img :src="url" class="wisdom-con-img">
-    <p>东关剧团附近房屋出租</p>
     <ul class="wisdom-ul">
       <li v-for="(item,index) in list" :key="index" class="wisdom-li">
         <div class="wisdom-tri">

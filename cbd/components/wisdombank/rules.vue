@@ -7,10 +7,10 @@
       </li>
     </ul>
     <ul class="rules-news">
-      <li v-for="(item,index) in rulesnew" :key="index" @click="handledetail(index)">
+      <li v-for="(item,index) in helpwis" :key="index" @click="handledetail(index)">
         <div></div>
         <p>
-          国家税务总局公告2018年第28号 国家税务总局关于发布《企业所得税税前扣除凭证管理管理...
+          {{ item.title }}
         </p>
         <span>
           2018-12-07
@@ -22,6 +22,7 @@
 </template>
 <script>
 import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Ruless',
   components: {
@@ -32,6 +33,9 @@ export default {
       rulesspan: ['合同', '报表', '财经法规', '合同'],
       rulesnew: [0, 1, 2]
     }
+  },
+  computed: {
+    ...mapGetters(['helpwis'])
   },
   methods: {
     handledetail(index) {

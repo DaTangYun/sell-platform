@@ -1,11 +1,12 @@
 <!--  -->
 <template>
   <div class="showCon">
-    <showmelist :showme="[0,1,2,3,4,5,6,7,8,9,10,11,12,13]"></showmelist>
+    <showmelist v-if="showme.length" :showme="showme"></showmelist>
     <pagination></pagination>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import showmelist from 'common/showmelist'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
@@ -16,6 +17,9 @@ export default {
   },
   meta: {
     title: '秀秀我'
+  },
+  computed: {
+    ...mapGetters(['showme'])
   }
 }
 </script>

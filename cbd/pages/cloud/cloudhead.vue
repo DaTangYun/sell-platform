@@ -14,6 +14,7 @@
 import cloudTitle from 'components/cloudComponents/cloudTitle.vue'
 import Cloudcontent from 'components/cloudComponents/Cloudcontent.vue'
 import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     cloudTitle,
@@ -27,6 +28,12 @@ export default {
     return {
       contentlis: [0, 1, 2, 3, 4]
     }
+  },
+  computed: {
+    ...mapGetters(['banquan'])
+  },
+  mounted() {
+    console.log(this.banquan)
   }
 }
 </script>

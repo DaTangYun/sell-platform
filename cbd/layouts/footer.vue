@@ -134,11 +134,6 @@ export default {
   computed: {
     ...mapGetters(['lianjie', 'error', 'banquan'])
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.initError()
-    })
-  },
   methods: {
     initError() {
       if (this.error.length) {

@@ -3,7 +3,7 @@ import base from '../api/base'
 const tip = msg => {
   this.$message.success({
     message: '登录成功',
-    duration: 1000
+    duration: 1000000
   })
 }
 const errorHandle = (status, other) => {

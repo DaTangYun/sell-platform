@@ -3,12 +3,12 @@
   <div v-if="swiperlist.length">
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-        <div v-for="(item,index) in swiperlist" :key="index" class="swiper-slide my-slider">
+        <div v-for="(item,index) in headlist" :key="index" class="swiper-slide my-slider">
           <h4>
-            标题标题标题标题标题标题标题题标题题标题
+            {{ item.title }}
           </h4>
           <p>
-            部分正文部分正文部分正文部分正部分正文部分正文部分正文部分正
+            {{ item.desc }}
           </p>
         </div>
       </div>
@@ -17,10 +17,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Slider',
+  props: {
+    show: {
+      type: Number,
+      default: 1
+    }
+  },
   data() {
     return {
+      info: [],
       swiperlist: [0, 1, 2, 3],
       swiperOption: {
         direction: 'vertical',
@@ -33,14 +41,21 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['headlist', 'infolist'])
+  },
   mounted() {
     this.initSwiper()
+    this.handleList()
   },
   methods: {
     initSwiper() {
       if (process.client) {
         require('vue-awesome-swiper/dist/ssr')
       }
+    },
+    handleList() {
+      console.log(this.activeName)
     }
   }
 }

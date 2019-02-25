@@ -4,7 +4,7 @@
     <div class="headline-category">
       <span>{{ titlename }}：</span>
       <ul>
-        <li v-for="(item,index) in info" :key="index" @click="huoqu">
+        <li v-for="(item,index) in info" :key="index" :show="show" @click="huoqu">
           {{ item.cate_name }}
         </li>
       </ul>
@@ -19,6 +19,10 @@ export default {
     titlename: {
       type: String,
       default: '头条类别'
+    },
+    show: {
+      type: Number,
+      default: 0
     }
   },
   data() {

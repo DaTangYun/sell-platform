@@ -31,14 +31,13 @@ export default {
   },
   computed: {
     showPath() {
-      return this.$route.path === '/' || this.$route.path === '/myqzone'
+      const id = this.$route.params.id
+      return this.$route.path === '/' || this.$route.path === `/myqzone/${id}`
     }
   },
   watch: {
     $route(to, from) {
       this.getBreadcrumb()
-      console.log(to.path)
-      console.log(from.path)
     },
     hideband: 'hideband'
   },
@@ -68,7 +67,7 @@ export default {
       this.levelList = matched
     },
     hideband() {
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
     }
   }
 }

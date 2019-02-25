@@ -19,7 +19,7 @@ const getters = {
   },
   // 首页秀秀我
   showme: state => {
-    return state.help.showme
+    return state.showme.showmelist
   },
   showerror: state => {
     return state.showme.error
@@ -32,6 +32,21 @@ const getters = {
   },
   helpcloud: state => {
     return state.helpcloud.helpcloud
+  },
+  helpwis: state => {
+    return state.helpwis.helpwis
+  },
+  dishelpdo: state => {
+    return state.dishelpdo.dishelpdo
+  },
+  headlist: state => {
+    return state.headlist.headlist
+  },
+  infolist: state => {
+    return state.infolist.infolist
+  },
+  cloudintelligence: state => {
+    return state.cloudintelligence.cloudintelligence
   }
 }
 export default getters

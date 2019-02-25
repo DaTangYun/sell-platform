@@ -10,7 +10,7 @@
       <div class="tabCon">
         <div v-if="show == 0" class="topHead">
           <no-ssr>
-            <slider></slider>
+            <slider :headlist="headlist" :infolist="infolist"></slider>
           </no-ssr>
         </div>
         <div v-if="show == 1" class="topMeaage">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import slider from './slider'
 export default {
   name: 'TopHead',
@@ -31,13 +32,21 @@ export default {
   data() {
     return {
       topHeadList: ['头条', '信息'],
-      show: 0
+      show: 0,
+      activeName: ''
     }
   },
-  mounted() {},
+  computed: {
+    ...mapGetters(['headlist', 'infolist'])
+  },
   methods: {
     tab: function(index) {
       this.show = index
+      if (this.show === 0) {
+        this.activeName = 'topHead'
+      } else {
+        this.activeName = 'topMeaage'
+      }
     }
   }
 }

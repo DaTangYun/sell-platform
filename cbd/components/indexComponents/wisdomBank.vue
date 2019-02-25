@@ -31,6 +31,7 @@ export default {
   border-radius: 6px;
   padding: 0 15px 10px;
   box-sizing: border-box;
+  margin-top: 10px;
   .wisdomBank-title {
     height: 44px;
     box-sizing: border-box;

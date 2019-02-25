@@ -13,16 +13,11 @@ const showme = {
     }
   },
   actions: {
-    async showMeList({ commit }, info) {
-      const res = await api.help.getShowme({
-        page: info.page,
-        limit: info.limit
-      })
-      const data = res.data
-      if (data.code === api.CODE_OK && data.data) {
-        commit('setShowme', data.data)
-      } else {
-        commit('setError', '请稍后再试')
+    async nuxtServerInit({ commit }) {
+      const info = await Promise.all([api.help.getShowme()])
+      if (info.length) {
+        const showmelist = info[0].data.data
+        commit('setShowme', showmelist.showme)
       }
     }
   }

@@ -2,7 +2,7 @@
   <section class="index">
     <div class="w">
       <div class="index-top">
-        <TopHead></TopHead>
+        <TopHead :headlist="headlist" :infolist="infolist"></TopHead>
         <BigSlider></BigSlider>
         <div class="index-top-right">
           <PublishinTopic :publish="'发表需求'"></PublishinTopic>
@@ -11,7 +11,7 @@
       </div>
       <CanDoBox :desc="'云传'" class="specical-box" :list="['头条','信息']" @showMe="showMeMessage">
         <div v-if="show == 0" class="message">
-          <Topline></TopLine>
+          <Topline :headlist="headlist" :infolist="infolist"></TopLine>
         </div>
         <div v-if="show == 1" class="title">
           666
@@ -19,34 +19,27 @@
       </CanDoBox>
       <div class="showMeContain">
         <CanDoBox :desc="'智帮'" :list="['秀秀我']" :to="{name:'help-show'}">
-          <showmelist></showmelist>
+          <showmelist v-if="showme.length" :showme="showme"></showmelist>
         </CanDoBox>
         <div class="showMeRight">
-          <wisdomBank :wis="'智慧库'">
+          <wisdomBank :wis="'财经法规'">
             <Wisdomcbox></Wisdomcbox>
           </wisdomBank>
-          <Cloudwisdom></Cloudwisdom>
+          <wisdomBank :wis="'经典案例'">
+            <Wisdomcbox></Wisdomcbox>
+          </wisdomBank>         
         </div>
       </div>
       <div class="showMeContain">
         <CanDoBox :desc="'惠带'" :list="['能帮会干']" :to="'/discont/helpcando'">
-          <CanDoContent></CanDoContent>
+          <CanDoContent :dishelpdo="dishelpdo"></CanDoContent>
         </CanDoBox>
         <div class="showMeRight">
           <WisdomBank :wis="'帮帮我'">
-            <Wisdomcbox :url="imgUrl"></Wisdomcbox>
+            <Wisdomcbox></Wisdomcbox>
           </WisdomBank>
           <WisdomBank :wis="'优惠活动'" class="preferential">
-            <ul class="wisdom-ul">
-              <li v-for="(item,index) in list" :key="index" class="wisdom-li">
-                <div class="wisdom-tri">
-                  <img src="../assets/images/right.png" alt="">
-                </div>
-                <p>
-                  国家税务总局公告2018年国家税务总局公告2018年
-                </p>
-              </li>
-            </ul>
+            <Wisdomcbox></Wisdomcbox>
           </WisdomBank>
         </div>
       </div>
@@ -60,13 +53,11 @@ import WisdomBank from 'components/indexComponents/WisdomBank'
 import Topline from 'components/indexComponents/Topline'
 import TopHead from 'components/indexComponents/TopHead'
 import BigSlider from 'components/indexComponents/BigSlider'
-import Cloudwisdom from 'components/indexComponents/cloudwisdom'
 import Wisdomcbox from 'common/Wisdomcbox'
 import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
 import { mapGetters } from 'vuex'
-import store from '@/store/index'
 export default {
   name: 'Home',
   components: {
@@ -79,7 +70,6 @@ export default {
     BigSlider,
     Cooperative,
     PublishinTopic,
-    Cloudwisdom,
     showmelist
   },
   data() {
@@ -92,12 +82,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['showmelist', 'showerror'])
-  },
-  created() {
-    this.$nextTick(() => {
-      // this.getShowme()
-    })
+    ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist'])
   },
   methods: {
     showMeMessage(data) {
@@ -113,13 +98,6 @@ export default {
         // commit('showMeList', data)
       })
     }
-  },
-  asyncData() {
-    store()
-      .dispatch('showMeList', { page: 1, limit: 12 })
-      .then(() => {
-        // commit('showMeList', data)
-      })
   }
 }
 </script>

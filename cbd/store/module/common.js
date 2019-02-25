@@ -39,8 +39,6 @@ const common = {
         const data = '请稍后再试'
         commit('catchError', data)
       }
-      const dd = await api.common.getSlider()
-      console.log(dd)
     }
   }
 }
