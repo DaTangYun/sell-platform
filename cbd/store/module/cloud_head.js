@@ -1,19 +1,33 @@
 import api from '@/api/index'
 const cloudhead = {
   state: {
-    cloudHead: []
+    headlist: [],
+    headcate: []
   },
   mutations: {
     setcloudHead(state, data) {
-      state.cloudHead = data
+      state.headcate = data
+    },
+    setheadlist(state, data) {
+      state.headlist = data
     }
   },
   actions: {
+    async headlist({ commit }, params) {
+      const info = await api.cloudhead.getheadlist({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const cloudinfo = info.data.data
+        commit('setheadlist', cloudinfo.topline)
+        return cloudinfo
+      }
+    },
     async nuxtServerInit({ commit, req }) {
       const info = await Promise.all([api.cloudhead.getcloudMessage()])
       if (info.length) {
-        const cloudHead = info[0].data.data
-        commit('setcloudHead', cloudHead.toplineCate)
+        const headcate = info[0].data.data
+        commit('setcloudHead', headcate.toplineCate)
       }
     }
   }

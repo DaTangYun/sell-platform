@@ -5,25 +5,21 @@
     </div>
     <Cooperative></Cooperative>
     <div class="wisdom">
-      <wisdomBank :wis="'智慧库'">
-        <Wisdomcbox></Wisdomcbox>
+      <wisdomBank :wis="'财经法规'">
       </wisdomBank>
     </div>
-    <Cloudwisdom></Cloudwisdom>
+    <wisdomBank :wis="'经典案例'">
+    </wisdomBank>
     <div class="headindexhelp">
       <wisdomBank :wis="'帮帮我'">
-        <Wisdomcbox></Wisdomcbox>
       </wisdomBank>
     </div>
-    <wisdomBank :wis="'能帮会干'">
-      <Wisdomcbox></Wisdomcbox>
+    <wisdomBank :wis="'优惠活动'">
     </wisdomBank>
   </div>
 </template>
 <script>
-import Wisdomcbox from 'common/Wisdomcbox'
 import WisdomBank from 'components/indexComponents/WisdomBank'
-import Cloudwisdom from 'components/indexComponents/cloudwisdom'
 import PublishinTopic from 'common/PublishinTopic'
 import Cooperative from 'common/Cooperative'
 export default {
@@ -31,9 +27,7 @@ export default {
   components: {
     PublishinTopic,
     Cooperative,
-    WisdomBank,
-    Wisdomcbox,
-    Cloudwisdom
+    WisdomBank
   }
 }
 </script>

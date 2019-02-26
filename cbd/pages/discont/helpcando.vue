@@ -2,7 +2,7 @@
 <template>
   <div class="discont">
     <div class="discont-cont">
-      <CanDoContent></CanDoContent>
+      <CanDoContent :dishelpdo="dishelpdo"></CanDoContent>
       <pagination></pagination>
     </div>
   </div>   
@@ -10,6 +10,7 @@
 <script>
 import CanDoContent from 'common/CanDoContent'
 import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     CanDoContent,
@@ -17,6 +18,9 @@ export default {
   },
   meta: {
     title: '能帮会干'
+  },
+  computed: {
+    ...mapGetters(['dishelpdo'])
   }
 }
 </script>

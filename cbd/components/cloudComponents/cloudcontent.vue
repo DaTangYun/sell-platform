@@ -2,27 +2,27 @@
 <template>
   <div>
     <ul class="headline-contentul">
-      <li v-for="(item,index) in contentlis" :key="index">
+      <li v-for="(item,index) in headlist" :key="index">
         <div class="headlineimg">
-          <img src="" alt="">
+          <img :src="item.cover" alt="">
         </div>
         <div class="headlinelic">
-          <h3>移动互联网架构开发</h3>
+          <h3>
+            {{ item.title }}
+          </h3>
           <p>
-            TO是多边机构，不是美国一家开的。WTO成员是平等的，不是美国一家说了算的权理事会
-            虽然注定是痴人说梦，但它也充分暴露了美方强权霸凌的嘴脸和唯我独尊的心态。据不权理，
-            了联合国教科文组织、联合国人权理事会。                       
+            {{ item.desc }}                     
           </p>
           <div class="headlispan">
             <span>
-              生活服务
+              {{ item.cate_name }}
             </span>
             <span>
-              2018-12-07
+              {{ item.createtime }}
             </span>
             <span>
               <img src="../../assets/images/eye.png" alt="">
-              6666
+              {{ item.reading_count }}
             </span>
           </div>
         </div>
@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cloudcontent',
   props: {
@@ -40,6 +41,9 @@ export default {
         return [0, 1, 2, 3, 4]
       }
     }
+  },
+  computed: {
+    ...mapGetters(['headcate', 'headlist'])
   }
 }
 </script>
@@ -58,6 +62,10 @@ ul {
       height: 170px;
       background-color: #ebebeb;
       margin-right: 19px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     .headlinelic {
       h3 {
@@ -66,6 +74,8 @@ ul {
       p {
         line-height: 26px;
         width: 657px;
+        min-height: 80px;
+        overflow: hidden;
       }
       .headlispan {
         margin-top: 20px;

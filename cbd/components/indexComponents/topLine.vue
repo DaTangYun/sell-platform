@@ -3,22 +3,28 @@
   <div>
     <div class="topLine-ul-top">
       <ul>
-        <li v-for="(item,index) in toplists" :key="index">
+        <li v-for="(item,index) in list" :key="index">
           <div class="li-img" :style="{ width: wids + 'px',height: hei + 'px' }">
-            <img src="" alt="">
+            <img :src="item.cover" alt="">
           </div>
           <p>
-            东关剧团附近房屋出租
+            {{ item.title }}
           </p>
         </li>
       </ul>
     </div>
     <div class="topLine-ul-bottom">
       <ul>
-        <li v-for="(item,index) in bottomlist" :key="index" :style="{ width: wid }">
-          <div>成才教育</div>
-          <p>2018年10月份新增失信联合惩戒对象公示</p>
-          <span>11-09</span>
+        <li v-for="(item,index) in newlist" :key="index" :style="{ width: wid }">
+          <div>
+            {{ item.cate_name }}
+          </div>
+          <p>
+            {{ item.title }}
+          </p>
+          <span>
+            {{ item.createtime }}
+          </span>
         </li>
       </ul>
     </div>
@@ -28,16 +34,10 @@
 export default {
   name: 'Topline',
   props: {
-    toplists: {
+    list: {
       type: Array,
       default() {
-        return [0, 1, 2, 3]
-      }
-    },
-    bottomlist: {
-      type: Array,
-      default() {
-        return [0, 1, 2, 3, 4, 5, 6, 7]
+        return []
       }
     },
     wid: {
@@ -52,11 +52,19 @@ export default {
       type: String,
       default: '196'
     }
+  },
+  computed: {
+    newlist() {
+      return this.list.slice(4)
+    }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .topLine-ul-top {
+  overflow: hidden;
   ul {
     display: flex;
     margin-bottom: 27px;
@@ -68,10 +76,16 @@ export default {
         height: 196px;
         background: rgba(231, 228, 223, 1);
         border-radius: 6px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       p {
+        .ellipsis();
         line-height: 40px;
         color: #282d38;
+        max-width: 281px;
       }
       &:last-child {
         margin-right: 0;
@@ -90,7 +104,7 @@ export default {
       box-sizing: border-box;
       padding-left: 5px;
       div {
-        width: 82px;
+        padding: 0 10px;
         height: 31px;
         background: rgba(241, 242, 246, 1);
         border-radius: 6px;
@@ -101,10 +115,12 @@ export default {
         line-height: 31px;
       }
       p {
+        .ellipsis();
+        width: 325px;
         display: block;
-        width: 398px;
+        padding: 0 5px;
         box-sizing: border-box;
-        margin-right: 35px;
+        margin-right: 10px;
       }
       span {
         color: #77808f;
