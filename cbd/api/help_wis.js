@@ -1,8 +1,16 @@
 import axios from './http'
 const helpwis = {
   getHelpwis(params) {
-    // console.log(axios)
+    // 智慧库
     return axios.get('/api/finance/lists', { params })
+  },
+  // 智慧库=>财经法规详情
+  getfinancedetail(params) {
+    return axios.get('/api/finance/detail', { params })
+  },
+  // 经典案例
+  getcaselist(params) {
+    return axios.get('/api/cases/lists', { params })
   }
 }
 export default helpwis

@@ -1,11 +1,15 @@
 <!--  -->
 <template>
-  <div>
+  <div v-if="total>length">
     <div class="pagnation">
       <el-pagination
         background
-        layout="pager"
-        :total="40"
+        layout="total, prev, pager, next, jumper"
+        :page-size="pagesize"
+        :total="total"
+        @current-change="handlecurrentchange"
+        @prev-click="handleprev"
+        @next-click="handlenext"
       >
       </el-pagination>
     </div>
@@ -13,7 +17,37 @@
 </template>
 <script>
 export default {
-  name: 'Pagination'
+  name: 'Pagination',
+  props: {
+    total: {
+      type: Number,
+      default: 0
+    },
+    length: {
+      type: Number,
+      default: 0
+    },
+    pagesize: {
+      type: Number,
+      default: 12
+    }
+  },
+  data() {
+    return {
+      pagercount: 8
+    }
+  },
+  methods: {
+    handlecurrentchange(params) {
+      this.$emit('currentchange', params)
+    },
+    handleprev(params) {
+      this.$emit('prev', params)
+    },
+    handlenext(params) {
+      this.$emit('next', params)
+    }
+  }
 }
 </script>
 <style lang='less' scoped>

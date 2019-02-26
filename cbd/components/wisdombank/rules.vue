@@ -2,22 +2,28 @@
 <template>
   <div class="rules">
     <ul class="rules-span">
-      <li v-for="(item,index) in rulesspan" :key="index">
-        {{ item }}
+      <li v-for="(item,index) in helpwis.cate" :key="index">
+        {{ item.name }}
       </li>
     </ul>
     <ul class="rules-news">
-      <li v-for="(item,index) in helpwis" :key="index" @click="handledetail(index)">
+      <li v-for="(item,index) in helpwis.finance" :key="index" @click="handledetail(index)">
         <div></div>
         <p>
           {{ item.title }}
         </p>
         <span>
-          2018-12-07
+          {{ item.createtime }}
         </span>
       </li>
     </ul>
-    <pagination></pagination>
+    <pagination
+      :total="total"
+      :length="helplength"
+      @currentchange="handlecurrentchange"
+      @prev="handlecurrentchange"
+      @next="handlecurrentchange"
+    ></pagination>
   </div>
 </template>
 <script>
@@ -30,22 +36,48 @@ export default {
   },
   data() {
     return {
-      rulesspan: ['合同', '报表', '财经法规', '合同'],
-      rulesnew: [0, 1, 2]
+      total: 0,
+      page: 1,
+      limit: 12,
+      helplength: 0
     }
   },
   computed: {
     ...mapGetters(['helpwis'])
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.financelist()
+    })
+  },
   methods: {
     handledetail(index) {
       const id = 1
       this.$router.push({ path: `/ruledetail/${id}`, query: { title: index } })
+    },
+    async financelist() {
+      const { page, limit } = this
+      await this.$store.dispatch('financelist', {
+        page,
+        limit,
+        cate_id: '',
+        title: ''
+      })
+      this.total = Number(this.helpwis.total)
+      this.helplength = this.helpwis.finance.length
+      console.log(this.helplength)
+    },
+    handlecurrentchange(params) {
+      console.log(params)
+      this.page = params
+      this.financelist()
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .rules {
   padding: 24px;
   box-sizing: border-box;
@@ -60,6 +92,7 @@ export default {
       color: #747d8c;
       font-size: 14px;
       line-height: 30px;
+      cursor: pointer;
     }
   }
   .rules-news {
@@ -88,8 +121,9 @@ export default {
         margin-right: 12px;
       }
       p {
+        .ellipsis();
         color: #282d38;
-        width: 666px;
+        width: 606px;
         display: block;
         margin-right: 140px;
         font-size: 16px;

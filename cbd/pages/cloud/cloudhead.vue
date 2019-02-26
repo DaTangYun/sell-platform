@@ -5,7 +5,14 @@
       <cloudTitle></cloudTitle>
       <div class="headline-content">
         <Cloudcontent></Cloudcontent>
-        <pagination></pagination>
+        <pagination
+          :total="total"
+          :length="headlist.length"
+          :pagesize="limit"
+          @currentchange="handlecurrentchange"
+          @prev="handlecurrentchange"
+          @next="handlecurrentchange"
+        ></pagination>
       </div>
     </div>
   </div>
@@ -26,14 +33,31 @@ export default {
   },
   data() {
     return {
-      contentlis: [0, 1, 2, 3, 4]
+      page: 1,
+      limit: 4,
+      total: 0
     }
   },
   computed: {
-    ...mapGetters(['banquan'])
+    ...mapGetters(['banquan', 'headlist', 'headcate'])
   },
   mounted() {
-    console.log(this.banquan)
+    this.$nextTick(() => {
+      this.headinfo()
+    })
+  },
+  methods: {
+    async headinfo() {
+      this.$nuxt.$loading.start()
+      const { page, limit } = this
+      const info = await this.$store.dispatch('headlist', { page, limit })
+      this.total = info.total
+      this.$nuxt.$loading.finish()
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.headinfo()
+    }
   }
 }
 </script>

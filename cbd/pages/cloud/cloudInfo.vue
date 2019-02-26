@@ -5,54 +5,82 @@
       <cloudTitle :titlename="'信息需求'"></cloudTitle>
       <div class="headline-content">
         <ul class="headline-contentul">
-          <li v-for="(item,index) in contentlis" :key="index">
+          <li v-for="(item,index) in infolist" :key="index">
             <div class="headlineimg">
-              <img src="" alt="">
+              <img :src="item.cover" alt="">
             </div>
             <div class="headlinelic">
-              <h3>移动互联网架构开发</h3>
+              <h3>
+                {{ item.title }}
+              </h3>
               <p>
-                TO是多边机构，不是美国一家开的。                      
+                {{ item.desc }}                      
               </p>
               <div class="headlispan">
                 <span>
-                  生活服务
+                  {{ item.cate_name }}
                 </span>
                 <span>
-                  2018-12-07
+                  {{ item.createtime }}
                 </span>
                 <span>
                   <img src="../../assets/images/eye.png" alt="">
-                  6666
+                  {{ item.reading_count }}
                 </span>
               </div>
             </div>
           </li>
         </ul>
-        <div class="pagnation">
-          <el-pagination
-            background
-            layout="pager"
-            :total="40"
-          >
-          </el-pagination>
-        </div>
+        <pagination
+          :total="infototal"
+          :length="infolist.length"
+          :pagesize="limit"
+          @currentchange="handlecurrentchange"
+          @prev="handlecurrentchange"
+          @next="handlecurrentchange"
+        ></pagination>
       </div>
     </div>
   </div>
 </template>
 <script>
+import pagination from 'components/cloudComponents/pagination.vue'
 import cloudTitle from 'components/cloudComponents/cloudTitle.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
-    cloudTitle
+    cloudTitle,
+    pagination
   },
   meta: {
     title: '信息'
   },
   data() {
     return {
-      contentlis: [0, 1, 2, 3, 4]
+      page: 1,
+      limit: 5,
+      total: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['infolist', 'infototal'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.infolists()
+    })
+  },
+  methods: {
+    async infolists() {
+      this.$nuxt.$loading.start()
+      const { page, limit } = this
+      const info = await this.$store.dispatch('infolist', { page, limit })
+      console.log(info)
+      this.$nuxt.$loading.finish()
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.infolists()
     }
   }
 }
@@ -113,18 +141,22 @@ export default {
   padding: 24px 24px 40px;
   box-sizing: border-box;
   ul {
+    margin-bottom: 50px;
     li {
       width: 100%;
       display: flex;
       box-sizing: border-box;
-      padding-top: 31px;
-      height: 232px;
+      padding: 11px 0;
       border-bottom: 1px dashed #e6e6e6;
       .headlineimg {
         width: 226px;
         height: 170px;
         background-color: #ebebeb;
         margin-right: 19px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       .headlinelic {
         h3 {

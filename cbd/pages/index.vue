@@ -2,7 +2,7 @@
   <section class="index">
     <div class="w">
       <div class="index-top">
-        <TopHead :headlist="headlist" :infolist="infolist"></TopHead>
+        <TopHead :headlist="headlist.topline" :infolist="infolist.message"></TopHead>
         <BigSlider></BigSlider>
         <div class="index-top-right">
           <PublishinTopic :publish="'发表需求'"></PublishinTopic>
@@ -10,11 +10,11 @@
         </div>
       </div>
       <CanDoBox :desc="'云传'" class="specical-box" :list="['头条','信息']" @showMe="showMeMessage">
-        <div v-if="show == 0" class="message">
-          <Topline :headlist="headlist" :infolist="infolist"></TopLine>
+        <div v-if="headlist.length&& !show" class="message">
+          <Topline :list="headlist"></TopLine>
         </div>
-        <div v-if="show == 1" class="title">
-          666
+        <div v-if="infolist.length && show" class="message">
+          <Topline :list="infolist"></TopLine>
         </div>
       </CanDoBox>
       <div class="showMeContain">
@@ -23,10 +23,8 @@
         </CanDoBox>
         <div class="showMeRight">
           <wisdomBank :wis="'财经法规'">
-            <Wisdomcbox></Wisdomcbox>
           </wisdomBank>
           <wisdomBank :wis="'经典案例'">
-            <Wisdomcbox></Wisdomcbox>
           </wisdomBank>         
         </div>
       </div>
@@ -36,10 +34,8 @@
         </CanDoBox>
         <div class="showMeRight">
           <WisdomBank :wis="'帮帮我'">
-            <Wisdomcbox></Wisdomcbox>
           </WisdomBank>
           <WisdomBank :wis="'优惠活动'" class="preferential">
-            <Wisdomcbox></Wisdomcbox>
           </WisdomBank>
         </div>
       </div>
@@ -53,7 +49,6 @@ import WisdomBank from 'components/indexComponents/WisdomBank'
 import Topline from 'components/indexComponents/Topline'
 import TopHead from 'components/indexComponents/TopHead'
 import BigSlider from 'components/indexComponents/BigSlider'
-import Wisdomcbox from 'common/Wisdomcbox'
 import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
@@ -64,7 +59,6 @@ export default {
     CanDoBox,
     CanDoContent,
     WisdomBank,
-    Wisdomcbox,
     Topline,
     TopHead,
     BigSlider,
@@ -78,25 +72,48 @@ export default {
       imgUrl: require('assets/images/small.png'),
       arr: ['能帮会干', '信息', '头条'],
       show: 0,
-      list: [0, 1, 2, 3, 4, 5, 6]
+      list: [],
+      headss: [],
+      infoss: 0
     }
   },
   computed: {
     ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist'])
   },
+  created() {
+    this.setlist()
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.getShowme()
+      this.headinfo()
+    })
+  },
   methods: {
     showMeMessage(data) {
       this.show = data
     },
-    initError() {
-      if (this.showerror.length) {
-        this.$message.error({ message: this.showerror, duration: 1000 })
-      }
+    async getShowme() {
+      await this.$store.dispatch('showMe', { page: 1, limit: 12 })
     },
-    getShowme() {
-      this.$store.dispatch('showMeList', { page: 1, limit: 12 }).then(() => {
-        // commit('showMeList', data)
+    async headinfo() {
+      await this.$store.dispatch('headlist', {
+        page: 1,
+        limit: 10,
+        cate_id: '',
+        title: '',
+        user_id: ''
       })
+      await this.$store.dispatch('infolist', {
+        page: 1,
+        limit: 10,
+        cate_id: '',
+        title: '',
+        user_id: ''
+      })
+    },
+    setlist() {
+      this.headss = this.headlist.topline
     }
   }
 }

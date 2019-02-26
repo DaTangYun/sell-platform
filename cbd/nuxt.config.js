@@ -28,7 +28,8 @@ module.exports = {
    ** Customize the progress-bar color
    */
   loading: {
-    color: '#fff'
+    color: '#00a0e9',
+    height: '3px'
   },
   router: {
     middleware: ['redirect', 'routers'],
@@ -84,8 +85,7 @@ module.exports = {
     // analyze: true,
     babel: {
       'plugins': [
-        [
-          'component',
+        ['component',
           {
             'libraryName': 'element-ui',
             'styleLibraryName': 'theme-chalk'

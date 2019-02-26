@@ -3,7 +3,7 @@
   <div>
     <div class="topLine-ul-top">
       <ul>
-        <li v-for="(item,index) in headlist" :key="index">
+        <li v-for="(item,index) in list" :key="index">
           <div class="li-img" :style="{ width: wids + 'px',height: hei + 'px' }">
             <img :src="item.cover" alt="">
           </div>
@@ -15,12 +15,12 @@
     </div>
     <div class="topLine-ul-bottom">
       <ul>
-        <li v-for="(item,index) in headlist" :key="index" :style="{ width: wid }">
+        <li v-for="(item,index) in newlist" :key="index" :style="{ width: wid }">
           <div>
             {{ item.cate_name }}
           </div>
           <p>
-            {{ item.desc }}
+            {{ item.title }}
           </p>
           <span>
             {{ item.createtime }}
@@ -31,20 +31,13 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'Topline',
   props: {
-    toplists: {
+    list: {
       type: Array,
       default() {
-        return [0, 1, 2, 3]
-      }
-    },
-    bottomlist: {
-      type: Array,
-      default() {
-        return [0, 1, 2, 3, 4, 5, 6, 7]
+        return []
       }
     },
     wid: {
@@ -61,7 +54,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['headlist', 'infolist'])
+    newlist() {
+      return this.list.slice(4)
+    }
   }
 }
 </script>
@@ -121,7 +116,7 @@ export default {
       }
       p {
         .ellipsis();
-        max-width: 325px;
+        width: 325px;
         display: block;
         padding: 0 5px;
         box-sizing: border-box;

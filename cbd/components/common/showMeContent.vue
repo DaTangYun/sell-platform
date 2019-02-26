@@ -7,7 +7,7 @@
       </div>
       <div class="showMe-right">
         <div class="showMe-title">
-          {{ showme.username }}
+          {{ showme.nickname }}
         </div>
         <div class="showMetext">
           {{ showme.bio }}

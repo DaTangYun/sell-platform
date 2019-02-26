@@ -3,31 +3,49 @@
   <div class="callme">
     <div class="w">
       <h3>
-        联系我们
+        {{ callme.title }}
       </h3>
-      <p>
-        国家税务总局公告2018年第28号 国家税务总局关于发布《企业所得税税前扣除凭证管理管理...
-      </p>
-      <div class="img">
-        <img src="" alt="">
-        <img src="" alt="">
+      <!-- eslint-disable-next-line -->
+      <div v-html="callme.content">
       </div>
-      <p>
-        400-000-1000
-      </p>
-      <p>
-        400-000-1000
-      </p>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   meta: {
-    title: '联系我们'
+    title: '服务支持'
   },
   data() {
-    return {}
+    return {
+      id: 1
+    }
+  },
+  computed: {
+    ...mapGetters(['callme'])
+  },
+  watch: {
+    $route(route) {
+      const { id } = route.query
+      this.getcontact(id)
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initInfo()
+    })
+  },
+  methods: {
+    initInfo() {
+      const { id } = this.$route.query
+      this.getcontact(id)
+    },
+    async getcontact(id) {
+      this.$nuxt.$loading.start()
+      await this.$store.dispatch('callme', { id })
+      this.$nuxt.$loading.finish()
+    }
   }
 }
 </script>
@@ -35,12 +53,13 @@ export default {
 .callme {
   background-color: #fff;
   min-height: 353px;
-  text-align: center;
   box-sizing: border-box;
   padding-top: 40px;
+  padding-bottom: 50px;
 }
 h3 {
   margin-bottom: 20px;
+  text-align: center;
 }
 .img {
   margin: 20px 0;

@@ -50,6 +50,7 @@ export default {
     },
     getBreadcrumb() {
       const history = JSON.parse(sessionStorage.getItem('HISTORY'))
+      // console.log(history)
       if (!Array.isArray(history)) return
       let matched = this.$route.matched.filter((item, index) => {
         item.title = history[index].title

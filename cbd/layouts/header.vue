@@ -30,7 +30,7 @@
           <div class="header-logo">
             <img :src="banquan.header_logo" alt="">
           </div>
-          <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
+          <div class="header-classification">
             <div class="classification">
               <el-select v-model="value">
                 <el-option
@@ -160,7 +160,6 @@ export default {
         this.activeIndex = '1'
       } else {
         this.path.map((item, index) => {
-          console.log(route.path.indexOf(item))
           if (route.path.indexOf(item) > -1) {
             this.activeIndex = (index + 2).toString()
           }
@@ -237,10 +236,6 @@ header {
       padding: 12px 0;
       box-sizing: border-box;
       margin-right: 197px;
-      img {
-        width: 100%;
-        height: 100%;
-      }
     }
     .header-classification {
       width: 428px;

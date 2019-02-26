@@ -27,8 +27,8 @@ const getters = {
   cloudInfo: state => {
     return state.cloudinfo.cloudInfo
   },
-  cloudhead: state => {
-    return state.cloudhead.cloudHead
+  headcate: state => {
+    return state.cloudhead.headcate
   },
   helpcloud: state => {
     return state.helpcloud.helpcloud
@@ -36,17 +36,29 @@ const getters = {
   helpwis: state => {
     return state.helpwis.helpwis
   },
+  caselist: state => {
+    return state.helpwis.caselist
+  },
   dishelpdo: state => {
     return state.dishelpdo.dishelpdo
   },
+  activelist: state => {
+    return state.disactive.activelist
+  },
+  helpmelist: state => {
+    return state.dishelpme.helpmelist
+  },
   headlist: state => {
-    return state.headlist.headlist
+    return state.cloudhead.headlist
   },
   infolist: state => {
-    return state.infolist.infolist
+    return state.cloudinfo.infolist
   },
-  cloudintelligence: state => {
-    return state.cloudintelligence.cloudintelligence
+  infototal: state => {
+    return state.cloudinfo.total
+  },
+  callme: state => {
+    return state.common.callme
   }
 }
 export default getters

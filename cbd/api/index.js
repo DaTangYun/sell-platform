@@ -5,9 +5,8 @@ import cloudhead from './cloud_front'
 import helpcloud from './help_cloud'
 import helpwis from './help_wis'
 import dishelpdo from './dis_helpdo'
-import headlist from './cloud_head_list'
-import cloudintelligence from './help_cloud_intelligence'
-import infolist from './cloud_infolist'
+import disactive from './dis_active'
+import dishelpme from './dis_helpme'
 const CODE_OK = 1
 const CODE_ERR = 0
 export default {
@@ -18,9 +17,8 @@ export default {
   cloudinfo,
   cloudhead,
   helpcloud,
-  helpwis,
   dishelpdo,
-  headlist,
-  infolist,
-  cloudintelligence
+  helpwis,
+  disactive,
+  dishelpme
 }

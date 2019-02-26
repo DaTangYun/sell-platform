@@ -55,7 +55,7 @@ export default {
       }
     },
     handleList() {
-      console.log(this.activeName)
+      // console.log(this.headlist)
     }
   }
 }
@@ -77,6 +77,7 @@ p {
 }
 .my-slider {
   border-bottom: 1px solid #dadfe6;
+  overflow: hidden;
   &:last-child {
     border: none;
   }
