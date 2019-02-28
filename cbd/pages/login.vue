@@ -11,10 +11,12 @@
     </div>
     <div ref="loginFormRef" class="s-form">
       <div class="s-from-row">
-        <input v-model="loginForm.username" type="number" placeholder="用户名/手机号" autocomplete="off">
+        <el-input v-model="loginForm.username" type="number" placeholder="用户名/手机号" autocomplete="off">
+        </el-input>
       </div>
       <div class="s-from-row">
-        <input v-model="loginForm.password" type="password" placeholder="登录密码" autocomplete="off">
+        <el-input v-model="loginForm.password" type="password" placeholder="登录密码" autocomplete="off">
+        </el-input>
         <div class="forget" @click="handleGoReset">
           忘记密码？
         </div>

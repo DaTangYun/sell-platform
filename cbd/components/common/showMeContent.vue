@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handliMyqzne(id) {
-      this.$router.push({ path: `/myqzone/${id}` })
+      this.$router.push({ path: `/myqzone/${id}/zonghe` })
     }
   }
 }

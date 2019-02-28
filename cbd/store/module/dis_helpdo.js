@@ -9,11 +9,14 @@ const dishelpdo = {
     }
   },
   actions: {
-    async nuxtServerInit({ commit, req }) {
-      const info = await Promise.all([api.dishelpdo.getDishelpdo()])
-      if (info.length) {
-        const dishelpdo = info[0].data.data
-        commit('setdishelpdo', dishelpdo.ability)
+    async helpdolist({ commit }, params) {
+      const info = await api.dishelpdo.getDishelpdo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const dishelpdo = info.data.data
+        commit('sethelpmelist', dishelpdo)
+        return dishelpdo
       }
     }
   }

@@ -1,8 +1,8 @@
 <!--  -->
 <template>
-  <div class="rules">
+  <div v-if="showlength" class="rules">
     <ul class="rules-span">
-      <li v-for="(item,index) in helpwis.cate" :key="index">
+      <li v-for="(item,index) in lists" :key="item.id" :class="{active:currentindex === index}" @click="setrules(item,index)">
         {{ item.name }}
       </li>
     </ul>
@@ -36,14 +36,27 @@ export default {
   },
   data() {
     return {
-      total: 0,
+      info: [],
       page: 1,
       limit: 12,
-      helplength: 0
+      cate_id: 0,
+      currentindex: 0,
+      total: 0,
+      helplength: 0,
+      list: [],
+      showlength: 0
     }
   },
   computed: {
-    ...mapGetters(['helpwis'])
+    ...mapGetters(['helpwis']),
+    lists() {
+      const result = []
+      const all = {
+        name: '全部',
+        id: 0
+      }
+      return result.concat(all, this.list)
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -63,14 +76,26 @@ export default {
         cate_id: '',
         title: ''
       })
+      this.list = this.helpwis.cate
       this.total = Number(this.helpwis.total)
+      this.showlength = this.helpwis.cate.length
       this.helplength = this.helpwis.finance.length
-      console.log(this.helplength)
     },
     handlecurrentchange(params) {
-      console.log(params)
       this.page = params
       this.financelist()
+    },
+    async setrules(item, index) {
+      this.currentindex = index
+      const { page, limit } = this
+      await this.$store.dispatch('financelist', {
+        page,
+        limit,
+        title: this.title,
+        cate_id: item.id
+      })
+      this.total = Number(this.helpwis.total)
+      this.helplength = this.helpwis.finance.length
     }
   }
 }
@@ -93,6 +118,14 @@ export default {
       font-size: 14px;
       line-height: 30px;
       cursor: pointer;
+      &:hover {
+        background-color: #00a0e9;
+        color: #fff;
+      }
+    }
+    .active {
+      background-color: #00a0e9;
+      color: #fff;
     }
   }
   .rules-news {

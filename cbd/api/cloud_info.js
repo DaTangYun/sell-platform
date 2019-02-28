@@ -5,6 +5,9 @@ const cloudinfo = {
   },
   getinfolist(params) {
     return axios.get('/api/message/lists', { params })
+  },
+  getinfodetail(params) {
+    return axios.get('/api/message/detail', { params })
   }
 }
 export default cloudinfo

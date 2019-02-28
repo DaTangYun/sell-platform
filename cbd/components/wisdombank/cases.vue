@@ -2,19 +2,27 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item,index) in cases" :key="index">
+      <li v-for="(item,index) in caselist" :key="index">
         <div class="case-img">
-          <img src="" alt="">
+          <img :src="item.cover" alt="">
         </div>
         <p class="case-title">                            
-          《企业所得税税前扣除凭证管理办...                  
+          {{ item.title }}                 
         </p>
       </li>
     </ul>
-    <pagination></pagination>
+    <pagination
+      :total="total"
+      :length="caselist.length"
+      :pagesize="limit"
+      @currentchange="handlecurrentchange"
+      @prev="handlecurrentchange"
+      @next="handlecurrentchange"
+    ></pagination>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
   name: 'Cases',
@@ -23,7 +31,34 @@ export default {
   },
   data() {
     return {
-      cases: [0, 1, 2, 3, 4, 5]
+      page: 1,
+      limit: 6,
+      cate_id: 0,
+      total: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['caselist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.caselists()
+    })
+  },
+  methods: {
+    async caselists() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('caselist', {
+        page,
+        limit,
+        title: '',
+        userId: this.$route.params.id
+      })
+      this.total = Number(info.total)
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.caselists()
     }
   }
 }
@@ -45,6 +80,10 @@ ul {
       background: rgba(179, 179, 179, 1);
       border-radius: 6px;
       margin-right: 24px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     .case-title {
       color: #282d38;

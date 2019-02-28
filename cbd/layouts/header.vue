@@ -27,10 +27,12 @@
           </div>
         </div>
         <div class="header-bottom">
-          <div class="header-logo">
-            <img :src="banquan.header_logo" alt="">
-          </div>
-          <div class="header-classification">
+          <h1 class="header-logo">
+            <a href="/">
+              <img :src="banquan.header_logo" alt="">
+            </a>
+          </h1>
+          <div v-if="$route.path === '/' || $route.path === '/cloud/cloudinfo' || $route.path === '/cloud/cloudhead'" class="header-classification">
             <div class="classification">
               <el-select v-model="value">
                 <el-option
@@ -38,6 +40,7 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
+                  filterable
                 >
                 </el-option>
               </el-select>

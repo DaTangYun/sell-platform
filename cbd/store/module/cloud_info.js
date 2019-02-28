@@ -3,7 +3,8 @@ const cloudinfo = {
   state: {
     cloudInfo: [],
     infolist: [],
-    total: 0
+    total: 0,
+    infodetail: []
   },
   mutations: {
     setcloudInfo(state, data) {
@@ -14,6 +15,9 @@ const cloudinfo = {
     },
     settotal(state, data) {
       state.total = data
+    },
+    setinfodetail(state, data) {
+      state.infodetail = data
     }
   },
   actions: {
@@ -35,6 +39,16 @@ const cloudinfo = {
         const cloudInfo = info[0].data.data
         commit('setcloudInfo', cloudInfo.messageCate)
         return cloudInfo
+      }
+    },
+    async infodetail({ commit }, params) {
+      const info = await api.cloudinfo.getinfodetail({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const infodetail = info.data.data
+        commit('setinfodetail', infodetail.detail)
+        return infodetail
       }
     }
   }

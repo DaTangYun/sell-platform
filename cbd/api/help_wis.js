@@ -11,6 +11,10 @@ const helpwis = {
   // 经典案例
   getcaselist(params) {
     return axios.get('/api/cases/lists', { params })
+  },
+  // 文档列表
+  getdocumentlist(params) {
+    return axios.get('/api/document/lists', { params })
   }
 }
 export default helpwis

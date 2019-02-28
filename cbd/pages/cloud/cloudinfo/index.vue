@@ -1,11 +1,11 @@
 <!--  -->
 <template>
-  <div class="head">
+  <div class="head w">
     <div class="head-left">
-      <cloudTitle :titlename="'信息需求'"></cloudTitle>
+      <cloudTitle :titlename="'信息需求'" @changecate="changecate"></cloudTitle>
       <div class="headline-content">
         <ul class="headline-contentul">
-          <li v-for="(item,index) in infolist" :key="index">
+          <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: 'cloud-cloudinfo-id',params: {id: item.id}}">
             <div class="headlineimg">
               <img :src="item.cover" alt="">
             </div>
@@ -24,12 +24,12 @@
                   {{ item.createtime }}
                 </span>
                 <span>
-                  <img src="../../assets/images/eye.png" alt="">
+                  <img src="assets/images/eye.png" alt="">
                   {{ item.reading_count }}
                 </span>
               </div>
             </div>
-          </li>
+          </nuxt-link>
         </ul>
         <pagination
           :total="infototal"
@@ -41,16 +41,19 @@
         ></pagination>
       </div>
     </div>
+    <RightComponent></RightComponent>
   </div>
 </template>
 <script>
+import RightComponent from 'components/headlineComponents/rightComponents.vue'
 import pagination from 'components/cloudComponents/pagination.vue'
 import cloudTitle from 'components/cloudComponents/cloudTitle.vue'
 import { mapGetters } from 'vuex'
 export default {
   components: {
     cloudTitle,
-    pagination
+    pagination,
+    RightComponent
   },
   meta: {
     title: '信息'
@@ -58,8 +61,9 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 5,
-      total: 0
+      limit: 6,
+      total: 0,
+      cateid: 0
     }
   },
   computed: {
@@ -74,21 +78,30 @@ export default {
     async infolists() {
       this.$nuxt.$loading.start()
       const { page, limit } = this
-      const info = await this.$store.dispatch('infolist', { page, limit })
-      console.log(info)
+      await this.$store.dispatch('infolist', {
+        page,
+        limit,
+        cate_id: this.cateid,
+        title: ''
+      })
       this.$nuxt.$loading.finish()
     },
     handlecurrentchange(params) {
       this.page = params
+      this.currentpage = params
       this.infolists()
+    },
+    changecate(val) {
+      this.cateid = val.cate_id
     }
   }
 }
 </script>
 <style lang='less' scoped>
 .head {
-  width: 100%;
+  width: 1210px;
   height: 100%;
+  display: flex;
 }
 .head-index {
   width: 1210px;
@@ -148,6 +161,7 @@ export default {
       box-sizing: border-box;
       padding: 11px 0;
       border-bottom: 1px dashed #e6e6e6;
+      cursor: pointer;
       .headlineimg {
         width: 226px;
         height: 170px;

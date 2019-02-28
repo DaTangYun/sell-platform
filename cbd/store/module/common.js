@@ -5,7 +5,10 @@ const common = {
     lianjie: [],
     error: '',
     banquan: {},
-    callme: {}
+    callme: {},
+    usergister: {},
+    usershowmeinfo: {},
+    images: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -22,6 +25,15 @@ const common = {
     },
     setcallme(state, data) {
       state.callme = data
+    },
+    setusergister(state, data) {
+      state.usergister = data
+    },
+    setimages(state, data) {
+      state.images = data
+    },
+    setusershowmeinfo(state, data) {
+      state.usershowmeinfo = data
     }
   },
   actions: {
@@ -52,6 +64,36 @@ const common = {
         const callme = info.data.data
         commit('setcallme', callme.detail)
         return callme
+      }
+    },
+    async usergister({ commit }, params) {
+      const info = await api.common.usergister({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const usergister = info.data.data
+        commit('setusergister', usergister)
+        return usergister
+      }
+    },
+    async usershowmeinfo({ commit }, params) {
+      const info = await api.common.getusershowmeInfor({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const usershowmeinfo = info.data.data
+        commit('setusershowmeinfo', usershowmeinfo.showmeInfo)
+        return usershowmeinfo
+      }
+    },
+    async uploadimages({ commit }, params) {
+      const info = await api.common.uploadimage({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const images = info.data.data
+        commit('setimages', images)
+        return images
       }
     }
   }

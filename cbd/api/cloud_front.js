@@ -5,6 +5,10 @@ const cloudhead = {
   },
   getheadlist(params) {
     return axios.get('/api/topline/lists', { params })
+  },
+  // 头条详情
+  gettoplinedetail(params) {
+    return axios.get('/api/topline/detail', { params })
   }
 }
 export default cloudhead
