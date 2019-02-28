@@ -8,19 +8,7 @@
       <div class="authen-form">
         <el-form :label-position="labelPosition" label-width="80px">
           <div class="my-ploader1">
-            <el-upload
-              class="avatar-uploader my-uoploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <el-button size="small">
-                上传头像
-              </el-button>
-            </el-upload>  
+            <upsetimage></upsetimage>
           </div>
           <el-form-item label="用户名称:" class="yonghumingcheng">
             <el-input v-model="form.name"></el-input>
@@ -34,31 +22,22 @@
             </el-radio>            
           </div>
           <div class="my-uploadertest">
-            <el-upload
-              class="avatar-uploader my-uploader2"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-            >
-              <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <p>
-                上传身份证/营业执照
-              </p>            
-            </el-upload>   
+            <upsetimage></upsetimage>
           </div>
           <el-form-item label="过期时间:" class="yonghumingcheng">
             <el-input v-model="form.time"></el-input>
           </el-form-item>
           <el-form-item label="所在地区:" class="yonghumingcheng">  
-            <area-select
-              v-model="selected"
-              type="text"
-              :data="pcaa"
-              :level="2"
-              class="specicalselect"
-              :placeholders="placeholders"
-            ></area-select>
+            <no-ssr>
+              <area-select
+                v-model="selected"
+                type="text"
+                :data="pcaa"
+                :level="2"
+                class="specicalselect"
+                :placeholders="placeholders"
+              ></area-select>
+            </no-ssr>
           </el-form-item>
           <el-form-item label="个人签名">
             <el-input v-model="form.desc" type="textarea"></el-input>
@@ -75,7 +54,11 @@
 </template>
 <script>
 import { pca, pcaa } from 'area-data'
+import upsetimage from 'common/upsetimage'
 export default {
+  components: {
+    upsetimage
+  },
   data() {
     return {
       form: {
@@ -117,6 +100,11 @@ export default {
     onSubmit() {
       // console.log('submit')
     }
+    // initUploadimg() {
+    //   if (process.client) {
+    //     require('element-ui')
+    //   }
+    // }
   }
 }
 </script>

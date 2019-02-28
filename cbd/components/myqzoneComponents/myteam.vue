@@ -3,112 +3,99 @@
   <div>
     <helpbox :wid="'950'" :head="'我的团队'">
       <div class="team">
-        <div class="team-form">
-          <el-form label-width="80px">
-            <el-form-item label="团队名称">
-              团队名称
-            </el-form-item>
-            <el-form-item label="团队图片">
-              <div class="teamimg">
-                <img src="" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item label="团队简介">
-              <p>
-                团队简介团队简介团队简介团队简介团队简介团队简介团队简介
-              </p>
-            </el-form-item>
-          </el-form>
-        </div>
-        <div class="member">
-          <span>
-            团队成员
-          </span>
-        </div>
         <ul>
-          <li v-for="(item,index) in teamlist" :key="index">
-            <div class="li-top">
-              <span>
-                姓名：
-              </span>
-              <span>
-                XXXX
-              </span>
-              <span>
-                擅长领域：
-              </span>
-              <span>
-                XXXX
-              </span>
+          <li v-for="(item,index) in dismyteam" :key="index" @click.stop="showdetail(item)">
+            <div class="img">
+              <img :src="item.image" alt="">
             </div>
-            <div class="li-bottom">
-              <span>
-                简介：
-              </span>
-              <p>
-                简介简介简介简介简介简介简介简介简介简介简介
-              </p>
-            </div>
+            <p>
+              {{ item.content }}
+            </p>
           </li>
         </ul>
       </div>
+      <pagination
+        :total="total"
+        :length="dismyteam.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
     </helpbox>  
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import pagination from 'components/cloudComponents/pagination.vue'
 import helpbox from 'components/myqzoneComponents/helpbox'
 export default {
   name: 'Myteam',
   components: {
-    helpbox
+    helpbox,
+    pagination
   },
   data() {
     return {
-      teamlist: [0, 1, 2]
+      help: [],
+      limit: 12,
+      page: 1,
+      total: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['dismyteam'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.myteam()
+    })
+  },
+  methods: {
+    async myteam() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('dismyteamlist', {
+        page,
+        limit,
+        user_id: this.$route.params.id
+      })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.myteam()
+    },
+    showdetail(item) {
+      this.$emit('showdetail', item)
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .team {
-  position: relative;
-  .team-form {
-    margin-bottom: 20px;
-  }
-  .teamimg {
-    width: 284px;
-    height: 201px;
-    background: rgba(241, 242, 246, 1);
-    border-radius: 6px;
-  }
-  .member {
-    height: 40px;
-    line-height: 40px;
-    background: rgba(241, 242, 246, 1);
-    margin-bottom: 10px;
-    position: relative;
-    width: 950px;
-    bottom: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    box-sizing: border-box;
-    padding-left: 20px;
-    span {
-      position: absolute;
-    }
-  }
   ul {
-    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
     li {
-      border-bottom: 1px dashed #e1e2e6;
-      box-sizing: border-box;
-      padding-bottom: 10px;
-      span {
-        display: inline-block;
-        margin: 0 20px 20px 0;
+      margin-right: 22px;
+      margin-bottom: 10px;
+      &:nth-child(3n) {
+        margin-right: 0px;
+      }
+      .img {
+        width: 284px;
+        height: 201px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       p {
-        display: inline-block;
+        .ellipsis();
+        line-height: 30px;
       }
     }
   }

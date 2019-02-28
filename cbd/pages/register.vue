@@ -8,28 +8,26 @@
       </p>
     </div>
     <div class="s-form">
-      <div class="s-from-row">
-        <span>手机号 ：</span>
-        <input type="text">
-      </div>
-      <div class="s-from-row">
-        <span>密码 ：</span>
-        <input type="password">
-      </div>
-      <div class="s-from-row">
-        <span>确认密码 ：</span>
-        <input type="password">
-      </div>
-      <div class="s-from-row">
-        <span>验证码 ：</span>
-        <input type="text">
-        <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
-          获取验证码
-        </span>
-        <span v-show="!sendAuthCode" class="obtain">
-          {{ time }}秒后发送验证码
-        </span>
-      </div>
+      <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+        <el-form-item label="手机号">
+          <el-input v-model="formLabelAlign.name"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="formLabelAlign.region"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码">
+          <el-input v-model="formLabelAlign.type"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码">
+          <el-input v-model="formLabelAlign.type"></el-input>
+          <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
+            获取验证码
+          </span>
+          <span v-show="!sendAuthCode" class="obtain">
+            {{ time }}秒后发送验证码
+          </span>
+        </el-form-item>
+      </el-form>
       <div class="checked">
         <el-checkbox v-model="checked">
           同意网站服务条款
@@ -37,20 +35,30 @@
       </div>
     </div>
     <button class="submit-btn" @click="getLogin">
-      登录
+      注册
     </button>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   layout: 'login',
   data() {
     return {
       checked: true,
       sendAuthCode: true,
-      time: 0
+      time: 0,
+      val: [],
+      labelPosition: 'left',
+      formLabelAlign: {
+        name: '',
+        region: '',
+        type: ''
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['usergister'])
   },
   methods: {
     getLogin() {
@@ -59,15 +67,6 @@ export default {
           message: '请勾选服务条款',
           duration: 3000
         })
-      } else {
-        axios
-          .post('/api/user/login')
-          .then(res => {
-            console.log(res)
-          })
-          .catch(error => {
-            console.log(error)
-          })
       }
     },
     getAuthCode() {
@@ -104,40 +103,15 @@ export default {
 .s-form {
   height: 100%;
   padding: 0 71px;
-  .s-from-row {
-    margin: 0 auto;
-    display: flex;
-    height: 77px;
-    border-bottom: 1px solid rgba(164, 176, 190, 1);
-    width: 100%;
-    position: relative;
-    span {
-      padding: 0 8px;
-      height: 100%;
-      display: inline-block;
-      line-height: 116px;
-      width: 20%;
-      font-size: 16px;
-      color: rgba(87, 96, 111, 1);
-    }
-    input {
-      height: 76px;
-      box-sizing: border-box;
-      border: none;
-      background-color: #f5f7fa;
-      padding-top: 38px;
-      width: 80%;
-      color: rgba(47, 53, 66, 1);
-      font-size: 16px;
-    }
-    .obtain {
-      position: absolute;
-      right: 0;
-      bottom: 10px;
-      color: rgba(0, 160, 233, 1);
-      cursor: pointer;
-      width: 131px;
-    }
+  margin-top: 10px;
+  position: relative;
+  .obtain {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    color: rgba(0, 160, 233, 1);
+    cursor: pointer;
+    width: 131px;
   }
   .checked {
     margin-top: 24px;
@@ -159,6 +133,21 @@ export default {
     background-color: rgba(0, 160, 233, 1);
     color: #f5f7fa;
     cursor: pointer;
+  }
+}
+.inputzhuce[data-v-2339929c] {
+  width: 358px;
+  height: 76px;
+  box-sizing: border-box;
+  border: none;
+  padding-top: 30px;
+  color: rgba(47, 53, 66, 1);
+  font-size: 16px;
+  .el-input[data-v-2339929c] {
+    border: 2px solid #f5f7fa;
+    input {
+      border: none !important;
+    }
   }
 }
 </style>

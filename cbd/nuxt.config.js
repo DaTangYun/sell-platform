@@ -52,10 +52,10 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '@/plugins/element-ui',
-    // '@/plugins/vue-swiper',
-    // '@/plugins/province'
-    // { src: '@/plugins/element-ui', ssr: false },
+    {
+      src: '@/plugins/element-ui',
+      ssr: true
+    },
     {
       src: '~/plugins/vue-swiper',
       ssr: false

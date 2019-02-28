@@ -2,7 +2,7 @@
 <template>
   <div>
     <ul class="headline-contentul">
-      <li v-for="(item,index) in headlist" :key="index">
+      <nuxt-link v-for="item of headlist" :key="item.id" tag="li" :to="{name: 'cloud-cloudhead-id',params: {id: item.id}}">
         <div class="headlineimg">
           <img :src="item.cover" alt="">
         </div>
@@ -26,7 +26,7 @@
             </span>
           </div>
         </div>
-      </li>
+      </nuxt-link>
     </ul>
   </div>
 </template>
@@ -34,16 +34,14 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Cloudcontent',
-  props: {
-    contentlis: {
-      type: Array,
-      default() {
-        return [0, 1, 2, 3, 4]
-      }
-    }
-  },
   computed: {
     ...mapGetters(['headcate', 'headlist'])
+  },
+  methods: {
+    handlidetail(id) {
+      console.log(id)
+      this.$router.push({ path: `/cloud/cloudhead/${id}` })
+    }
   }
 }
 </script>
@@ -57,6 +55,7 @@ ul {
     padding-top: 31px;
     height: 232px;
     border-bottom: 1px dashed #e6e6e6;
+    cursor: pointer;
     .headlineimg {
       width: 226px;
       height: 170px;

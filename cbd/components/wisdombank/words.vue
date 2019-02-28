@@ -2,28 +2,36 @@
 <template>
   <div class="word">
     <ul>
-      <li v-for="(item,index) in words" :key="index">
+      <li v-for="(item,index) in documentlist.document" :key="index">
         <span class="bq">
-          合同
+          {{ item.name }}
         </span>
         <div class="word-content">
           <div class="word-title">
-            企业所得税征收鉴定方式表格
+            {{ item.title }}
           </div>
           <span>
-            2018-12-07
+            {{ item.createtime }}
           </span>
           <span>
-            上传人昵称
+            {{ item.username }}
           </span>
         </div>
         <div class="word-img"></div>
       </li>
     </ul>
-    <pagination></pagination>
+    <pagination
+      :total="total"
+      :length="documentlist.length"
+      :pagesize="limit"
+      @currentchange="handlecurrentchange"
+      @prev="handlecurrentchange"
+      @next="handlecurrentchange"
+    ></pagination>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import pagination from 'components/cloudComponents/pagination.vue'
 export default {
   name: 'Words',
@@ -32,7 +40,34 @@ export default {
   },
   data() {
     return {
-      words: [0, 1, 2, 3, 4, 5]
+      page: 1,
+      limit: 6,
+      total: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['documentlist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.documentlists()
+    })
+  },
+  methods: {
+    async documentlists() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('documentlist', {
+        page,
+        limit,
+        title: '',
+        user_id: '',
+        cate_id: ''
+      })
+      this.total = Number(info.total)
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.documentlists()
     }
   }
 }

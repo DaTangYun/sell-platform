@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="wisdomBank">
+  <div v-if="list.length" class="wisdomBank">
     <div class="wisdomBank-title">
       <h4>{{ wis }}</h4>
       <nuxt-link to="" class="wisdomMore">
@@ -42,7 +42,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['helpwis', 'caselist', 'activelist', 'helpmelist'])
+    ...mapGetters(['activelist', 'helpwis'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -53,20 +53,11 @@ export default {
     async financelists() {
       await this.$store.dispatch('financelist', {
         page: 1,
-        limit: 6,
+        limit: 8,
         cate_id: '',
         title: ''
       })
       this.list = this.helpwis.finance
-    },
-    async caselists() {
-      await this.$store.dispatch('caselist', {
-        page: 1,
-        limit: 6,
-        title: '',
-        userId: ''
-      })
-      this.list = this.caselist
     },
     async activelists() {
       await this.$store.dispatch('activelist', {
@@ -77,32 +68,13 @@ export default {
       })
       this.list = this.activelist.active
     },
-    async helpmelists() {
-      await this.$store.dispatch('helpmelist', {
-        page: 1,
-        limit: 6,
-        title: '',
-        userId: ''
-      })
-      this.list = this.helpmelist
-    },
+
     getlist() {
       const { wis } = this
-      switch (wis) {
-        case '财经法规':
-          this.financelists()
-          break
-        case '经典案例':
-          this.caselists()
-          break
-        case '优惠活动':
-          this.activelists()
-          break
-        case '帮帮我':
-          this.helpmelists()
-          break
-        default:
-          break
+      if (wis === '财经法规') {
+        this.financelists()
+      } else {
+        this.activelists()
       }
     }
   }
@@ -117,7 +89,7 @@ export default {
   border-radius: 6px;
   padding: 0 15px 10px;
   box-sizing: border-box;
-  margin-top: 10px;
+  margin-bottom: 10px;
   .wisdomBank-title {
     height: 44px;
     box-sizing: border-box;

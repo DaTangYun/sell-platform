@@ -35,7 +35,8 @@ export default {
       page: 1,
       limit: 5,
       cate_id: 0,
-      currentindex: 0
+      currentindex: 0,
+      total: 0
     }
   },
   computed: {
@@ -54,16 +55,31 @@ export default {
   },
   methods: {
     async huoqu(item, index) {
-      this.currentindex = index
       const { page, limit } = this
-      const info = await this.$store.dispatch('infolist', {
-        page,
-        limit,
-        title: this.title,
-        cate_id: item.id
+      const { titlename } = this
+      console.log(this.$emit)
+      this.currentindex = index
+      if (titlename === '头条类别') {
+        const info = await this.$store.dispatch('headlist', {
+          page,
+          limit,
+          title: this.title,
+          cate_id: item.id
+        })
+        this.total = info.total
+      } else {
+        await this.$store.dispatch('infolist', {
+          page,
+          limit,
+          title: '',
+          cate_id: item.id
+        })
+      }
+      this.$emit('changecate', {
+        title: item.cate_name,
+        cate_id: item.id,
+        page
       })
-      // this.$emit('changecate', { title: this.title, cate_id: tem.id})
-      console.log(info)
     },
     getInfo() {
       const { titlename } = this

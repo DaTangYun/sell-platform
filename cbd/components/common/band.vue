@@ -31,8 +31,9 @@ export default {
   },
   computed: {
     showPath() {
-      const id = this.$route.params.id
-      return this.$route.path === '/' || this.$route.path === `/myqzone/${id}`
+      const reg = /myqzone/
+      const flag = reg.test(this.$route.path)
+      return this.$route.path === '/' || flag
     }
   },
   watch: {

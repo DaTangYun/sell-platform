@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <helpbox :head="'我的评价'" :wid="'950'">
+    <helpbox :head="'他的评价'" :wid="'950'">
       <div class="textarea">
         <el-input type="textarea" :placeholder="'请输入内容'" :rows="'7'"></el-input>
       </div>

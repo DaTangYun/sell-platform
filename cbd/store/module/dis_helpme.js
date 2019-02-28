@@ -16,6 +16,7 @@ const dishelpme = {
       if (info.data.code === api.CODE_OK && info.data.data) {
         const helpmelist = info.data.data
         commit('sethelpmelist', helpmelist.ability)
+        return helpmelist
       }
     }
   }

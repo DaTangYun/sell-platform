@@ -4,13 +4,13 @@
     <ul>
       <li v-for="(item,index) in helplist" :key="index" :style="{ width: wid + 'px' }">
         <div :style="{ height: hei + 'px' }">
-          <img src="" alt="">
+          <img :src="item.image" alt="">
         </div>
         <h5>                          
-          《企业所得税税前扣除凭证管理办理办...
+          {{ item.title }}
         </h5>
         <span>
-          耿镇京东分拣150元一天 要求男要求男要求男         
+          {{ item.desc }}         
         </span>
       </li>
     </ul>
@@ -23,7 +23,7 @@ export default {
     helplist: {
       type: Array,
       default() {
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        return []
       }
     },
     wid: {
@@ -53,6 +53,10 @@ ul {
       height: 201px;
       background: rgba(179, 179, 179, 1);
       border-radius: 6px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
     h5 {
       color: #282d38;

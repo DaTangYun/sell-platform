@@ -24,6 +24,8 @@ import {
   Radio,
   RadioGroup,
   RadioButton,
+  Tabs,
+  TabPane,
   Checkbox,
   CheckboxButton,
   CheckboxGroup
@@ -31,6 +33,12 @@ import {
 import locale from 'element-ui/lib/locale/lang/en'
 
 export default () => {
+  Vue.use(Tabs, {
+    locale
+  })
+  Vue.use(TabPane, {
+    locale
+  })
   Vue.use(Button, {
     locale
   })

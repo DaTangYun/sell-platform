@@ -1,25 +1,14 @@
 <!--  -->
 <template>
   <div class="cloud">
-    <div class="w">
-      <div class="head-index">
-        <div class="left">
-          <nuxt-child class="child" />
-        </div>
-        <RightComponent></RightComponent>
-      </div>
-    </div>
+    <nuxt-child class="child" />
   </div>
 </template>
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
   layout: 'default',
   meta: {
     title: '传'
-  },
-  components: {
-    RightComponent
   }
 }
 </script>
@@ -35,7 +24,6 @@ export default {
   box-sizing: border-box;
   .left {
     width: 950px;
-    height: 1354px;
     position: relative;
   }
 }
@@ -70,11 +58,5 @@ export default {
       }
     }
   }
-}
-.child {
-  top: 0px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 </style>

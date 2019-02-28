@@ -24,17 +24,17 @@
         <div class="showMeRight">
           <wisdomBank :wis="'财经法规'">
           </wisdomBank>
-          <wisdomBank :wis="'经典案例'">
-          </wisdomBank>         
+          <jingdiananli></jingdiananli>        
         </div>
       </div>
       <div class="showMeContain">
         <CanDoBox :desc="'惠带'" :list="['能帮会干']" :to="'/discont/helpcando'">
-          <CanDoContent :dishelpdo="dishelpdo"></CanDoContent>
+          <CanDoContent :dishelpdo="help"></CanDoContent>
         </CanDoBox>
         <div class="showMeRight">
-          <WisdomBank :wis="'帮帮我'">
-          </WisdomBank>
+          <div v-if="helpmelist.length" class="q">
+            <helpme :helpmelist="helpmelistss"></helpme>
+          </div>
           <WisdomBank :wis="'优惠活动'" class="preferential">
           </WisdomBank>
         </div>
@@ -46,7 +46,9 @@
 import CanDoBox from 'components/indexComponents/CanDoBox'
 import CanDoContent from 'common/CanDoContent'
 import WisdomBank from 'components/indexComponents/WisdomBank'
+import jingdiananli from 'components/indexComponents/jingdiananli'
 import Topline from 'components/indexComponents/Topline'
+import helpme from 'components/indexComponents/helpme'
 import TopHead from 'components/indexComponents/TopHead'
 import BigSlider from 'components/indexComponents/BigSlider'
 import Cooperative from 'common/Cooperative'
@@ -64,7 +66,9 @@ export default {
     BigSlider,
     Cooperative,
     PublishinTopic,
-    showmelist
+    showmelist,
+    jingdiananli,
+    helpme
   },
   data() {
     return {
@@ -74,11 +78,13 @@ export default {
       show: 0,
       list: [],
       headss: [],
-      infoss: 0
+      infoss: 0,
+      help: [],
+      helpmelistss: []
     }
   },
   computed: {
-    ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist'])
+    ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist', 'helpmelist'])
   },
   created() {
     this.setlist()
@@ -87,6 +93,8 @@ export default {
     this.$nextTick(() => {
       this.getShowme()
       this.headinfo()
+      this.dishelpdos()
+      this.helpmelists()
     })
   },
   methods: {
@@ -114,6 +122,26 @@ export default {
     },
     setlist() {
       this.headss = this.headlist.topline
+    },
+    async dishelpdos() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('helpdolist', {
+        page,
+        limit,
+        title: '',
+        user_id: '',
+        cate_id: ''
+      })
+      this.help = info.ability
+    },
+    async helpmelists() {
+      await this.$store.dispatch('helpmelist', {
+        page: 1,
+        limit: 6,
+        title: '',
+        userId: ''
+      })
+      this.helpmelistss = this.helpmelist
     }
   }
 }

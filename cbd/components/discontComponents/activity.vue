@@ -2,34 +2,40 @@
 <template>
   <div>
     <ul class="activity-ul">
-      <li v-for="(item,index) in active" :key="index" class="activity-li">
+      <li v-for="(item,index) in activelist" :key="index" class="activity-li">
         <div class="activity-li-left">
           <div class="top">
-            <h4>活动标题</h4>
-            <span>昵称</span>
-            <span>2018-12-07</span>
+            <h4>
+              {{ item.title }}
+            </h4>
+            <span>
+              {{ item.nickname }}
+            </span>
+            <span>
+              {{ item.start_time }}
+            </span>
           </div>
           <div class="bottom">
-            WTO是多边机构，不是美国一家开的。WTO成员是平等的，不是美国一家说了算的权
+            {{ item.desc }}
           </div>
         </div>
-        <div :class="item.flag ? 'oldpage' :'nowpage'" class="activity-li-right " @click="item.flag = false;item.take = '已领取'">
+        <div class="activity-li-right oldpage">
           <div class="right-content">
             <div class="right-content-left">
               <h5>
-                标题标题标题标题标题
+                {{ item.coupon_name }}
               </h5>
               <div>
-                2018/12/31过期
+                {{ item.end_time }}过期
               </div>
             </div>
           </div>
           <div class="right-content-right">
             <div class="calc">
-              满1000减999
+              满{{ item.min_amount }}减{{ item.prefer_acount }}
             </div>
-            <span>
-              {{ item.take }}
+            <span v-if="item.status === 2 ? '已领取' : '领取'">
+              领取
             </span>
           </div>
         </div>
@@ -40,14 +46,16 @@
 <script>
 export default {
   name: 'Activity',
+  props: {
+    activelist: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
-      active: [
-        { id: 1, flag: true, take: '领取' },
-        { id: 2, flag: true, take: '领取' },
-        { id: 3, flag: true, take: '领取' },
-        { id: 4, flag: true, take: '领取' }
-      ],
       selectItem: 0
     }
   }
@@ -67,6 +75,7 @@ export default {
     padding-top: 24px;
     box-sizing: border-box;
     .activity-li-left {
+      width: 599px;
       .top {
         margin-bottom: 20px;
         h4 {
@@ -114,9 +123,10 @@ export default {
         width: 77px;
         height: 66px;
         margin-left: 30px;
+        box-sizing: border-box;
+        padding-right: 3px;
         div {
           color: #fff;
-          width: 48px;
           font-size: 14px;
         }
         span {

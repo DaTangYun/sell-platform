@@ -57,8 +57,43 @@ const getters = {
   infototal: state => {
     return state.cloudinfo.total
   },
+  headtotal: state => {
+    return state.cloudhead.headtotal
+  },
   callme: state => {
     return state.common.callme
+  },
+  // 文档列表
+  documentlist: state => {
+    return state.helpwis.documentlist
+  },
+  // 21
+  usergister: state => {
+    return state.common.usergister
+  },
+  dismyteam: state => {
+    return state.dismyteam.dismyteam
+  },
+  // 用户已参加列表
+  useractiveprofile: state => {
+    return state.disactive.useractiveprofile
+  },
+  // 秀秀我用户信息
+  usershowmeinfo: state => {
+    return state.common.usershowmeinfo
+  },
+  myteamdetail: state => {
+    return state.dismyteam.myteamdetail
+  },
+  // 头条详情
+  headdetail: state => {
+    return state.cloudhead.headdetail
+  },
+  infodetail: state => {
+    return state.cloudinfo.infodetail
+  },
+  images: state => {
+    return state.common.images
   }
 }
 export default getters

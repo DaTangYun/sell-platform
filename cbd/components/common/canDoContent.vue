@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="cando">
-      <li v-for="(item,index) in dishelpdo" :key="index" class="candoli">
+      <li v-for="(item,index) in dishelpdo" :key="index" class="candoli" @click="handlehelp(item,index)">
         <div class="canDome-li-content" :style="{ width: wid + 'px' }">
           <div class="ul-img" :style="{ height: hei + 'px' }">
             <img :src="item.image" alt="">
@@ -34,6 +34,17 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  data() {
+    return {
+      page: 1,
+      limit: 6
+    }
+  },
+  methods: {
+    handlehelp(item, index) {
+      console.log(item.id)
     }
   }
 }

@@ -7,27 +7,56 @@
     <div class="wisdom">
       <wisdomBank :wis="'财经法规'">
       </wisdomBank>
+      <div v-if="helpmelist.length" class="e">
+        <helpme :helpmelist="hmlt"></helpme>
+      </div>
     </div>
-    <wisdomBank :wis="'经典案例'">
-    </wisdomBank>
     <div class="headindexhelp">
-      <wisdomBank :wis="'帮帮我'">
+      <wisdomBank :wis="'优惠活动'">
       </wisdomBank>
+      <jingdiananli></jingdiananli>
     </div>
-    <wisdomBank :wis="'优惠活动'">
-    </wisdomBank>
   </div>
 </template>
 <script>
+import helpme from 'components/indexComponents/helpme'
+import jingdiananli from 'components/indexComponents/jingdiananli'
 import WisdomBank from 'components/indexComponents/WisdomBank'
 import PublishinTopic from 'common/PublishinTopic'
 import Cooperative from 'common/Cooperative'
+import { mapGetters } from 'vuex'
 export default {
   name: 'RightComponent',
   components: {
     PublishinTopic,
     Cooperative,
-    WisdomBank
+    WisdomBank,
+    helpme,
+    jingdiananli
+  },
+  data() {
+    return {
+      hmlt: []
+    }
+  },
+  computed: {
+    ...mapGetters(['helpmelist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.helpmelists()
+    })
+  },
+  methods: {
+    async helpmelists() {
+      await this.$store.dispatch('helpmelist', {
+        page: 1,
+        limit: 6,
+        title: '',
+        userId: ''
+      })
+      this.hmlt = this.helpmelist
+    }
   }
 }
 </script>

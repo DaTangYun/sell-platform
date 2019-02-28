@@ -4,11 +4,12 @@
     <div class="my-ploader1">
       <el-upload
         class="avatar-uploader my-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        :action="`${action}/api/common/upload`"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
+        :on-change="handleonchange"
       >
-        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         <el-button size="small" type="info" plain>
           更换头像
@@ -18,16 +19,37 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
 export default {
   name: 'Upsetimage',
   data() {
     return {
-      imageUrl: ''
+      imageUrl: '',
+      action: ''
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initAction()
+    })
   },
   methods: {
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    handleonchange(file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.uploadimage(file)
+    },
+    async uploadimage(file) {
+      this.$nuxt.$loading.start()
+      await this.$store.dispatch('uploadimages', {
+        file
+      })
+      this.$nuxt.$loading.finish()
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     }
   }
 }

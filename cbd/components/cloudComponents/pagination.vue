@@ -7,6 +7,7 @@
         layout="total, prev, pager, next, jumper"
         :page-size="pagesize"
         :total="total"
+        :current-page="currentpage"
         @current-change="handlecurrentchange"
         @prev-click="handleprev"
         @next-click="handlenext"
@@ -30,6 +31,10 @@ export default {
     pagesize: {
       type: Number,
       default: 12
+    },
+    currentpage: {
+      type: Number,
+      default: 1
     }
   },
   data() {

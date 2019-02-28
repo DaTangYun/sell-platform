@@ -2,7 +2,8 @@ import api from '@/api/index'
 const helpwis = {
   state: {
     helpwis: [],
-    caselist: []
+    caselist: [],
+    documentlist: []
   },
   mutations: {
     sethelpwis(state, data) {
@@ -10,6 +11,9 @@ const helpwis = {
     },
     setcaselist(state, data) {
       state.caselist = data
+    },
+    setdocumentlist(state, data) {
+      state.documentlist = data
     }
   },
   actions: {
@@ -30,6 +34,17 @@ const helpwis = {
         const caselist = info.data.data
         // console.log(caselist)
         commit('setcaselist', caselist.cases)
+        return caselist
+      }
+    },
+    async documentlist({ commit }, params) {
+      const info = await api.helpwis.getdocumentlist({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const documentlist = info.data.data
+        commit('setdocumentlist', documentlist)
+        return documentlist
       }
     }
   }

@@ -12,88 +12,27 @@
       </div>
       <div class="myqzone-top">
         <div class="mqzone-t">
-          <img src="" alt="">
+          <img :src="usershowmeinfo.avatar" alt="">
         </div>
-        <div class="vip">
+        <div v-if="usershowmeinfo.is_identy" class="vip">
           <h3>
-            昵称/企业名称
+            {{ usershowmeinfo.nickname }}
           </h3>
-          <img :src=" i == 0 ? srcs : nosrc" alt="">
+          <img :src=" usershowmeinfo.is_identy == 1 ? srcs : nosrc" alt="">
         </div>
         <p>
-          个人简介
+          {{ usershowmeinfo.bio }}
         </p>
       </div>
-      <div class="myqzone-bottom">
-        <div class="myqzone-left">
-          <h4>个人主页</h4>
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="vertical" @select="handleSelect">
-            <el-menu-item index="1">
-              综合展示
-            </el-menu-item>
-            <el-menu-item index="2">
-              我的头条
-            </el-menu-item>
-            <el-menu-item index="3">
-              我的信息
-            </el-menu-item>
-            <el-menu-item index="4">
-              帮帮我
-            </el-menu-item>
-            <el-menu-item index="5">
-              能帮会干
-            </el-menu-item>
-            <el-menu-item index="6">
-              我的案例
-            </el-menu-item>
-            <el-menu-item index="7">
-              我的团队
-            </el-menu-item>
-            <el-menu-item index="8">
-              我的活动
-            </el-menu-item>
-            <el-menu-item index="9">
-              我的评价
-            </el-menu-item>  
-          </el-menu>          
-        </div>
-        <div class="myqzone-right">
-          <exhibition v-if="bankindex == 1"></exhibition>
-          <myheadtip v-if="bankindex == 2"></myheadtip>
-          <myinfotip v-if="bankindex == 3"></myinfotip>
-          <helpme v-if="bankindex == 4"></helpme>
-          <helpcando v-if="bankindex == 5"></helpcando>
-          <mycase v-if="bankindex == 6"></mycase>
-          <myteam v-if="bankindex == 7"></myteam>
-          <wodehuodong v-if="bankindex == 8"></wodehuodong>
-          <myevaluate v-if="bankindex == 9"></myevaluate>
-        </div>
+      <div class="myqzone-bot">
+        <nuxt-child />
       </div>
     </div>    
   </div>
 </template>
 <script>
-import exhibition from 'components/myqzoneComponents/exhibition'
-import myheadtip from 'components/myqzoneComponents/myheadtip'
-import myinfotip from 'components/myqzoneComponents/myinfotip'
-import helpme from 'components/myqzoneComponents/helpme'
-import helpcando from 'components/myqzoneComponents/helpcando'
-import mycase from 'components/myqzoneComponents/mycase'
-import myteam from 'components/myqzoneComponents/myteam'
-import wodehuodong from 'components/myqzoneComponents/wodehuodong'
-import myevaluate from 'components/myqzoneComponents/myevaluate'
+import { mapGetters } from 'vuex'
 export default {
-  components: {
-    exhibition,
-    myheadtip,
-    myinfotip,
-    helpme,
-    helpcando,
-    mycase,
-    myteam,
-    wodehuodong,
-    myevaluate
-  },
   meta: {
     title: '个人空间'
   },
@@ -103,13 +42,42 @@ export default {
       bankindex: 1,
       i: 1,
       srcs: require('assets/images/vip.png'),
-      nosrc: require('assets/images/vipm.png')
+      nosrc: require('assets/images/vipm.png'),
+      showteam: true,
+      detailid: 0
     }
   },
+  computed: {
+    ...mapGetters(['usershowmeinfo'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.userlist()
+    })
+  },
   methods: {
+    async userlist() {
+      await this.$store.dispatch('usershowmeinfo', {
+        user_id: this.$route.params.id
+      })
+    },
     handleSelect(index) {
-      console.log(index)
       this.bankindex = index
+    },
+    async myteamdetai() {
+      console.log(this.detailid)
+      const info = await this.$store.dispatch('dismyteamdetail', {
+        id: this.detailid
+      })
+      console.log(info)
+    },
+    showdetail(item) {
+      this.showteam = false
+      this.detailid = item.id
+      this.myteamdetai()
+    },
+    back() {
+      this.showteam = true
     }
   }
 }
@@ -146,6 +114,11 @@ export default {
     border: 3px solid rgba(255, 255, 255, 1);
     border-radius: 50%;
     margin-left: 550px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
   }
   .vip {
     position: relative;
@@ -167,24 +140,7 @@ export default {
     color: #fff;
   }
 }
-.myqzone-bottom {
+.myqzone-bot {
   display: flex;
-  .myqzone-left {
-    width: 248px;
-    height: 711px;
-    margin-right: 20px;
-    border-radius: 6px;
-    background-color: #fff;
-    box-sizing: border-box;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    margin-bottom: 20px;
-    h4 {
-      color: #282d38;
-      font-size: 24px;
-      padding-left: 20px;
-      margin-bottom: 10px;
-    }
-  }
 }
 </style>
