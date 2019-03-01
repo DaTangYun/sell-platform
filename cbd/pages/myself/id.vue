@@ -12,9 +12,6 @@ import lefttab from 'components/myselfComponents/lefttabs'
 export default {
   components: {
     lefttab
-  },
-  data() {
-    return {}
   }
 }
 </script>
