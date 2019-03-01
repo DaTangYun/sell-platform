@@ -1,9 +1,9 @@
 <!--  -->
 <template>
   <div class="file">
-    <div class="send" @click="changeindex()">
+    <!-- <div class="send" @click="changeindex()">
       发布新文档
-    </div>
+    </div> -->
     <ul v-show="noIndex===0">
       <li v-for="(item,index) in file" :key="index">
         <div class="file-left">

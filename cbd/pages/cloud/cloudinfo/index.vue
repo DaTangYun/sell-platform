@@ -2,7 +2,7 @@
 <template>
   <div class="head w">
     <div class="head-left">
-      <cloudTitle :titlename="'信息需求'" @changecate="changecate"></cloudTitle>
+      <cloudTitle></cloudTitle>
       <div class="headline-content">
         <ul class="headline-contentul">
           <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: 'cloud-cloudinfo-id',params: {id: item.id}}">
@@ -24,7 +24,7 @@
                   {{ item.createtime }}
                 </span>
                 <span>
-                  <img src="assets/images/eye.png" alt="">
+                  <img src="@/assets/images/eye.png" alt="">
                   {{ item.reading_count }}
                 </span>
               </div>

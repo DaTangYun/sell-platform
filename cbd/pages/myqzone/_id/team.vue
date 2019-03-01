@@ -6,27 +6,29 @@
         <lefttab></lefttab>
       </div>
       <div class="myqzone-right">
-        <myteam></myteam>
+        <nuxt-child></nuxt-child>
       </div>
     </div>
   </div>
 </template>
 <script>
-import myteam from 'components/myqzoneComponents/myteam'
 import lefttab from 'components/myqzoneComponents/lefttabs'
 export default {
   components: {
-    lefttab,
-    myteam
+    lefttab
   },
   data() {
-    return {}
+    return {
+      showteam: true
+    }
   }
 }
 </script>
 <style lang='less' scoped>
 .myqzone-bottom {
   display: flex;
+  padding-bottom: 50px;
+  box-sizing: border-box;
   .myqzone-left {
     width: 248px;
     height: 711px;
@@ -43,6 +45,9 @@ export default {
       padding-left: 20px;
       margin-bottom: 10px;
     }
+  }
+  .myqzone-right {
+    position: relative;
   }
 }
 </style>

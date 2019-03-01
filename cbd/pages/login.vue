@@ -80,7 +80,6 @@ export default {
     margin: 0 auto;
     display: flex;
     height: 96px;
-    border-bottom: 1px solid #00a0e9;
     width: 100%;
     position: relative;
     input {

@@ -4,14 +4,15 @@
     <helpbox :wid="'950'" :head="'我的团队'">
       <div class="team">
         <ul>
-          <li v-for="(item,index) in dismyteam" :key="index" @click.stop="showdetail(item)">
+          <nuxt-link v-for="(item,index) in dismyteam" :key="index" tag="li" :to="{name: 'myqzone-id-team-td', params: {td: item.id,id: item.user_id}}">
             <div class="img">
               <img :src="item.image" alt="">
             </div>
             <p>
               {{ item.content }}
+              {{ item.id }}
             </p>
-          </li>
+          </nuxt-link>
         </ul>
       </div>
       <pagination
@@ -22,7 +23,8 @@
         @prev="handlecurrentchange"
         @next="handlecurrentchange"
       ></pagination>
-    </helpbox>  
+    </helpbox>
+    <nuxt-child />
   </div>
 </template>
 <script>
@@ -34,6 +36,9 @@ export default {
   components: {
     helpbox,
     pagination
+  },
+  meta: {
+    title: '团队详情'
   },
   data() {
     return {
@@ -64,9 +69,6 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.myteam()
-    },
-    showdetail(item) {
-      this.$emit('showdetail', item)
     }
   }
 }
