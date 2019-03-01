@@ -5,9 +5,12 @@
       个人中心
     </h3>
     <ul>
-      <nuxt-link v-for="(item,index) of leftlist" :key="index" tag="li" :to="`/myself/id${item.url}`">
+      <nuxt-link v-for="(item,index) of leftlist" :key="index" tag="li" :to="`/myself/${id}${item.url}`">
         {{ item.name }}
       </nuxt-link>
+      <li>
+        退出
+      </li>
     </ul>
   </div>
 </template>
@@ -23,7 +26,7 @@ export default {
           { name: '能帮会干', url: '/helpcando' },
           { name: '我的团队', url: '/myteam' },
           { name: '我的活动 ', url: '/myactive' },
-          { name: '我的交易', url: '/myjy' },
+          // { name: '我的交易', url: '/myjy' },
           { name: '我的评价', url: '/mypj' },
           { name: '安全设置', url: '/safe' },
           { name: '账号设置', url: '/zhsz' }

@@ -32,7 +32,7 @@
           <CanDoContent :dishelpdo="help"></CanDoContent>
         </CanDoBox>
         <div class="showMeRight">
-          <div v-if="helpmelist.length" class="q">
+          <div class="q">
             <helpme :helpmelist="helpmelistss"></helpme>
           </div>
           <WisdomBank :wis="'优惠活动'" class="preferential">

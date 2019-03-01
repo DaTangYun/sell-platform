@@ -41,12 +41,12 @@ export default {
       page: 1,
       limit: 6
     }
-  },
-  methods: {
-    handlehelp(item, index) {
-      console.log(item.id)
-    }
   }
+  // methods: {
+  //   handlehelp(item, index) {
+  //     console.log(item.id)
+  //   }
+  // }
 }
 </script>
 <style lang='less' scoped>

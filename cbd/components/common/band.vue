@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Band',
   data() {
@@ -34,7 +35,8 @@ export default {
       const reg = /myqzone/
       const flag = reg.test(this.$route.path)
       return this.$route.path === '/' || flag
-    }
+    },
+    ...mapGetters(['meta'])
   },
   watch: {
     $route(to, from) {
@@ -43,18 +45,14 @@ export default {
     hideband: 'hideband'
   },
   mounted() {
-    this.getBreadcrumb()
+    // this.getBreadcrumb()
+    window.addEventListener('beforeunload', this.getBread())
   },
   methods: {
-    getMeta() {
-      this.meat = this.$route.meta
-    },
-    getBreadcrumb() {
-      const history = JSON.parse(sessionStorage.getItem('HISTORY'))
-      // console.log(history)
-      if (!Array.isArray(history)) return
+    getMeta(arr) {
       let matched = this.$route.matched.filter((item, index) => {
-        item.title = history[index].title
+        // console.log(item)
+        item.title = arr[index].title
         return item
       })
       const first = matched[0]
@@ -68,8 +66,13 @@ export default {
       }
       this.levelList = matched
     },
-    hideband() {
-      // console.log(this.$route.path)
+    getBreadcrumb() {
+      const history = JSON.parse(sessionStorage.getItem('HISTORY'))
+      if (!Array.isArray(history)) return
+      this.getMeta(history)
+    },
+    getBread() {
+      this.getMeta(this.meta)
     }
   }
 }

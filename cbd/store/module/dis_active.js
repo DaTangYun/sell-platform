@@ -2,7 +2,8 @@ import api from '@/api/index'
 const disactive = {
   state: {
     activelist: [],
-    useractiveprofile: []
+    useractiveprofile: [],
+    activeprofil: {}
   },
   mutations: {
     setactivelist(state, data) {
@@ -10,6 +11,9 @@ const disactive = {
     },
     setuseractiveprofile(state, data) {
       state.useractiveprofile = data
+    },
+    setactiveprofil(state, data) {
+      state.activeprofil = data
     }
   },
   actions: {
@@ -28,9 +32,19 @@ const disactive = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const useractiveprofile = info.data.data
-        commit('setuseractiveprofile', useractiveprofile.userActive)
-        return useractiveprofile
+        const pro = info.data.data
+        commit('setuseractiveprofile', pro.userActive)
+        return pro
+      }
+    },
+    async activeprofillist({ commit }, params) {
+      const info = await api.disactive.getactiveprofile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const list = info.data.data
+        commit('setactiveprofil', list.active)
+        return list
       }
     }
   }

@@ -4,7 +4,8 @@ const cloudhead = {
     headlist: [],
     headcate: [],
     headtotal: 0,
-    headdetail: []
+    headdetail: [],
+    headprofile: {}
   },
   mutations: {
     setcloudHead(state, data) {
@@ -18,6 +19,9 @@ const cloudhead = {
     },
     setheaddetail(state, data) {
       state.headdetail = data
+    },
+    setheadprofile(state, data) {
+      state.headprofile = data
     }
   },
   actions: {
@@ -47,6 +51,16 @@ const cloudhead = {
         const headdetail = info.data.data
         commit('setheaddetail', headdetail.detail)
         return headdetail
+      }
+    },
+    async headprofile({ commit }, params) {
+      const info = await api.cloudhead.gettoplineprofile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const headprofile = info.data.data
+        commit('setheadprofile', headprofile.topline)
+        return headprofile
       }
     }
   }

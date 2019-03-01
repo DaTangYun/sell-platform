@@ -1,35 +1,41 @@
 <!--  -->
 <template>
   <div class="demand">
-    <!-- <send :send="{title:'发布新需求', path:'/submitxq'}"></send> -->
+    <send :send="{title:'发布新需求', path:'/submitxq'}"></send>
     <div class="demand-top">
       <span v-for="(item,index) in demand" :key="index">
         {{ item }}
       </span>
     </div>
     <ul class="demand-bottom">
-      <li v-for="(item1,index1) in demands" :key="index1">
+      <li v-for="(item1,index1) in helpmeprofile" :key="index1">
         <span>
-          标题标题标题标题标题
+          {{ item1.title }}}
         </span>
         <span>
-          2018-12-21
+          {{ item1.createtime }}}
         </span>
         <span>
-          1000.00以上
+          {{ item1.commission }}}以上
         </span>
         <span>
           面谈
         </span>
-        <span>
+        <!-- <span>
           0个参与
-        </span>
-        <span>
-          待审核
-        </span>
-        <span>
+        </span> -->
+        <div v-if="item.status === 2">
+          已审核
+        </div>
+        <div v-else-if="item.status === 1">
+          审核中
+        </div>
+        <div v-else-if="item.status === 0">
+          未审核
+        </div>
+        <!-- <span>
           待选择合作
-        </span>
+        </span> -->
         <div class="lidiv">
           <div>
             编辑
@@ -40,15 +46,28 @@
         </div>
       </li>
     </ul>
+    <div class="pag">
+      <pagination
+        :total="total"
+        :length="helpmeprofile.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
   </div>
 </template>
 <script>
-// import send from 'components/myselfComponents/send'
+import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
+import send from 'components/myselfComponents/send'
 export default {
   name: 'Demand',
-  // components: {
-  //   send
-  // },
+  components: {
+    pagination,
+    send
+  },
   data() {
     return {
       demand: [
@@ -56,12 +75,38 @@ export default {
         '发布时间',
         '佣金范围',
         '执行样式',
-        '交易状态',
+        // '交易状态',
         '状态',
-        '完成状态',
+        // '完成状态',
         '操作'
       ],
-      demands: [0, 1, 2]
+      page: 1,
+      limit: 6,
+      title: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['helpmeprofile'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.helpmeprofiles()
+    })
+  },
+  methods: {
+    async helpmeprofiles() {
+      const { page, limit, title } = this
+      const info = await this.$store.dispatch('helpmprofile', {
+        page,
+        limit,
+        title
+      })
+      console.log(this.helpmeprofile)
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.helpmeprofiles()
     }
   }
 }

@@ -7,31 +7,25 @@
       </span>
     </div>
     <ul class="demand-bottom">
-      <li v-for="(item1,index1) in abilityprofile" :key="index1">
+      <li v-for="(item1,index1) in useractiveprofile" :key="index1">
         <span>
           {{ item.desc }}
         </span>
         <span>
-          {{ item.price }}
+          满{{ item.prefer_acount }}减{{ item.min_acount }}
         </span>
         <span>
-          {{ item.title }}
-        </span>
-        <span>
-          {{ item.createtime }}
+          {{ item.start_time }}至{{ item.end_time }}
         </span>
         <div v-if="item.status === 2">
-          已审核
+          已使用
         </div>
         <div v-else-if="item.status === 1">
-          审核中
-        </div>
-        <div v-else-if="item.status === 0">
-          未审核
+          未使用
         </div>
         <div class="lidiv">
           <div>
-            编辑
+            使用
           </div>
           <div>
             删除
@@ -42,7 +36,7 @@
     <div class="pag">
       <pagination
         :total="total"
-        :length="abilityprofile.length"
+        :length="useractiveprofile.length"
         :pagesize="limit"
         @currentchange="handlecurrentchange"
         @prev="handlecurrentchange"
@@ -61,7 +55,7 @@ export default {
   },
   data() {
     return {
-      demand: ['交易标题', '价格', '服务类别', '成交时间', '状态', '操作'],
+      demand: ['标题', '优惠金额', '使用期限', '状态', '操作'],
       demands: [0, 1, 2],
       page: 1,
       limit: 4,
@@ -70,27 +64,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['abilityprofile'])
+    ...mapGetters(['useractiveprofile'])
   },
   mounted() {
     this.$nextTick(() => {
-      this.abilityprofiles()
+      this.userpro()
     })
   },
   methods: {
-    async abilityprofiles() {
-      const { page, limit, title } = this
-      const info = await this.$store.dispatch('abilityprofile', {
+    async userpro() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('useractiveprofile', {
         page,
-        limit,
-        title,
-        cate_id: this.$route.params.id
+        limit
       })
       this.total = info.total
     },
     handlecurrentchange(params) {
       this.page = params
-      this.abilityprofiles()
+      this.userpro()
     }
   }
 }

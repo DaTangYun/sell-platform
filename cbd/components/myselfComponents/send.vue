@@ -25,7 +25,7 @@ export default {
 <style lang='less' scoped>
 .send {
   position: absolute;
-  top: 18px;
+  top: -40px;
   right: 30px;
   padding: 0 20px;
   z-index: 999;

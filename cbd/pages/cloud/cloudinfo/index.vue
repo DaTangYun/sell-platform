@@ -23,7 +23,7 @@
                   {{ item.createtime }}
                 </span>
                 <span>
-                  <img src="assets/images/eye.png" alt="">
+                  <img src="@/assets/images/eye.png" alt="">
                   {{ item.reading_count }}
                 </span>
               </div>

@@ -1,19 +1,20 @@
 import axios from 'axios'
+import { Message } from 'element-ui'
 import base from '../api/base'
-const tip = msg => {
-  // this.$message.success({
-  //   message: '登录成功',
-  //   duration: 1000000
-  // })
+const tip = (msg, status) => {
+  Message[status]({
+    message: msg,
+    duration: 1000
+  })
 }
 const errorHandle = (status, other) => {
   switch (status) {
     // 404 请求不存在
     case 403:
-      tip('请升级为会员')
+      tip('请升级为会员', 'warning')
       break
     case 401:
-      tip('登录失效请重新登录')
+      tip('登录失效请重新登录', 'warning')
       break
     default:
       break

@@ -4,7 +4,8 @@ const cloudinfo = {
     cloudInfo: [],
     infolist: [],
     total: 0,
-    infodetail: []
+    infodetail: [],
+    infoprofile: {}
   },
   mutations: {
     setcloudInfo(state, data) {
@@ -18,6 +19,9 @@ const cloudinfo = {
     },
     setinfodetail(state, data) {
       state.infodetail = data
+    },
+    setinfoprofile(state, data) {
+      state.infoprofile = data
     }
   },
   actions: {
@@ -49,6 +53,16 @@ const cloudinfo = {
         const infodetail = info.data.data
         commit('setinfodetail', infodetail.detail)
         return infodetail
+      }
+    },
+    async infoprofile({ commit }, params) {
+      const info = await api.cloudinfo.getinfoprofile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const infoprofile = info.data.data
+        commit('setinfoprofile', infoprofile.message)
+        return infoprofile
       }
     }
   }

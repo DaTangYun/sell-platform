@@ -9,6 +9,10 @@ const cloudhead = {
   // 头条详情
   gettoplinedetail(params) {
     return axios.get('/api/topline/detail', { params })
+  },
+  // 头条列表-个人中心
+  gettoplineprofile(params) {
+    return axios.get('/api/topline/profile', { params })
   }
 }
 export default cloudhead

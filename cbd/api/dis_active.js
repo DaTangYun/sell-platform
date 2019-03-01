@@ -6,6 +6,10 @@ const disactive = {
   },
   getuseractiveprofile(params) {
     return axios.get('/api/user_active/profile', { params })
+  },
+  // 个人中心活动列表
+  getactiveprofile(params) {
+    return axios.get('/api/active/profile', { params })
   }
 }
 export default disactive

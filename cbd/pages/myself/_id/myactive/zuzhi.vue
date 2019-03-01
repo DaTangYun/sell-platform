@@ -7,7 +7,7 @@
       </span>
     </div>
     <ul class="demand-bottom">
-      <li v-for="(item1,index1) in abilityprofile" :key="index1">
+      <li v-for="(item1,index1) in activeprofil" :key="index1">
         <span>
           {{ item.desc }}
         </span>
@@ -42,7 +42,7 @@
     <div class="pag">
       <pagination
         :total="total"
-        :length="abilityprofile.length"
+        :length="activeprofil.length"
         :pagesize="limit"
         @currentchange="handlecurrentchange"
         @prev="handlecurrentchange"
@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      demand: ['交易标题', '价格', '服务类别', '成交时间', '状态', '操作'],
+      demand: ['标题', '优惠金额', '使用期限', '领取此时', '使用次数', '操作'],
       demands: [0, 1, 2],
       page: 1,
       limit: 4,
@@ -70,27 +70,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['abilityprofile'])
+    ...mapGetters(['activeprofil'])
   },
   mounted() {
     this.$nextTick(() => {
-      this.abilityprofiles()
+      this.activeprofils()
     })
   },
   methods: {
-    async abilityprofiles() {
-      const { page, limit, title } = this
-      const info = await this.$store.dispatch('abilityprofile', {
+    async activeprofils() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('activeprofillist', {
         page,
-        limit,
-        title,
-        cate_id: this.$route.params.id
+        limit
       })
       this.total = info.total
     },
     handlecurrentchange(params) {
       this.page = params
-      this.abilityprofiles()
+      this.activeprofils()
     }
   }
 }

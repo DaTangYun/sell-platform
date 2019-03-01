@@ -3,7 +3,9 @@ const helpwis = {
   state: {
     helpwis: [],
     caselist: [],
-    documentlist: []
+    documentlist: [],
+    documentprofile: {},
+    caseprofile: {}
   },
   mutations: {
     sethelpwis(state, data) {
@@ -14,6 +16,12 @@ const helpwis = {
     },
     setdocumentlist(state, data) {
       state.documentlist = data
+    },
+    setdocumentprofile(state, data) {
+      state.documentprofile = data
+    },
+    setcaseprofile(state, data) {
+      state.caseprofile = data
     }
   },
   actions: {
@@ -45,6 +53,26 @@ const helpwis = {
         const documentlist = info.data.data
         commit('setdocumentlist', documentlist)
         return documentlist
+      }
+    },
+    async documentprofile({ commit }, params) {
+      const info = await api.helpwis.getdocumentprofile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const documentprofile = info.data.data
+        commit('setdocumentprofile', documentprofile.cases)
+        return documentprofile
+      }
+    },
+    async caseprofile({ commit }, params) {
+      const info = await api.helpwis.getcasesprofile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const caseprofile = info.data.data
+        commit('setcaseprofile', caseprofile.cases)
+        return caseprofile
       }
     }
   }

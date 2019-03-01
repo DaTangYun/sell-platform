@@ -9,26 +9,20 @@
     <ul class="demand-bottom">
       <li v-for="(item1,index1) in abilityprofile" :key="index1">
         <span>
-          {{ item.desc }}
+          标题标题标题标题标题
         </span>
         <span>
-          {{ item.price }}
+          6.0元
         </span>
         <span>
-          {{ item.title }}
+          产品服务
         </span>
         <span>
-          {{ item.createtime }}
+          2018-12-19
         </span>
-        <div v-if="item.status === 2">
-          已审核
-        </div>
-        <div v-else-if="item.status === 1">
-          审核中
-        </div>
-        <div v-else-if="item.status === 0">
-          未审核
-        </div>
+        <span>
+          待审核
+        </span>
         <div class="lidiv">
           <div>
             编辑
@@ -61,7 +55,14 @@ export default {
   },
   data() {
     return {
-      demand: ['交易标题', '价格', '服务类别', '成交时间', '状态', '操作'],
+      demand: [
+        '交易名称',
+        '选择合作者',
+        '交易模式',
+        '成交时间',
+        '交易状态',
+        '操作'
+      ],
       demands: [0, 1, 2],
       page: 1,
       limit: 4,

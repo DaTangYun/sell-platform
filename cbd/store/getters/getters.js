@@ -94,6 +94,37 @@ const getters = {
   },
   images: state => {
     return state.common.images
+  },
+  // 头条列表个人中心
+  headprofile: state => {
+    return state.cloudhead.headprofile
+  },
+  meta: state => {
+    return state.common.meta
+  },
+  infoprofile: state => {
+    return state.cloudinfo.infoprofile
+  },
+  documentprofile: state => {
+    return state.helpwis.documentprofile
+  },
+  helpmeprofile: state => {
+    return state.dishelpme.helpmeprofile
+  },
+  // 案例个人中心
+  caseprofile: state => {
+    return state.helpwis.caseprofile
+  },
+  abilityprofile: state => {
+    return state.dishelpdo.abilityprofile
+  },
+  // 36
+  // 评论列表
+  abilitylists: state => {
+    return state.dishelpdo.abilitylists
+  },
+  activeprofil: state => {
+    return state.disactive.activeprofil
   }
 }
 export default getters

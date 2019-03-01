@@ -1,8 +1,39 @@
 <!--  -->
 <template>
   <div class="case">
+    <div class="send" @click="changeindex()">
+      发布新案例
+    </div>
     <div v-if="noIndex===0">
-      <mylist :demand="['标题','状态','操作']" :wid="'306'" :spans="['标题标题标题标题标题标题标题标题标题标题','待审核/已审核']" :wids="'306'" :caozuo="['详情','编辑','删除']"></mylist>
+      <div class="demand-top">
+        <span v-for="(item,index) in demand" :key="index">
+          {{ item }}
+        </span>
+      </div>
+      <ul class="demand-bottom">
+        <li v-for="(item1,index1) in caseprofile" :key="index1">
+          <span>
+            {{ item1.title }}}
+          </span>
+          <div v-if="item.status === 2">
+            已审核
+          </div>
+          <div v-else-if="item.status === 1">
+            审核中
+          </div>
+          <div v-else-if="item.status === 0">
+            未审核
+          </div>
+          <div class="lidiv">
+            <div>
+              编辑
+            </div>
+            <div>
+              删除
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
     <div v-if="noIndex===1" class="mycase">
       <el-form :label-position="'left'" label-width="80px">
@@ -40,7 +71,7 @@
         </el-form-item>
       </el-form>
       <div class="button">
-        <el-button type="primary">
+        <el-button type="primary" @click="cancel">
           确定
         </el-button>
         <el-button type="info" @click="cancel">
@@ -48,25 +79,63 @@
         </el-button>
       </div>
     </div>
+    <div class="pag">
+      <pagination
+        :total="total"
+        :length="caseprofile.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
   </div>
 </template>
 <script>
+import pagination from 'components/cloudComponents/pagination.vue'
 import { pcaa } from 'area-data'
-import mylist from 'components/myselfComponents/list'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Mycase',
   components: {
-    mylist
+    pagination
   },
   data() {
     return {
       cases: [0, 1, 2],
       noIndex: 0,
       selected: [],
-      pcaa: pcaa
+      pcaa: pcaa,
+      demand: ['标题', '状态', '操作'],
+      page: 1,
+      limit: 6,
+      title: '',
+      total: 0
     }
   },
+  computed: {
+    ...mapGetters(['caseprofile'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.caseprofiles()
+    })
+  },
   methods: {
+    async caseprofiles() {
+      const { page, limit, title } = this
+      const info = await this.$store.dispatch('caseprofile', {
+        page,
+        limit,
+        title
+      })
+      console.log(this.caseprofile)
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.caseprofiles()
+    },
     changeindex() {
       this.noIndex = 1
     },
@@ -78,55 +147,69 @@ export default {
 </script>
 <style lang='less' scoped>
 .case {
-  .send {
-    cursor: pointer;
-    position: absolute;
-    top: 12px;
-    right: 29px;
-    color: #00a0e9;
+  position: relative;
+}
+.send {
+  cursor: pointer;
+  position: absolute;
+  top: -42px;
+  right: 29px;
+  color: #00a0e9;
+}
+.demand-top {
+  background-color: #f1f2f6;
+  color: #747d8c;
+  height: 56px;
+  line-height: 56px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  span {
+    display: inline-block;
+    text-align: center;
+    width: 306px;
   }
-  ul {
+}
+.demand-bottom {
+  height: 904px;
+  li {
+    border-bottom: 1px dashed #e6e6e6;
+    height: 96px;
+    box-sizing: border-box;
     display: flex;
-    flex-wrap: wrap;
-    padding: 16px 16px 0;
-    box-sizing: border-box;
-    height: 950px;
-    li {
-      margin-right: 17px;
-      height: 223px;
-      &:last-child {
-        margin-right: 0;
-      }
-      .img {
-        width: 284px;
-        height: 201px;
-        background: rgba(179, 179, 179, 1);
-        border-radius: 6px;
-      }
-    }
-  }
-  .mycase {
-    box-sizing: border-box;
-    padding: 50px 0 0 38px;
-    .input {
-      width: 347px;
-    }
     span {
-      padding: 0 25px;
-      line-height: 30px;
-      display: inline-block;
-      height: 30px;
-      background: rgba(241, 242, 246, 1);
-      border-radius: 6px;
-      margin-right: 10px;
+      // padding: 0 23px;
+      width: 306px;
+      text-align: center;
+      line-height: 96px;
+      &:first-child {
+        width: 65px;
+        display: inline-block;
+        line-height: 20px;
+        margin-top: 25px;
+      }
+      &:nth-child(5) {
+        margin-left: 37px;
+      }
     }
-    .button {
-      padding-left: 80px;
-    }
-    .inputtext {
-      width: 730px;
-      height: 301px;
+    div {
+      margin-left: 10px;
+      cursor: pointer;
+      &:first-child {
+        color: #747d8c;
+        margin-top: 20px;
+        margin-bottom: 21px;
+        &:hover {
+          color: #00a0e9;
+        }
+      }
+      &:last-child {
+        color: #ff6b81;
+      }
     }
   }
+}
+.mycase {
+  box-sizing: border-box;
+  padding: 0 20px;
 }
 </style>

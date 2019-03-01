@@ -8,7 +8,8 @@ const common = {
     callme: {},
     usergister: {},
     usershowmeinfo: {},
-    images: {}
+    images: {},
+    meta: []
   },
   mutations: {
     setSlider(state, data) {
@@ -34,10 +35,14 @@ const common = {
     },
     setusershowmeinfo(state, data) {
       state.usershowmeinfo = data
+    },
+    setmeta(state, data) {
+      state.meta = data
     }
   },
   actions: {
-    async nuxtServerInit({ commit, req }) {
+    async nuxtServerInit({ commit }, { route }) {
+      commit('setmeta', route.meta)
       const info = await Promise.all([
         api.common.getSlider(),
         api.common.getLianjie(),

@@ -15,6 +15,14 @@ const helpwis = {
   // 文档列表
   getdocumentlist(params) {
     return axios.get('/api/document/lists', { params })
+  },
+  // 文档个人中心
+  getdocumentprofile(params) {
+    return axios.get('/api/document/profile', { params })
+  },
+  // 案例个人中心
+  getcasesprofile(params) {
+    return axios.get('/api/cases/profile', { params })
   }
 }
 export default helpwis

@@ -1,25 +1,31 @@
 <!--  -->
 <template>
   <div class="file">
-    <!-- <div class="send" @click="changeindex()">
+    <div class="send" @click="changeindex()">
       发布新文档
-    </div> -->
+    </div>
     <ul v-show="noIndex===0">
-      <li v-for="(item,index) in file" :key="index">
+      <li v-for="(item,index) in documentprofile" :key="index">
         <div class="file-left">
           <span>
-            合同       
+            {{ item.name }}     
           </span>
           <h4>
-            原文件：企业所得税征收鉴定方式表格
+            {{ item.title }}
           </h4>
           <span>
-            发布人昵称
+            {{ item.name }}
           </span>
         </div>
         <div class="file-right">
-          <div>
+          <div v-if="item.status === 2">
             已审核
+          </div>
+          <div v-else-if="item.status === 1">
+            审核中
+          </div>
+          <div v-else-if="item.status === 0">
+            未审核
           </div>
           <div>
             删除
@@ -58,7 +64,7 @@
         </el-form-item>
       </el-form>
       <div class="button">
-        <el-button type="primary">
+        <el-button type="primary" @click="submitwendang">
           确定
         </el-button>
         <el-button type="info">
@@ -66,24 +72,66 @@
         </el-button>
       </div>
     </div>
+    <div class="pag">
+      <pagination
+        :total="total"
+        :length="documentprofile.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
   </div>
 </template>
 <script>
+import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 import { pcaa } from 'area-data'
 export default {
   name: 'File',
+  components: {
+    pagination
+  },
   data() {
     return {
       file: [0, 1, 2, 3],
       noIndex: 0,
       biaoqian: ['合同', '合同', '合同', '合同'],
       selected: [],
-      pcaa: pcaa
+      pcaa: pcaa,
+      page: 1,
+      limit: 4,
+      total: 0
     }
   },
+  computed: {
+    ...mapGetters(['documentprofile'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.documentprofiles()
+    })
+  },
   methods: {
+    async documentprofiles() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('documentprofile', {
+        page,
+        limit,
+        cate_id: this.$route.params.id
+      })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.documentprofiles()
+    },
     changeindex(index) {
       this.noIndex = 1
+    },
+    submitwendang() {
+      this.noIndex = 0
     }
   }
 }
@@ -93,7 +141,7 @@ export default {
   .send {
     cursor: pointer;
     position: absolute;
-    top: 12px;
+    top: -42px;
     right: 29px;
     color: #00a0e9;
   }

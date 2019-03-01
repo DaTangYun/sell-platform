@@ -4,15 +4,69 @@
     <h4>
       我的评价
     </h4>
-    <pingjiacontent></pingjiacontent>
+    <ul class="mye">
+      <li v-for="(item,index) in abilitylists" :key="index">
+        <div class="top">
+          <h5>
+            {{ item.title }}
+          </h5>
+          <span>
+            {{ item.createtime }}
+          </span>
+        </div>
+        <p>
+          {{ item.content }}
+        </p>
+      </li>
+    </ul>
+    <pagination
+      :total="total"
+      :length="abilitylists.length"
+      :pagesize="limit"
+      @currentchange="handlecurrentchange"
+      @prev="handlecurrentchange"
+      @next="handlecurrentchange"
+    ></pagination>
   </div>
 </template>
 <script>
-import pingjiacontent from 'components/myselfComponents/pingjiacontent'
+import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Mypingjia',
   components: {
-    pingjiacontent
+    pagination
+  },
+  data() {
+    return {
+      page: 1,
+      limit: 4,
+      total: 0,
+      abilityid: 1
+    }
+  },
+  computed: {
+    ...mapGetters(['abilitylists'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.abilityl()
+    })
+  },
+  methods: {
+    async abilityl() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('abilityls', {
+        page,
+        limit,
+        ability_id: this.abilityid
+      })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.abilityl()
+    }
   }
 }
 </script>

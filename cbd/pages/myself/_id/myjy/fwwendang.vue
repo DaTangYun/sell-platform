@@ -1,15 +1,9 @@
 <!--  -->
 <template>
-  <div>
-    <file></file>
-  </div>
+  <div>222222222222222222</div>
 </template>
 <script>
-import file from 'components/myselfComponents/file'
 export default {
-  components: {
-    file
-  },
   data() {
     return {}
   }
