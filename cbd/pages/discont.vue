@@ -6,22 +6,26 @@
         <div class="left">
           <nuxt-child class="child" />
         </div>
-        <RightComponent></RightComponent>     
       </div>
     </div>
   </div>
 </template>
 <script>
-import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
-  components: {
-    RightComponent
-  },
   meta: {
     title: '带'
   },
   data() {
-    return {}
+    return {
+      show: 1
+    }
+  },
+  computed: {
+    showPath() {
+      const reg = /discont/
+      const flag = reg.test(this.$route.path)
+      return flag
+    }
   }
 }
 </script>
@@ -46,11 +50,11 @@ export default {
       position: relative;
     }
   }
-  .child {
-    top: 0px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  // .child {
+  //   top: 0px;
+  //   position: absolute;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  // }
 }
 </style>

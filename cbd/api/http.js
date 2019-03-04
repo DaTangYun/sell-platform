@@ -29,7 +29,6 @@ const instance = axios.create({
 // 请求头
 instance.defaults.headers.post['Content-type'] =
   'application/json;charset=UTF-8'
-
 // 每次请求有token携带Token
 instance.interceptors.request.use(
   config => {

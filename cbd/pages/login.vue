@@ -11,11 +11,11 @@
     </div>
     <div ref="loginFormRef" class="s-form">
       <div class="s-from-row">
-        <el-input v-model="loginForm.username" type="number" placeholder="用户名/手机号" autocomplete="off">
+        <el-input v-model="formmobile" type="number" placeholder="用户名/手机号" autocomplete="off">
         </el-input>
       </div>
       <div class="s-from-row">
-        <el-input v-model="loginForm.password" type="password" placeholder="登录密码" autocomplete="off">
+        <el-input v-model="formPassword" type="password" placeholder="登录密码" autocomplete="off">
         </el-input>
         <div class="forget" @click="handleGoReset">
           忘记密码？
@@ -28,7 +28,9 @@
   </div>
 </template>
 <script>
-import '../assets/js/validate.js'
+import { mapGetters } from 'vuex'
+import Validate from '../assets/js/validate'
+// const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   layout: 'login',
   data() {
@@ -36,16 +38,94 @@ export default {
       loginForm: {
         username: '',
         password: ''
-      }
+      },
+      formError: null,
+      formmobile: '',
+      formPassword: '',
+      redirectURL: '/',
+      mobile: 13023025235,
+      password: 123456,
+      path: ''
     }
   },
+  computed: {
+    ...mapGetters(['logindata'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initPath()
+    })
+  },
   methods: {
-    login() {},
+    initPath() {
+      const path = decodeURI(this.$route.query.authUrl)
+      console.log(path)
+      this.path = path
+    },
     handleGoReset() {
       this.$router.push('/reset')
     },
     handleGoRegister() {
       this.$router.push('/register')
+    },
+    async logindatas() {
+      const { mobile, password } = this
+      const info = await this.$store.dispatch('logindata', {
+        mobile,
+        password
+      })
+      console.log(info)
+    },
+    async login() {
+      // const mobile = this.formmobile
+      // const password = this.formPassword
+      const flag = this.validate()
+      if (!flag) {
+        return
+      }
+      await this.$store.dispatch('logindata', {
+        mobile: 18309297033,
+        password: 123456
+      })
+      // this.formmobile = ''
+      // this.formPassword = ''
+      // this.formError = null
+      if (this.path) {
+        console.log(this.path)
+        this.$router.push('/cloud')
+      } else {
+        this.$router.push('/')
+      }
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch('logout')
+      } catch (e) {
+        this.formError = e.message
+      }
+    },
+    validate() {
+      const mobile = this.formmobile
+      const password = this.formPassword
+      const phoneflag = Validate.validatePhone(mobile)
+      const space = Validate.validateSpace(password)
+      if (!phoneflag) {
+        this.$message({
+          message: '手机号码格式不正确',
+          type: 'warning',
+          duration: 2000
+        })
+        return false
+      }
+      if (space) {
+        this.$message({
+          message: '密码不能为空',
+          type: 'warning',
+          duration: 2000
+        })
+        return false
+      }
+      return true
     }
   }
 }

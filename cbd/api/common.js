@@ -23,6 +23,9 @@ const common = {
   },
   uploadimage(params) {
     return axios.post('/api/common/upload', qs.stringify(params))
+  },
+  getlogin(params) {
+    return axios.post('/api/user/login', qs.stringify(params))
   }
 }
 export default common

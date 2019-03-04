@@ -12,7 +12,8 @@ import lefttab from 'components/myselfComponents/lefttabs'
 export default {
   components: {
     lefttab
-  }
+  },
+  middleware: 'userAuth'
 }
 </script>
 <style lang='less' scoped>

@@ -3,7 +3,9 @@ const dishelpdo = {
   state: {
     dishelpdo: [],
     abilityprofile: {},
-    abilitylists: {}
+    abilitylists: {},
+    abilitydetail: {},
+    addcomment: {}
   },
   mutations: {
     setdishelpdo(state, data) {
@@ -14,6 +16,12 @@ const dishelpdo = {
     },
     setabilitylists(state, data) {
       state.abilitylists = data
+    },
+    setabilitydetails(state, data) {
+      state.abilitydetail = data
+    },
+    setaddcomment(state, data) {
+      state.addcomment = data
     }
   },
   actions: {
@@ -45,6 +53,27 @@ const dishelpdo = {
         const abilitylists = info.data.data
         commit('setabilitylists', abilitylists.comment)
         return abilitylists
+      }
+    },
+    async details({ commit }, params) {
+      const info = await api.dishelpdo.getabilitydetail({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const abilitydetail = info.data.data
+        commit('setabilitydetails', abilitydetail.data)
+        return abilitydetail
+      }
+    },
+    async addcom({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.dishelpdo.addcomment({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const addcomment = info.data.data
+        commit('setaddcomment', addcomment.data)
+        return addcomment
       }
     }
   }

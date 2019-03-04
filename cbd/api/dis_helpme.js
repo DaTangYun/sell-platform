@@ -5,6 +5,9 @@ const dishelpme = {
   },
   gethelpmeprofile(params) {
     return axios.get('/api/help_me/profile', { params })
+  },
+  gethelpdetail(params) {
+    return axios.get('/api/help_me/detail', { params })
   }
 }
 export default dishelpme

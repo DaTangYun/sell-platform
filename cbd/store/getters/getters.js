@@ -125,6 +125,22 @@ const getters = {
   },
   activeprofil: state => {
     return state.disactive.activeprofil
+  },
+  abilitydetail: state => {
+    return state.dishelpdo.abilitydetail
+  },
+  helpdetail: state => {
+    return state.dishelpme.helpdetail
+  },
+  // 添加评论
+  addcomment: state => {
+    return state.dishelpdo.addcomment
+  },
+  financedetail: state => {
+    return state.helpwis.financedetail
+  },
+  logindata: state => {
+    return state.common.logindata
   }
 }
 export default getters

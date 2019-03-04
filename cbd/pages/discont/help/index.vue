@@ -2,26 +2,39 @@
 <template>
   <div class="help">
     <div class="help-content">
-      <help :helplist="dishelp"></help>
+      <ul>
+        <nuxt-link v-for="(item,index) in dishelp" :key="index" tag="li" :to="{name: 'discont-help-id',params: {id: item.id}}">
+          <div>
+            <img :src="item.image" alt="">
+          </div>
+          <h5>                          
+            {{ item.title }}
+          </h5>
+          <span>
+            {{ item.desc }}         
+          </span>
+        </nuxt-link>
+      </ul>
       <pagination
         :total="total"
-        :length="helpmelist.length"
+        :length="dishelp.length"
         :pagesize="limit"
         @currentchange="handlecurrentchange"
         @prev="handlecurrentchange"
         @next="handlecurrentchange"
       ></pagination>
     </div>
+    <RightComponent></RightComponent>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import pagination from 'components/cloudComponents/pagination.vue'
-import help from 'components/cloudComponents/help.vue'
+import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
   components: {
     pagination,
-    help
+    RightComponent
   },
   meta: {
     title: '帮帮我'
@@ -29,7 +42,7 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 15,
+      limit: 12,
       total: 0,
       dishelp: []
     }
@@ -51,7 +64,7 @@ export default {
         title: '',
         userId: ''
       })
-      this.dishelp = this.helpmelist
+      this.dishelp = info.ability
       this.total = info.total
     },
     handlecurrentchange(params) {
@@ -65,6 +78,8 @@ export default {
 .help {
   display: flex;
   margin-bottom: 56px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
   .help-content {
     background-color: #fff;
     border-radius: 6px;
@@ -74,6 +89,37 @@ export default {
     padding-left: 25px;
     padding-top: 24px;
     margin-bottom: 10px;
+    padding-bottom: 50px;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        margin-bottom: 32px;
+        width: 284px;
+        margin-right: 20px;
+        box-sizing: border-box;
+        &:nth-child(3n) {
+          margin-right: 0px;
+        }
+        div {
+          height: 201px;
+          background: rgba(179, 179, 179, 1);
+          border-radius: 6px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        h5 {
+          color: #282d38;
+          line-height: 20px;
+        }
+        span {
+          color: #77808f;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 </style>

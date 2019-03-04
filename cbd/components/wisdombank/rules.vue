@@ -7,7 +7,7 @@
       </li>
     </ul>
     <ul class="rules-news">
-      <li v-for="(item,index) in helpwis.finance" :key="index" @click="handledetail(index)">
+      <li v-for="(item,index) in helpwis.finance" :key="index" @click="handledetail(item,index)">
         <div></div>
         <p>
           {{ item.title }}
@@ -64,9 +64,13 @@ export default {
     })
   },
   methods: {
-    handledetail(index) {
-      const id = 1
-      this.$router.push({ path: `/ruledetail/${id}`, query: { title: index } })
+    handledetail(item, index) {
+      console.log(item.id)
+      const id = item.id
+      this.$router.push({
+        path: `/ruledetail/${id}`,
+        query: { titel: item.title }
+      })
     },
     async financelist() {
       const { page, limit } = this

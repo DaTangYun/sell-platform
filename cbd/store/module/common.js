@@ -9,7 +9,8 @@ const common = {
     usergister: {},
     usershowmeinfo: {},
     images: {},
-    meta: []
+    meta: [],
+    logindata: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -38,6 +39,9 @@ const common = {
     },
     setmeta(state, data) {
       state.meta = data
+    },
+    setlogin(state, data) {
+      state.logindata = data
     }
   },
   actions: {
@@ -99,6 +103,16 @@ const common = {
         const images = info.data.data
         commit('setimages', images)
         return images
+      }
+    },
+    async logindata({ commit }, params) {
+      const info = await api.common.getlogin({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const login = info.data.data
+        commit('setlogin', login.data)
+        return login
       }
     }
   }

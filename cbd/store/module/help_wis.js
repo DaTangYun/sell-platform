@@ -5,7 +5,8 @@ const helpwis = {
     caselist: [],
     documentlist: [],
     documentprofile: {},
-    caseprofile: {}
+    caseprofile: {},
+    financedetail: {}
   },
   mutations: {
     sethelpwis(state, data) {
@@ -22,6 +23,9 @@ const helpwis = {
     },
     setcaseprofile(state, data) {
       state.caseprofile = data
+    },
+    setfinancedetail(state, data) {
+      state.financedetail = data
     }
   },
   actions: {
@@ -32,6 +36,7 @@ const helpwis = {
       if (info.data.code === api.CODE_OK && info.data.data) {
         const financelist = info.data.data
         commit('sethelpwis', financelist)
+        return financelist
       }
     },
     async caselist({ commit }, params) {
@@ -73,6 +78,16 @@ const helpwis = {
         const caseprofile = info.data.data
         commit('setcaseprofile', caseprofile.cases)
         return caseprofile
+      }
+    },
+    async financedetail({ commit }, params) {
+      const info = await api.helpwis.getfinancedetail({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const financedetail = info.data.data
+        commit('setfinancedetail', financedetail.detail)
+        return financedetail
       }
     }
   }

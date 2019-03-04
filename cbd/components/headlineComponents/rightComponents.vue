@@ -7,7 +7,7 @@
     <div class="wisdom">
       <wisdomBank :wis="'财经法规'">
       </wisdomBank>
-      <div v-if="helpmelist.length" class="e">
+      <div class="e">
         <helpme :helpmelist="hmlt"></helpme>
       </div>
     </div>

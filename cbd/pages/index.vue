@@ -33,7 +33,7 @@
         </CanDoBox>
         <div class="showMeRight">
           <div class="q">
-            <helpme :helpmelist="helpmelistss"></helpme>
+            <helpme v-if="helpmelist.length" :helpmelist="helpmelist"></helpme>
           </div>
           <WisdomBank :wis="'优惠活动'" class="preferential">
           </WisdomBank>
@@ -70,6 +70,7 @@ export default {
     jingdiananli,
     helpme
   },
+  middleware: 'auth',
   data() {
     return {
       canDoList: [0, 1, 2, 3, 4, 5],
@@ -96,6 +97,7 @@ export default {
       this.dishelpdos()
       this.helpmelists()
     })
+    console.log(this)
   },
   methods: {
     showMeMessage(data) {
@@ -141,7 +143,6 @@ export default {
         title: '',
         userId: ''
       })
-      this.helpmelistss = this.helpmelist
     }
   }
 }

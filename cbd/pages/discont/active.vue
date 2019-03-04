@@ -1,25 +1,29 @@
 <template>
   <div class="activity">
-    <activity :activelist="disactive"></activity>
-    <pagination
-      :total="total"
-      :length="activelist.length"
-      :pagesize="limit"
-      @currentchange="handlecurrentchange"
-      @prev="handlecurrentchange"
-      @next="handlecurrentchange"
-    ></pagination>
+    <div class="en">
+      <activity :activelist="disactive"></activity>
+      <pagination
+        :total="total"
+        :length="activelist.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
+    <RightComponent></RightComponent>
   </div>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
 import pagination from 'components/cloudComponents/pagination.vue'
 import activity from 'components/discontComponents/activity.vue'
+import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
   components: {
     pagination,
-    activity
+    activity,
+    RightComponent
   },
   meta: {
     title: '优惠活动'
@@ -27,7 +31,7 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 11,
+      limit: 9,
       total: 0,
       disactive: []
     }
@@ -50,7 +54,6 @@ export default {
         userId: ''
       })
       this.disactive = this.activelist.active
-      console.log(this.disactive)
       this.total = info.total
     },
     handlecurrentchange(params) {
@@ -67,5 +70,9 @@ export default {
   margin-right: 12px;
   box-sizing: border-box;
   padding-bottom: 24px;
+  display: flex;
+  .en {
+    width: 950px;
+  }
 }
 </style>

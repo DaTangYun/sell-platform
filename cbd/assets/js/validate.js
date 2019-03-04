@@ -1,10 +1,3 @@
-export const validatePhone = phone => {
-  const reg = /^1[3456789]\d{9}/
-  return reg.test(phone)
-}
-export const validateSpace = telephone => {
-  return telephone.trim() === ''
-}
 /**
  * 表单验证工具类
  */
@@ -45,5 +38,12 @@ export default class Validate {
    */
   static equalTo(value, param) {
     return value === param
+  }
+  static validatePhone = phone => {
+    const reg = /^1[3456789]\d{9}/
+    return reg.test(phone)
+  }
+  static validateSpace = telephone => {
+    return telephone.trim() === ''
   }
 }

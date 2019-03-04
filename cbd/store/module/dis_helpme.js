@@ -2,7 +2,8 @@ import api from '@/api/index'
 const dishelpme = {
   state: {
     helpmelist: [],
-    helpmeprofile: {}
+    helpmeprofile: {},
+    helpdetail: {}
   },
   mutations: {
     sethelpmelist(state, data) {
@@ -10,6 +11,9 @@ const dishelpme = {
     },
     sethelpmprofile(state, data) {
       state.helpmeprofile = data
+    },
+    sethelpmdetail(state, data) {
+      state.helpdetail = data
     }
   },
   actions: {
@@ -19,7 +23,7 @@ const dishelpme = {
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
         const helpmelist = info.data.data
-        commit('sethelpmelist', helpmelist.cases)
+        commit('sethelpmelist', helpmelist.ability)
         return helpmelist
       }
     },
@@ -31,6 +35,16 @@ const dishelpme = {
         const helpmeprofile = info.data.data
         commit('sethelpmprofile', helpmeprofile.cases)
         return helpmeprofile
+      }
+    },
+    async helpdetail({ commit }, params) {
+      const info = await api.dishelpme.gethelpdetail({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const helpdetail = info.data.data
+        commit('sethelpmdetail', helpdetail.detail)
+        return helpdetail
       }
     }
   }
