@@ -16,6 +16,7 @@ const errorHandle = (status, other) => {
       break
     case 401:
       tip('登录失效请重新登录', 'warning')
+      window.location.href = '/login'
       break
     default:
       break
