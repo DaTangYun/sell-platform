@@ -19,7 +19,7 @@ const getters = {
   },
   // 首页秀秀我
   showme: state => {
-    return state.showme.showmeList
+    return state.showme.showmelist
   },
   showerror: state => {
     return state.showme.error
