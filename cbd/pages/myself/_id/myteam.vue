@@ -1,14 +1,13 @@
 <!--  -->
 <template>
   <div class="safe">
-    <myteam></myteam>
+    <nuxt-child></nuxt-child>
   </div>
 </template>
 <script>
-import myteam from 'components/myselfComponents/safe'
 export default {
-  components: {
-    myteam
+  meta: {
+    title: '我的团队'
   },
   data() {
     return {}

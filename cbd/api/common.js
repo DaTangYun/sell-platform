@@ -34,6 +34,10 @@ const common = {
   // 退出
   getlogout(params) {
     return axios.post('/api/user/logout', qs.stringify(params))
+  },
+  // 查看自己的评论
+  getusercommit(params) {
+    return axios.get('/api/user_comment/profile', { params })
   }
 }
 export default common

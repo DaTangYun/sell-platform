@@ -10,16 +10,16 @@
     <div class="team-form">
       <el-form label-width="80px">
         <el-form-item label="团队名称">
-          {{ myteamdetail.detail.team_name }}
+          {{ myteamdetail.team_name }}
         </el-form-item>
         <el-form-item label="团队图片">
           <div class="teamimg">
-            <img :src="myteamdetail.detail.image" alt="">
+            <img :src="myteamdetail.image" alt="">
           </div>
         </el-form-item>
         <el-form-item label="团队简介">
           <p>
-            {{ myteamdetail.detail.content }}
+            {{ myteamdetail.content }}
           </p>
         </el-form-item>
       </el-form>

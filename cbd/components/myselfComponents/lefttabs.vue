@@ -22,10 +22,10 @@ export default {
       type: Array,
       default() {
         return [
-          { name: '我的发布', url: '/mypublish' },
+          { name: '我的发布', url: '/mypublish/myhead' },
           { name: '能帮会干', url: '/helpcando' },
           { name: '我的团队', url: '/myteam' },
-          { name: '我的活动 ', url: '/myactive' },
+          { name: '我的活动 ', url: '/myactive/zuzhi' },
           // { name: '我的交易', url: '/myjy' },
           { name: '我的评价', url: '/mypj' },
           { name: '安全设置', url: '/safe' },

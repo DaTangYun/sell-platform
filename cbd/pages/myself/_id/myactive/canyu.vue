@@ -53,6 +53,9 @@ export default {
   components: {
     pagination
   },
+  meta: {
+    title: '我参与的活动'
+  },
   data() {
     return {
       demand: ['标题', '优惠金额', '使用期限', '状态', '操作'],

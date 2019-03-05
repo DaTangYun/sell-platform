@@ -147,6 +147,17 @@ const getters = {
   },
   loginout: state => {
     return state.common.loginout
+  },
+  // 查看自己评论
+  usercommit: state => {
+    return state.common.usercommit
+  },
+  teampro: state => {
+    return state.dismyteam.teampro
+  },
+  teamedit: state => {
+    return state.dismyteam.teamedit
   }
+  // 48
 }
 export default getters

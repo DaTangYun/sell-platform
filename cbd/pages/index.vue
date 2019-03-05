@@ -97,7 +97,6 @@ export default {
       this.dishelpdos()
       this.helpmelists()
     })
-    console.log(this)
   },
   methods: {
     showMeMessage(data) {

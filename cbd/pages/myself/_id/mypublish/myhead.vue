@@ -54,6 +54,9 @@ export default {
     send,
     pagination
   },
+  meta: {
+    title: '头条'
+  },
   data() {
     return {
       page: 1,

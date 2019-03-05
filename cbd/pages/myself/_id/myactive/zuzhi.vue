@@ -9,26 +9,20 @@
     <ul class="demand-bottom">
       <li v-for="(item1,index1) in activeprofil" :key="index1">
         <span>
-          {{ item.desc }}
+          {{ item1.title }}
         </span>
         <span>
-          {{ item.price }}
+          {{ item1.min_amount }}元
         </span>
         <span>
-          {{ item.title }}
+          {{ item1.start_time }}至{{ item1.end_time }}
         </span>
         <span>
-          {{ item.createtime }}
+          {{ item1.active_count }}
         </span>
-        <div v-if="item.status === 2">
-          已审核
-        </div>
-        <div v-else-if="item.status === 1">
-          审核中
-        </div>
-        <div v-else-if="item.status === 0">
-          未审核
-        </div>
+        <span>
+          {{ item1.used_active_count }}
+        </span>
         <div class="lidiv">
           <div>
             编辑
@@ -59,9 +53,12 @@ export default {
   components: {
     pagination
   },
+  meta: {
+    title: '我组织的活动'
+  },
   data() {
     return {
-      demand: ['标题', '优惠金额', '使用期限', '领取此时', '使用次数', '操作'],
+      demand: ['标题', '优惠金额', '使用期限', '领取次数', '使用次数', '操作'],
       demands: [0, 1, 2],
       page: 1,
       limit: 4,
@@ -94,6 +91,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .secondpart {
   background-color: #fff;
 }
@@ -107,6 +106,11 @@ export default {
   height: 56px;
   line-height: 56px;
   span {
+    &:first-child {
+      display: inline-block;
+      width: 146px;
+      text-align: center;
+    }
     padding: 0 40px;
   }
 }
@@ -121,20 +125,26 @@ export default {
       padding: 0 23px;
       padding-right: 40px;
       line-height: 96px;
+      width: 75px;
+      text-align: center;
       &:first-child {
-        width: 65px;
+        width: 175px;
         display: inline-block;
-        line-height: 20px;
-        margin-top: 25px;
-        margin-right: 35px;
+        .ellipsis();
       }
       &:nth-child(2) {
         margin-right: 10px;
         color: #ff6b81;
+        padding: 0;
+        min-width: 135px;
+        text-align: center;
       }
       &:nth-child(3) {
-        margin-right: 20px;
-        padding-right: 30px;
+        padding-right: 0;
+        width: 135px;
+        line-height: 30px;
+        text-align: center;
+        padding-top: 20px;
       }
       &:nth-child(5) {
         margin-right: 20px;

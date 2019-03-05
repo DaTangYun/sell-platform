@@ -1,17 +1,14 @@
 <!--  -->
 <template>
   <div>
-    <demand></demand>
+    <myteam></myteam>
   </div>
 </template>
 <script>
-import demand from 'components/myselfComponents/demand'
+import myteam from 'components/myselfComponents/myteam'
 export default {
   components: {
-    demand
-  },
-  meta: {
-    title: '需求'
+    myteam
   },
   data() {
     return {}

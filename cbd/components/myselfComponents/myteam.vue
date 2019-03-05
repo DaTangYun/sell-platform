@@ -17,21 +17,20 @@
         </span>
       </div>
       <ul class="demand-bottom">
-        <li v-for="(item,index1) in demands" :key="index1">
+        <li v-for="(item,index1) in teampro" :key="index1">
           <span>
-            公文撰写
+            {{ item.team_name }}
           </span>
           <span>
-            1
+            {{ item.apply_count }}
           </span>
           <span>
-            2018-12-01
-            20:36:41
+            {{ item.createtime }}
           </span>
           <div class="lidiv">
-            <div @click="myteamevent">
+            <nuxt-link tag="div" :to="{name: 'myself-id-myteam-jianjie', params: {id: item.user_id,jianjie: item.id}}">
               详情
-            </div>
+            </nuxt-link>
             <div @click="tan">
               编辑
             </div>
@@ -51,33 +50,7 @@
               <img src="~assets/images/close.png" alt="">
             </div>
           </div>
-          <div class="tuanduibo">
-            <el-form :label-position="labelPosition" :model="form" label-width="80px">
-              <el-form-item label="团队名称">
-                <div class="input">
-                  <el-input v-model="form.input"></el-input>
-                </div>
-              </el-form-item>
-              <el-form-item label="团队图片">
-                <div class="inputimg">
-                  <el-upload
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                  >
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                  </el-upload>
-                </div>
-              </el-form-item>
-              <el-form-item label="团队简介">
-                <div class="inputtext">
-                  <el-input v-model="form.textarea" :autosize="{ minRows: 8, maxRows: 10}" type="textarea"></el-input>
-                </div>
-              </el-form-item>
-            </el-form>
-          </div>
+
           <div class="button">
             <el-button type="primary" @click="remember">
               提交
@@ -90,6 +63,7 @@
 </template>
 <script>
 import myteamdetail from 'components/myselfComponents/mytemdetail'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Myteam',
   components: {
@@ -111,13 +85,35 @@ export default {
       form: {
         textarea: '',
         input: ''
-      }
+      },
+      page: 1,
+      limit: 5
     }
+  },
+  computed: {
+    ...mapGetters(['teampro'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.dismyteamp()
+    })
   },
   created() {
     this.init()
   },
   methods: {
+    async dismyteamp() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('dismyteampro', {
+        page,
+        limit
+      })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.dismyteamp()
+    },
     tan() {
       this.flag = !this.flag
     },

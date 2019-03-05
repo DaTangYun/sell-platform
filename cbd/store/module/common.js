@@ -14,7 +14,8 @@ const common = {
     meta: [],
     logindata: {},
     sms: {},
-    loginout: {}
+    loginout: {},
+    usercommit: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -52,6 +53,9 @@ const common = {
     },
     setloginout(state, data) {
       state.loginout = data
+    },
+    setusercomment(state, data) {
+      state.usercommit = data
     }
   },
   actions: {
@@ -146,6 +150,16 @@ const common = {
         const loginout = info.data
         commit('setloginout', loginout)
         return loginout
+      }
+    },
+    async usercommit({ commit }, params) {
+      const info = await api.common.getusercommit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const usercomment = info.data.data
+        commit('setusercomment', usercomment.comment)
+        return usercomment
       }
     }
   }

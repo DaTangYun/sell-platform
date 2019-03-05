@@ -54,6 +54,9 @@ export default {
     send,
     pagination
   },
+  meta: {
+    title: '信息'
+  },
   data() {
     return {
       page: 1,

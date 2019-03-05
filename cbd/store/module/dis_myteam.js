@@ -2,7 +2,9 @@ import api from '@/api/index'
 const dismyteam = {
   state: {
     dismyteam: [],
-    myteamdetail: []
+    myteamdetail: [],
+    teampro: {},
+    teamedit: {}
   },
   mutations: {
     setdismyteam(state, data) {
@@ -10,6 +12,12 @@ const dismyteam = {
     },
     setmyteamdetail(state, data) {
       state.myteamdetail = data
+    },
+    setteampro(state, data) {
+      state.teampro = data
+    },
+    setteamedit(state, data) {
+      state.teamedit = data
     }
   },
   actions: {
@@ -31,6 +39,26 @@ const dismyteam = {
         const myteamdetail = info.data.data
         commit('setmyteamdetail', myteamdetail)
         return myteamdetail
+      }
+    },
+    async dismyteampro({ commit }, params) {
+      const info = await api.dismyteam.getteampro({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const teampro = info.data.data
+        commit('setteampro', teampro.team)
+        return teampro
+      }
+    },
+    async dismyteamedit({ commit }, params) {
+      const info = await api.dismyteam.getteamedit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const teamedit = info.data.data
+        commit('setteamedit', teamedit.data)
+        return teamedit
       }
     }
   }

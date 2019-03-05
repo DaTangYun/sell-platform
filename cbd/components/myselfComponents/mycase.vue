@@ -13,17 +13,17 @@
       <ul class="demand-bottom">
         <li v-for="(item1,index1) in caseprofile" :key="index1">
           <span>
-            {{ item1.title }}}
+            {{ item1.title }}
           </span>
-          <div v-if="item.status === 2">
+          <span v-if="item1.status === '2'">
             已审核
-          </div>
-          <div v-else-if="item.status === 1">
+          </span>
+          <span v-else-if="item1.status === '1'">
             审核中
-          </div>
-          <div v-else-if="item.status === 0">
+          </span>
+          <span v-else-if="item1.status === '0'">
             未审核
-          </div>
+          </span>
           <div class="lidiv">
             <div>
               编辑
@@ -129,7 +129,6 @@ export default {
         limit,
         title
       })
-      console.log(this.caseprofile)
       this.total = info.total
     },
     handlecurrentchange(params) {
@@ -182,7 +181,6 @@ export default {
       text-align: center;
       line-height: 96px;
       &:first-child {
-        width: 65px;
         display: inline-block;
         line-height: 20px;
         margin-top: 25px;
@@ -193,6 +191,8 @@ export default {
     }
     div {
       margin-left: 10px;
+      width: 306px;
+      text-align: center;
       cursor: pointer;
       &:first-child {
         color: #747d8c;

@@ -22,5 +22,6 @@ export default {
   margin-left: 12px;
   box-sizing: border-box;
   padding: 20px;
+  margin-bottom: 50px;
 }
 </style>

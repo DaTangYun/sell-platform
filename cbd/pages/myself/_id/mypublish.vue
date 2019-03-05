@@ -28,5 +28,6 @@ export default {
   background-color: #fff;
   margin-left: 20px;
   border-radius: 6px;
+  margin-bottom: 20px;
 }
 </style>

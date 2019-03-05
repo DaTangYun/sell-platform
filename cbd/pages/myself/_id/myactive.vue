@@ -14,6 +14,9 @@ export default {
     // myactivity,
     Toptabs
   },
+  meta: {
+    title: '我的活动'
+  },
   data() {
     return {
       toplist: [
