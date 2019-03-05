@@ -13,7 +13,10 @@ export default {
   components: {
     lefttab
   },
-  middleware: 'userAuth'
+  meta: {
+    title: '个人中心'
+  },
+  middleware: 'auth'
 }
 </script>
 <style lang='less' scoped>

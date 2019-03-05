@@ -12,9 +12,17 @@
             <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
               认证
             </nuxt-link>
-            <nuxt-link v-show="nickname.name" to="/myself" style="color:#039be5">
-              昵称
-            </nuxt-link>
+            <div v-show="name" style="color:#039be5" class="dengluname">
+              {{ name }}
+              <ul class="user">
+                <nuxt-link :to="`/myself/${userid}`" tag="li">
+                  个人中心
+                </nuxt-link>
+                <li @click="getloginout">
+                  退出
+                </li>
+              </ul>
+            </div>
             <div v-show="nickname.login">
               <nuxt-link to="/login">
                 登录
@@ -151,11 +159,13 @@ export default {
       nickname: {
         name: true,
         login: true
-      }
+      },
+      userid: 0,
+      name: ''
     }
   },
   computed: {
-    ...mapGetters(['banquan'])
+    ...mapGetters(['banquan', 'loginout'])
   },
   watch: {
     $route(route) {
@@ -172,10 +182,23 @@ export default {
   },
   mounted() {
     this.getLocation()
+    this.$nextTick(() => {
+      this.loginda()
+    })
   },
   methods: {
     handleSelect(key, keyPath) {
       // console.log(key, keyPath)
+    },
+    loginda() {
+      const userinfo = JSON.parse(localStorage.getItem('USERINFO'))
+      if (userinfo) {
+        this.userid = userinfo.user_id
+        this.name = userinfo.nickname
+        this.nickname.login = false
+      } else {
+        this.nickname.login = true
+      }
     },
     changeshozhi() {
       this.showDialog = true
@@ -191,6 +214,13 @@ export default {
           this.city = city
         }
       } catch (error) {}
+    },
+    async getloginout() {
+      const info = await this.$store.dispatch('loginout')
+      this.$message({
+        type: 'warning',
+        message: info.msg
+      })
     }
   }
 }
@@ -199,6 +229,30 @@ export default {
 .active-link {
   border-bottom: 1px solid #00a0e9;
   color: #00a0e9;
+}
+.dengluname:hover .user {
+  display: block !important;
+}
+.user {
+  position: absolute;
+  top: 50px;
+  right: 36px;
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border: 1px solid #f1f2f6;
+  z-index: 9999;
+  display: none;
+  padding: 0 10px;
+  box-sizing: border-box;
+  li {
+    width: 100%;
+    height: 50px;
+    color: #000;
+    font-size: 16px;
+    line-height: 50px;
+    text-align: center;
+  }
 }
 header {
   background-color: #fff;

@@ -13,6 +13,9 @@ export default {
   components: {
     toptabs
   },
+  meta: {
+    title: '我的发布'
+  },
   data() {
     return {}
   }

@@ -45,13 +45,14 @@ export default {
     hideband: 'hideband'
   },
   mounted() {
-    // this.getBreadcrumb()
-    window.addEventListener('beforeunload', this.getBread())
+    this.$nextTick(() => {
+      window.addEventListener('beforeunload', this.getBread())
+      this.getBreadcrumb()
+    })
   },
   methods: {
     getMeta(arr) {
       let matched = this.$route.matched.filter((item, index) => {
-        // console.log(item)
         item.title = arr[index].title
         return item
       })

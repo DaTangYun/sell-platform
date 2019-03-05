@@ -10,16 +10,16 @@
     <div class="s-form">
       <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
         <el-form-item label="手机号">
-          <el-input v-model="formLabelAlign.name"></el-input>
+          <el-input v-model="formLabelAlign.mobile"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="formLabelAlign.region"></el-input>
+          <el-input v-model="formLabelAlign.password" type="password"></el-input>
         </el-form-item>
         <el-form-item label="确认密码">
-          <el-input v-model="formLabelAlign.type"></el-input>
+          <el-input v-model="formLabelAlign.repassword" type="password"></el-input>
         </el-form-item>
         <el-form-item label="验证码">
-          <el-input v-model="formLabelAlign.type"></el-input>
+          <el-input v-model="formLabelAlign.captcha"></el-input>
           <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
             获取验证码
           </span>
@@ -51,14 +51,15 @@ export default {
       val: [],
       labelPosition: 'left',
       formLabelAlign: {
-        name: '',
-        region: '',
-        type: ''
+        mobile: '',
+        password: '',
+        repassword: '',
+        captcha: ''
       }
     }
   },
   computed: {
-    ...mapGetters(['usergister'])
+    ...mapGetters(['usergister', 'sms'])
   },
   methods: {
     getLogin() {
@@ -68,8 +69,10 @@ export default {
           duration: 3000
         })
       }
+      this.getregister()
     },
     getAuthCode() {
+      this.getsms()
       this.sendAuthCode = false
       this.time = 60
       const timetimer = setInterval(() => {
@@ -79,6 +82,23 @@ export default {
           clearInterval(timetimer)
         }
       }, 1000)
+    },
+    async getregister() {
+      const { mobile, password, repassword, captcha } = this
+      const info = await this.$store.dispatch('logindata', {
+        mobile,
+        password,
+        repassword,
+        captcha
+      })
+      console.log(info)
+    },
+    async getsms() {
+      const info = await this.$store.dispatch('smsdata', {
+        mobile: this.formLabelAlign.mobile,
+        event: 'register'
+      })
+      console.log(info)
     }
   }
 }

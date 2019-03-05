@@ -1,3 +1,5 @@
+// import Cookie from 'js-cookie'
+import cookie from '@/assets/js/cookie'
 import api from '@/api/index'
 const common = {
   state: {
@@ -10,7 +12,9 @@ const common = {
     usershowmeinfo: {},
     images: {},
     meta: [],
-    logindata: {}
+    logindata: {},
+    sms: {},
+    loginout: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -42,6 +46,12 @@ const common = {
     },
     setlogin(state, data) {
       state.logindata = data
+    },
+    setsms(state, data) {
+      state.sms = data
+    },
+    setloginout(state, data) {
+      state.loginout = data
     }
   },
   actions: {
@@ -110,9 +120,32 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const login = info.data.data
-        commit('setlogin', login.data)
-        return login
+        const { userinfo } = info.data.data
+        commit('setlogin', userinfo)
+        localStorage.setItem('USERINFO', JSON.stringify(userinfo))
+        cookie.set(userinfo.token)
+        return userinfo
+      }
+    },
+    async smsdata({ commit }, params) {
+      const info = await api.common.getsmssend({
+        ...params
+      })
+      console.log(info)
+      if (info.data.code === api.CODE_OK) {
+        const sms = info.data
+        commit('setsms', sms)
+        return sms
+      }
+    },
+    async loginout({ commit }, params) {
+      const info = await api.common.getlogout({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK) {
+        const loginout = info.data
+        commit('setloginout', loginout)
+        return loginout
       }
     }
   }
