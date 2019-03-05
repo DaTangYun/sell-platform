@@ -1,13 +1,8 @@
 <!--  -->
 <template>
-  <div class="secondpart">
-    <div class="demand-top">
-      <span v-for="(item,index) in demand" :key="index">
-        {{ item }}
-      </span>
-    </div>
+  <div class="">
     <ul class="demand-bottom">
-      <li v-for="(item1,index1) in activeprofil" :key="index1">
+      <li v-for="(item1,index1) in useractiveprofile" :key="index1">
         <span>
           {{ item1.desc }}
         </span>
@@ -16,12 +11,6 @@
         </span>
         <span>
           {{ item1.start_time }}至{{ item1.end_time }}
-        </span>
-        <span>
-          {{ item1.active_count }}
-        </span>
-        <span>
-          {{ item1.used_active_count }}
         </span>
         <span v-if="item1.status === '0'">
           已使用
@@ -39,87 +28,27 @@
         </div>
       </li>
     </ul>
-    <div class="pag">
-      <pagination
-        :total="total"
-        :length="activeprofil.length"
-        :pagesize="limit"
-        @currentchange="handlecurrentchange"
-        @prev="handlecurrentchange"
-        @next="handlecurrentchange"
-      ></pagination>
-    </div>
   </div>
 </template>
 <script>
-import pagination from 'components/cloudComponents/pagination.vue'
-import { mapGetters } from 'vuex'
 export default {
-  name: 'Secondpart',
-  components: {
-    pagination
-  },
-  meta: {
-    title: '我组织的活动'
+  name: 'Myactivepart',
+  props: {
+    useractiveprofile: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
   data() {
-    return {
-      demand: ['标题', '优惠金额', '使用期限', '领取次数', '使用次数', '操作'],
-      demands: [0, 1, 2],
-      page: 1,
-      limit: 4,
-      total: 0,
-      title: ''
-    }
-  },
-  computed: {
-    ...mapGetters(['activeprofil'])
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.activeprofils()
-    })
-  },
-  methods: {
-    async activeprofils() {
-      const { page, limit } = this
-      const info = await this.$store.dispatch('activeprofillist', {
-        page,
-        limit
-      })
-      this.total = info.total
-    },
-    handlecurrentchange(params) {
-      this.page = params
-      this.activeprofils()
-    }
+    return {}
   }
 }
 </script>
 <style lang='less' scoped>
 @import '~style/variable.less';
 @import '~style/mixin.less';
-.secondpart {
-  background-color: #fff;
-}
-.secondpart-top {
-  position: relative;
-  height: 73px;
-}
-.demand-top {
-  background-color: #f1f2f6;
-  color: #747d8c;
-  height: 56px;
-  line-height: 56px;
-  span {
-    &:first-child {
-      display: inline-block;
-      width: 146px;
-      text-align: center;
-    }
-    padding: 0 40px;
-  }
-}
 .demand-bottom {
   height: 904px;
   li {

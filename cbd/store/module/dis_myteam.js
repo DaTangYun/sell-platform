@@ -57,7 +57,7 @@ const dismyteam = {
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
         const teamedit = info.data.data
-        commit('setteamedit', teamedit.data)
+        commit('setteamedit', teamedit.row)
         return teamedit
       }
     }

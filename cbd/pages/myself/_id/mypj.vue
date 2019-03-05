@@ -10,6 +10,9 @@ export default {
   components: {
     mypingjia
   },
+  meta: {
+    title: '我的评价'
+  },
   data() {
     return {}
   }

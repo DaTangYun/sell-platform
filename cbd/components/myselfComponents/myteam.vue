@@ -28,7 +28,7 @@
             {{ item.createtime }}
           </span>
           <div class="lidiv">
-            <nuxt-link tag="div" :to="{name: 'myself-id-myteam-jianjie', params: {id: item.user_id,jianjie: item.id}}">
+            <nuxt-link tag="div" :to="{name: 'myself-id-myteam-teamid-jianjie', params: {id: item.user_id,teamid: item.id}}">
               详情
             </nuxt-link>
             <div @click="tan">
