@@ -1,3 +1,4 @@
+import cookie from '@/assets/js/cookie'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import base from '../api/base'
@@ -27,8 +28,25 @@ const instance = axios.create({
   baseURL: host
 })
 // 请求头
-instance.defaults.headers.post['Content-type'] =
-  'application/json;charset=UTF-8'
+const gettoken = cookie.get()
+console.log(gettoken)
+if (process.client) {
+  if (gettoken) {
+    console.log(gettoken)
+    instance.defaults.headers = {
+      token: gettoken,
+      post: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    }
+  } else {
+    instance.defaults.headers = {
+      post: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    }
+  }
+}
 // 每次请求有token携带Token
 instance.interceptors.request.use(
   config => {

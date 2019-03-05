@@ -84,17 +84,17 @@ export default {
         return
       }
       await this.$store.dispatch('logindata', {
-        mobile: 18309297033,
+        mobile: 18309297035,
         password: 123456
       })
       // this.formmobile = ''
       // this.formPassword = ''
       // this.formError = null
       if (this.path) {
-        console.log(this.path)
-        this.$router.push('/cloud')
+        this.$router.replace(this.path)
+        this.$message.success('登录成功')
       } else {
-        this.$router.push('/')
+        this.$router.replace('/')
       }
     },
     async logout() {

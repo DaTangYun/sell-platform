@@ -26,6 +26,14 @@ const common = {
   },
   getlogin(params) {
     return axios.post('/api/user/login', qs.stringify(params))
+  },
+  // 获取验证码
+  getsmssend(params) {
+    return axios.post('/api/sms/send', qs.stringify(params))
+  },
+  // 退出
+  getlogout(params) {
+    return axios.post('/api/user/logout', qs.stringify(params))
   }
 }
 export default common

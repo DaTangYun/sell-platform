@@ -141,6 +141,12 @@ const getters = {
   },
   logindata: state => {
     return state.common.logindata
+  },
+  sms: state => {
+    return state.common.sms
+  },
+  loginout: state => {
+    return state.common.loginout
   }
 }
 export default getters

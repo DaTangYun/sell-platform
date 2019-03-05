@@ -1,7 +1,7 @@
 <!--  -->
 <template>
-  <div>
-    <div v-swiper:mySwiper="swiperOption">
+  <div v-loading="loading" class="slider">
+    <div v-if="headlist.length" v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <ul>
@@ -31,18 +31,38 @@ export default {
         loop: true,
         slidesPerView: 'auto',
         centeredSlides: true,
-        spaceBetween: 30
-      }
+        spaceBetween: 30,
+        observer: true,
+        observeParents: true
+      },
+      loading: true
     }
   },
   computed: {
     ...mapGetters(['headlist'])
+  },
+  watch: {
+    headlist(list) {
+      if (list.length) {
+        this.loading = false
+      }
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.headlist.length) {
+        this.loading = false
+      }
+    })
   }
 }
 </script>
 <style lang='less' scoped>
 @import '~style/variable.less';
 @import '~style/mixin.less';
+.slider {
+  height: 294px;
+}
 ul {
   height: 294px;
   width: 100%;
