@@ -47,6 +47,9 @@ li {
   height: 220px;
   border-bottom: 1px dashed #e6e6e6;
   box-sizing: border-box;
+  &:nth-last-child(1) {
+    border: none;
+  }
 }
 h3 {
   line-height: 60px;
