@@ -4,7 +4,13 @@ const common = {
     slider: [],
     lianjie: [],
     error: '',
-    banquan: {}
+    banquan: {},
+    callme: {},
+    usergister: {},
+    usershowmeinfo: {},
+    images: {},
+    meta: [],
+    logindata: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -18,10 +24,29 @@ const common = {
     },
     setBanquan(state, data) {
       state.banquan = data
+    },
+    setcallme(state, data) {
+      state.callme = data
+    },
+    setusergister(state, data) {
+      state.usergister = data
+    },
+    setimages(state, data) {
+      state.images = data
+    },
+    setusershowmeinfo(state, data) {
+      state.usershowmeinfo = data
+    },
+    setmeta(state, data) {
+      state.meta = data
+    },
+    setlogin(state, data) {
+      state.logindata = data
     }
   },
   actions: {
-    async nuxtServerInit({ commit, req }) {
+    async nuxtServerInit({ commit }, { route }) {
+      commit('setmeta', route.meta)
       const info = await Promise.all([
         api.common.getSlider(),
         api.common.getLianjie(),
@@ -37,6 +62,57 @@ const common = {
       } else {
         const data = '请稍后再试'
         commit('catchError', data)
+      }
+    },
+    async callme({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.about({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const callme = info.data.data
+        commit('setcallme', callme.detail)
+        return callme
+      }
+    },
+    async usergister({ commit }, params) {
+      const info = await api.common.usergister({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const usergister = info.data.data
+        commit('setusergister', usergister)
+        return usergister
+      }
+    },
+    async usershowmeinfo({ commit }, params) {
+      const info = await api.common.getusershowmeInfor({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const usershowmeinfo = info.data.data
+        commit('setusershowmeinfo', usershowmeinfo.showmeInfo)
+        return usershowmeinfo
+      }
+    },
+    async uploadimages({ commit }, params) {
+      const info = await api.common.uploadimage({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const images = info.data.data
+        commit('setimages', images)
+        return images
+      }
+    },
+    async logindata({ commit }, params) {
+      const info = await api.common.getlogin({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const login = info.data.data
+        commit('setlogin', login.data)
+        return login
       }
     }
   }

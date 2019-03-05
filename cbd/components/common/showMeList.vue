@@ -2,15 +2,13 @@
 <template>
   <div>
     <ul class="showmeList">
-      <nuxt-link
-        v-for="(item,index) of showme"
-        :key="index"
+      <li
+        v-for="item of showme"
+        :key="item.id"
         class="showMeitem"
-        tag="li"
-        to="/myqzone"
       >
-        <ShowMeContent></ShowMeContent>
-      </nuxt-link>       
+        <ShowMeContent :showme="item"></ShowMeContent>
+      </li>       
     </ul>   
   </div>
 </template>
@@ -25,7 +23,7 @@ export default {
     showme: {
       type: Array,
       default() {
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        return []
       }
     }
   }

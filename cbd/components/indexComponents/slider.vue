@@ -1,69 +1,70 @@
 <!--  -->
 <template>
-  <div v-if="swiperlist.length">
+  <div>
     <div v-swiper:mySwiper="swiperOption">
       <div class="swiper-wrapper">
-        <div v-for="(item,index) in swiperlist" :key="index" class="swiper-slide my-slider">
-          <h4>
-            标题标题标题标题标题标题标题题标题题标题
-          </h4>
-          <p>
-            部分正文部分正文部分正文部分正部分正文部分正文部分正文部分正
-          </p>
+        <div class="swiper-slide">
+          <ul>
+            <li v-for="(item,index) in headlist" :key="index">
+              <h4>
+                {{ item.title }}
+              </h4>
+              <p>
+                {{ item.desc }}
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Slider',
   data() {
     return {
       swiperlist: [0, 1, 2, 3],
       swiperOption: {
-        direction: 'vertical',
-        pagnation: {
-          el: '.swiper-pagination',
-          dynamicBullets: true
-        },
-        slidesPerView: 3.5,
-        height: 300
+        slidePerView: 2,
+        loop: true,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 30
       }
     }
   },
-  mounted() {
-    this.initSwiper()
-  },
-  methods: {
-    initSwiper() {
-      if (process.client) {
-        require('vue-awesome-swiper/dist/ssr')
-      }
-    }
+  computed: {
+    ...mapGetters(['headlist'])
   }
 }
 </script>
 <style lang='less' scoped>
 @import '~style/variable.less';
 @import '~style/mixin.less';
-h4 {
-  font-size: 14px;
-  color: #282d38;
-  line-height: 30px;
-  box-sizing: border-box;
-  .ellipsis();
-}
-p {
-  color: #77808f;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-.my-slider {
-  border-bottom: 1px solid #dadfe6;
-  &:last-child {
-    border: none;
+ul {
+  height: 294px;
+  width: 100%;
+  overflow: hidden;
+  li {
+    width: 100%;
+    height: 87px;
+    border-bottom: 1px solid #dadfe6;
+    box-sizing: border-box;
+    padding-top: 10px;
+    h4 {
+      font-size: 14px;
+      color: #282d38;
+      margin-bottom: 14px;
+      .ellipsis();
+    }
+    p {
+      color: #77808f;
+      font-size: 14px;
+      height: 40px;
+      overflow: hidden;
+    }
   }
 }
 </style>

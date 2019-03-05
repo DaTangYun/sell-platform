@@ -1,6 +1,7 @@
 const HISTORY = route => {
+  // console.log('kaishi')
+  // console.log(route)
   if (process.client) {
-    console.log(sessionStorage, '888888')
     sessionStorage.setItem('HISTORY', JSON.stringify(route.meta))
     return route
   }

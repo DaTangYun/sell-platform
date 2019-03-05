@@ -4,49 +4,51 @@
     <div class="w">
       <div class="rd-top">
         <h4>
-          国家税务总局公告2018年第28号 国家税务总局关于发布
+          {{ financedetail.title }}
         </h4>
         <div class="rd-top-line">
           <span>
-            发表日期：2018-10-29
+            发表日期：{{ financedetail.createtime }}
           </span>
           <span>
-            来源：国家税务总局甘肃省税务局
-          </span>
-          <span>
-            作者：国家税务总局甘肃省税务局
+            来源：{{ financedetail.title }}
           </span>
         </div>
       </div>
       <div class="rd-bo">
         <p>
-          国家税务总局公告2018年第28号
-        </p>
-        <p>       
-          国家税务总局关于发布《企业所得税税前扣除凭证管理办法》的公告
-        </p>
-        <p>       
-          为加强企业所得税税前扣除凭证管理，规范税收执法，优化营商环境，国家税务总局制定了《企业所得税税前扣除凭证管理办法》，现予以发布。特此公告现予以发布。特
-          此公告。。
+          {{ financedetail.content }}
         </p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   meta: {
     title: '智慧库详情页'
   },
   data() {
-    return {}
+    return {
+      fin: []
+    }
+  },
+  computed: {
+    ...mapGetters(['financedetail'])
   },
   mounted() {
     this.$nextTick(() => {
       this.initMeta()
+      this.fince()
     })
   },
   methods: {
+    async fince() {
+      await this.$store.dispatch('financedetail', {
+        id: this.$route.params.id
+      })
+    },
     initMeta() {
       // const { title } = this.$route.query
       // this.meta.title = title
@@ -79,9 +81,10 @@ export default {
 }
 .rd-bo {
   box-sizing: border-box;
-  padding: 150px 0;
+  padding: 20px 0;
 }
 .rulede {
   background-color: #fff;
+  min-height: 442px;
 }
 </style>

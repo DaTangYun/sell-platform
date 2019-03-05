@@ -10,11 +10,26 @@
       <div class="tabCon">
         <div v-if="show == 0" class="topHead">
           <no-ssr>
-            <slider></slider>
+            <slider :headlist="headlist"></slider>
           </no-ssr>
         </div>
         <div v-if="show == 1" class="topMeaage">
-          <slider></slider>
+          <div v-swiper:mySwiper="swiperOption">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <ul>
+                  <li v-for="(item,index) in infolist" :key="index">
+                    <h4>
+                      {{ item.title }}
+                    </h4>
+                    <p>
+                      {{ item.desc }}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import slider from './slider'
 export default {
   name: 'TopHead',
@@ -31,13 +47,28 @@ export default {
   data() {
     return {
       topHeadList: ['头条', '信息'],
-      show: 0
+      show: 0,
+      activeName: '',
+      swiperOption: {
+        slidePerView: 2,
+        loop: true,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 30
+      }
     }
   },
-  mounted() {},
+  computed: {
+    ...mapGetters(['headlist', 'infolist'])
+  },
   methods: {
     tab: function(index) {
       this.show = index
+      if (this.show === 0) {
+        this.activeName = 'topHead'
+      } else {
+        this.activeName = 'topMeaage'
+      }
     }
   }
 }
@@ -100,6 +131,32 @@ export default {
           font-size: 14px;
           height: 30px;
         }
+      }
+    }
+  }
+}
+.topMeaage {
+  ul {
+    height: 294px;
+    width: 100%;
+    overflow: hidden;
+    li {
+      width: 100%;
+      height: 87px;
+      border-bottom: 1px solid #dadfe6;
+      box-sizing: border-box;
+      padding-top: 10px;
+      h4 {
+        font-size: 14px;
+        color: #282d38;
+        margin-bottom: 14px;
+        .ellipsis();
+      }
+      p {
+        color: #77808f;
+        font-size: 14px;
+        height: 41px;
+        overflow: hidden;
       }
     }
   }

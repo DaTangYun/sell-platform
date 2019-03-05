@@ -2,13 +2,20 @@
   <div class="w">
     <div class="cloudwisdom">
       <ul class="cloudwisdomui">
-        <nuxt-link v-for="item in helpcloud" :key="item.id" tag="li" :to="item.url">
+        <li v-for="item of helpcloud" :key="item.id" @click="tiaolianjie(item.url)">
           <div>
             <img :src="item.image">
+            <!-- {{ item.image }} -->
           </div>
-        </nuxt-link>
+        </li>
       </ul>
-      <pagination></pagination>
+      <pagination
+        :total="total"
+        :length="helpcloud.length"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
     </div>
   </div>
 </template>
@@ -23,10 +30,37 @@ export default {
     title: '云智慧'
   },
   data() {
-    return {}
+    return {
+      page: 1,
+      limit: 12,
+      total: 0
+    }
   },
   computed: {
     ...mapGetters(['helpcloud'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.gethelpcloud()
+    })
+    console.log(this.helpcloud)
+  },
+  methods: {
+    async gethelpcloud() {
+      this.$nuxt.$loading.start()
+      const { page, limit } = this
+      const info = await this.$store.dispatch('helpcloudlist', { page, limit })
+      this.$nuxt.$loading.finish()
+      this.total = Number(info.total)
+      // console.log(this.total)
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.gethelpcloud()
+    },
+    tiaolianjie(url) {
+      window.open(url, '_blank ')
+    }
   }
 }
 </script>
@@ -47,14 +81,17 @@ export default {
     li {
       width: 291px;
       height: 168px;
-      line-height: 168px;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-radius: 6px;
       border: 1px solid transparent;
       margin-bottom: 10px;
+      transition: all 0.3s;
+      cursor: pointer;
       div {
-        width: 291px;
-        height: 168px;
+        width: 169px;
+        height: 67px;
         img {
           width: 100%;
           height: 100%;
@@ -63,6 +100,7 @@ export default {
       &:hover {
         border: 1px solid rgba(230, 230, 230, 1);
         box-shadow: 0px 5px 12px 0px rgba(5, 5, 5, 0.14);
+        transform: translateY(-2px);
       }
     }
   }

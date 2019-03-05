@@ -5,35 +5,58 @@
     </div>
     <Cooperative></Cooperative>
     <div class="wisdom">
-      <wisdomBank :wis="'智慧库'">
-        <Wisdomcbox></Wisdomcbox>
+      <wisdomBank :wis="'财经法规'">
       </wisdomBank>
+      <div class="e">
+        <helpme :helpmelist="hmlt"></helpme>
+      </div>
     </div>
-    <Cloudwisdom></Cloudwisdom>
     <div class="headindexhelp">
-      <wisdomBank :wis="'帮帮我'">
-        <Wisdomcbox></Wisdomcbox>
+      <wisdomBank :wis="'优惠活动'">
       </wisdomBank>
+      <jingdiananli></jingdiananli>
     </div>
-    <wisdomBank :wis="'能帮会干'">
-      <Wisdomcbox></Wisdomcbox>
-    </wisdomBank>
   </div>
 </template>
 <script>
-import Wisdomcbox from 'common/Wisdomcbox'
+import helpme from 'components/indexComponents/helpme'
+import jingdiananli from 'components/indexComponents/jingdiananli'
 import WisdomBank from 'components/indexComponents/WisdomBank'
-import Cloudwisdom from 'components/indexComponents/cloudwisdom'
 import PublishinTopic from 'common/PublishinTopic'
 import Cooperative from 'common/Cooperative'
+import { mapGetters } from 'vuex'
 export default {
   name: 'RightComponent',
   components: {
     PublishinTopic,
     Cooperative,
     WisdomBank,
-    Wisdomcbox,
-    Cloudwisdom
+    helpme,
+    jingdiananli
+  },
+  data() {
+    return {
+      hmlt: []
+    }
+  },
+  computed: {
+    ...mapGetters(['helpmelist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.helpmelists()
+    })
+  },
+  methods: {
+    async helpmelists() {
+      await this.$store.dispatch('helpmelist', {
+        page: 1,
+        limit: 6,
+        title: '',
+        userId: ''
+      })
+      this.hmlt = this.helpmelist
+    }
   }
 }
 </script>

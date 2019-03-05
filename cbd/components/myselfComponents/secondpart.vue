@@ -1,31 +1,34 @@
 <!--  -->
 <template>
-  <div>
-    <div class="secondpart-top">
-      <send :send="{title:'发布新的能帮会干', path:'/submitnbhg'}"></send>
-    </div>
+  <div class="secondpart">
     <div class="demand-top">
       <span v-for="(item,index) in demand" :key="index">
         {{ item }}
       </span>
     </div>
     <ul class="demand-bottom">
-      <li v-for="(item1,index1) in demands" :key="index1">
+      <li v-for="(item1,index1) in abilityprofile" :key="index1">
         <span>
-          标题标题标题标题标题
+          {{ item.desc }}
         </span>
         <span>
-          6.0元
+          {{ item.price }}
         </span>
         <span>
-          产品服务
+          {{ item.title }}
         </span>
         <span>
-          2018-12-19
+          {{ item.createtime }}
         </span>
-        <span>
-          待审核
-        </span>
+        <div v-if="item.status === 2">
+          已审核
+        </div>
+        <div v-else-if="item.status === 1">
+          审核中
+        </div>
+        <div v-else-if="item.status === 0">
+          未审核
+        </div>
         <div class="lidiv">
           <div>
             编辑
@@ -36,24 +39,66 @@
         </div>
       </li>
     </ul>
+    <div class="pag">
+      <pagination
+        :total="total"
+        :length="abilityprofile.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
   </div>
 </template>
 <script>
-import send from 'components/myselfComponents/send'
+import pagination from 'components/cloudComponents/pagination.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Secondpart',
   components: {
-    send
+    pagination
   },
   data() {
     return {
       demand: ['交易标题', '价格', '服务类别', '成交时间', '状态', '操作'],
-      demands: [0, 1, 2]
+      demands: [0, 1, 2],
+      page: 1,
+      limit: 4,
+      total: 0,
+      title: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['abilityprofile'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.abilityprofiles()
+    })
+  },
+  methods: {
+    async abilityprofiles() {
+      const { page, limit, title } = this
+      const info = await this.$store.dispatch('abilityprofile', {
+        page,
+        limit,
+        title,
+        cate_id: this.$route.params.id
+      })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.abilityprofiles()
     }
   }
 }
 </script>
 <style lang='less' scoped>
+.secondpart {
+  background-color: #fff;
+}
 .secondpart-top {
   position: relative;
   height: 73px;

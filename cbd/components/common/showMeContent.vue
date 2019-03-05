@@ -1,14 +1,17 @@
 <!--  -->
 <template>
   <div>
-    <div class="showMeContent">
-      <div class="showMe-left"></div>
+    <div class="showMeContent" @click="handliMyqzne(showme.id)">
+      <div class="showMe-left">
+        <img :src="showme.avatar" alt="">
+      </div>
       <div class="showMe-right">
         <div class="showMe-title">
-          会员名称
+          {{ showme.nickname }}
         </div>
         <div class="showMetext">
-          {{ showmetext | ellipsis(showmetext) }}
+          {{ showme.bio }}
+          <!-- {{ showmetext | ellipsis(showmetext) }} -->
         </div>
       </div>
     </div>
@@ -18,9 +21,17 @@
 <script>
 export default {
   name: 'ShowMeContent',
-  data() {
-    return {
-      showmetext: '会员会员会员会员会员会员'
+  props: {
+    showme: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  methods: {
+    handliMyqzne(id) {
+      this.$router.push({ path: `/myqzone/${id}/zonghe` })
     }
   }
 }
@@ -36,6 +47,11 @@ export default {
     background: pink;
     border-radius: 50%;
     margin-right: 10px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
   }
   .showMe-right {
     width: 98px;

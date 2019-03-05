@@ -13,17 +13,16 @@ const showme = {
     }
   },
   actions: {
-    async showMeList({ commit }, info) {
-      const res = await api.help.getShowme({
-        page: info.page,
-        limit: info.limit
+    async showMe({ commit }, params) {
+      const info = await api.help.getShowme({
+        page: params.page,
+        limite: params.limit
       })
-      const data = res.data
-      if (data.code === api.CODE_OK && data.data) {
-        commit('setShowme', data.data)
-      } else {
-        commit('setError', '请稍后再试')
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const showmelist = info.data.data
+        commit('setShowme', showmelist.showme)
       }
+      return info.data.data
     }
   }
 }

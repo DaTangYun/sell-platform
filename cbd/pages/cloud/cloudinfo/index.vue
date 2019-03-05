@@ -1,66 +1,106 @@
-<!--  -->
 <template>
-  <div class="head">
+  <div class="head w">
     <div class="head-left">
-      <cloudTitle :titlename="'信息需求'"></cloudTitle>
+      <cloudTitle :titlename="'信息需求'" @changecate="changecate"></cloudTitle>
       <div class="headline-content">
         <ul class="headline-contentul">
-          <li v-for="(item,index) in contentlis" :key="index">
+          <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: 'cloud-cloudinfo-id',params: {id: item.id}}">
             <div class="headlineimg">
-              <img src="" alt="">
+              <img :src="item.cover" alt="">
             </div>
             <div class="headlinelic">
-              <h3>移动互联网架构开发</h3>
+              <h3>
+                {{ item.title }}
+              </h3>
               <p>
-                TO是多边机构，不是美国一家开的。                      
+                {{ item.desc }}                      
               </p>
               <div class="headlispan">
                 <span>
-                  生活服务
+                  {{ item.cate_name }}
                 </span>
                 <span>
-                  2018-12-07
+                  {{ item.createtime }}
                 </span>
                 <span>
-                  <img src="../../assets/images/eye.png" alt="">
-                  6666
+                  <img src="@/assets/images/eye.png" alt="">
+                  {{ item.reading_count }}
                 </span>
               </div>
             </div>
-          </li>
+          </nuxt-link>
         </ul>
-        <div class="pagnation">
-          <el-pagination
-            background
-            layout="pager"
-            :total="40"
-          >
-          </el-pagination>
-        </div>
+        <pagination
+          :total="infototal"
+          :length="infolist.length"
+          :pagesize="limit"
+          @currentchange="handlecurrentchange"
+          @prev="handlecurrentchange"
+          @next="handlecurrentchange"
+        ></pagination>
       </div>
     </div>
+    <RightComponent></RightComponent>
   </div>
 </template>
 <script>
+import RightComponent from 'components/headlineComponents/rightComponents.vue'
+import pagination from 'components/cloudComponents/pagination.vue'
 import cloudTitle from 'components/cloudComponents/cloudTitle.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
-    cloudTitle
+    cloudTitle,
+    pagination,
+    RightComponent
   },
   meta: {
     title: '信息'
   },
   data() {
     return {
-      contentlis: [0, 1, 2, 3, 4]
+      page: 1,
+      limit: 6,
+      total: 0,
+      cateid: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['infolist', 'infototal'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.infolists()
+    })
+  },
+  methods: {
+    async infolists() {
+      this.$nuxt.$loading.start()
+      const { page, limit } = this
+      await this.$store.dispatch('infolist', {
+        page,
+        limit,
+        cate_id: this.cateid,
+        title: ''
+      })
+      this.$nuxt.$loading.finish()
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.currentpage = params
+      this.infolists()
+    },
+    changecate(val) {
+      this.cateid = val.cate_id
     }
   }
 }
 </script>
 <style lang='less' scoped>
 .head {
-  width: 100%;
+  width: 1210px;
   height: 100%;
+  display: flex;
 }
 .head-index {
   width: 1210px;
@@ -113,18 +153,23 @@ export default {
   padding: 24px 24px 40px;
   box-sizing: border-box;
   ul {
+    margin-bottom: 50px;
     li {
       width: 100%;
       display: flex;
       box-sizing: border-box;
-      padding-top: 31px;
-      height: 232px;
+      padding: 11px 0;
       border-bottom: 1px dashed #e6e6e6;
+      cursor: pointer;
       .headlineimg {
         width: 226px;
         height: 170px;
         background-color: #ebebeb;
         margin-right: 19px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       .headlinelic {
         h3 {

@@ -27,10 +27,12 @@
           </div>
         </div>
         <div class="header-bottom">
-          <div class="header-logo">
-            <img :src="banquan.header_logo" alt="">
-          </div>
-          <div v-if="$nuxt.$route.name == 'index'" class="header-classification">
+          <h1 class="header-logo">
+            <a href="/">
+              <img :src="banquan.header_logo" alt="">
+            </a>
+          </h1>
+          <div v-if="$route.path === '/' || $route.path === '/cloud/cloudinfo' || $route.path === '/cloud/cloudhead'" class="header-classification">
             <div class="classification">
               <el-select v-model="value">
                 <el-option
@@ -38,6 +40,7 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
+                  filterable
                 >
                 </el-option>
               </el-select>
@@ -236,10 +239,6 @@ header {
       padding: 12px 0;
       box-sizing: border-box;
       margin-right: 197px;
-      img {
-        width: 100%;
-        height: 100%;
-      }
     }
     .header-classification {
       width: 428px;

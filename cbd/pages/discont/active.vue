@@ -1,20 +1,65 @@
 <template>
   <div class="activity">
-    <activity></activity>
-    <pagination></pagination>
+    <div class="en">
+      <activity :activelist="disactive"></activity>
+      <pagination
+        :total="total"
+        :length="activelist.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
+    </div>
+    <RightComponent></RightComponent>
   </div>
 </template>
-
 <script>
+import { mapGetters } from 'vuex'
 import pagination from 'components/cloudComponents/pagination.vue'
 import activity from 'components/discontComponents/activity.vue'
+import RightComponent from 'components/headlineComponents/rightComponents.vue'
 export default {
   components: {
     pagination,
-    activity
+    activity,
+    RightComponent
   },
   meta: {
     title: '优惠活动'
+  },
+  data() {
+    return {
+      page: 1,
+      limit: 9,
+      total: 0,
+      disactive: []
+    }
+  },
+  computed: {
+    ...mapGetters(['activelist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.activelists()
+    })
+  },
+  methods: {
+    async activelists() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('activelist', {
+        page,
+        limit,
+        title: '',
+        userId: ''
+      })
+      this.disactive = this.activelist.active
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.activelists()
+    }
   }
 }
 </script>
@@ -25,5 +70,9 @@ export default {
   margin-right: 12px;
   box-sizing: border-box;
   padding-bottom: 24px;
+  display: flex;
+  .en {
+    width: 950px;
+  }
 }
 </style>

@@ -1,23 +1,81 @@
 <!--  -->
 <template>
-  <div class="wisdomBank">
+  <div v-if="list.length" class="wisdomBank">
     <div class="wisdomBank-title">
       <h4>{{ wis }}</h4>
       <nuxt-link to="" class="wisdomMore">
         更多
       </nuxt-link>
     </div>
-    <slot></slot>
+    <div class="wisdom-c-box">
+      <ul class="wisdom-ul">
+        <li v-for="(item,index) in list" :key="index" class="wisdom-li">
+          <div class="wisdom-tri">
+            <img src="../../assets/images/right.png" alt="">
+          </div>
+          <p>
+            {{ item.title }}
+          </p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'WisdomBank',
   props: {
     wis: {
       type: String,
       default: '智慧库'
+    },
+    url: {
+      type: String,
+      default: require('../../assets/images/big.png')
+    }
+  },
+  data() {
+    return {
+      list: []
+    }
+  },
+  computed: {
+    ...mapGetters(['activelist', 'helpwis'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.getlist()
+    })
+  },
+  methods: {
+    async financelists() {
+      await this.$store.dispatch('financelist', {
+        page: 1,
+        limit: 8,
+        cate_id: '',
+        title: ''
+      })
+      this.list = this.helpwis.finance
+    },
+    async activelists() {
+      await this.$store.dispatch('activelist', {
+        page: 1,
+        limit: 6,
+        title: '',
+        userId: ''
+      })
+      this.list = this.activelist.active
+    },
+
+    getlist() {
+      const { wis } = this
+      if (wis === '财经法规') {
+        this.financelists()
+      } else {
+        this.activelists()
+      }
     }
   }
 }
@@ -31,6 +89,7 @@ export default {
   border-radius: 6px;
   padding: 0 15px 10px;
   box-sizing: border-box;
+  margin-bottom: 10px;
   .wisdomBank-title {
     height: 44px;
     box-sizing: border-box;
@@ -45,6 +104,44 @@ export default {
       right: 16px;
       bottom: 12px;
       color: rgba(119, 128, 143, 1);
+    }
+  }
+}
+.wisdom-con-img {
+  width: 216px;
+  height: 111px;
+  border-radius: 6px;
+}
+p {
+  line-height: 30px;
+  color: #282d38;
+  .ellipsis();
+}
+.wisdom-ul {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .wisdom-li {
+    height: 31px;
+    display: flex;
+    line-height: 31px;
+    cursor: pointer;
+    &:hover p {
+      color: #00a0e9;
+    }
+    .wisdom-tri {
+      position: relative;
+      width: 21px;
+      img {
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        transform: translateY(-50%);
+      }
+    }
+    p {
+      .ellipsis();
+      width: 191px;
     }
   }
 }

@@ -9,11 +9,14 @@ const helpcloud = {
     }
   },
   actions: {
-    async nuxtServerInit({ commit, req }) {
-      const info = await Promise.all([api.helpcloud.gethelpcloud()])
-      if (info.length) {
-        const helpcloud = info[0].data.data
+    async helpcloudlist({ commit }, params) {
+      const info = await api.helpcloud.gethelpcloud({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const helpcloud = info.data.data
         commit('sethelpcloud', helpcloud.cloud)
+        return helpcloud
       }
     }
   }

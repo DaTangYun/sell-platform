@@ -1,16 +1,16 @@
 <template>
   <div>
     <ul class="cando">
-      <li v-for="(item,index) in discont" :key="index" class="candoli">
+      <li v-for="(item,index) in dishelpdo" :key="index" class="candoli" @click="handlehelp(item,index)">
         <div class="canDome-li-content" :style="{ width: wid + 'px' }">
           <div class="ul-img" :style="{ height: hei + 'px' }">
-            <img src="../../assets/images/phone.png" alt="">
+            <img :src="item.image" alt="">
           </div>
           <p class="ul-title">
-            优惠优惠优惠优惠优惠优惠优
+            {{ item.title }}
           </p>
           <div class="price">
-            价格600
+            {{ item.price }}
           </div>
         </div>          
       </li>
@@ -29,13 +29,24 @@ export default {
       type: String,
       default: '201'
     },
-    discont: {
+    dishelpdo: {
       type: Array,
       default() {
-        return [0, 1, 2, 3, 4, 5, 6, 7]
+        return []
       }
     }
+  },
+  data() {
+    return {
+      page: 1,
+      limit: 6
+    }
   }
+  // methods: {
+  //   handlehelp(item, index) {
+  //     console.log(item.id)
+  //   }
+  // }
 }
 </script>
 <style lang='less' scoped>

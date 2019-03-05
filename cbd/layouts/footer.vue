@@ -7,80 +7,74 @@
           <div class="left-dl">
             <dl>
               <dt>
-                <router-link to="/cloud">
+                <nuxt-link to="/cloud">
                   云传
-                </router-link>
+                </nuxt-link>
               </dt>
               <dd>
-                <router-link to="/cloud/cloudhead">
+                <nuxt-link to="/cloud/cloudhead">
                   信息
-                </router-link>
+                </nuxt-link>
               </dd>
               <dd>
-                <router-link to="/cloud/cloudInfo">
+                <nuxt-link to="/cloud/cloudInfo">
                   头条
-                </router-link>
+                </nuxt-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="/help">
+                <nuxt-link to="/help">
                   智帮
-                </router-link>
+                </nuxt-link>
               </dt>
               <dd>
-                <router-link to="/help/show">
+                <nuxt-link to="/help/show">
                   秀秀我
-                </router-link>
+                </nuxt-link>
               </dd>
               <dd>
-                <router-link to="/help/wisdombank">
+                <nuxt-link to="/help/wisdombank">
                   智慧库
-                </router-link>
+                </nuxt-link>
               </dd>
               <dd>
-                <router-link to="/help/cloudwisdom">
+                <nuxt-link to="/help/cloudwisdom">
                   云智慧
-                </router-link>
+                </nuxt-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="/discont">
+                <nuxt-link to="/discont">
                   惠带
-                </router-link>
+                </nuxt-link>
               </dt>
               <dd>
-                <router-link to="/discont/helpcando">
+                <nuxt-link to="/discont/helpcando">
                   能帮会干
-                </router-link>
+                </nuxt-link>
               </dd>
               <dd>
-                <router-link to="/discont/help">
+                <nuxt-link to="/discont/help">
                   帮帮我
-                </router-link>
+                </nuxt-link>
               </dd>
               <dd>
-                <router-link to="/discont/active">
+                <nuxt-link to="/discont/active">
                   优惠活动
-                </router-link>
+                </nuxt-link>
               </dd>
             </dl>
             <dl>
               <dt>
-                <router-link to="/callme">
-                  服务支持
-                </router-link>
+                服务支持
               </dt>
-              <dd>
-                <router-link to="/callme">
-                  联系我们
-                </router-link>
+              <dd @click="handlecontact(1)">
+                联系我们
               </dd>
-              <dd>
-                <router-link to="">
-                  服务条款
-                </router-link>
+              <dd @click="handlecontact(2)">
+                服务条款
               </dd>
             </dl>
           </div>
@@ -134,16 +128,17 @@ export default {
   computed: {
     ...mapGetters(['lianjie', 'error', 'banquan'])
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.initError()
-    })
-  },
   methods: {
     initError() {
       if (this.error.length) {
         this.$message.error({ message: this.error, duration: 1000 })
       }
+    },
+    handlecontact(id) {
+      this.$router.push({
+        path: '/callme',
+        query: { id }
+      })
     }
   }
 }
@@ -171,15 +166,20 @@ footer {
               font-size: 14px;
               font-weight: 400;
               height: 37px;
+              color: rgba(133, 133, 133, 1);
               a {
                 color: rgba(133, 133, 133, 1);
               }
             }
             dd {
+              cursor: pointer;
               width: 100%;
               color: rgba(179, 179, 179, 1);
               font-size: 14px;
               height: 25px;
+              &:hover {
+                color: #fff;
+              }
               a {
                 color: rgba(133, 133, 133, 1);
                 &:active {
