@@ -140,7 +140,7 @@ export default {
         }
       })
       await this.$store.dispatch('bcheadedit', {
-        id: this.$route.params,
+        id: this.$route.query.id,
         title,
         topline_cate_id: this.toplinecateid,
         cover,
@@ -157,6 +157,7 @@ export default {
         type: 'success',
         message: '修改成功'
       })
+      window.history.back()
     }
   }
 }

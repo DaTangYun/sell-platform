@@ -97,7 +97,7 @@ const cloudinfo = {
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
         const bcinfoedit = info.data.data
-        commit('setbcinfoedit', bcinfoedit.msg)
+        commit('setbcinfoedit', bcinfoedit)
         return bcinfoedit
       }
     },

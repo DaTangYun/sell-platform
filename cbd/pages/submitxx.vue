@@ -165,7 +165,7 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('bcinfoit', {
+      const info = await this.$store.dispatch('bcinfoit', {
         id: this.$route.query.id,
         title,
         message_cate_id: this.messagecateid,
@@ -179,6 +179,7 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
+      console.log(info)
       this.$message({
         type: 'success',
         message: '修改成功'
