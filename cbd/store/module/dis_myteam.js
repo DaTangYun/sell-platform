@@ -4,7 +4,9 @@ const dismyteam = {
     dismyteam: [],
     myteamdetail: [],
     teampro: {},
-    teamedit: {}
+    teamedit: {},
+    teamlist: {},
+    teamapply: {}
   },
   mutations: {
     setdismyteam(state, data) {
@@ -18,6 +20,12 @@ const dismyteam = {
     },
     setteamedit(state, data) {
       state.teamedit = data
+    },
+    setteamlist(state, data) {
+      state.teamlist = data
+    },
+    setteamapply(state, data) {
+      state.teamapply = data
     }
   },
   actions: {
@@ -59,6 +67,26 @@ const dismyteam = {
         const teamedit = info.data.data
         commit('setteamedit', teamedit.row)
         return teamedit
+      }
+    },
+    async dismyteamlistmy({ commit }, params) {
+      const info = await api.dismyteam.getteamlist({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const teamlist = info.data.data
+        commit('setteamlist', teamlist.member)
+        return teamlist
+      }
+    },
+    async dismyteamapply({ commit }, params) {
+      const info = await api.dismyteam.getteamapply({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const teamapply = info.data.data
+        commit('setteamapply', teamapply.member)
+        return teamapply
       }
     }
   }

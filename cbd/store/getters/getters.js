@@ -157,7 +157,23 @@ const getters = {
   },
   teamedit: state => {
     return state.dismyteam.teamedit
-  }
+  },
   // 48
+  teamlist: state => {
+    return state.dismyteam.teamlist
+  },
+  teamapply: state => {
+    return state.dismyteam.teamapply
+  },
+  bcheadedit: state => {
+    return state.cloudhead.bcheadedit
+  },
+  headedit: state => {
+    return state.cloudhead.headedit
+  },
+  // 添加新头条
+  newhead: state => {
+    return state.cloudhead.newhead
+  }
 }
 export default getters

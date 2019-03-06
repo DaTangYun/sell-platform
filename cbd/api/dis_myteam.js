@@ -15,6 +15,14 @@ const dismyteam = {
   // 个人中心我的团队简介编辑
   getteamedit(params) {
     return axios.get('/api/team/edit', { params })
+  },
+  // 个人中的团队成员
+  getteamlist(params) {
+    return axios.get('/api/team_apply/lists', { params })
+  },
+  // 团队审核通过的成员
+  getteamapply(params) {
+    return axios.get('/api/team_apply/apply', { params })
   }
 }
 export default dismyteam

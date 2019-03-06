@@ -3,7 +3,7 @@
   <div class="jianjie">
     <div class="toptabs">
       <ul>
-        <nuxt-link v-for="(item,index) of toplist" :key="index" tag="li" :to="`/myself/${id}/myteam/${memid}${item.url}`">
+        <nuxt-link v-for="(item,index) of toplist" :key="index" tag="li" :to="`/myself/${id}/myteam/mt/${memid}${item.url}`">
           {{ item.name }}
         </nuxt-link>
       </ul>

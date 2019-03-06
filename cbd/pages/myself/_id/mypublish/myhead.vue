@@ -24,9 +24,9 @@
           <div v-else-if="item.status === 0">
             未审核
           </div>
-          <div>
+          <nuxt-link :to="{name: 'messageComp', query: {id: item.id}}">
             编辑
-          </div>
+          </nuxt-link>
           <div>
             清除
           </div>

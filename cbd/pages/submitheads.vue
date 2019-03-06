@@ -19,7 +19,7 @@
             <el-form-item label="分类">
               <el-select v-model="flvalue" placeholder="请选择">
                 <el-option
-                  v-for="item in headedit"
+                  v-for="item in headcate"
                   :key="item.id"
                   :label="item.cate_name"
                   :value="item.cate_name"
@@ -28,9 +28,16 @@
               </el-select>
             </el-form-item>
             <el-form-item v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
+              <el-upload
+                class="avatar-uploader my-uploader"
+                :action="`${action}/api/common/upload`"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :on-change="handleonchange"
+              >
+                <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
               <el-input v-model="desc" type="textarea"></el-input>
@@ -51,6 +58,7 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
 // import Tinymce from '@/components/common/Tinymce'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
@@ -86,45 +94,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['headedit', 'bcheadedit'])
-  },
-  watch: {
-    selected() {
-      // console.log(this.selected)
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.headeditlist()
-    })
+    ...mapGetters(['headcate', 'newhead'])
   },
   methods: {
     sendhead() {
-      this.bceditlist()
+      this.addnewhead()
     },
-    async headeditlist() {
-      const info = await this.$store.dispatch('headedit', {
-        id: this.$route.query.id
-      })
-      if (info.row.province_code) {
-        this.selected = [
-          info.row.province_code,
-          info.row.city_code,
-          info.row.area_code
-        ]
-      }
-      const id = info.cate.map(item => {
-        return item.id
-      })
-      this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
-      this.fl = info.cate
-      this.title = info.row.title
-      this.desc = info.row.desc
-      this.cover = info.row.cover
-      this.content = info.row.content
-      this.toplinecateid = info.row.topline_cate_id
-    },
-    async bceditlist() {
+    async addnewhead() {
       const { title, cover, desc, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
@@ -138,8 +114,7 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('bcheadedit', {
-        id: this.$route.params,
+      await this.$store.dispatch('newhead', {
         title,
         topline_cate_id: this.toplinecateid,
         cover,
@@ -156,6 +131,23 @@ export default {
         type: 'success',
         message: '修改成功'
       })
+    },
+    handleAvatarSuccess(res, file, index) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    handleonchange(file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.uploadimage(file)
+    },
+    async uploadimage(file) {
+      this.$nuxt.$loading.start()
+      await this.$store.dispatch('uploadimages', {
+        file
+      })
+      this.$nuxt.$loading.finish()
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     }
   }
 }
@@ -201,5 +193,41 @@ export default {
 }
 .button {
   margin: 0 0 20px 85px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background-color: #b3b3b3;
+  box-sizing: border-box;
+  margin: 24px 28px 24px 0;
+  .avatar-uploader .el-upload {
+    background-color: #f1f2f6;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  .el-icon-plus:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

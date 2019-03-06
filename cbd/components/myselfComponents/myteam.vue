@@ -1,7 +1,6 @@
 <!--  -->
 <template>
   <div>
-    <myteamdetail v-if="first.show"></myteamdetail>
     <div v-if="second.show" class="zeop" @click="childClick">
       <div class="secondpart-top">
         <div class="send" @click.stop="tan">
@@ -28,7 +27,7 @@
             {{ item.createtime }}
           </span>
           <div class="lidiv">
-            <nuxt-link tag="div" :to="{name: 'myself-id-myteam-teamid-jianjie', params: {id: item.user_id,teamid: item.id}}">
+            <nuxt-link tag="div" :to="{name: 'myself-id-myteam-mt-teamid-jianjie', params: {id: item.user_id,teamid: item.id}}">
               详情
             </nuxt-link>
             <div @click="tan">
@@ -62,13 +61,9 @@
   </div>
 </template>
 <script>
-import myteamdetail from 'components/myselfComponents/mytemdetail'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Myteam',
-  components: {
-    myteamdetail
-  },
   data() {
     return {
       demand: ['团队名称', '团队人数', '组建时间', '操作'],
