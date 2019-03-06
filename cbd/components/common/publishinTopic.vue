@@ -18,14 +18,17 @@ export default {
   },
   data() {
     return {
-      tpath: '/submitxq',
-      publishh: '发表需求'
+      tpath: '/submitxx',
+      publishh: '发表信息'
     }
   },
   mounted() {
     if (this.$route.path === '/cloud/cloudhead') {
       this.publishh = '发表头条'
       this.tpath = '/submitheads'
+    } else if (this.$route.path === '/cloud/cloudInfo') {
+      this.publishh = '发表信息'
+      this.tpath = '/submitxx'
     }
   }
 }

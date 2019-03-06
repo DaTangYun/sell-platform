@@ -19,7 +19,7 @@
             <el-form-item label="分类">
               <el-select v-model="flvalue" placeholder="请选择">
                 <el-option
-                  v-for="item in headedit"
+                  v-for="item in newarr"
                   :key="item.id"
                   :label="item.cate_name"
                   :value="item.cate_name"
@@ -51,7 +51,6 @@
   </div>
 </template>
 <script>
-// import Tinymce from '@/components/common/Tinymce'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
 export default {
@@ -82,7 +81,8 @@ export default {
       areacode: 0,
       area: '',
       imageUrl: '',
-      action: ''
+      action: '',
+      newarr: []
     }
   },
   computed: {
@@ -106,6 +106,7 @@ export default {
       const info = await this.$store.dispatch('headedit', {
         id: this.$route.query.id
       })
+      this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
           info.row.province_code,

@@ -27,7 +27,7 @@
           <div v-else-if="item.status === 0">
             未审核
           </div>
-          <div>
+          <div @click="deletewd(item.id)">
             删除
           </div>
         </div>
@@ -132,6 +132,20 @@ export default {
     },
     submitwendang() {
       this.noIndex = 0
+    },
+    async deletewd(vid) {
+      console.log(vid)
+      await this.$store
+        .dispatch('deletewendang', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.documentprofiles()
+        })
     }
   }
 }

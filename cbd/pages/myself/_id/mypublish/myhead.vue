@@ -33,7 +33,7 @@
         </div>
       </li>
     </ul>
-    <send :send="{title:'发布头条', path:'/submitxq'}"></send>
+    <send :send="{title:'发布头条', path:'/submitheads'}"></send>
     <pagination
       :total="total"
       :length="headprofile.length"

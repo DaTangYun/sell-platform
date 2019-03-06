@@ -31,9 +31,6 @@
         </span>
         <div class="lidiv">
           <div>
-            使用
-          </div>
-          <div>
             删除
           </div>
         </div>

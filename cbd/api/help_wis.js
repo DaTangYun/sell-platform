@@ -1,3 +1,4 @@
+import qs from 'qs'
 import axios from './http'
 const helpwis = {
   getHelpwis(params) {
@@ -23,6 +24,10 @@ const helpwis = {
   // 案例个人中心
   getcasesprofile(params) {
     return axios.get('/api/cases/profile', { params })
+  },
+  // 删除
+  getdelete(params) {
+    return axios.post('/api/document/del', qs.stringify(params))
   }
 }
 export default helpwis

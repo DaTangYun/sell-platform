@@ -6,7 +6,8 @@ const helpwis = {
     documentlist: [],
     documentprofile: {},
     caseprofile: {},
-    financedetail: {}
+    financedetail: {},
+    deletedata: {}
   },
   mutations: {
     sethelpwis(state, data) {
@@ -26,6 +27,9 @@ const helpwis = {
     },
     setfinancedetail(state, data) {
       state.financedetail = data
+    },
+    setdeletedata(state, data) {
+      state.deletedata = data
     }
   },
   actions: {
@@ -88,6 +92,16 @@ const helpwis = {
         const financedetail = info.data.data
         commit('setfinancedetail', financedetail.detail)
         return financedetail
+      }
+    },
+    async deletewendang({ commit }, params) {
+      const info = await api.helpwis.getdelete({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const deletedata = info.data
+        commit('setdeletedata', deletedata)
+        return deletedata
       }
     }
   }

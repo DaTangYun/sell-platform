@@ -174,6 +174,21 @@ const getters = {
   // 添加新头条
   newhead: state => {
     return state.cloudhead.newhead
+  },
+  sendinfo: state => {
+    return state.cloudinfo.sendinfo
+  },
+  bcinfoedit: state => {
+    return state.cloudinfo.bcinfoedit
+  },
+  addinfo: state => {
+    return state.cloudinfo.addinfo
+  },
+  deleteinfo: state => {
+    return state.cloudinfo.deleteinfo
+  },
+  deletedata: state => {
+    return state.helpwis.deletedata
   }
 }
 export default getters

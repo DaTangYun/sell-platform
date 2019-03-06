@@ -24,16 +24,16 @@
           <div v-else-if="item.status === 0">
             未审核
           </div>
-          <div>
+          <nuxt-link :to="{name: 'submitxx', query: {id: item.id}}">
             编辑
-          </div>
-          <div>
+          </nuxt-link>
+          <div @click="deleteinfolist(item.id)">
             清除
           </div>
         </div>
       </li>
     </ul>
-    <send :send="{title:'发布头条', path:'/submitxq'}"></send>
+    <send :send="{title:'发布信息', path:'/submitxx'}"></send>
     <pagination
       :total="total"
       :length="infoprofile.length"
@@ -84,6 +84,20 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.infoprofiles()
+    },
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deleteinfo', {
+          id: vid
+        })
+        .then(res => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: res.msg
+          })
+          this.infoprofiles()
+        })
     }
   }
 }

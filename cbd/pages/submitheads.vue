@@ -17,7 +17,7 @@
               <el-input v-model="title"></el-input>
             </el-form-item>
             <el-form-item label="分类">
-              <el-select v-model="flvalue" placeholder="请选择">
+              <el-select v-model="flvalue" placeholder="请选择" @change="changez">
                 <el-option
                   v-for="item in headcate"
                   :key="item.id"
@@ -100,8 +100,15 @@ export default {
     sendhead() {
       this.addnewhead()
     },
+    changez(val) {
+      for (const item of this.headcate) {
+        if (item.cate_name === val) {
+          this.toplinecateid = item.id
+        }
+      }
+    },
     async addnewhead() {
-      const { title, cover, desc, content } = this
+      const { title, desc, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -117,7 +124,7 @@ export default {
       await this.$store.dispatch('newhead', {
         title,
         topline_cate_id: this.toplinecateid,
-        cover,
+        cover: this.imageUrl,
         desc,
         content,
         province: this.province,
@@ -129,8 +136,9 @@ export default {
       })
       this.$message({
         type: 'success',
-        message: '修改成功'
+        message: '添加成功'
       })
+      this.$router.push({ path: '/' })
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
