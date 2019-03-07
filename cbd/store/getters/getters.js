@@ -268,6 +268,9 @@ const getters = {
   },
   addteam: state => {
     return state.dismyteam.addteam
+  },
+  useridenty: state => {
+    return state.common.useridenty
   }
 }
 export default getters

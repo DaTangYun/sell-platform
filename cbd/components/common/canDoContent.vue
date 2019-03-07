@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="cando">
-      <li v-for="(item,index) in dishelpdo" :key="index" class="candoli" @click="handlehelp(item,index)">
+      <nuxt-link v-for="(item,index) in dishelpdo" :key="index" class="candoli" :to="{name: 'discont-helpcando-id',params: {id: item.id}}">
         <div class="canDome-li-content" :style="{ width: wid + 'px' }">
           <div class="ul-img" :style="{ height: hei + 'px' }">
             <img :src="item.image" alt="">
@@ -13,7 +13,7 @@
             {{ item.price }}
           </div>
         </div>          
-      </li>
+      </nuxt-link>
     </ul>
   </div>
 </template>

@@ -20,7 +20,8 @@ const common = {
     changepass: {},
     userinfo: {},
     changeinfo: {},
-    exitdata: {}
+    exitdata: {},
+    useridenty: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -76,6 +77,9 @@ const common = {
     },
     setexit(state, data) {
       state.exitdata = data
+    },
+    seruseridenty(state, data) {
+      state.useridenty = data
     }
   },
   actions: {
@@ -234,6 +238,17 @@ const common = {
         commit('setexit', exitdata)
         localStorage.removeItem('USERINFO')
         return exitdata
+      }
+    },
+    async userind({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getuseridenty({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const useriden = info.data
+        commit('seruseridenty', useriden)
+        return useriden
       }
     }
   }

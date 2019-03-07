@@ -9,7 +9,7 @@
     </div>
     <div class="wisdom-c-box">
       <ul class="wisdom-ul">
-        <li v-for="(item,index) in list" :key="index" class="wisdom-li">
+        <li v-for="(item,index) in list" :key="index" class="wisdom-li" @click="changeindex(item)">
           <div class="wisdom-tri">
             <img src="../../assets/images/right.png" alt="">
           </div>
@@ -38,7 +38,8 @@ export default {
   },
   data() {
     return {
-      list: []
+      list: [],
+      vid: 0
     }
   },
   computed: {
@@ -68,7 +69,18 @@ export default {
       })
       this.list = this.activelist.active
     },
-
+    changeindex(itemid) {
+      this.$nuxt.$loading.start()
+      const { wis } = this
+      const id = itemid.id
+      if (wis === '财经法规') {
+        this.$router.push({
+          path: `/ruledetail/${id}`,
+          query: { titel: itemid.title }
+        })
+      }
+      this.$nuxt.$loading.finish()
+    },
     getlist() {
       const { wis } = this
       if (wis === '财经法规') {

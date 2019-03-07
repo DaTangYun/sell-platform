@@ -56,6 +56,10 @@ const common = {
   },
   getexit(params) {
     return axios.post('/api/user/logout', qs.stringify(params))
+  },
+  // 用户认证
+  getuseridenty(params) {
+    return axios.post('/api/user/identy', qs.stringify(params))
   }
 }
 export default common

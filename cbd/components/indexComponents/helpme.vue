@@ -16,14 +16,14 @@
       帮帮我
     </p>
     <ul class="wisdom-ul">
-      <li v-for="(item,index) in helpmelist" :key="index" class="wisdom-li">
+      <nuxt-link v-for="(item,index) in helpmelist" :key="index" class="wisdom-li" :to="{name: 'discont-help-id',params: {id: item.id}}">
         <div class="wisdom-tri">
           <img src="../../assets/images/right.png" alt="">
         </div>
         <p>
           {{ item.title }}
         </p>
-      </li>
+      </nuxt-link>
     </ul>
   </div>
 </template>
