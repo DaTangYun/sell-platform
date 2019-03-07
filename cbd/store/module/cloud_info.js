@@ -95,8 +95,9 @@ const cloudinfo = {
       const info = await api.cloudinfo.getsendedit({
         ...params
       })
-      if (info.data.code === api.CODE_OK && info.data.data) {
-        const bcinfoedit = info.data.data
+      if (info.data.code === api.CODE_OK && info.data) {
+        const bcinfoedit = info.data
+        console.log(bcinfoedit)
         commit('setbcinfoedit', bcinfoedit)
         return bcinfoedit
       }
