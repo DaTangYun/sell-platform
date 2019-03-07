@@ -19,10 +19,10 @@
           未使用
         </span>
         <div class="lidiv">
-          <div>
+          <div v-if="item1.status === '1'" @click="shiyong(item1)">
             使用
           </div>
-          <div>
+          <div @click="deleteinfolist(item1.id)">
             删除
           </div>
         </div>
@@ -43,6 +43,23 @@ export default {
   },
   data() {
     return {}
+  },
+  methods: {
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deleteuser', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+        })
+    },
+    shiyong(i) {
+      console.log(i)
+    }
   }
 }
 </script>

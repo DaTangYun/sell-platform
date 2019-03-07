@@ -15,7 +15,13 @@ const common = {
     logindata: {},
     sms: {},
     loginout: {},
-    usercommit: {}
+    usercommit: {},
+    changemobile: {},
+    changepass: {},
+    userinfo: {},
+    changeinfo: {},
+    exitdata: {},
+    useridenty: {}
   },
   mutations: {
     setSlider(state, data) {
@@ -56,6 +62,24 @@ const common = {
     },
     setusercomment(state, data) {
       state.usercommit = data
+    },
+    setchangemobile(state, data) {
+      state.changemobile = data
+    },
+    setchangepass(state, data) {
+      state.changepass = data
+    },
+    setuserinfo(state, data) {
+      state.userinfo = data
+    },
+    setchangeinfo(state, data) {
+      state.changeinfo = data
+    },
+    setexit(state, data) {
+      state.exitdata = data
+    },
+    seruseridenty(state, data) {
+      state.useridenty = data
     }
   },
   actions: {
@@ -160,6 +184,71 @@ const common = {
         const usercomment = info.data.data
         commit('setusercomment', usercomment.comment)
         return usercomment
+      }
+    },
+    async userchangemobile({ commit }, params) {
+      const info = await api.common.getchangemobile({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const changemobile = info.data
+        commit('setchangemobile', changemobile)
+        return changemobile
+      }
+    },
+    async userchangepass({ commit }, params) {
+      const info = await api.common.getchangepass({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const changepass = info.data
+        commit('setchangepass', changepass)
+        return changepass
+      }
+    },
+    async userinfo({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getuserinfo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const userinfo = info.data.data
+        commit('setuserinfo', userinfo.info)
+        return userinfo
+      }
+    },
+    async changeuserinfo({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getuserchangeinfo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const changeinfo = info.data
+        commit('setchangeinfo', changeinfo)
+        return changeinfo
+      }
+    },
+    async exituser({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getexit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const exitdata = info.data
+        commit('setexit', exitdata)
+        localStorage.removeItem('USERINFO')
+        return exitdata
+      }
+    },
+    async userind({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getuseridenty({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const useriden = info.data
+        commit('seruseridenty', useriden)
+        return useriden
       }
     }
   }

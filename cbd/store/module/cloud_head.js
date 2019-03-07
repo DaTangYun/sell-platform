@@ -8,7 +8,8 @@ const cloudhead = {
     headprofile: {},
     headedit: {},
     bcheadedit: {},
-    newhead: {}
+    newhead: {},
+    deletehead: {}
   },
   mutations: {
     setcloudHead(state, data) {
@@ -34,6 +35,9 @@ const cloudhead = {
     },
     setnewhead(state, data) {
       state.newhead = data
+    },
+    setdeletehead(state, data) {
+      state.deletehead = data
     }
   },
   actions: {
@@ -103,6 +107,16 @@ const cloudhead = {
         const newhead = info.data.data
         commit('setnewhead', newhead.msg)
         return newhead
+      }
+    },
+    async deletehead({ commit }, params) {
+      const info = await api.cloudhead.getdeletehead({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deletehead = info.data
+        commit('setdeletehead', deletehead)
+        return deletehead
       }
     }
   }

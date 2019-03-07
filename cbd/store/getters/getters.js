@@ -189,6 +189,88 @@ const getters = {
   },
   deletedata: state => {
     return state.helpwis.deletedata
+  },
+  docuadd: state => {
+    return state.helpwis.docuadd
+  },
+  doerror: state => {
+    return state.helpwis.error
+  },
+  document: state => {
+    return state.helpwis.document
+  },
+  helpedit: state => {
+    return state.dishelpme.helpedit
+  },
+  helpedid: state => {
+    return state.dishelpme.helpedid
+  },
+  // 帮帮我分类
+  helpadd: state => {
+    return state.dishelpme.helpadd
+  },
+  addhelp: state => {
+    return state.dishelpme.addhelp
+  },
+  deletehelp: state => {
+    return state.dishelpme.deletehelp
+  },
+  addnewcase: state => {
+    return state.helpwis.addcase
+  },
+  caseinfo: state => {
+    return state.helpwis.caseinfo
+  },
+  qdcase: state => {
+    return state.helpwis.qdcase
+  },
+  abilityeditfl: state => {
+    return state.dishelpdo.abilityeditfl
+  },
+  bjnbhg: state => {
+    return state.dishelpdo.bjnbhg
+  },
+  newnbhgfl: state => {
+    return state.dishelpdo.newnbhgfl
+  },
+  newability: state => {
+    return state.dishelpdo.newability
+  },
+  deleteactive: state => {
+    return state.disactive.deleteactive
+  },
+  deletehead: state => {
+    return state.cloudhead.deletehead
+  },
+  deleteuseractive: state => {
+    return state.cloudhead.deleteuseractive
+  },
+  changemobile: state => {
+    return state.common.changemobile
+  },
+  changepass: state => {
+    return state.common.changepass
+  },
+  userinfo: state => {
+    return state.common.userinfo
+  },
+  changeinfo: state => {
+    return state.common.changeinfo
+  },
+  exitdata: state => {
+    return state.common.exitdata
+  },
+  editteam: state => {
+    return state.dismyteam.editteam
+  },
+  bjteam: state => {
+    return state.dismyteam.bjteam
+  },
+  addteam: state => {
+    return state.dismyteam.addteam
+  },
+  useridenty: state => {
+    return state.common.useridenty
   }
 }
 export default getters

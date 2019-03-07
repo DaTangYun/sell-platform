@@ -31,10 +31,10 @@
           未审核
         </span>
         <div class="lidiv">
-          <div>
+          <nuxt-link :to="{name: 'submitxq', query: {id: item1.id}}" tag="div">
             编辑
-          </div>
-          <div>
+          </nuxt-link>
+          <div @click="deletewd(item1.id)">
             删除
           </div>
         </div>
@@ -101,6 +101,20 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.helpmeprofiles()
+    },
+    async deletewd(vid) {
+      console.log(vid)
+      await this.$store
+        .dispatch('deletehelp', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.helpmeprofiles()
+        })
     }
   }
 }
@@ -110,6 +124,7 @@ export default {
 @import '~style/mixin.less';
 .demand {
   height: 904px;
+  position: relative;
   .demand-top {
     background-color: #f1f2f6;
     color: #747d8c;
@@ -172,6 +187,42 @@ export default {
         }
       }
     }
+  }
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background-color: #b3b3b3;
+  box-sizing: border-box;
+  margin: 24px 28px 24px 0;
+  .avatar-uploader .el-upload {
+    background-color: #f1f2f6;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  .el-icon-plus:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>

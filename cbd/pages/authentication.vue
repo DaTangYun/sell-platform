@@ -8,7 +8,16 @@
       <div class="authen-form">
         <el-form :label-position="labelPosition" label-width="80px">
           <div class="my-ploader1">
-            <upsetimage></upsetimage>
+            <el-upload
+              class="avatar-uploader my-uploader"
+              :action="`${action}/api/common/upload`"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :on-change="handleonchange"
+            >
+              <img v-if="image.length" :src="image" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload> 
           </div>
           <el-form-item label="用户名称:" class="yonghumingcheng">
             <el-input v-model="form.name"></el-input>
@@ -22,7 +31,16 @@
             </el-radio>            
           </div>
           <div class="my-uploadertest">
-            <upsetimage></upsetimage>
+            <el-upload
+              class="avatar-uploader my-uploader"
+              :action="`${action}/api/common/upload`"
+              :show-file-list="false"
+              :on-success="handleAvatar"
+              :on-change="handleon"
+            >
+              <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload> 
           </div>
           <el-form-item label="过期时间:" class="yonghumingcheng">
             <el-input v-model="form.time"></el-input>
@@ -53,12 +71,9 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
 import { pca, pcaa } from 'area-data'
-import upsetimage from 'common/upsetimage'
 export default {
-  components: {
-    upsetimage
-  },
   data() {
     return {
       form: {
@@ -79,23 +94,35 @@ export default {
       selected: [],
       pca: pca,
       pcaa: pcaa,
-      placeholders: ['省', '市', '区']
+      placeholders: ['省', '市', '区'],
+      image: '',
+      action: ''
     }
   },
   methods: {
     handleAvatarSuccess(res, file, index) {
+      this.image = URL.createObjectURL(file.raw)
+    },
+    handleAvatar(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
-      return isJPG && isLt2M
+    handleonchange(file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.uploadimage(file)
+    },
+    handleon(file, fileList) {
+      this.image = URL.createObjectURL(file.raw)
+      this.uploadimage(file)
+    },
+    async uploadimage(file) {
+      this.$nuxt.$loading.start()
+      await this.$store.dispatch('uploadimages', {
+        file
+      })
+      this.$nuxt.$loading.finish()
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     },
     onSubmit() {
       // console.log('submit')
@@ -227,5 +254,41 @@ export default {
 .specicalselect .area-select .area-selected-trigger {
   padding: 0px 3px 19px 51px;
   line-height: 30px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background-color: #b3b3b3;
+  box-sizing: border-box;
+  margin: 24px 28px 24px 0;
+  .avatar-uploader .el-upload {
+    background-color: #f1f2f6;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  .el-icon-plus:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

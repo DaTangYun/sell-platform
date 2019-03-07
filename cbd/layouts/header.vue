@@ -230,6 +230,10 @@ export default {
   border-bottom: 1px solid #00a0e9;
   color: #00a0e9;
 }
+.dengluname {
+  width: 100px;
+  text-align: center;
+}
 .dengluname:hover .user {
   display: block !important;
 }

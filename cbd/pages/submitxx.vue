@@ -131,6 +131,7 @@ export default {
       const info = await this.$store.dispatch('sendinfolist', {
         id: this.$route.query.id
       })
+      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -179,12 +180,15 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      console.log(info)
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      })
-      window.history.back()
+      if (!info) {
+        this.$message.error('请设置地区')
+      } else {
+        this.$message({
+          type: 'success',
+          message: '修改成功'
+        })
+        window.history.back()
+      }
     },
     changez(val) {
       for (const item of this.cloudInfo) {
@@ -207,7 +211,7 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('addinfolist', {
+      const info = await this.$store.dispatch('addinfolist', {
         title,
         message_cate_id: this.messagecateid,
         cover: this.imageUrl,
@@ -220,11 +224,15 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      this.$message({
-        type: 'success',
-        message: '添加成功'
-      })
-      this.$router.push({ path: '/' })
+      if (info) {
+        this.$message({
+          type: 'success',
+          message: '添加成功'
+        })
+        this.$router.push({ path: '/' })
+      } else {
+        this.$message.error('添加失败，请检查内容完整重新添加')
+      }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)

@@ -95,9 +95,19 @@ const cloudinfo = {
       const info = await api.cloudinfo.getsendedit({
         ...params
       })
+<<<<<<< HEAD
       if (info.data.code === api.CODE_OK && info.data) {
         const bcinfoedit = info.data
         console.log(bcinfoedit)
+=======
+      if (info.data.code === api.CODE_ERROR) {
+        const addinfo = info.data.msg
+        commit('setbcinfoedit', addinfo)
+        return addinfo
+      }
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const bcinfoedit = info.data.data
+>>>>>>> origin/home
         commit('setbcinfoedit', bcinfoedit)
         return bcinfoedit
       }
@@ -106,6 +116,11 @@ const cloudinfo = {
       const info = await api.cloudinfo.getaddinfo({
         ...params
       })
+      if (info.data.code === api.CODE_ERROR && info.data.data) {
+        const addinfo = info.data.data
+        commit('setaddinfo', addinfo)
+        return addinfo
+      }
       if (info.data.code === api.CODE_OK && info.data.data) {
         const addinfo = info.data.data
         commit('setaddinfo', addinfo.msg)

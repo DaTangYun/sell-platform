@@ -30,10 +30,10 @@
           未审核
         </span>
         <div class="lidiv">
-          <div>
+          <nuxt-link :to="{name: 'submitnbhg', query: {id: item1.id}}" tag="div">
             编辑
-          </div>
-          <div>
+          </nuxt-link>
+          <div @click="deleteinfolist(item1.id)">
             删除
           </div>
         </div>
@@ -64,7 +64,7 @@ export default {
       demand: ['交易标题', '价格', '服务类别', '发表时间', '状态', '操作'],
       demands: [0, 1, 2],
       page: 1,
-      limit: 4,
+      limit: 6,
       total: 0,
       title: ''
     }
@@ -91,6 +91,20 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.abilityprofiles()
+    },
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deleteability', {
+          id: vid
+        })
+        .then(res => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.abilityprofiles()
+        })
     }
   }
 }
@@ -100,6 +114,8 @@ export default {
 @import '~style/mixin.less';
 .secondpart {
   background-color: #fff;
+  box-sizing: border-box;
+  padding-bottom: 30px;
 }
 .secondpart-top {
   position: relative;
@@ -115,7 +131,7 @@ export default {
   }
 }
 .demand-bottom {
-  height: 904px;
+  height: 642px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

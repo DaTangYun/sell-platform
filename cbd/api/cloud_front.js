@@ -25,6 +25,9 @@ const cloudhead = {
   // 添加新头条
   addnewhead(params) {
     return axios.post('/api/topline/add', qs.stringify(params))
+  },
+  getdeletehead(params) {
+    return axios.post('/api/topline/del', qs.stringify(params))
   }
 }
 export default cloudhead

@@ -73,10 +73,10 @@ export default {
       top: 20px;
       right: 30px;
     }
-  }
-  .active-link {
-    color: #00a0e9;
-    border-bottom: 1px solid #00a0e9;
+    .active-link {
+      color: #00a0e9;
+      border-bottom: 1px solid #00a0e9;
+    }
   }
 }
 </style>
