@@ -34,7 +34,8 @@ module.exports = {
   },
   router: {
     middleware: ['redirect', 'routers'],
-    linkActiveClass: 'active-link'
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: ''
   },
 
   /*

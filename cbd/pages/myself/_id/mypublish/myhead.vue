@@ -24,10 +24,10 @@
           <div v-else-if="item.status === 0">
             未审核
           </div>
-          <nuxt-link :to="{name: 'messageComp', query: {id: item.id}}">
+          <nuxt-link :to="{name: 'messageComp', query: {id: item.id}}" tag="div">
             编辑
           </nuxt-link>
-          <div>
+          <div @click="deleteinfolist(item.id)">
             清除
           </div>
         </div>
@@ -84,6 +84,19 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.headprofiles()
+    },
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deletehead', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.headprofiles()
+        })
     }
   }
 }

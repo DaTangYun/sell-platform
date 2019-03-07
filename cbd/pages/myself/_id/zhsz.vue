@@ -10,6 +10,9 @@ export default {
   components: {
     setting
   },
+  meta: {
+    title: '账号设置'
+  },
   data() {
     return {}
   }

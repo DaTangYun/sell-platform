@@ -8,7 +8,7 @@
       <nuxt-link v-for="(item,index) of leftlist" :key="index" tag="li" :to="`/myself/${id}${item.url}`">
         {{ item.name }}
       </nuxt-link>
-      <li>
+      <li @click="exit">
         退出
       </li>
     </ul>
@@ -43,6 +43,13 @@ export default {
     id() {
       return this.$route.params.id
     }
+  },
+  methods: {
+    async exit() {
+      const info = await this.$store.dispatch('exituser')
+      console.log(info)
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>
@@ -74,12 +81,12 @@ export default {
         color: #fff;
       }
     }
-  }
-  .active-link {
-    background-color: rgba(0, 160, 233, 1);
-    color: #fff;
-    &:hover {
+    .active-link {
       background-color: rgba(0, 160, 233, 1);
+      color: #fff;
+      &:hover {
+        background-color: rgba(0, 160, 233, 1);
+      }
     }
   }
 }

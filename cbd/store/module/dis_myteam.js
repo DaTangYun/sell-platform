@@ -6,7 +6,10 @@ const dismyteam = {
     teampro: {},
     teamedit: {},
     teamlist: {},
-    teamapply: {}
+    teamapply: {},
+    editteam: {},
+    bjteam: {},
+    addteam: {}
   },
   mutations: {
     setdismyteam(state, data) {
@@ -26,6 +29,15 @@ const dismyteam = {
     },
     setteamapply(state, data) {
       state.teamapply = data
+    },
+    seteditteam(state, data) {
+      state.editteam = data
+    },
+    setbjteam(state, data) {
+      state.bjteam = data
+    },
+    setaddteam(state, data) {
+      state.addteam = data
     }
   },
   actions: {
@@ -87,6 +99,38 @@ const dismyteam = {
         const teamapply = info.data.data
         commit('setteamapply', teamapply.member)
         return teamapply
+      }
+    },
+    async bjteamedit({ commit }, params) {
+      const info = await api.dismyteam.getbjteamedit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const editteam = info.data.data
+        commit('seteditteam', editteam.row)
+        return editteam
+      }
+    },
+    async bjteaminfo({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.dismyteam.getteameditbj({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const bjteam = info.data
+        commit('setbjteam', bjteam)
+        return bjteam
+      }
+    },
+    async addteam({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.dismyteam.getteamadd({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const addteam = info.data
+        commit('setaddteam', addteam)
+        return addteam
       }
     }
   }

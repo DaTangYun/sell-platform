@@ -3,7 +3,9 @@ const disactive = {
   state: {
     activelist: [],
     useractiveprofile: [],
-    activeprofil: {}
+    activeprofil: {},
+    deleteactive: {},
+    deleteuseractive: {}
   },
   mutations: {
     setactivelist(state, data) {
@@ -14,6 +16,12 @@ const disactive = {
     },
     setactiveprofil(state, data) {
       state.activeprofil = data
+    },
+    setdeleteactive(state, data) {
+      state.deleteactive = data
+    },
+    setdeletusereactive(state, data) {
+      state.deleteuseractive = data
     }
   },
   actions: {
@@ -45,6 +53,26 @@ const disactive = {
         const list = info.data.data
         commit('setactiveprofil', list.active)
         return list
+      }
+    },
+    async deleteactive({ commit }, params) {
+      const info = await api.disactive.getdeleteactive({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteactive = info.data
+        commit('setdeleteactive', deleteactive)
+        return deleteactive
+      }
+    },
+    async deleteuser({ commit }, params) {
+      const info = await api.disactive.getdeleteuseractive({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteuseractive = info.data
+        commit('setdeletusereactive', deleteuseractive)
+        return deleteuseractive
       }
     }
   }

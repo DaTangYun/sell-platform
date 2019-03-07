@@ -5,7 +5,12 @@ const dishelpdo = {
     abilityprofile: {},
     abilitylists: {},
     abilitydetail: {},
-    addcomment: {}
+    addcomment: {},
+    abilityeditfl: {},
+    bjnbhg: {},
+    newnbhgfl: {},
+    newability: {},
+    deleteability: {}
   },
   mutations: {
     setdishelpdo(state, data) {
@@ -22,6 +27,21 @@ const dishelpdo = {
     },
     setaddcomment(state, data) {
       state.addcomment = data
+    },
+    setabilityeditfl(state, data) {
+      state.abilityeditfl = data
+    },
+    setbgnbhg(state, data) {
+      state.bjnbhg = data
+    },
+    setnewnbhgfl(state, data) {
+      state.newnbhgfl = data
+    },
+    setnewability(state, data) {
+      state.newability = data
+    },
+    setdeleteability(state, data) {
+      state.deleteability = data
     }
   },
   actions: {
@@ -74,6 +94,57 @@ const dishelpdo = {
         const addcomment = info.data.data
         commit('setaddcomment', addcomment.data)
         return addcomment
+      }
+    },
+    async abilityeditfl({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.dishelpdo.getabilityeditfl({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const abilityeditfl = info.data.data
+        commit('setabilityeditfl', abilityeditfl.data)
+        return abilityeditfl
+      }
+    },
+    async changenbhg({ commit }, params) {
+      const info = await api.dishelpdo.getbjnbgh({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const bjnbhg = info.data
+        commit('setbgnbhg', bjnbhg)
+        return bjnbhg
+      }
+    },
+    async addnewnbhgfl({ commit }, params) {
+      const info = await api.dishelpdo.getnewnbhgfl({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const newnbhgfl = info.data.data
+        commit('setnewnbhgfl', newnbhgfl.cate)
+        return newnbhgfl
+      }
+    },
+    async addnewabil({ commit }, params) {
+      const info = await api.dishelpdo.getnewability({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const newability = info.data
+        commit('setnewability', newability)
+        return newability
+      }
+    },
+    async deleteability({ commit }, params) {
+      const info = await api.dishelpdo.getdeleteability({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const deleteability = info.data
+        commit('setdeleteability', deleteability)
+        return deleteability
       }
     }
   }

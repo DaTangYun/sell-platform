@@ -38,6 +38,24 @@ const common = {
   // 查看自己的评论
   getusercommit(params) {
     return axios.get('/api/user_comment/profile', { params })
+  },
+  // 修改手机号
+  getchangemobile(params) {
+    return axios.post('/api/user/changemobile', qs.stringify(params))
+  },
+  getchangepass(params) {
+    return axios.post('/api/user/changePass', qs.stringify(params))
+  },
+  // 获取用户信息
+  getuserinfo(params) {
+    return axios.get('/api/user/info', { params })
+  },
+  // 设置用户信息
+  getuserchangeinfo(params) {
+    return axios.post('/api/user/changeInfo', qs.stringify(params))
+  },
+  getexit(params) {
+    return axios.post('/api/user/logout', qs.stringify(params))
   }
 }
 export default common

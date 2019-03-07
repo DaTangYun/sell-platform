@@ -85,7 +85,7 @@ export default {
       }
       await this.$store.dispatch('logindata', {
         mobile: 18309297035,
-        password: 123456
+        password: 111111
       })
       // this.formmobile = ''
       // this.formPassword = ''

@@ -30,7 +30,7 @@
           未使用
         </span>
         <div class="lidiv">
-          <div>
+          <div @click="deleteinfolist(item1.id)">
             删除
           </div>
         </div>
@@ -64,7 +64,7 @@ export default {
       demand: ['标题', '优惠金额', '使用期限', '领取次数', '使用次数', '操作'],
       demands: [0, 1, 2],
       page: 1,
-      limit: 4,
+      limit: 6,
       total: 0,
       title: ''
     }
@@ -89,6 +89,19 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.activeprofils()
+    },
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deleteactive', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.activeprofils()
+        })
     }
   }
 }
@@ -118,7 +131,7 @@ export default {
   }
 }
 .demand-bottom {
-  height: 904px;
+  height: 650px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

@@ -1,3 +1,4 @@
+import qs from 'qs'
 import axios from './http'
 const dismyteam = {
   getdismyteam(params) {
@@ -23,6 +24,18 @@ const dismyteam = {
   // 团队审核通过的成员
   getteamapply(params) {
     return axios.get('/api/team_apply/apply', { params })
+  },
+  // 点击编辑获取团队信息
+  getbjteamedit(params) {
+    return axios.get('/api/team/edit', { params })
+  },
+  // 点击编辑后保存团队
+  getteameditbj(params) {
+    return axios.post('/api/team/edit', qs.stringify(params))
+  },
+  // 点击组件新团队后保存信息
+  getteamadd(params) {
+    return axios.post('/api/team/add', qs.stringify(params))
   }
 }
 export default dismyteam

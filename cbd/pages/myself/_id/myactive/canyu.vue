@@ -37,7 +37,7 @@ export default {
       demand: ['标题', '优惠金额', '使用期限', '状态', '操作'],
       demands: [0, 1, 2],
       page: 1,
-      limit: 4,
+      limit: 6,
       total: 0,
       title: ''
     }
