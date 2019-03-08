@@ -22,7 +22,14 @@ module.exports = {
         content: pkg.description
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        innerHTML: require('./assets/js/hello'),
+        type: 'text/javascript',
+        charset: 'utf-8'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
