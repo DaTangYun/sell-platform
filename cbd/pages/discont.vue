@@ -17,7 +17,9 @@ export default {
   },
   data() {
     return {
-      show: 1
+      show: 1,
+      publish: '发表需求',
+      tpath: '/submitxq'
     }
   },
   computed: {
@@ -45,7 +47,7 @@ export default {
     padding-bottom: 56px;
     box-sizing: border-box;
     .left {
-      width: 950px;
+      // width: 950px;
       position: relative;
     }
   }

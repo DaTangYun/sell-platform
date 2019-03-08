@@ -5,7 +5,7 @@
         <TopHead :headlist="headlist.topline" :infolist="infolist.message"></TopHead>
         <BigSlider></BigSlider>
         <div class="index-top-right">
-          <PublishinTopic :publish="'发表需求'"></PublishinTopic>
+          <PublishinTopic></PublishinTopic>
           <Cooperative></Cooperative>
         </div>
       </div>

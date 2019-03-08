@@ -274,6 +274,9 @@ const getters = {
   },
   abilitymessage: state => {
     return state.common.abilitymessage
+  },
+  userdactive: state => {
+    return state.disactive.userdactive
   }
 }
 export default getters

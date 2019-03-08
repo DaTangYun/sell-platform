@@ -32,12 +32,12 @@
         @next="handlecurrentchange"
       ></pagination>
     </div>
-    <RightComponent></RightComponent>
+    <RightComponent :publish="publish" :tpath="tpath"></RightComponent>
   </div>
 </template>
 <script>
-import pagination from 'components/cloudComponents/pagination.vue'
 import RightComponent from 'components/headlineComponents/rightComponents.vue'
+import pagination from 'components/cloudComponents/pagination.vue'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -55,7 +55,9 @@ export default {
       limit: 12,
       total: 0,
       pagesize: 0,
-      show: 1
+      show: 1,
+      publish: '发表需求',
+      tpath: '/submitxq'
     }
   },
   computed: {

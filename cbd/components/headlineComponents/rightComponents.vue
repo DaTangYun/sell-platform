@@ -1,7 +1,7 @@
 <template>
   <div class="rightComponent">
     <div class="public">
-      <PublishinTopic></PublishinTopic>
+      <PublishinTopic :publish="publish" :tpath="tpath"></PublishinTopic>
     </div>
     <Cooperative></Cooperative>
     <div class="wisdom">
@@ -33,6 +33,16 @@ export default {
     WisdomBank,
     helpme,
     jingdiananli
+  },
+  props: {
+    publish: {
+      type: String,
+      default: ''
+    },
+    tpath: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {

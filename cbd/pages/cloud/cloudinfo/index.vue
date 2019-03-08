@@ -40,7 +40,7 @@
         ></pagination>
       </div>
     </div>
-    <RightComponent></RightComponent>
+    <RightComponent :publish="publish" :tpath="tpath"></RightComponent>
   </div>
 </template>
 <script>
@@ -63,7 +63,9 @@ export default {
       limit: 6,
       total: 0,
       cateid: 0,
-      title: ''
+      title: '',
+      publish: '发表信息',
+      tpath: '/submitxx'
     }
   },
   computed: {
