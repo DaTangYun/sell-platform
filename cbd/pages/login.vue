@@ -70,31 +70,25 @@ export default {
     },
     async logindatas() {
       const { mobile, password } = this
-      const info = await this.$store.dispatch('logindata', {
+      await this.$store.dispatch('logindata', {
         mobile,
         password
       })
-      console.log(info)
     },
     async login() {
-      // const mobile = this.formmobile
-      // const password = this.formPassword
       const flag = this.validate()
       if (!flag) {
         return
       }
-      await this.$store.dispatch('logindata', {
-        mobile: 18309297035,
-        password: 111111
+      const info = await this.$store.dispatch('logindata', {
+        mobile: this.formmobile,
+        password: this.formPassword
       })
-      // this.formmobile = ''
-      // this.formPassword = ''
-      // this.formError = null
-      if (this.path) {
-        this.$router.replace(this.path)
-        this.$message.success('登录成功')
+      if (!info) {
+        this.$message.error('账号或密码不正确')
       } else {
-        this.$router.replace('/')
+        this.$message.success('登录成功')
+        window.history.back()
       }
     },
     async logout() {

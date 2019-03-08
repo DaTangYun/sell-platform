@@ -12,7 +12,7 @@
             <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
               认证
             </nuxt-link>
-            <div v-show="name" style="color:#039be5" class="dengluname">
+            <div v-if="userid" style="color:#039be5" class="dengluname">
               {{ name }}
               <ul class="user">
                 <nuxt-link :to="`/myself/${userid}/mypublish/myhead`" tag="li">
@@ -23,7 +23,7 @@
                 </li>
               </ul>
             </div>
-            <div v-show="nickname.login">
+            <div v-else>
               <nuxt-link to="/login">
                 登录
               </nuxt-link>
@@ -40,9 +40,9 @@
               <img :src="banquan.header_logo" alt="">
             </a>
           </h1>
-          <div v-if="$route.path === '/' || $route.path === '/cloud/cloudinfo' || $route.path === '/cloud/cloudhead'" class="header-classification">
+          <div v-if="$route.path === '/' || $route.path === '/cloud/cloudInfo' || $route.path === '/cloud/cloudhead'" class="header-classification">
             <div class="classification">
-              <el-select v-model="value">
+              <el-select v-show="showselect" v-model="value">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -54,8 +54,8 @@
               </el-select>
             </div>
             <div class="search">
-              <el-input placeholder="请输入搜索内容">
-                <i slot="suffix" class="el-input__icon el-icon-search"></i>
+              <el-input v-model="searchcontent" placeholder="请输入搜索内容">
+                <i slot="suffix" class="el-input__icon el-icon-search" @click="sendsearch"></i>
               </el-input>
             </div>
           </div>
@@ -143,15 +143,15 @@ export default {
     return {
       options: [
         {
-          value: '选项1',
+          value: 'cloudhead',
           label: '头条'
         },
         {
-          value: '选项2',
+          value: 'cloudInfo',
           label: '信息'
         }
       ],
-      value: '选项1',
+      value: 'cloudhead',
       activeIndex: '',
       showDialog: false,
       city: '切换城市',
@@ -161,11 +161,16 @@ export default {
         login: true
       },
       userid: 0,
-      name: ''
+      name: '',
+      searchcontent: ''
     }
   },
   computed: {
-    ...mapGetters(['banquan', 'loginout'])
+    ...mapGetters(['banquan', 'loginout']),
+    showselect() {
+      const path = this.$route.path
+      return path === '/'
+    }
   },
   watch: {
     $route(route) {
@@ -220,6 +225,29 @@ export default {
       this.$message({
         type: 'warning',
         message: info.msg
+      })
+      localStorage.removeItem('USERINFO')
+      window.location.reload()
+    },
+    sendsearch() {
+      if (this.searchcontent.trim() === '') {
+        this.$message.info({
+          message: '请输入内容',
+          duration: 1000
+        })
+        return
+      }
+      if (this.$route.path === '/cloud/cloudhead') {
+        this.value = 'cloudhead'
+      }
+      if (this.$route.path === '/cloud/cloudInfo') {
+        this.value = 'cloudInfo'
+      }
+      this.$router.push({
+        path: `/cloud/${this.value}`,
+        query: {
+          title: this.searchcontent
+        }
       })
     }
   }
@@ -316,6 +344,7 @@ header {
           color: #747d8c;
         }
         i {
+          cursor: pointer;
           &:before {
             font-size: 20px;
             font-weight: 700;

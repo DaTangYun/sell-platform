@@ -8,6 +8,7 @@
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :on-change="handleonchange"
+        @click="sendurl"
       >
         <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -34,6 +35,9 @@ export default {
     })
   },
   methods: {
+    sendurl() {
+      this.$emit('sendurl', this.imageUrl)
+    },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },

@@ -12,11 +12,13 @@
               class="avatar-uploader my-uploader"
               :action="`${action}/api/common/upload`"
               :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :on-change="handleonchange"
+              :on-success="(res,index)=>{return handleHeadSuccess(res, index)}"
             >
-              <img v-if="image.length" :src="image" class="avatar">
+              <img v-if="headimage.length" :src="headimage" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <el-button size="small" type="info" plain>
+                更换头像
+              </el-button>
             </el-upload> 
           </div>
           <el-form-item label="用户名称:" class="yonghumingcheng">
@@ -35,21 +37,28 @@
               class="avatar-uploader my-uploader"
               :action="`${action}/api/common/upload`"
               :show-file-list="false"
-              :on-success="handleAvatar"
-              :on-change="handleon"
+              :on-success="(res,index)=>{return handleHeadS(res, index)}"
             >
-              <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+              <img v-if="qyimage.length" :src="qyimage" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <el-button size="small" type="info" plain>
+                更换证件图片
+              </el-button>
             </el-upload> 
           </div>
           <el-form-item label="过期时间:" class="yonghumingcheng">
-            <el-input v-model="form.time"></el-input>
+            <el-date-picker
+              v-model="form.time"
+              type="date"
+              placeholder="选择日期"
+            >
+            </el-date-picker>
           </el-form-item>
           <el-form-item label="所在地区:" class="yonghumingcheng">  
             <no-ssr>
               <area-select
                 v-model="selected"
-                type="text"
+                type="all"
                 :data="pcaa"
                 :level="2"
                 class="specicalselect"
@@ -61,7 +70,7 @@
             <el-input v-model="form.desc" type="textarea"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button id="firstsubmit" type="primary" @click="onSubmit">
+            <el-button id="firstsubmit" type="primary" @click="sendinfo">
               立即创建
             </el-button>
           </el-form-item>
@@ -71,7 +80,7 @@
   </div>
 </template>
 <script>
-import base from '@/api/base'
+import { mapGetters } from 'vuex'
 import { pca, pcaa } from 'area-data'
 export default {
   data() {
@@ -96,42 +105,59 @@ export default {
       pcaa: pcaa,
       placeholders: ['省', '市', '区'],
       image: '',
-      action: ''
+      action: '',
+      headimage: '',
+      qyimage: ''
     }
   },
+  computed: {
+    ...mapGetters(['useridenty'])
+  },
   methods: {
-    handleAvatarSuccess(res, file, index) {
-      this.image = URL.createObjectURL(file.raw)
-    },
-    handleAvatar(res, file, index) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    handleon(file, fileList) {
-      this.image = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
+    async sendinfo() {
+      this.selected.map((item, index) => {
+        if (index === 0) {
+          this.province = Object.values(item)[0]
+          this.provincecode = Object.keys(item)[0]
+        } else if (index === 1) {
+          this.city = Object.values(item)[0]
+          this.citycode = Object.keys(item)[0]
+        } else {
+          this.area = Object.values(item)[0]
+          this.areacode = Object.keys(item)[0]
+        }
       })
-      this.$nuxt.$loading.finish()
+      const _this = this
+      const info = await this.$store.dispatch('userind', {
+        avatar: _this.headimage,
+        nickname: _this.form.name,
+        identy_images: _this.qyimage,
+        type: _this.radio,
+        expiretime: _this.form.time,
+        bio: _this.form.desc,
+        province: _this.province,
+        province_code: _this.provincecode,
+        city_code: _this.citycode,
+        city: _this.city,
+        area_code: _this.areacode,
+        area: _this.area
+      })
+      if (!info) {
+        this.$message.error('认证失败')
+      } else {
+        this.$message({
+          type: 'success',
+          message: '认证成功'
+        })
+        window.history.back()
+      }
     },
-    initAction() {
-      this.action = process.client ? '' : base.dev
+    handleHeadS(res, index) {
+      this.qyimage = URL.createObjectURL(index.raw)
     },
-    onSubmit() {
-      // console.log('submit')
+    handleHeadSuccess(res, index) {
+      this.headimage = URL.createObjectURL(index.raw)
     }
-    // initUploadimg() {
-    //   if (process.client) {
-    //     require('element-ui')
-    //   }
-    // }
   }
 }
 </script>

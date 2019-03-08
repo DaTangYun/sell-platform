@@ -57,18 +57,12 @@
             <el-input v-model="source"></el-input>
           </div>
         </el-form-item>
-        <el-form-item v-if="bjindex" v-model="cover" label="图片">
-          <div class="ima">
-            <img :src="cover" alt="">
-          </div>
-        </el-form-item>
-        <el-form-item v-if="!bjindex" v-model="cover" label="图片">
+        <el-form-item v-model="cover" label="图片">
           <el-upload
             class="avatar-uploader my-uploader"
             :action="`${action}/api/common/upload`"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :on-change="handleonchange"
           >
             <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -177,7 +171,7 @@ export default {
       const info = await this.$store.dispatch('addcases', {
         title,
         author,
-        cover: this.imageUrl,
+        cover: this.cover,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -214,7 +208,6 @@ export default {
     changeindex() {
       this.noIndex = 1
       this.selected = []
-      console.log(this.selected)
       this.edit = true
       this.title = ''
       this.author = ''
@@ -246,17 +239,11 @@ export default {
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
+      this.cover = file.response.data.url
     },
     handleonchange(file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev
@@ -265,12 +252,6 @@ export default {
       const info = await this.$store.dispatch('getcaseinfo', {
         id: vid
       })
-      // this.selected = [
-      //   info.row.province_code,
-      //   info.row.city_code,
-      //   info.row.area_code
-      // ]
-      console.log(info.row)
       if (info.row.province_code) {
         this.selected = [
           info.row.province_code,
@@ -282,7 +263,7 @@ export default {
       this.source = info.row.source
       this.title = info.row.title
       this.desc = info.row.desc
-      this.cover = info.row.cover
+      this.imageUrl = info.row.cover
       this.content = info.row.content
     },
     async bcbjinfo() {
@@ -299,7 +280,6 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      console.log(this.imageUrl)
       const info = await this.$store.dispatch('qdcaseinfo', {
         id: this.sendid,
         title,
