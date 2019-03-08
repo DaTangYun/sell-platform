@@ -26,14 +26,14 @@ const errorHandle = (status, other) => {
 const host = process.client ? '' : base.dev
 const instance = axios.create({
   timeout: 1000 * 10,
-  baseURL: host
+  baseURL: host,
+  headers: {
+    post: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
+  }
 })
 // 请求头
-instance.defaults.headers = {
-  post: {
-    'Content-type': 'application/json;charset=UTF-8'
-  }
-}
 // 每次请求有token携带Token
 instance.interceptors.request.use(
   config => {

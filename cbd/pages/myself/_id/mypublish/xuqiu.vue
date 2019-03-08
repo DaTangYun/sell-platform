@@ -10,6 +10,9 @@ export default {
   components: {
     demand
   },
+  meta: {
+    title: '需求'
+  },
   data() {
     return {}
   }

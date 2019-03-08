@@ -15,7 +15,7 @@
             <div v-show="name" style="color:#039be5" class="dengluname">
               {{ name }}
               <ul class="user">
-                <nuxt-link :to="`/myself/${userid}`" tag="li">
+                <nuxt-link :to="`/myself/${userid}/mypublish/myhead`" tag="li">
                   个人中心
                 </nuxt-link>
                 <li @click="getloginout">
@@ -230,13 +230,17 @@ export default {
   border-bottom: 1px solid #00a0e9;
   color: #00a0e9;
 }
+.dengluname {
+  width: 100px;
+  text-align: center;
+}
 .dengluname:hover .user {
   display: block !important;
 }
 .user {
   position: absolute;
   top: 50px;
-  right: 36px;
+  right: 16px;
   width: 100px;
   height: 100px;
   background-color: #fff;
@@ -258,6 +262,7 @@ header {
   background-color: #fff;
   .header-top {
     height: 50px;
+    position: relative;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #dadfe5;

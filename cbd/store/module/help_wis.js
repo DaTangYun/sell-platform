@@ -6,7 +6,14 @@ const helpwis = {
     documentlist: [],
     documentprofile: {},
     caseprofile: {},
-    financedetail: {}
+    financedetail: {},
+    deletedata: {},
+    docuadd: {},
+    document: {},
+    error: {},
+    addcase: {},
+    caseinfo: {},
+    qdcase: {}
   },
   mutations: {
     sethelpwis(state, data) {
@@ -26,6 +33,27 @@ const helpwis = {
     },
     setfinancedetail(state, data) {
       state.financedetail = data
+    },
+    setdeletedata(state, data) {
+      state.deletedata = data
+    },
+    setdocuadd(state, data) {
+      state.docuadd = data
+    },
+    setdocument(state, data) {
+      state.document = data
+    },
+    seterror(state, data) {
+      state.error = data
+    },
+    setnewcase(state, data) {
+      state.error = data
+    },
+    setcaseinfo(state, data) {
+      state.caseinfo = data
+    },
+    setqdcase(state, data) {
+      state.qdcase = data
     }
   },
   actions: {
@@ -88,6 +116,71 @@ const helpwis = {
         const financedetail = info.data.data
         commit('setfinancedetail', financedetail.detail)
         return financedetail
+      }
+    },
+    async deletewendang({ commit }, params) {
+      const info = await api.helpwis.getdelete({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const deletedata = info.data
+        commit('setdeletedata', deletedata)
+        return deletedata
+      }
+    },
+    async docuadd({ commit }, params) {
+      const info = await api.helpwis.getdocuadd({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const docuadd = info.data.data
+        commit('setdocuadd', docuadd.cate)
+        return docuadd
+      }
+    },
+    async adddocument({ commit }, params) {
+      const info = await api.helpwis.getdocument({
+        ...params
+      })
+      if (info.data.code === api.CODE_ERROR) {
+        const error = info.data
+        commit('seterror', error)
+        return error
+      }
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const document = info.data.data
+        commit('setdocument', document.cate)
+        return document
+      }
+    },
+    async addcases({ commit }, params) {
+      const info = await api.helpwis.getnewcase({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const addcase = info.data
+        commit('setnewcase', addcase)
+        return addcase
+      }
+    },
+    async getcaseinfo({ commit }, params) {
+      const info = await api.helpwis.getcaseinfo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const caseinfo = info.data.data
+        commit('setcaseinfo', caseinfo)
+        return caseinfo
+      }
+    },
+    async qdcaseinfo({ commit }, params) {
+      const info = await api.helpwis.getqdcase({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const qdcase = info.data
+        commit('setqdcase', qdcase)
+        return qdcase
       }
     }
   }

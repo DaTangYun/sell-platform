@@ -5,8 +5,11 @@
   </div>
 </template>
 <script>
-import myteam from 'components/myselfComponents/safe'
+import myteam from 'components/myselfComponents/myteam'
 export default {
+  meta: {
+    title: '我的团队'
+  },
   components: {
     myteam
   },

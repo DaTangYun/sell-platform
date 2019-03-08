@@ -10,6 +10,9 @@ export default {
   name: 'Messagelist',
   components: {
     file
+  },
+  meta: {
+    title: '文档'
   }
 }
 </script>

@@ -10,48 +10,66 @@
           <el-form label-position="left" label-width="80px">
             <el-form-item label="所属地区">
               <no-ssr>
-                <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+                <area-select id="specicalselect" v-model="selected" type="all" :data="pcaa" :level="2"></area-select>
               </no-ssr>
             </el-form-item>
             <el-form-item label="标题">
-              <el-input></el-input>
+              <el-input v-model="title"></el-input>
             </el-form-item>
-            <el-form-item label="分类">
+            <el-form-item v-if="$route.query.id" label="分类">
               <el-select v-model="value" placeholder="请选择">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in newarr"
+                  :key="item.id"
+                  :label="item.title"
+                  :value="item.title"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item v-if="!$route.query.id" label="分类">
+              <el-select v-model="value" placeholder="请选择" @change="changez">
+                <el-option
+                  v-for="item in newnbhgfl"
+                  :key="item.id"
+                  :label="item.title"
+                  :value="item.title"
                 >
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="价格">
-              <el-input></el-input>
+              <el-input v-model="price" type="number"></el-input>
             </el-form-item>
             <el-form-item label="电话">
-              <el-input></el-input>
+              <el-input v-model="mobile"></el-input>
             </el-form-item>
-            <el-form-item label="图片">
+            <el-form-item v-if="$route.query.id" v-model="cover" label="图片">
+              <div class="ima">
+                <img :src="cover" alt="">
+              </div>
+            </el-form-item>
+            <el-form-item v-if="!$route.query.id" v-model="cover" label="图片">
               <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                class="avatar-uploader my-uploader"
+                :action="`${action}/api/common/upload`"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :on-change="handleonchange"
               >
-                <el-button size="small" type="primary">
-                  点击上传
-                </el-button>
-              </el-upload>
+                <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
-              <el-input></el-input>
+              <el-input v-model="desc" type="textarea"></el-input>
             </el-form-item>
             <el-form-item label="内容">
-              <el-input type="textarea"></el-input>
+              <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
           </el-form>
           <div class="button">
-            <el-button type="primary">
+            <el-button type="primary" @click="sendhead">
               确认
             </el-button>
           </div>
@@ -61,6 +79,8 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
+import { mapGetters } from 'vuex'
 import { pcaa } from 'area-data'
 export default {
   meta: {
@@ -68,31 +88,182 @@ export default {
   },
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
       value: '',
+      newarr: [],
       selected: [],
-      pcaa: pcaa
+      pcaa: pcaa,
+      content: '',
+      desc: '',
+      fenlei: '',
+      title: '',
+      cover: '',
+      fl: [],
+      flvalue: '',
+      id: 34,
+      province: '',
+      provincecode: 0,
+      citycode: 0,
+      city: '',
+      areacode: 0,
+      area: '',
+      imageUrl: '',
+      action: '',
+      abilityid: 0,
+      price: '',
+      mobile: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['abilityeditfl', 'newnbhgfl'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.$route.query.id) {
+        this.abilityeditfls()
+      } else {
+        this.addnbgffl()
+      }
+    })
+  },
+  methods: {
+    sendhead() {
+      if (this.$route.query.id) {
+        this.bceditlist()
+      } else {
+        this.addnewhead()
+      }
+    },
+    async addnbgffl() {
+      await this.$store.dispatch('addnewnbhgfl')
+    },
+    async abilityeditfls() {
+      const info = await this.$store.dispatch('abilityeditfl', {
+        id: this.$route.query.id
+      })
+      this.newarr = info.cate
+      if (info.row.province_code) {
+        this.selected = [
+          info.row.province_code,
+          info.row.city_code,
+          info.row.area_code
+        ]
+      }
+      for (const item of info.cate) {
+        if (item.id === info.row.ability_id) {
+          this.value = item.title
+        }
+      }
+      this.title = info.row.title
+      this.desc = info.row.desc
+      this.cover = info.row.image
+      this.price = info.row.price
+      this.mobile = info.row.mobile
+      this.content = info.row.content
+      this.abilityid = info.row.ability_id
+    },
+    async bceditlist() {
+      const { title, price, mobile, desc, content } = this
+      this.selected.map((item, index) => {
+        if (index === 0) {
+          this.province = Object.values(item)[0]
+          this.provincecode = Object.keys(item)[0]
+        } else if (index === 1) {
+          this.city = Object.values(item)[0]
+          this.citycode = Object.keys(item)[0]
+        } else {
+          this.area = Object.values(item)[0]
+          this.areacode = Object.keys(item)[0]
+        }
+      })
+      await this.$store.dispatch('changenbhg', {
+        id: this.$route.query.id,
+        title,
+        ability_id: this.abilityid,
+        image: this.cover,
+        desc,
+        price,
+        mobile,
+        content,
+        province: this.province,
+        province_code: this.provincecode,
+        city_code: this.citycode,
+        city: this.city,
+        area_code: this.areacode,
+        area: this.area
+      })
+      if (this.selected[0] === '0') {
+        this.$message.error('请设置地区')
+        return
+      }
+      this.$message({
+        type: 'success',
+        message: '修改成功'
+      })
+      window.history.back()
+    },
+    changez(val) {
+      for (const item of this.newnbhgfl) {
+        if (item.cate_name === val) {
+          this.abilityid = item.id
+        }
+      }
+    },
+    async addnewhead() {
+      const { title, desc, content, price, mobile } = this
+      this.selected.map((item, index) => {
+        if (index === 0) {
+          this.province = Object.values(item)[0]
+          this.provincecode = Object.keys(item)[0]
+        } else if (index === 1) {
+          this.city = Object.values(item)[0]
+          this.citycode = Object.keys(item)[0]
+        } else {
+          this.area = Object.values(item)[0]
+          this.areacode = Object.keys(item)[0]
+        }
+      })
+      const info = await this.$store.dispatch('addnewabil', {
+        price,
+        title,
+        ability_id: this.abilityid,
+        image: this.cover,
+        mobile,
+        desc,
+        content,
+        province: this.province,
+        province_code: this.provincecode,
+        city_code: this.citycode,
+        city: this.city,
+        area_code: this.areacode,
+        area: this.area
+      })
+      if (info) {
+        this.$message({
+          type: 'success',
+          message: '添加成功'
+        })
+        window.history.back()
+      } else {
+        this.$message.error('添加失败，请检查内容完整重新添加')
+      }
+    },
+    handleAvatarSuccess(res, file, index) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    handleonchange(file, fileList) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.cover = this.imageUrl
+      this.uploadimage(file)
+    },
+    async uploadimage(file) {
+      this.$nuxt.$loading.start()
+      await this.$store.dispatch('uploadimages', {
+        file
+      })
+      this.$nuxt.$loading.finish()
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     }
   }
 }
@@ -130,5 +301,41 @@ export default {
 }
 .button {
   margin: 0 0 20px 85px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background-color: #b3b3b3;
+  box-sizing: border-box;
+  margin: 24px 28px 24px 0;
+  .avatar-uploader .el-upload {
+    background-color: #f1f2f6;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+  .el-icon-plus:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

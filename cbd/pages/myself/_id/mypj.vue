@@ -10,6 +10,9 @@ export default {
   components: {
     mypingjia
   },
+  meta: {
+    title: '我的评价'
+  },
   data() {
     return {}
   }
@@ -22,5 +25,6 @@ export default {
   margin-left: 12px;
   box-sizing: border-box;
   padding: 20px;
+  margin-bottom: 50px;
 }
 </style>

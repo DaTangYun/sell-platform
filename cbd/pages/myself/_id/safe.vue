@@ -10,6 +10,9 @@ export default {
   components: {
     safe
   },
+  meta: {
+    title: '安全设置'
+  },
   data() {
     return {}
   }

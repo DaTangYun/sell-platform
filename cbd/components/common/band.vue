@@ -7,7 +7,7 @@
       </div>
       <div class="band">
         <el-breadcrumb v-if="levelList.length" class="breadcrumb-container" separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.path">
+          <el-breadcrumb-item v-for="(item,index) in levelList" :key="index" :to="item.newpath">
             {{ item.title }}
           </el-breadcrumb-item>
         </el-breadcrumb>
@@ -18,6 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import pathToRegexp from 'path-to-regexp'
 export default {
   name: 'Band',
   data() {
@@ -53,19 +54,40 @@ export default {
   methods: {
     getMeta(arr) {
       let matched = this.$route.matched.filter((item, index) => {
+        item = this.fixredirect(item)
         item.title = arr[index].title
+        if (item.redirect) {
+          item.newpath = this.pathCompile(item.redirect)
+        } else {
+          item.newpath = this.pathCompile(item.path)
+        }
         return item
       })
       const first = matched[0]
       if (first && first.name !== '首页') {
         matched = [
           {
-            path: '/',
+            newpath: '/',
             title: '首页'
           }
         ].concat(matched)
       }
       this.levelList = matched
+    },
+    fixredirect(item) {
+      if (item.path === '/myself/:id?') {
+        item.redirect = '/myself/:id/mypublish/myhead'
+      }
+      if (item.path === '/myself/:id?/myteam/mt/:teamid?') {
+        item.redirect = '/myself/:id?/myteam'
+      }
+      if (item.path === '/myself/:id?/mypublish') {
+        item.redirect = '/myself/:id?/mypublish/myhead'
+      }
+      if (item.path === '/myself/:id?/myactive') {
+        item.redirect = '/myself/:id?/myactive/zuzhi'
+      }
+      return item
     },
     getBreadcrumb() {
       const history = JSON.parse(sessionStorage.getItem('HISTORY'))
@@ -74,6 +96,11 @@ export default {
     },
     getBread() {
       this.getMeta(this.meta)
+    },
+    pathCompile(path) {
+      const { params } = this.$route
+      const toPath = pathToRegexp.compile(path)
+      return toPath(params)
     }
   }
 }

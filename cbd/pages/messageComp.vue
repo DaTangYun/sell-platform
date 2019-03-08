@@ -10,42 +10,38 @@
           <el-form label-position="left" label-width="80px">
             <el-form-item label="所属地区">
               <no-ssr>
-                <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+                <area-select id="specicalselect" v-model="selected" type="all" :data="pcaa" :level="2"></area-select>
               </no-ssr>
             </el-form-item>
             <el-form-item label="标题">
-              <el-input></el-input>
+              <el-input v-model="title"></el-input>
             </el-form-item>
             <el-form-item label="分类">
-              <el-select v-model="value" placeholder="请选择">
+              <el-select v-model="flvalue" placeholder="请选择">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="item in newarr"
+                  :key="item.id"
+                  :label="item.cate_name"
+                  :value="item.cate_name"
                 >
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="图片">
-              <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-              >
-                <el-button size="small" type="primary">
-                  点击上传
-                </el-button>
-              </el-upload>
+            <el-form-item v-model="cover" label="图片">
+              <div class="ima">
+                <img :src="cover" alt="">
+              </div>
             </el-form-item>
             <el-form-item label="描述">
-              <el-input></el-input>
+              <el-input v-model="desc" type="textarea"></el-input>
             </el-form-item>            
             <el-form-item label="内容">
-              <el-input type="textarea"></el-input>
+              <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
+            <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
           </el-form>
           <div class="button">
-            <el-button type="primary">
+            <el-button type="primary" @click="sendhead">
               确认
             </el-button>
           </div>
@@ -56,43 +52,126 @@
 </template>
 <script>
 import { pcaa } from 'area-data'
+import { mapGetters } from 'vuex'
 export default {
   meta: {
-    title: '发布能帮会干'
+    title: '发布头条'
   },
+  // components: {
+  //   Tinymce
+  // },
   data() {
     return {
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
       value: '',
       selected: [],
-      pcaa: pcaa
+      pcaa: pcaa,
+      content: '',
+      desc: '',
+      fenlei: '',
+      title: '',
+      cover: '',
+      fl: [],
+      flvalue: '',
+      id: 34,
+      toplinecateid: 0,
+      province: '',
+      provincecode: 0,
+      citycode: 0,
+      city: '',
+      areacode: 0,
+      area: '',
+      imageUrl: '',
+      action: '',
+      newarr: []
+    }
+  },
+  computed: {
+    ...mapGetters(['headedit', 'bcheadedit'])
+  },
+  watch: {
+    selected() {
+      // console.log(this.selected)
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.headeditlist()
+    })
+  },
+  methods: {
+    sendhead() {
+      this.bceditlist()
+    },
+    async headeditlist() {
+      const info = await this.$store.dispatch('headedit', {
+        id: this.$route.query.id
+      })
+      this.newarr = info.cate
+      if (info.row.province_code) {
+        this.selected = [
+          info.row.province_code,
+          info.row.city_code,
+          info.row.area_code
+        ]
+      }
+      const id = info.cate.map(item => {
+        return item.id
+      })
+      this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
+      this.fl = info.cate
+      this.title = info.row.title
+      this.desc = info.row.desc
+      this.cover = info.row.cover
+      this.content = info.row.content
+      this.toplinecateid = info.row.topline_cate_id
+    },
+    async bceditlist() {
+      const { title, cover, desc, content } = this
+      this.selected.map((item, index) => {
+        if (index === 0) {
+          this.province = Object.values(item)[0]
+          this.provincecode = Object.keys(item)[0]
+        } else if (index === 1) {
+          this.city = Object.values(item)[0]
+          this.citycode = Object.keys(item)[0]
+        } else {
+          this.area = Object.values(item)[0]
+          this.areacode = Object.keys(item)[0]
+        }
+      })
+      await this.$store.dispatch('bcheadedit', {
+        id: this.$route.query.id,
+        title,
+        topline_cate_id: this.toplinecateid,
+        cover,
+        desc,
+        content,
+        province: this.province,
+        province_code: this.provincecode,
+        city_code: this.citycode,
+        city: this.city,
+        area_code: this.areacode,
+        area: this.area
+      })
+      this.$message({
+        type: 'success',
+        message: '修改成功'
+      })
+      window.history.back()
     }
   }
 }
 </script>
 <style lang='less'>
 @import 'vue-area-linkage/dist/index.css';
+.ima {
+  width: 200px;
+  height: 200px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
 .submit-center {
   box-sizing: border-box;
   padding-left: 203px;
@@ -106,7 +185,7 @@ export default {
   }
   .form {
     .el-input__inner {
-      width: 345px;
+      width: 527px;
       height: 32px;
     }
     .tupian {

@@ -51,6 +51,10 @@ export default {
     hei: {
       type: String,
       default: '196'
+    },
+    action: {
+      type: String,
+      default: ''
     }
   },
   computed: {

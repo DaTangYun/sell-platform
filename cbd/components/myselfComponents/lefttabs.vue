@@ -8,7 +8,7 @@
       <nuxt-link v-for="(item,index) of leftlist" :key="index" tag="li" :to="`/myself/${id}${item.url}`">
         {{ item.name }}
       </nuxt-link>
-      <li>
+      <li @click="exit">
         退出
       </li>
     </ul>
@@ -22,10 +22,10 @@ export default {
       type: Array,
       default() {
         return [
-          { name: '我的发布', url: '/mypublish' },
+          { name: '我的发布', url: '/mypublish/myhead' },
           { name: '能帮会干', url: '/helpcando' },
           { name: '我的团队', url: '/myteam' },
-          { name: '我的活动 ', url: '/myactive' },
+          { name: '我的活动 ', url: '/myactive/zuzhi' },
           // { name: '我的交易', url: '/myjy' },
           { name: '我的评价', url: '/mypj' },
           { name: '安全设置', url: '/safe' },
@@ -42,6 +42,13 @@ export default {
   computed: {
     id() {
       return this.$route.params.id
+    }
+  },
+  methods: {
+    async exit() {
+      const info = await this.$store.dispatch('exituser')
+      console.log(info)
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -74,12 +81,12 @@ export default {
         color: #fff;
       }
     }
-  }
-  .active-link {
-    background-color: rgba(0, 160, 233, 1);
-    color: #fff;
-    &:hover {
+    .active-link {
       background-color: rgba(0, 160, 233, 1);
+      color: #fff;
+      &:hover {
+        background-color: rgba(0, 160, 233, 1);
+      }
     }
   }
 }

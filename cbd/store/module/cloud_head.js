@@ -5,7 +5,11 @@ const cloudhead = {
     headcate: [],
     headtotal: 0,
     headdetail: [],
-    headprofile: {}
+    headprofile: {},
+    headedit: {},
+    bcheadedit: {},
+    newhead: {},
+    deletehead: {}
   },
   mutations: {
     setcloudHead(state, data) {
@@ -22,6 +26,18 @@ const cloudhead = {
     },
     setheadprofile(state, data) {
       state.headprofile = data
+    },
+    setheadedit(state, data) {
+      state.headedit = data
+    },
+    setbcheadedit(state, data) {
+      state.bcheadedit = data
+    },
+    setnewhead(state, data) {
+      state.newhead = data
+    },
+    setdeletehead(state, data) {
+      state.deletehead = data
     }
   },
   actions: {
@@ -61,6 +77,46 @@ const cloudhead = {
         const headprofile = info.data.data
         commit('setheadprofile', headprofile.topline)
         return headprofile
+      }
+    },
+    async headedit({ commit }, params) {
+      const info = await api.cloudhead.gettoplinedit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const headedit = info.data.data
+        commit('setheadedit', headedit.data)
+        return headedit
+      }
+    },
+    async bcheadedit({ commit }, params) {
+      const info = await api.cloudhead.bctoplineedit({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const bcheadedit = info.data.data
+        commit('setbcheadedit', bcheadedit.data)
+        return bcheadedit
+      }
+    },
+    async newhead({ commit }, params) {
+      const info = await api.cloudhead.addnewhead({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const newhead = info.data.data
+        commit('setnewhead', newhead.msg)
+        return newhead
+      }
+    },
+    async deletehead({ commit }, params) {
+      const info = await api.cloudhead.getdeletehead({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deletehead = info.data
+        commit('setdeletehead', deletehead)
+        return deletehead
       }
     }
   }

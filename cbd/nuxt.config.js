@@ -1,6 +1,5 @@
 const path = require('path')
 const pkg = require('./package')
-
 module.exports = {
   mode: 'universal',
   /*
@@ -22,14 +21,9 @@ module.exports = {
         content: pkg.description
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        innerHTML: require('./assets/js/hello'),
-        type: 'text/javascript',
-        charset: 'utf-8'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    // script: [{ src: path.resolve(__dirname, './static/tinymce4.7.5/tinymce.min.js'), type: 'text/javascript', charset: 'utf-8'}],
+    // __dangerouslyDisableSanitizers: ['script']
   },
   /*
    ** Customize the progress-bar color
@@ -40,7 +34,8 @@ module.exports = {
   },
   router: {
     middleware: ['redirect', 'routers'],
-    linkActiveClass: 'active-link'
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: ''
   },
 
   /*

@@ -70,7 +70,6 @@ export default {
     jingdiananli,
     helpme
   },
-  middleware: 'auth',
   data() {
     return {
       canDoList: [0, 1, 2, 3, 4, 5],
@@ -97,7 +96,6 @@ export default {
       this.dishelpdos()
       this.helpmelists()
     })
-    console.log(this)
   },
   methods: {
     showMeMessage(data) {

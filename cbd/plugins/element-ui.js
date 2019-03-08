@@ -28,12 +28,16 @@ import {
   TabPane,
   Checkbox,
   CheckboxButton,
-  CheckboxGroup
+  CheckboxGroup,
+  DatePicker
 } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 
 export default () => {
   Vue.use(Tabs, {
+    locale
+  })
+  Vue.use(DatePicker, {
     locale
   })
   Vue.use(TabPane, {

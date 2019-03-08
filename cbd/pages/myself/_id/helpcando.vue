@@ -13,6 +13,9 @@ export default {
   components: {
     secondpart
   },
+  meta: {
+    title: '能帮会干'
+  },
   data() {
     return {}
   }

@@ -5,7 +5,11 @@ const cloudinfo = {
     infolist: [],
     total: 0,
     infodetail: [],
-    infoprofile: {}
+    infoprofile: {},
+    sendinfo: {},
+    bcinfoedit: {},
+    addinfo: {},
+    deleteinfo: {}
   },
   mutations: {
     setcloudInfo(state, data) {
@@ -22,6 +26,18 @@ const cloudinfo = {
     },
     setinfoprofile(state, data) {
       state.infoprofile = data
+    },
+    setsendinfo(state, data) {
+      state.sendinfo = data
+    },
+    setbcinfoedit(state, data) {
+      state.bcinfoedit = data
+    },
+    setaddinfo(state, data) {
+      state.addinfo = data
+    },
+    setdelete(state, data) {
+      state.deleteinfo = data
     }
   },
   actions: {
@@ -63,6 +79,62 @@ const cloudinfo = {
         const infoprofile = info.data.data
         commit('setinfoprofile', infoprofile.message)
         return infoprofile
+      }
+    },
+    async sendinfolist({ commit }, params) {
+      const info = await api.cloudinfo.getsendinfo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const sendinfo = info.data.data
+        commit('setsendinfo', sendinfo.data)
+        return sendinfo
+      }
+    },
+    async bcinfoit({ commit }, params) {
+      const info = await api.cloudinfo.getsendedit({
+        ...params
+      })
+<<<<<<< HEAD
+      if (info.data.code === api.CODE_OK && info.data) {
+        const bcinfoedit = info.data
+        console.log(bcinfoedit)
+=======
+      if (info.data.code === api.CODE_ERROR) {
+        const addinfo = info.data.msg
+        commit('setbcinfoedit', addinfo)
+        return addinfo
+      }
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const bcinfoedit = info.data.data
+>>>>>>> origin/home
+        commit('setbcinfoedit', bcinfoedit)
+        return bcinfoedit
+      }
+    },
+    async addinfolist({ commit }, params) {
+      const info = await api.cloudinfo.getaddinfo({
+        ...params
+      })
+      if (info.data.code === api.CODE_ERROR && info.data.data) {
+        const addinfo = info.data.data
+        commit('setaddinfo', addinfo)
+        return addinfo
+      }
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const addinfo = info.data.data
+        commit('setaddinfo', addinfo.msg)
+        return addinfo
+      }
+    },
+    async deleteinfo({ commit }, params) {
+      const info = await api.cloudinfo.getdelete({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteinfo = info.data
+        commit('setdelete', deleteinfo)
+        return deleteinfo
       }
     }
   }

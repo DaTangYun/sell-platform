@@ -132,7 +132,7 @@ export default {
 .discont {
   margin-bottom: 56px;
   display: flex;
-  height: 1343px;
+  height: 1553px;
   .discont-cont {
     width: 950px;
     background-color: #fff;

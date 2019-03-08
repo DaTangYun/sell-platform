@@ -46,7 +46,6 @@ export default {
     box-sizing: border-box;
     .left {
       width: 950px;
-      height: 1354px;
       position: relative;
     }
   }

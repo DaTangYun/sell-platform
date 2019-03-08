@@ -5,10 +5,10 @@
       我的评价
     </h4>
     <ul class="mye">
-      <li v-for="(item,index) in abilitylists" :key="index">
+      <li v-for="(item,index) in usercommit" :key="index">
         <div class="top">
           <h5>
-            {{ item.title }}
+            {{ item.nickname }}
           </h5>
           <span>
             {{ item.createtime }}
@@ -21,7 +21,7 @@
     </ul>
     <pagination
       :total="total"
-      :length="abilitylists.length"
+      :length="usercommit.length"
       :pagesize="limit"
       @currentchange="handlecurrentchange"
       @prev="handlecurrentchange"
@@ -40,13 +40,13 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 4,
+      limit: 5,
       total: 0,
       abilityid: 1
     }
   },
   computed: {
-    ...mapGetters(['abilitylists'])
+    ...mapGetters(['usercommit'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -56,10 +56,9 @@ export default {
   methods: {
     async abilityl() {
       const { page, limit } = this
-      const info = await this.$store.dispatch('abilityls', {
+      const info = await this.$store.dispatch('usercommit', {
         page,
-        limit,
-        ability_id: this.abilityid
+        limit
       })
       this.total = info.total
     },

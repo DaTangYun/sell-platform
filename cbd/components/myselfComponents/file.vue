@@ -27,7 +27,7 @@
           <div v-else-if="item.status === 0">
             未审核
           </div>
-          <div>
+          <div @click="deletewd(item.id)">
             删除
           </div>
         </div>
@@ -37,25 +37,26 @@
       <el-form :label-position="'left'" label-width="80px">
         <el-form-item label="所属地区">
           <no-ssr>
-            <area-select id="specicalselect" v-model="selected" type="text" :data="pcaa" :level="2"></area-select>
+            <area-select id="specicalselect" v-model="selected" type="all" :data="pcaa" :level="2"></area-select>
           </no-ssr>
         </el-form-item>
         <el-form-item label="文档标题">
           <div class="input">
-            <el-input></el-input>
+            <el-input v-model="title"></el-input>
           </div>
         </el-form-item>
-        <el-form-item label="标签">
-          <span v-for="(item1,index1) in biaoqian" :key="index1">
-            {{ item1 }}
-          </span>
+        <el-form-item v-model="cateid" label="标签" class="bq">
+          <!-- eslint-disable-next-line -->
+          <a v-for="(item1,index1) in docuadd" :key="index1" tag="a" @click="fenleiid(item1)">
+            {{ item1.name }}
+          </a>
         </el-form-item>
-        <el-form-item label="上传文件">
+        <el-form-item v-model="url" label="上传文件">
           <el-upload
             class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            multiple
+            :action="`${action}/api/common/upload`"
             :limit="3"
+            :on-change="handleonchange"
           >
             <el-button size="small" type="primary">
               点击上传
@@ -64,7 +65,7 @@
         </el-form-item>
       </el-form>
       <div class="button">
-        <el-button type="primary" @click="submitwendang">
+        <el-button type="primary" @click="addnewdocu">
           确定
         </el-button>
         <el-button type="info">
@@ -85,6 +86,7 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
 import pagination from 'components/cloudComponents/pagination.vue'
 import { mapGetters } from 'vuex'
 import { pcaa } from 'area-data'
@@ -97,23 +99,37 @@ export default {
     return {
       file: [0, 1, 2, 3],
       noIndex: 0,
-      biaoqian: ['合同', '合同', '合同', '合同'],
       selected: [],
       pcaa: pcaa,
       page: 1,
       limit: 4,
-      total: 0
+      total: 0,
+      cateid: 0,
+      title: '',
+      url: '',
+      province: '',
+      provincecode: 0,
+      citycode: 0,
+      city: '',
+      areacode: 0,
+      area: '',
+      action: ''
     }
   },
   computed: {
-    ...mapGetters(['documentprofile'])
+    ...mapGetters(['documentprofile', 'docuadd', 'doerror', 'document'])
   },
   mounted() {
     this.$nextTick(() => {
       this.documentprofiles()
+      this.documentadd()
+      this.initAction()
     })
   },
   methods: {
+    fenleiid(item) {
+      this.cateid = item.id
+    },
     async documentprofiles() {
       const { page, limit } = this
       const info = await this.$store.dispatch('documentprofile', {
@@ -130,8 +146,75 @@ export default {
     changeindex(index) {
       this.noIndex = 1
     },
-    submitwendang() {
+    async deletewd(vid) {
+      console.log(vid)
+      await this.$store
+        .dispatch('deletewendang', {
+          id: vid
+        })
+        .then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.documentprofiles()
+        })
+    },
+    async documentadd() {
+      const info = await this.$store.dispatch('docuadd')
+      console.log(info)
+    },
+    handleonchange(file, fileList) {
+      if (file.status === 'ready') {
+        return
+      }
+      if (file.response.msg === '上传成功') {
+        this.url = base.dev + file.response.data.url
+      }
+    },
+    async addnewdocu() {
       this.noIndex = 0
+      this.selected.map((item, index) => {
+        if (index === 0) {
+          this.province = Object.values(item)[0]
+          this.provincecode = Object.keys(item)[0]
+        } else if (index === 1) {
+          this.city = Object.values(item)[0]
+          this.citycode = Object.keys(item)[0]
+        } else {
+          this.area = Object.values(item)[0]
+          this.areacode = Object.keys(item)[0]
+        }
+      })
+      const { title, url } = this
+      const info = await this.$store.dispatch('adddocument', {
+        title,
+        cate_id: this.cateid,
+        url,
+        province: this.province,
+        province_code: this.provincecode,
+        city_code: this.citycode,
+        city: this.city,
+        area_code: this.areacode,
+        area: this.area
+      })
+      if (info) {
+        this.$message({
+          type: 'success',
+          message: '添加成功'
+        })
+        this.title = ''
+        this.cateid = 0
+        this.url = ''
+        this.province = ''
+        this.city = ''
+        this.area = ''
+      } else {
+        this.$message.error('添加失败，请检查内容完整重新添加')
+      }
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     }
   }
 }
@@ -204,18 +287,33 @@ export default {
     .input {
       width: 347px;
     }
-    span {
-      padding: 0 25px;
-      line-height: 30px;
-      display: inline-block;
-      height: 30px;
-      background: rgba(241, 242, 246, 1);
-      border-radius: 6px;
-      margin-right: 10px;
+    .bq {
+      a {
+        display: inline-block;
+        padding: 0 25px;
+        line-height: 30px;
+        display: inline-block;
+        height: 30px;
+        background: rgba(241, 242, 246, 1);
+        border-radius: 6px;
+        margin-right: 10px;
+        cursor: pointer;
+        &:hover {
+          background-color: #00a0e9;
+          color: #fff;
+        }
+        &:active {
+          background-color: #00a0e9;
+          color: #fff;
+        }
+      }
     }
     .button {
       padding-left: 80px;
     }
   }
+}
+.active-link {
+  background-color: #00a0e9;
 }
 </style>

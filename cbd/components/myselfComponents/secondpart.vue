@@ -9,31 +9,31 @@
     <ul class="demand-bottom">
       <li v-for="(item1,index1) in abilityprofile" :key="index1">
         <span>
-          {{ item.desc }}
+          {{ item1.desc }}
         </span>
         <span>
-          {{ item.price }}
+          {{ item1.price }}元
         </span>
         <span>
-          {{ item.title }}
+          {{ item1.cate_name }}
         </span>
         <span>
-          {{ item.createtime }}
+          {{ item1.createtime }}
         </span>
-        <div v-if="item.status === 2">
+        <span v-if="item1.status === '2'">
           已审核
-        </div>
-        <div v-else-if="item.status === 1">
+        </span>
+        <span v-else-if="item1.status === '1'">
           审核中
-        </div>
-        <div v-else-if="item.status === 0">
+        </span>
+        <span v-else-if="item1.status === '0'">
           未审核
-        </div>
+        </span>
         <div class="lidiv">
-          <div>
+          <nuxt-link :to="{name: 'submitnbhg', query: {id: item1.id}}" tag="div">
             编辑
-          </div>
-          <div>
+          </nuxt-link>
+          <div @click="deleteinfolist(item1.id)">
             删除
           </div>
         </div>
@@ -61,10 +61,10 @@ export default {
   },
   data() {
     return {
-      demand: ['交易标题', '价格', '服务类别', '成交时间', '状态', '操作'],
+      demand: ['交易标题', '价格', '服务类别', '发表时间', '状态', '操作'],
       demands: [0, 1, 2],
       page: 1,
-      limit: 4,
+      limit: 6,
       total: 0,
       title: ''
     }
@@ -91,13 +91,31 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.abilityprofiles()
+    },
+    async deleteinfolist(vid) {
+      await this.$store
+        .dispatch('deleteability', {
+          id: vid
+        })
+        .then(res => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.abilityprofiles()
+        })
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .secondpart {
   background-color: #fff;
+  box-sizing: border-box;
+  padding-bottom: 30px;
 }
 .secondpart-top {
   position: relative;
@@ -109,11 +127,11 @@ export default {
   height: 56px;
   line-height: 56px;
   span {
-    padding: 0 40px;
+    padding: 0 44px;
   }
 }
 .demand-bottom {
-  height: 904px;
+  height: 642px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;
@@ -124,11 +142,12 @@ export default {
       padding-right: 40px;
       line-height: 96px;
       &:first-child {
-        width: 65px;
+        width: 147px;
         display: inline-block;
-        line-height: 20px;
+        line-height: 50px;
         margin-top: 25px;
-        margin-right: 35px;
+        padding-right: 0;
+        .ellipsis();
       }
       &:nth-child(2) {
         margin-right: 10px;

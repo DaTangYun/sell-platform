@@ -1,8 +1,8 @@
 <!--  -->
 <template>
   <div class="publishTopic">
-    <nuxt-link to="/submitxq">
-      <button>{{ publish }}</button>
+    <nuxt-link :to="tpath">
+      <button>{{ publishh }}</button>
     </nuxt-link>
   </div>
 </template>
@@ -17,7 +17,19 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      tpath: '/submitxx',
+      publishh: '发表信息'
+    }
+  },
+  mounted() {
+    if (this.$route.path === '/cloud/cloudhead') {
+      this.publishh = '发表头条'
+      this.tpath = '/submitheads'
+    } else if (this.$route.path === '/cloud/cloudInfo') {
+      this.publishh = '发表信息'
+      this.tpath = '/submitxx'
+    }
   }
 }
 </script>
