@@ -4,7 +4,7 @@
       <activity :activelist="disactive"></activity>
       <pagination
         :total="total"
-        :length="activelist.length"
+        :length="activeyouhuilist.length"
         :pagesize="limit"
         @currentchange="handlecurrentchange"
         @prev="handlecurrentchange"
@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activelist'])
+    ...mapGetters(['activeyouhuilist'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -55,7 +55,7 @@ export default {
         title: '',
         userId: ''
       })
-      this.disactive = this.activelist.active
+      this.disactive = this.activeyouhuilist.active
       this.total = info.total
     },
     handlecurrentchange(params) {

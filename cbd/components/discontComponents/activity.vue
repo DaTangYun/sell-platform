@@ -19,7 +19,7 @@
             {{ item.desc }}
           </div>
         </div>
-        <div class="activity-li-right" :class="item.status === 1 ? 'nowpage' : 'oldpage'">
+        <div class="activity-li-right" :class="item.status === '1' ? 'oldpage' : 'nowpage'" @click="lingqu(item.user_id)">
           <div class="right-content">
             <div class="right-content-left">
               <h5>
@@ -34,8 +34,8 @@
             <div class="calc">
               满{{ item.min_amount }}减{{ item.prefer_acount }}
             </div>
-            <span v-if="item.status === 2 ? '已领取' : '领取'">
-              领取
+            <span v-if="item.status === '2' ? userd = '已领取' : userd ='领取'">
+              {{ userd }}
             </span>
           </div>
         </div>
@@ -57,11 +57,12 @@ export default {
   },
   data() {
     return {
-      selectItem: 0
+      selectItem: 0,
+      userd: ''
     }
   },
   computed: {
-    ...mapGetters(['activelist'])
+    ...mapGetters(['activeactiveyouhuilistlist'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -83,6 +84,16 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.activelists()
+    },
+    async lingqu(vid) {
+      const info = await this.$store.dispatch('userduseractive', {
+        id: vid
+      })
+      this.activelists()
+      if (!info) {
+        this.$message.error('已使用过')
+      }
+      console.log(info)
     }
   }
 }

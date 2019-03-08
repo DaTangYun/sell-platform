@@ -7,11 +7,19 @@
       </div>
     </div>
     <div class="tech-sup">
-      <p>大唐云提供技术支持</p>
-      <p>XXXX息科技有限责任公司 版权所有  京ICP备15003716号-0  京公网安备：110000000000号</p>
+      <p>{{ banquan.banquan }}</p>
+      <p>{{ banquan.beian }}</p>
     </div>
   </section>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['banquan'])
+  }
+}
+</script>
 <style lang="less" scoped>
 .container {
   position: absolute;

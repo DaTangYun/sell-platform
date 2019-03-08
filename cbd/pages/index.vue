@@ -9,33 +9,33 @@
           <Cooperative></Cooperative>
         </div>
       </div>
-      <CanDoBox :desc="'云传'" class="specical-box" :list="['头条','信息']" @showMe="showMeMessage">
+      <CanDoBox :desc="'云传'" class="specical-box" :list="['头条','信息']" :tzurl="'cloud-cloudhead'" @showMe="showMeMessage">
         <div v-if="headlist.length&& !show" class="message">
-          <Topline :list="headlist"></TopLine>
+          <Topline :list="headlist" :hein="'cloudhead'"></TopLine>
         </div>
         <div v-if="infolist.length && show" class="message">
-          <Topline :list="infolist"></TopLine>
+          <Topline :list="infolist" :hein="'cloudinfo'"></TopLine>
         </div>
       </CanDoBox>
       <div class="showMeContain">
-        <CanDoBox :desc="'智帮'" :list="['秀秀我']" :to="{name:'help-show'}">
+        <CanDoBox :desc="'智帮'" :list="['秀秀我']" :tzurl="'help-show'">
           <showmelist v-if="showme.length" :showme="showme"></showmelist>
         </CanDoBox>
         <div class="showMeRight">
-          <wisdomBank :wis="'财经法规'">
+          <wisdomBank :wis="'财经法规'" :smallurl="'help-wisdombank'">
           </wisdomBank>
           <jingdiananli></jingdiananli>        
         </div>
       </div>
       <div class="showMeContain">
-        <CanDoBox :desc="'惠带'" :list="['能帮会干']" :to="'/discont/helpcando'">
+        <CanDoBox :desc="'惠带'" :list="['能帮会干']" :tzurl="'discont-helpcando'">
           <CanDoContent :dishelpdo="help"></CanDoContent>
         </CanDoBox>
         <div class="showMeRight">
           <div class="q">
             <helpme v-if="helpmelist.length" :helpmelist="helpmelist"></helpme>
           </div>
-          <WisdomBank :wis="'优惠活动'" class="preferential">
+          <WisdomBank :wis="'优惠活动'" :smallurl="'discont-active'" class="preferential">
           </WisdomBank>
         </div>
       </div>

@@ -83,6 +83,9 @@
 import { mapGetters } from 'vuex'
 import { pca, pcaa } from 'area-data'
 export default {
+  meta: {
+    title: '认证会员'
+  },
   data() {
     return {
       form: {
@@ -107,7 +110,9 @@ export default {
       image: '',
       action: '',
       headimage: '',
-      qyimage: ''
+      qyimage: '',
+      htheadimage: '',
+      htqyimage: ''
     }
   },
   computed: {
@@ -129,9 +134,9 @@ export default {
       })
       const _this = this
       const info = await this.$store.dispatch('userind', {
-        avatar: _this.headimage,
+        avatar: _this.htheadimage,
         nickname: _this.form.name,
-        identy_images: _this.qyimage,
+        identy_images: _this.htqyimage,
         type: _this.radio,
         expiretime: _this.form.time,
         bio: _this.form.desc,
@@ -154,9 +159,11 @@ export default {
     },
     handleHeadS(res, index) {
       this.qyimage = URL.createObjectURL(index.raw)
+      this.htqyimage = index.response.data.url
     },
     handleHeadSuccess(res, index) {
       this.headimage = URL.createObjectURL(index.raw)
+      this.htheadimage = index.response.data.url
     }
   }
 }
