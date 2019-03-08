@@ -10,7 +10,8 @@ const dishelpdo = {
     bjnbhg: {},
     newnbhgfl: {},
     newability: {},
-    deleteability: {}
+    deleteability: {},
+    abilitymessage: {}
   },
   mutations: {
     setdishelpdo(state, data) {
@@ -42,6 +43,9 @@ const dishelpdo = {
     },
     setdeleteability(state, data) {
       state.deleteability = data
+    },
+    setabilitymessage(state, data) {
+      state.abilitymessage = data
     }
   },
   actions: {
@@ -145,6 +149,16 @@ const dishelpdo = {
         const deleteability = info.data
         commit('setdeleteability', deleteability)
         return deleteability
+      }
+    },
+    async abilitymessagelist({ commit }, params) {
+      const info = await api.dishelpdo.getabilitymessagelist({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const abilitymessage = info.data.data
+        commit('setabilitymessage', abilitymessage.message)
+        return abilitymessage
       }
     }
   }

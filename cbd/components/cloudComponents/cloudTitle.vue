@@ -57,7 +57,7 @@ export default {
     async huoqu(item, index) {
       const { page, limit } = this
       const { titlename } = this
-      console.log(this.$emit)
+      console.log(this.title)
       this.currentindex = index
       if (titlename === '头条类别') {
         const info = await this.$store.dispatch('headlist', {
@@ -71,7 +71,7 @@ export default {
         await this.$store.dispatch('infolist', {
           page,
           limit,
-          title: '',
+          title: this.title,
           cate_id: item.id
         })
       }

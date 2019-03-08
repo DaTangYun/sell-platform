@@ -137,8 +137,9 @@ const common = {
       const info = await api.common.uploadimage({
         ...params
       })
-      if (info.data.code === api.CODE_OK && info.data.data) {
-        const images = info.data.data
+      console.log(info)
+      if (info.data.code === api.CODE_OK && info.data) {
+        const images = info.data
         commit('setimages', images)
         return images
       }

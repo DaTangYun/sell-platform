@@ -37,6 +37,10 @@ const dishelpdo = {
   },
   getdeleteability(params) {
     return axios.get('/api/ability/del', { params })
+  },
+  // 留言列表
+  getabilitymessagelist(params) {
+    return axios.get('/api/ability_message/lists', { params })
   }
 }
 export default dishelpdo

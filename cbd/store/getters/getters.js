@@ -92,7 +92,7 @@ const getters = {
   infodetail: state => {
     return state.cloudinfo.infodetail
   },
-  images: state => {
+  imageslist: state => {
     return state.common.images
   },
   // 头条列表个人中心
@@ -271,6 +271,9 @@ const getters = {
   },
   useridenty: state => {
     return state.common.useridenty
+  },
+  abilitymessage: state => {
+    return state.common.abilitymessage
   }
 }
 export default getters

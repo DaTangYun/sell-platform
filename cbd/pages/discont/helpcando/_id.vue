@@ -67,7 +67,7 @@
           </el-tab-pane>
           <el-tab-pane label="你问我答" name="third">
             <el-input type="textarea" resize="none" rows="6" placeholder="发表回复"></el-input>
-            <div v-if="login == true" class="drop">
+            <div v-show="userid" class="drop">
               请登录后发表回复
             </div>
             <button>
@@ -135,6 +135,7 @@ export default {
   meta: {
     title: '服务'
   },
+  middleware: 'auth',
   data() {
     return {
       activeName: 'first',
@@ -144,7 +145,8 @@ export default {
       pl: [],
       page: 1,
       limit: 5,
-      total: 0
+      total: 0,
+      userid: 0
     }
   },
   computed: {
@@ -158,6 +160,10 @@ export default {
   },
   methods: {
     async abdetails() {
+      const userinfo = JSON.parse(localStorage.getItem('USERINFO'))
+      if (userinfo) {
+        this.userid = userinfo.user_id
+      }
       const info = await this.$store.dispatch('details', {
         id: this.$route.params.id
       })

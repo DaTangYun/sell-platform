@@ -2,7 +2,7 @@
   <div class="head w">
     <div class="head-left">
       <cloudTitle :titlename="'信息需求'" @changecate="changecate"></cloudTitle>
-      <div class="headline-content">
+      <div v-show="infolist.length" class="headline-content">
         <ul class="headline-contentul">
           <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: 'cloud-cloudinfo-id',params: {id: item.id}}">
             <div class="headlineimg">
@@ -62,18 +62,35 @@ export default {
       page: 1,
       limit: 6,
       total: 0,
-      cateid: 0
+      cateid: 0,
+      title: ''
     }
   },
   computed: {
     ...mapGetters(['infolist', 'infototal'])
   },
+  watch: {
+    $route(route) {
+      console.log(route.query.title)
+      this.title = route.query.title
+      this.infolists()
+    }
+  },
   mounted() {
     this.$nextTick(() => {
-      this.infolists()
+      this.inittitle()
     })
   },
   methods: {
+    inittitle() {
+      const { title } = this.$route.query
+      if (!title) {
+        this.title = ''
+      } else {
+        this.title = title
+      }
+      this.infolists()
+    },
     async infolists() {
       this.$nuxt.$loading.start()
       const { page, limit } = this
@@ -81,7 +98,7 @@ export default {
         page,
         limit,
         cate_id: this.cateid,
-        title: ''
+        title: this.title
       })
       this.$nuxt.$loading.finish()
     },

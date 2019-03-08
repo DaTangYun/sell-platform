@@ -1,8 +1,8 @@
 <template>
   <div class="cloudhead w">
     <div class="head-left">
-      <cloudTitle @changecate="changecate"></cloudTitle>
-      <div class="headline-content">
+      <cloudTitle :title="title" @changecate="changecate"></cloudTitle>
+      <div v-show="headlist.length" class="headline-content">
         <Cloudcontent></Cloudcontent>
         <pagination
           :total="headtotal"
@@ -13,6 +13,9 @@
           @prev="handlecurrentchange"
           @next="handlecurrentchange"
         ></pagination>
+      </div>
+      <div v-show="!headlist.length" class="spaceimg">
+        <img src="@/assets/images/space.png" alt="">
       </div>
     </div>
     <RightComponent></RightComponent>
@@ -40,18 +43,35 @@ export default {
       limit: 5,
       total: 0,
       cateid: 0,
-      currentpage: 1
+      currentpage: 1,
+      title: ''
     }
   },
   computed: {
     ...mapGetters(['headlist', 'headtotal'])
   },
+  watch: {
+    $route(route) {
+      console.log(route.query.title)
+      this.title = route.query.title
+      this.headinfo()
+    }
+  },
   mounted() {
     this.$nextTick(() => {
-      this.headinfo()
+      this.inittitle()
     })
   },
   methods: {
+    inittitle() {
+      const { title } = this.$route.query
+      if (!title) {
+        this.title = ''
+      } else {
+        this.title = title
+      }
+      this.headinfo()
+    },
     async headinfo() {
       this.$nuxt.$loading.start()
       const { page, limit } = this
@@ -59,7 +79,7 @@ export default {
         page,
         limit,
         cate_id: this.cateid,
-        title: ''
+        title: this.title
       })
       this.$nuxt.$loading.finish()
     },
@@ -87,6 +107,12 @@ export default {
     border-radius: 6px;
     padding: 24px 24px 40px;
     box-sizing: border-box;
+  }
+}
+.spaceimg {
+  img {
+    width: 950px;
+    height: 650px;
   }
 }
 </style>
