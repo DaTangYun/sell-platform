@@ -3,7 +3,9 @@
   <div class="w">
     <div class="main">
       <lefttab></lefttab>
-      <nuxt-child></nuxt-child>
+      <div>
+        <nuxt-child></nuxt-child>
+      </div>
     </div>
   </div>
 </template>
