@@ -11,7 +11,7 @@
         @next="handlecurrentchange"
       ></pagination>
     </div>
-    <RightComponent></RightComponent>
+    <RightComponent :publish="publish" :tpath="tpath"></RightComponent>
   </div>
 </template>
 <script>
@@ -33,7 +33,9 @@ export default {
       page: 1,
       limit: 9,
       total: 0,
-      disactive: []
+      disactive: [],
+      publish: '发表需求',
+      tpath: '/submitxq'
     }
   },
   computed: {

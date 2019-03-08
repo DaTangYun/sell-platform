@@ -18,7 +18,7 @@
         <img src="@/assets/images/space.png" alt="">
       </div>
     </div>
-    <RightComponent></RightComponent>
+    <RightComponent :publish="publish" :tpath="tpath"></RightComponent>
   </div>
 </template>
 <script>
@@ -44,7 +44,9 @@ export default {
       total: 0,
       cateid: 0,
       currentpage: 1,
-      title: ''
+      title: '',
+      publish: '发表头条',
+      tpath: '/messageComp'
     }
   },
   computed: {

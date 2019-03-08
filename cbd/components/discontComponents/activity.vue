@@ -19,7 +19,7 @@
             {{ item.desc }}
           </div>
         </div>
-        <div class="activity-li-right oldpage">
+        <div class="activity-li-right" :class="item.status === 1 ? 'nowpage' : 'oldpage'">
           <div class="right-content">
             <div class="right-content-left">
               <h5>
@@ -44,6 +44,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Activity',
   props: {
@@ -57,6 +58,31 @@ export default {
   data() {
     return {
       selectItem: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['activelist'])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.activelists()
+    })
+  },
+  methods: {
+    async activelists() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('activelist', {
+        page,
+        limit,
+        title: '',
+        userId: ''
+      })
+      this.disactive = this.activelist.active
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.activelists()
     }
   }
 }

@@ -19,6 +19,10 @@ const disactive = {
   // 删除我参与的活动
   getdeleteuseractive(params) {
     return axios.post('/api/user_active/del', qs.stringify(params))
+  },
+  // 用户使用优惠卷
+  getusedactive(params) {
+    return axios.post('/api/user_active/used', qs.stringify(params))
   }
 }
 export default disactive
