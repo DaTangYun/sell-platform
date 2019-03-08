@@ -4,20 +4,20 @@
     <div class="w">
       <div class="rd-top">
         <h4>
-          {{ financedetail.title }}
+          {{ list.title }}
         </h4>
         <div class="rd-top-line">
           <span>
-            发表日期：{{ financedetail.createtime }}
+            发表日期：{{ list.createtime }}
           </span>
           <span>
-            来源：{{ financedetail.title }}
+            来源：{{ list.title }}
           </span>
         </div>
       </div>
       <div class="rd-bo">
         <p>
-          {{ financedetail.content }}
+          {{ list.content }}
         </p>
       </div>
     </div>
@@ -31,16 +31,22 @@ export default {
   },
   data() {
     return {
-      fin: []
+      list: []
     }
   },
   computed: {
-    ...mapGetters(['financedetail'])
+    ...mapGetters(['financedetail', 'casedetail'])
   },
   mounted() {
     this.$nextTick(() => {
       this.initMeta()
-      this.fince()
+      if (this.$route.query.flag === '财经法规') {
+        this.list = this.financedetail
+        this.fince()
+      } else {
+        this.list = this.casedetail
+        this.case()
+      }
     })
   },
   methods: {
@@ -49,9 +55,12 @@ export default {
         id: this.$route.params.id
       })
     },
+    async case() {
+      await this.$store.dispatch('addcasedetail', {
+        id: this.$route.params.id
+      })
+    },
     initMeta() {
-      // const { title } = this.$route.query
-      // this.meta.title = title
       if (this.$route.path === '/ruledetail') {
         document
           .querySelector('body')

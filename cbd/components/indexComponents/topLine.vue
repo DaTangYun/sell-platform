@@ -3,19 +3,19 @@
   <div>
     <div class="topLine-ul-top">
       <ul>
-        <li v-for="(item,index) in list" :key="index">
+        <nuxt-link v-for="(item,index) in list" :key="index" tag="li" :to="{name: `cloud-${hein}-id`,params: {id: item.id}}">
           <div class="li-img" :style="{ width: wids + 'px',height: hei + 'px' }">
             <img :src="item.cover" alt="">
           </div>
           <p>
             {{ item.title }}
           </p>
-        </li>
+        </nuxt-link>
       </ul>
     </div>
     <div class="topLine-ul-bottom">
       <ul>
-        <li v-for="(item,index) in newlist" :key="index" :style="{ width: wid }">
+        <nuxt-link v-for="(item,index) in newlist" :key="index" tag="li" :style="{ width: wid }" :to="{name: `cloud-${hein}-id`,params: {id: item.id}}">
           <div>
             {{ item.cate_name }}
           </div>
@@ -25,7 +25,7 @@
           <span>
             {{ item.createtime }}
           </span>
-        </li>
+        </nuxt-link>
       </ul>
     </div>
   </div>
@@ -43,6 +43,10 @@ export default {
     wid: {
       type: String,
       default: '50%'
+    },
+    hein: {
+      type: String,
+      default: ''
     },
     wids: {
       type: String,
@@ -75,6 +79,7 @@ export default {
     box-sizing: border-box;
     li {
       margin-right: 16px;
+      cursor: pointer;
       .li-img {
         width: 281px;
         height: 196px;
@@ -107,6 +112,7 @@ export default {
       margin-bottom: 16px;
       box-sizing: border-box;
       padding-left: 5px;
+      cursor: pointer;
       div {
         padding: 0 10px;
         height: 31px;

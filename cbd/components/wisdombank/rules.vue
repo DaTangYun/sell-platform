@@ -69,7 +69,7 @@ export default {
       const id = item.id
       this.$router.push({
         path: `/ruledetail/${id}`,
-        query: { titel: item.title }
+        query: { titel: item.title, flag: '财经法规' }
       })
     },
     async financelist() {

@@ -13,7 +13,8 @@ const helpwis = {
     error: {},
     addcase: {},
     caseinfo: {},
-    qdcase: {}
+    qdcase: {},
+    casedetail: {}
   },
   mutations: {
     sethelpwis(state, data) {
@@ -54,6 +55,9 @@ const helpwis = {
     },
     setqdcase(state, data) {
       state.qdcase = data
+    },
+    setdetail(state, data) {
+      state.casedetail = data
     }
   },
   actions: {
@@ -180,6 +184,16 @@ const helpwis = {
       if (info.data.code === api.CODE_OK && info.data.data) {
         const qdcase = info.data
         commit('setqdcase', qdcase)
+        return qdcase
+      }
+    },
+    async addcasedetail({ commit }, params) {
+      const info = await api.helpwis.getcasedetail({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const qdcase = info.data.data
+        commit('setdetail', qdcase.detail)
         return qdcase
       }
     }

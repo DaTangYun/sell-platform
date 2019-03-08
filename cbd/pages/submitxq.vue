@@ -143,7 +143,8 @@ export default {
       time: '',
       starttime: '',
       endtime: '',
-      newarr: []
+      newarr: [],
+      htimage: ''
     }
   },
   computed: {
@@ -250,7 +251,7 @@ export default {
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      this.image = this.imageUrl
+      this.image = file.response.data.url
     },
     handleonchange(file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw)

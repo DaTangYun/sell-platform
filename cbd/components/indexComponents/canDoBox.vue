@@ -10,7 +10,7 @@
             {{ item }}
           </li>
         </ul>
-        <nuxt-link :to="{name:'help-show'}" class="more">
+        <nuxt-link :to="{name: `${tzurl}`}" class="more">
           更多
         </nuxt-link>
       </div>
@@ -34,6 +34,10 @@ export default {
       default() {
         return []
       }
+    },
+    tzurl: {
+      type: String,
+      default: ''
     }
   },
   data() {

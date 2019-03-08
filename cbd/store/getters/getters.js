@@ -42,7 +42,7 @@ const getters = {
   dishelpdo: state => {
     return state.dishelpdo.dishelpdo
   },
-  activelist: state => {
+  activeyouhuilist: state => {
     return state.disactive.activelist
   },
   helpmelist: state => {
@@ -277,6 +277,10 @@ const getters = {
   },
   userdactive: state => {
     return state.disactive.userdactive
+  },
+  // 案例详情
+  casedetail: state => {
+    return state.helpwis.casedetail
   }
 }
 export default getters

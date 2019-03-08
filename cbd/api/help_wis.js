@@ -47,6 +47,10 @@ const helpwis = {
   // 修改案例点击确定
   getqdcase(params) {
     return axios.post('/api/cases/edit', qs.stringify(params))
+  },
+  // 案例详情
+  getcasedetail(params) {
+    return axios.get('/api/cases/detail', { params })
   }
 }
 export default helpwis

@@ -3,7 +3,7 @@
   <div v-if="list.length" class="wisdomBank">
     <div class="wisdomBank-title">
       <h4>{{ wis }}</h4>
-      <nuxt-link to="" class="wisdomMore">
+      <nuxt-link :to="{name: `${smallurl}`}" class="wisdomMore">
         更多
       </nuxt-link>
     </div>
@@ -34,6 +34,10 @@ export default {
     url: {
       type: String,
       default: require('../../assets/images/big.png')
+    },
+    smallurl: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -43,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activelist', 'helpwis'])
+    ...mapGetters(['activeyouhuilist', 'helpwis'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -67,7 +71,7 @@ export default {
         title: '',
         userId: ''
       })
-      this.list = this.activelist.active
+      this.list = this.activeyouhuilist.active
     },
     changeindex(itemid) {
       this.$nuxt.$loading.start()
@@ -77,6 +81,10 @@ export default {
         this.$router.push({
           path: `/ruledetail/${id}`,
           query: { titel: itemid.title }
+        })
+      } else {
+        this.$router.push({
+          path: '/discont/active'
         })
       }
       this.$nuxt.$loading.finish()

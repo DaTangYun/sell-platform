@@ -2,7 +2,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item,index) in caselist" :key="index">
+      <li v-for="(item,index) in caselist" :key="index" @click="handledetail(item,index)">
         <div class="case-img">
           <img :src="item.cover" alt="">
         </div>
@@ -59,6 +59,14 @@ export default {
     handlecurrentchange(params) {
       this.page = params
       this.caselists()
+    },
+    handledetail(item, index) {
+      console.log(item.id)
+      const id = item.id
+      this.$router.push({
+        path: `/ruledetail/${id}`,
+        query: { titel: item.title, flag: '案例' }
+      })
     }
   }
 }
@@ -74,6 +82,7 @@ ul {
     width: 284px;
     margin-right: 18px;
     margin-bottom: 10px;
+    cursor: pointer;
     .case-img {
       width: 284px;
       height: 201px;
