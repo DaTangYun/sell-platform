@@ -30,12 +30,71 @@
           未使用
         </span>
         <div class="lidiv">
+          <div @click="bianji(item1.id)">
+            编辑
+          </div>
           <div @click="deleteinfolist(item1.id)">
             删除
           </div>
         </div>
       </li>
     </ul>
+    <div class="add" @click="addform">
+      新增
+    </div>
+    <el-dialog title="新增活动" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="标题" :label-width="formLabelWidth">
+          <div class="title">
+            <el-input v-model="form.title" autocomplete="off"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item label="优惠名称" :label-width="formLabelWidth">
+          <div class="title">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item label="优惠金额" :label-width="formLabelWidth" class="actiprice">
+          满
+          <div class="man">
+            <el-input v-model="form.price"></el-input>
+          </div>
+          减
+          <div class="man">
+            <el-input v-model="form.jprice"></el-input>
+          </div>
+          <div class="tips">
+            注：满数额须大于减数额
+          </div>
+        </el-form-item>
+        <el-form-item label="活动时间" :label-width="formLabelWidth">
+          开始
+          <div class="man">
+            <el-date-picker
+              v-model="form.time"
+              type="date"
+              placeholder="选择日期"
+            >
+            </el-date-picker>
+          </div>
+          结束
+          <div class="man">
+            <el-date-picker
+              v-model="form.jtime"
+              type="date"
+              placeholder="选择日期"
+            >
+            </el-date-picker>
+          </div>
+        </el-form-item>
+        <el-form-item label="描述" :label-width="formLabelWidth">
+          <el-input v-model="form.describe" autocomplete="off" type="textarea"></el-input>
+        </el-form-item>        
+      </el-form>
+      <el-button type="primary" @click="sendactive">
+        确 定
+      </el-button>
+    </el-dialog>
     <div class="pag">
       <pagination
         :total="total"
@@ -66,7 +125,20 @@ export default {
       page: 1,
       limit: 6,
       total: 0,
-      title: ''
+      title: '',
+      dialogFormVisible: false,
+      formLabelWidth: '80px',
+      current: '',
+      form: {
+        name: '',
+        title: '',
+        price: '',
+        jprice: '',
+        time: '',
+        jtime: '',
+        describe: '',
+        bcid: 0
+      }
     }
   },
   computed: {
@@ -78,6 +150,13 @@ export default {
     })
   },
   methods: {
+    bianji(vid) {
+      this.bjactivehq(vid)
+      this.dialogFormVisible = true
+      this.current = '编辑'
+      console.log(this.current)
+      this.bcid = vid
+    },
     async activeprofils() {
       const { page, limit } = this
       const info = await this.$store.dispatch('activeprofillist', {
@@ -102,6 +181,64 @@ export default {
           })
           this.activeprofils()
         })
+    },
+    addform() {
+      this.dialogFormVisible = true
+      this.current = '新增'
+      console.log(this.current)
+      this.form = {}
+    },
+    // 编辑获取
+    async bjactivehq(vid) {
+      const info = await this.$store.dispatch('editacbj', {
+        id: vid
+      })
+      console.log(info)
+      this.form = {
+        title: info.active.title,
+        name: info.active.coupon_name,
+        price: info.active.min_amount,
+        jprice: info.active.prefer_acount,
+        time: info.active.start_time,
+        jtime: info.active.end_time,
+        describe: info.active.desc
+      }
+    },
+    // 发送编辑过的内容
+    async bjbcactive() {
+      const info = await this.$store.dispatch('editacbjbc', {
+        id: this.bcid,
+        title: this.form.title,
+        coupon_name: this.form.name,
+        min_amount: this.form.price,
+        prefer_acount: this.form.jprice,
+        start_time: this.form.time,
+        end_time: this.form.jtime,
+        desc: this.form.describe
+      })
+      console.log(info)
+    },
+    // 添加新
+    async addnewactive() {
+      const info = await this.$store.dispatch('addactive', {
+        title: this.form.title,
+        coupon_name: this.form.name,
+        min_amount: this.form.price,
+        prefer_acount: this.form.jprice,
+        start_time: this.form.time,
+        end_time: this.form.jtime,
+        desc: this.form.describe
+      })
+      console.log(info)
+    },
+    sendactive() {
+      if (this.current === '编辑') {
+        this.bjbcactive()
+        this.dialogFormVisible = false
+      } else {
+        this.addnewactive()
+        this.dialogFormVisible = false
+      }
     }
   }
 }
@@ -111,6 +248,14 @@ export default {
 @import '~style/mixin.less';
 .secondpart {
   background-color: #fff;
+  position: relative;
+  .add {
+    position: absolute;
+    top: -41px;
+    right: 80px;
+    color: #00a0e9;
+    cursor: pointer;
+  }
 }
 .secondpart-top {
   position: relative;

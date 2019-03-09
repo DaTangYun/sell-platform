@@ -28,9 +28,18 @@
               </el-select>
             </el-form-item>
             <el-form-item v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
+              <el-upload
+                class="avatar-uploader my-uploader"
+                :action="`${action}/api/common/upload`"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+              >
+                <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
+              </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
               <el-input v-model="desc" type="textarea"></el-input>
@@ -51,6 +60,7 @@
   </div>
 </template>
 <script>
+import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
 export default {
@@ -106,6 +116,7 @@ export default {
       const info = await this.$store.dispatch('headedit', {
         id: this.$route.query.id
       })
+      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -121,12 +132,12 @@ export default {
       this.fl = info.cate
       this.title = info.row.title
       this.desc = info.row.desc
-      this.cover = info.row.cover
+      this.imageUrl = info.row.cover
       this.content = info.row.content
       this.toplinecateid = info.row.topline_cate_id
     },
     async bceditlist() {
-      const { title, cover, desc, content } = this
+      const { title, desc, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -143,7 +154,7 @@ export default {
         id: this.$route.query.id,
         title,
         topline_cate_id: this.toplinecateid,
-        cover,
+        cover: this.cover,
         desc,
         content,
         province: this.province,
@@ -158,6 +169,13 @@ export default {
         message: '修改成功'
       })
       window.history.back()
+    },
+    handleAvatarSuccess(res, file, index) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.cover = file.response.data.url
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
     }
   }
 }

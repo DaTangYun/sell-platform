@@ -33,10 +33,12 @@
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
@@ -124,7 +126,7 @@ export default {
       await this.$store.dispatch('newhead', {
         title,
         topline_cate_id: this.toplinecateid,
-        cover: this.imageUrl,
+        cover: this.cover,
         desc,
         content,
         province: this.province,
@@ -142,17 +144,7 @@ export default {
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev

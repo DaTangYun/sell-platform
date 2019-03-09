@@ -41,6 +41,7 @@ export default {
   height: 711px;
   margin-left: 12px;
   margin-bottom: 20px;
+  position: relative;
 }
 .toptabs {
   width: 950px;

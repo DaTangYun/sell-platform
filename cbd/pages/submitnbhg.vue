@@ -44,21 +44,18 @@
             <el-form-item label="电话">
               <el-input v-model="mobile"></el-input>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
@@ -155,7 +152,7 @@ export default {
       }
       this.title = info.row.title
       this.desc = info.row.desc
-      this.cover = info.row.image
+      this.imageUrl = info.row.image
       this.price = info.row.price
       this.mobile = info.row.mobile
       this.content = info.row.content
@@ -249,18 +246,7 @@ export default {
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.cover = this.imageUrl
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev

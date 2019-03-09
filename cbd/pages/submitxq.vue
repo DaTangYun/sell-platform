@@ -255,7 +255,6 @@ export default {
     },
     handleonchange(file, fileList) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
     },
     async uploadimage(file) {
       this.$nuxt.$loading.start()

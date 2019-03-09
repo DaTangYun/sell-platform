@@ -41,6 +41,10 @@ const dishelpdo = {
   // 留言列表
   getabilitymessagelist(params) {
     return axios.get('/api/ability_message/lists', { params })
+  },
+  // 发布回复
+  getaddcomment(params) {
+    return axios.post('/api/ability_message/add', qs.stringify(params))
   }
 }
 export default dishelpdo

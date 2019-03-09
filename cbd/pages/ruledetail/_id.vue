@@ -45,6 +45,7 @@ export default {
         this.fince()
       } else {
         this.list = this.casedetail
+        console.log(this.list)
         this.case()
       }
     })

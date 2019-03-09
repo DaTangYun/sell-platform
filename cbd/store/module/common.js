@@ -173,6 +173,7 @@ const common = {
       })
       if (info.data.code === api.CODE_OK) {
         const loginout = info.data
+        cookie.remove()
         commit('setloginout', loginout)
         return loginout
       }

@@ -13,6 +13,7 @@ const errorHandle = (status, other) => {
     // 404 请求不存在
     case 403:
       tip('请升级为会员', 'warning')
+      window.location.href = '/authentication'
       break
     case 401:
       tip('登录失效请重新登录', 'warning')

@@ -47,7 +47,7 @@
         </el-form-item>
         <el-form-item v-model="cateid" label="标签" class="bq">
           <!-- eslint-disable-next-line -->
-          <a v-for="(item1,index1) in docuadd" :key="index1" tag="a" @click="fenleiid(item1)">
+          <a v-for="(item1,index1) in docuadd" :key="index1" @click="fenleiid(item1,index1)" :class="activeid === index1 ? 'activelink' : ''">
             {{ item1.name }}
           </a>
         </el-form-item>
@@ -55,8 +55,7 @@
           <el-upload
             class="upload-demo"
             :action="`${action}/api/common/upload`"
-            :limit="3"
-            :on-change="handleonchange"
+            :on-success="handleAvatarSuccess"
           >
             <el-button size="small" type="primary">
               点击上传
@@ -113,7 +112,8 @@ export default {
       city: '',
       areacode: 0,
       area: '',
-      action: ''
+      action: '',
+      activeid: 0
     }
   },
   computed: {
@@ -127,8 +127,9 @@ export default {
     })
   },
   methods: {
-    fenleiid(item) {
+    fenleiid(item, index) {
       this.cateid = item.id
+      this.activeid = index
     },
     async documentprofiles() {
       const { page, limit } = this
@@ -147,7 +148,6 @@ export default {
       this.noIndex = 1
     },
     async deletewd(vid) {
-      console.log(vid)
       await this.$store
         .dispatch('deletewendang', {
           id: vid
@@ -161,15 +161,18 @@ export default {
         })
     },
     async documentadd() {
-      const info = await this.$store.dispatch('docuadd')
-      console.log(info)
+      await this.$store.dispatch('docuadd')
     },
-    handleonchange(file, fileList) {
-      if (file.status === 'ready') {
+    handleAvatarSuccess(file, fileList) {
+      if (file.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: file.msg
+        })
         return
       }
-      if (file.response.msg === '上传成功') {
-        this.url = base.dev + file.response.data.url
+      if (file.msg === '上传成功') {
+        this.url = file.data.url
       }
     },
     async addnewdocu() {
@@ -298,22 +301,23 @@ export default {
         border-radius: 6px;
         margin-right: 10px;
         cursor: pointer;
-        &:hover {
-          background-color: #00a0e9;
-          color: #fff;
-        }
-        &:active {
-          background-color: #00a0e9;
-          color: #fff;
-        }
+        // &:hover {
+        //   background-color: #00a0e9;
+        //   color: #fff;
+        // }
+        // &:active {
+        //   background-color: #00a0e9;
+        //   color: #fff;
+        // }
+      }
+      .activelink {
+        background-color: #00a0e9;
+        color: #fff;
       }
     }
     .button {
       padding-left: 80px;
     }
   }
-}
-.active-link {
-  background-color: #00a0e9;
 }
 </style>

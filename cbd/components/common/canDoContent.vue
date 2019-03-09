@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="cando">
-      <nuxt-link v-for="(item,index) in dishelpdo" :key="index" class="candoli" :to="{name: 'discont-helpcando-id',params: {id: item.id}}">
+      <nuxt-link v-for="(item,index) in dishelpdo" :key="index" class="candoli" tag="li" :to="{name: 'discont-helpcando-id',params: {id: item.id}}">
         <div class="canDome-li-content" :style="{ width: wid + 'px' }">
           <div class="ul-img" :style="{ height: hei + 'px' }">
             <img :src="item.image" alt="">
@@ -58,6 +58,7 @@ export default {
   margin-bottom: 40px;
   .candoli {
     margin-right: 21px;
+    cursor: pointer;
     &:nth-of-type(3n) {
       margin-right: 0;
     }

@@ -37,8 +37,8 @@
             {{ details.desc }}
           </el-tab-pane>
           <el-tab-pane label="用户评价" name="second">
-            <el-input type="textarea" resize="none" rows="6" placeholder="发表回复"></el-input>
-            <button>
+            <el-input v-model="contentyh" type="textarea" resize="none" rows="6" placeholder="发表回复"></el-input>
+            <button @click="fbcomment">
               发布
             </button>
             <ul class="pj">
@@ -66,58 +66,62 @@
             ></pagination>
           </el-tab-pane>
           <el-tab-pane label="你问我答" name="third">
-            <el-input type="textarea" resize="none" rows="6" placeholder="发表回复"></el-input>
-            <div v-show="userid" class="drop">
-              请登录后发表回复
-            </div>
-            <button>
+            <el-input v-model="content" type="textarea" resize="none" rows="6" placeholder="发表回复"></el-input>
+            <el-button type="primary" @click="sendnbhgcomment">
               发布
-            </button>
+            </el-button>
             <ul class="ask">
-              <li class="askli">
-                <div class="head">
-                  <img src="" alt="">
-                </div>
-                <div>
-                  <div class="asktitle">
-                    <h5>
-                      昵称昵称昵称
-                    </h5>
-                    <span>
-                      2018-12-30
+              <li v-for="(item,index) of abilitymessage" :key="index" class="askli">
+                <div class="bigli">
+                  <div class="head">
+                    <img :src="item.avatar" alt="">
+                  </div>
+                  <div class="huifu">
+                    <div class="asktitle">
+                      <h5>
+                        {{ item.nickname }}
+                      </h5>
+                      <span>
+                        {{ item.createtime }}
+                      </span>
+                    </div>
+                    <div class="askcontent">
+                      {{ item.content }}
+                    </div>
+                    <span class="back" @click="firstly(index)">
+                      评论
                     </span>
+                    <el-input v-show="activeindex === index" type="textarea"></el-input>
+                    <el-button v-show="activeindex === index" type="primary" small>
+                      确定
+                    </el-button>
                   </div>
-                  <div class="askcontent">
-                    内容内容内容内容内容内容内容内容内容
-                  </div>
-                  <span class="back">
-                    回复
-                  </span>
                 </div>
+                <ul class="reply">
+                  <li v-for="(item1,index1) in item.reply" :key="index1">
+                    <div class="reply-title">
+                      <span>
+                        {{ item1.from_user_id.nickname }}
+                      </span>
+                      <span>
+                        回复  
+                      </span>
+                      <span>
+                        {{ item1.to_user_id.nickname }}
+                      </span>
+                    </div>
+                    <div class="reply-content">
+                      {{ item1.reply_msg }}
+                    </div>
+                    <span @click="showteaxtarea === true">
+                      评论
+                    </span>
+                    <el-input v-show="showteaxtarea" type="textarea" @onblur="handleblur"></el-input>
+                    <img :src="item1.from_user_id.avatar" alt="">
+                  </li>
+                </ul>
               </li>
             </ul> 
-            <ul class="reply">
-              <li v-for="(item,index) in reply" :key="index">
-                <div class="reply-title">
-                  <span>
-                    XXXX
-                  </span>
-                  <span>
-                    @
-                  </span>
-                  <span>
-                    XXXX
-                  </span>
-                </div>
-                <div class="reply-content">
-                  内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-                </div>
-                <span>
-                  回复
-                </span>
-                <img src="" alt="">
-              </li>
-            </ul>
             <pagination></pagination>
           </el-tab-pane>
         </el-tabs>
@@ -133,7 +137,7 @@ export default {
     pagination
   },
   meta: {
-    title: '服务'
+    title: '能帮会干服务详情'
   },
   middleware: 'auth',
   data() {
@@ -146,24 +150,26 @@ export default {
       page: 1,
       limit: 5,
       total: 0,
-      userid: 0
+      userid: false,
+      content: '',
+      contentyh: '',
+      activeindex: -1,
+      showteaxtarea: false
     }
   },
   computed: {
-    ...mapGetters(['abilitydetail', 'abilitylists'])
+    ...mapGetters(['abilitydetail', 'abilitylists', 'abilitymessage'])
   },
   mounted() {
     this.$nextTick(() => {
       this.abdetails()
       this.pinglun()
+      this.liuyanlist()
     })
+    console.log(this.abilitymessage)
   },
   methods: {
     async abdetails() {
-      const userinfo = JSON.parse(localStorage.getItem('USERINFO'))
-      if (userinfo) {
-        this.userid = userinfo.user_id
-      }
       const info = await this.$store.dispatch('details', {
         id: this.$route.params.id
       })
@@ -180,9 +186,62 @@ export default {
       this.total = info.total
       this.pl = info.comment
     },
+    async addmember() {
+      if (!this.contentyh) {
+        this.$message.error('请填写内容')
+      }
+      const info = await this.$store.dispatch('addcom', {
+        content: this.contentyh,
+        ability_id: this.$route.params.id
+      })
+      if (info) {
+        this.$message.success('评论成功')
+        this.pinglun()
+      } else {
+        this.$message.error('评论频繁，请稍后')
+      }
+    },
     handlecurrentchange(params) {
       this.page = params
       this.pinglun()
+    },
+    fbcomment() {
+      this.addmember()
+    },
+    // 留言列表
+    async liuyanlist() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('abilitymessagelist', {
+        page,
+        limit,
+        ability_id: this.$route.params.id
+      })
+      console.log(info.total)
+    },
+    firstly(index) {
+      this.activeindex = index
+    },
+    handleblur() {
+      this.showteaxtarea = false
+    },
+    sendnbhgcomment() {
+      this.sendliuyan()
+    },
+    // 发布留言
+    async sendliuyan() {
+      if (!this.content) {
+        this.$message.error('请填写内容')
+      }
+      const info = await this.$store.dispatch('addnewnbhg', {
+        content: this.content,
+        ability_id: this.$route.params.id
+      })
+      if (info) {
+        this.$message.success('评论成功')
+        this.pinglun()
+      } else {
+        this.$message.error('评论频繁，请稍后')
+      }
     }
   }
 }
@@ -262,11 +321,18 @@ export default {
     color: #fff;
     cursor: pointer;
   }
+  .huifu {
+    width: 100%;
+  }
   .head {
     width: 50px;
     height: 50px;
     background-color: pink;
     margin-right: 30px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .pj {
     margin-bottom: 50px;
@@ -298,10 +364,12 @@ export default {
     margin-bottom: 24px;
     border-bottom: 1px dashed #e6e6e6;
     .askli {
-      width: 902px;
+      width: 100%;
       box-sizing: border-box;
       padding-bottom: 24px;
-      display: flex;
+      .bigli {
+        display: flex;
+      }
       .asktitle {
         margin-bottom: 14px;
         display: flex;
@@ -342,12 +410,15 @@ export default {
     box-sizing: border-box;
     background-color: #f1f2f6;
     margin-bottom: 24px;
-    padding: 20px 0 0 20px;
+    margin-top: 10px;
+    margin-left: 50px;
     position: relative;
     li {
       padding-bottom: 24px;
       box-sizing: border-box;
       padding-left: 50px;
+      padding-top: 10px;
+      padding-left: 80px;
       .reply-title {
         color: #282d38;
         margin-bottom: 10px;

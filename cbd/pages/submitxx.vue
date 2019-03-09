@@ -38,21 +38,18 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
@@ -131,7 +128,6 @@ export default {
       const info = await this.$store.dispatch('sendinfolist', {
         id: this.$route.query.id
       })
-      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -148,7 +144,7 @@ export default {
       this.title = info.row.title
       this.desc = info.row.desc
       this.cover = info.row.cover
-      console.log(this.cover)
+      this.imageUrl = info.row.cover
       this.content = info.row.content
       this.messagecateid = info.row.message_cate_id
     },
@@ -214,7 +210,7 @@ export default {
       const info = await this.$store.dispatch('addinfolist', {
         title,
         message_cate_id: this.messagecateid,
-        cover: this.imageUrl,
+        cover: this.cover,
         desc,
         content,
         province: this.province,
@@ -236,17 +232,7 @@ export default {
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev

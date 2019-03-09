@@ -46,7 +46,7 @@ export default {
       currentpage: 1,
       title: '',
       publish: '发表头条',
-      tpath: '/messageComp'
+      tpath: '/submitheads'
     }
   },
   computed: {

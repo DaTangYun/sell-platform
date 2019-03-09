@@ -58,7 +58,7 @@
       </mybox>
       <mybox :my="'优惠活动'">
         <ul class="wisdom-ul">
-          <li v-for="(item,index) in activelist.active" :key="index" class="wisdom-li">
+          <li v-for="(item,index) in activeyouhuilist.active" :key="index" class="wisdom-li">
             <div class="wisdom-tri">
               <img src="../../assets/images/right.png" alt="">
             </div>
@@ -119,13 +119,14 @@ export default {
       'helpmelist',
       'caselist',
       'dismyteam',
-      'activelist'
+      'activeyouhuilist'
     ]),
     newlist() {
       return this.headlist.slice(3)
     }
   },
   mounted() {
+    console.log(this.dismyteam)
     this.$nextTick(() => {
       this.headlists()
       this.helpmelists()
@@ -194,9 +195,6 @@ export default {
 <style lang='less' scoped>
 @import '~style/variable.less';
 @import '~style/mixin.less';
-li {
-  cursor: pointer;
-}
 .exh {
   display: flex;
   .exh-left {
@@ -252,6 +250,7 @@ li {
     display: flex;
     line-height: 40px;
     border-bottom: 1px dashed #e1e2e6;
+    cursor: pointer;
     &:last-child {
       border-bottom: none;
     }
@@ -297,6 +296,7 @@ li {
     box-sizing: border-box;
     li {
       margin-right: 16px;
+      cursor: pointer;
       .li-img {
         width: 203px;
         height: 144px;
@@ -328,6 +328,7 @@ li {
       margin-bottom: 16px;
       box-sizing: border-box;
       padding-left: 5px;
+      cursor: pointer;
       div {
         padding: 0 10px;
         height: 31px;
