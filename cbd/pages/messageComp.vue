@@ -42,7 +42,7 @@
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>            
             <el-form-item label="内容">
               <el-input v-model="content" type="textarea"></el-input>
@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
 import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
@@ -67,9 +68,9 @@ export default {
   meta: {
     title: '发布头条'
   },
-  // components: {
-  //   Tinymce
-  // },
+  components: {
+    textpart
+  },
   data() {
     return {
       value: '',
@@ -92,7 +93,9 @@ export default {
       area: '',
       imageUrl: '',
       action: '',
-      newarr: []
+      newarr: [],
+      showcontent: '',
+      textcontent: ''
     }
   },
   computed: {
@@ -131,13 +134,13 @@ export default {
       this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
       this.fl = info.cate
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
       this.imageUrl = info.row.cover
       this.content = info.row.content
       this.toplinecateid = info.row.topline_cate_id
     },
     async bceditlist() {
-      const { title, desc, content } = this
+      const { title, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -155,7 +158,7 @@ export default {
         title,
         topline_cate_id: this.toplinecateid,
         cover: this.cover,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -176,6 +179,10 @@ export default {
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }

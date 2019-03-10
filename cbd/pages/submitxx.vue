@@ -53,7 +53,7 @@
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>            
             <el-form-item label="内容">
               <el-input v-model="content" type="textarea"></el-input>
@@ -71,6 +71,7 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
 import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
@@ -78,9 +79,9 @@ export default {
   meta: {
     title: '发布信息'
   },
-  // components: {
-  //   Tinymce
-  // },
+  components: {
+    textpart
+  },
   data() {
     return {
       value: '',
@@ -103,7 +104,9 @@ export default {
       imageUrl: '',
       action: '',
       messagecateid: 0,
-      newarr: []
+      newarr: [],
+      textcontent: '',
+      showcontent: ''
     }
   },
   computed: {
@@ -142,14 +145,14 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
       this.cover = info.row.cover
       this.imageUrl = info.row.cover
       this.content = info.row.content
       this.messagecateid = info.row.message_cate_id
     },
     async bceditlist() {
-      const { title, cover, desc, content } = this
+      const { title, cover, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -167,7 +170,7 @@ export default {
         title,
         message_cate_id: this.messagecateid,
         cover,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -194,7 +197,7 @@ export default {
       }
     },
     async addnewhead() {
-      const { title, desc, content } = this
+      const { title, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -211,7 +214,7 @@ export default {
         title,
         message_cate_id: this.messagecateid,
         cover: this.cover,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -236,6 +239,10 @@ export default {
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }

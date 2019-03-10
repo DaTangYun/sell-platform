@@ -45,6 +45,10 @@ const dishelpdo = {
   // 发布回复
   getaddcomment(params) {
     return axios.post('/api/ability_message/add', qs.stringify(params))
+  },
+  // 回复留言
+  getaddreply(params) {
+    return axios.post('/api/reply/add', qs.stringify(params))
   }
 }
 export default dishelpdo

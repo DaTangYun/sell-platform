@@ -12,7 +12,8 @@ const dishelpdo = {
     newability: {},
     deleteability: {},
     abilitymessage: {},
-    addcommentnwwd: {}
+    addcommentnwwd: {},
+    addreply: {}
   },
   mutations: {
     setdishelpdo(state, data) {
@@ -51,6 +52,9 @@ const dishelpdo = {
     // 你问我答
     setaddnwwdcomment(state, data) {
       state.addcommentnwwd = data
+    },
+    setaddreply(state, data) {
+      state.addreply = data
     }
   },
   actions: {
@@ -173,6 +177,16 @@ const dishelpdo = {
       if (info.data.code === api.CODE_OK && info.data) {
         const deleteability = info.data
         commit('setaddnwwdcomment', deleteability)
+        return deleteability
+      }
+    },
+    async replyadd({ commit }, params) {
+      const info = await api.dishelpdo.getaddreply({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteability = info.data
+        commit('setaddreply', deleteability)
         return deleteability
       }
     }

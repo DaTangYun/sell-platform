@@ -91,8 +91,8 @@
                     <span class="back" @click="firstly(index)">
                       评论
                     </span>
-                    <el-input v-show="activeindex === index" type="textarea"></el-input>
-                    <el-button v-show="activeindex === index" type="primary" small>
+                    <el-input v-show="activeindex === index" v-model="replymsg" type="textarea"></el-input>
+                    <el-button v-show="activeindex === index" type="primary" small @click="sendfirst(index)">
                       确定
                     </el-button>
                   </div>
@@ -154,7 +154,10 @@ export default {
       content: '',
       contentyh: '',
       activeindex: -1,
-      showteaxtarea: false
+      showteaxtarea: false,
+      commentid: '',
+      replymsg: '',
+      touserid: 0
     }
   },
   computed: {
@@ -239,6 +242,34 @@ export default {
       if (info) {
         this.$message.success('评论成功')
         this.pinglun()
+      } else {
+        this.$message.error('评论频繁，请稍后')
+      }
+    },
+    sendfirst(index) {
+      console.log(index)
+      this.addnewreply(index)
+      this.replymsg = ''
+    },
+    // 回复留言
+    async addnewreply(index) {
+      const userinfo = JSON.parse(localStorage.getItem('USERINFO'))
+      this.commentid = userinfo.user_id
+      this.touserid = index
+      if (!this.replymsg) {
+        this.$message.error('请填写内容')
+      }
+      const info = await this.$store.dispatch('replyadd', {
+        comment_id: this.commentid,
+        reply_msg: this.replymsg,
+        to_user_id: this.touserid
+      })
+      console.log(info)
+      if (info) {
+        this.$message.success('评论成功')
+        this.abdetails()
+        this.pinglun()
+        this.liuyanlist()
       } else {
         this.$message.error('评论频繁，请稍后')
       }
@@ -412,8 +443,8 @@ export default {
     margin-bottom: 24px;
     margin-top: 10px;
     margin-left: 50px;
-    position: relative;
     li {
+      position: relative;
       padding-bottom: 24px;
       box-sizing: border-box;
       padding-left: 50px;

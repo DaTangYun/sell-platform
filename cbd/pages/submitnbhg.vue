@@ -59,7 +59,7 @@
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>
             <el-form-item label="内容">
               <el-input v-model="content" type="textarea"></el-input>
@@ -76,12 +76,16 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
 import base from '@/api/base'
 import { mapGetters } from 'vuex'
 import { pcaa } from 'area-data'
 export default {
   meta: {
     title: '发布能帮会干'
+  },
+  components: {
+    textpart
   },
   data() {
     return {
@@ -107,7 +111,9 @@ export default {
       action: '',
       abilityid: 0,
       price: '',
-      mobile: ''
+      mobile: '',
+      showcontent: '',
+      textcontent: ''
     }
   },
   computed: {
@@ -151,7 +157,7 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
       this.imageUrl = info.row.image
       this.price = info.row.price
       this.mobile = info.row.mobile
@@ -159,7 +165,7 @@ export default {
       this.abilityid = info.row.ability_id
     },
     async bceditlist() {
-      const { title, price, mobile, desc, content } = this
+      const { title, price, mobile, content } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -177,7 +183,7 @@ export default {
         title,
         ability_id: this.abilityid,
         image: this.cover,
-        desc,
+        desc: this.textcontent,
         price,
         mobile,
         content,
@@ -206,7 +212,7 @@ export default {
       }
     },
     async addnewhead() {
-      const { title, desc, content, price, mobile } = this
+      const { title, content, price, mobile } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -225,7 +231,7 @@ export default {
         ability_id: this.abilityid,
         image: this.cover,
         mobile,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -250,6 +256,10 @@ export default {
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }

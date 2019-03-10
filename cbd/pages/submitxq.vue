@@ -86,7 +86,7 @@
               </el-upload> 
             </el-form-item>
             <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>       
             <el-form-item label="内容">
               <el-input v-model="content" type="textarea"></el-input>
@@ -107,7 +107,11 @@
 import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
+import textpart from 'common/Textpart'
 export default {
+  components: {
+    textpart
+  },
   meta: {
     title: '发布需求'
   },
@@ -144,7 +148,9 @@ export default {
       starttime: '',
       endtime: '',
       newarr: [],
-      htimage: ''
+      htimage: '',
+      textcontent: '',
+      showcontent: ''
     }
   },
   computed: {
@@ -196,7 +202,7 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
       this.image = info.row.image
       this.content = info.row.content
       this.cateid = info.row.cate_id
@@ -219,13 +225,13 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, desc, content, commission, mobile, contact } = this
+      const { title, image, content, commission, mobile, contact } = this
       const info = await this.$store.dispatch('helpedit', {
         id: this.$route.query.id,
         title,
         cate_id: this.cateid,
         image,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -279,12 +285,12 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, desc, content, commission, mobile, contact } = this
+      const { title, image, content, commission, mobile, contact } = this
       const info = await this.$store.dispatch('addhelplist', {
         title,
         cate_id: this.cateid,
         image,
-        desc,
+        desc: this.textcontent,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -307,6 +313,10 @@ export default {
         })
         window.history.back()
       }
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }
