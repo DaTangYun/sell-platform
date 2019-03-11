@@ -15,7 +15,7 @@
         <span class="obtain" @click="getAuthCode">
           {{codeTime}}
         </span>
-        <span v-show="codeTime > 0">秒</span> 
+        <span v-show="codeTime > 0" class="obtain2">秒后获取验证码</span> 
       </div>
       <div class="s-from-row">
         <span>新密码 ：</span>
@@ -178,13 +178,17 @@ export default {
       font-size: 16px;
       color: rgba(47, 53, 66, 1);
     }
-    .obtain {
+    .obtain,
+    .obtain2 {
       position: absolute;
       right: -24px;
       bottom: -7px;
       color: #00a0e9;
       cursor: pointer;
       width: 152px;
+    }
+    .obtain2 {
+      right: -43px;
     }
   }
 }
