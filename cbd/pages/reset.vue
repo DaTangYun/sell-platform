@@ -7,31 +7,135 @@
     <div class="s-form">
       <div class="s-from-row">
         <span>手机号 ：</span>
-        <input type="text">
+        <el-input v-model="formLabelAlign.mobile" type="text"></el-input>
       </div>
       <div class="s-from-row">
         <span>验证码 ：</span>
-        <input type="text">
-        <div class="obtain">
-          获取验证码
-        </div>
+        <el-input v-model="formLabelAlign.captcha" type="text"></el-input>
+        <span class="obtain" @click="getAuthCode">
+          {{codeTime}}
+        </span>
+        <span v-show="codeTime > 0">秒</span> 
       </div>
       <div class="s-from-row">
         <span>新密码 ：</span>
-        <input type="text">
+        <el-input v-model="formLabelAlign.newpassword" type="password"></el-input>
       </div>
     </div>
-    <button class="submit-btn" @click="goLogin">
+    <button class="submit-btn" @click="submitpass">
       提交
     </button>
   </div>
 </template>
 <script>
+import Validate from '../assets/js/validate'
 export default {
   layout: 'login',
+  data() {
+    return {
+      formLabelAlign: {
+        mobile: '',
+        captcha: '',
+        newpassword: ''
+      },
+      sendAuthCode: true,
+      time: 0,
+      validateName: '',
+      vtime: '获取验证码',
+      timetimer: null,
+      codeTime: '获取验证码',
+      timer: null,
+      code: ''
+    }
+  },
   methods: {
-    goLogin() {
-      this.$router.push('/login')
+    async submitpass() {
+      if (!Validate.required(this.formLabelAlign.mobile)) {
+        this.$message({
+          type: 'warning',
+          message: '请填写手机号'
+        })
+        return
+      }
+      if (!Validate.required(this.formLabelAlign.captcha)) {
+        this.$message({
+          type: 'warning',
+          message: '请填写验证码'
+        })
+        return
+      }
+      if (
+        !Validate.required(this.formLabelAlign.newpassword) ||
+        this.formLabelAlign.newpassword.length < 6
+      ) {
+        this.$message({
+          type: 'warning',
+          message: '请填写6位以上密码'
+        })
+        return
+      }
+      const info = await this.$store.dispatch('userresetpwd', {
+        mobile: this.formLabelAlign.mobile,
+        password: this.formLabelAlign.newpassword,
+        captcha: this.formLabelAlign.captcha
+      })
+      if (info) {
+        this.$message.success('设置成功')
+        this.$router.push('/login')
+      }
+    },
+    getAuthCode() {
+      const CODE = '获取验证码'
+      const date = +new Date()
+      const minute = 1 * 60 * 1000
+      const codeDate = localStorage.getItem('CODE_DATE')
+      // const seconds = (date - codeDate) / 1000
+      const residue = Math.round(60 - (date - codeDate) / 1000)
+      if (codeDate != null) {
+        if (date - codeDate > minute) {
+          localStorage.setItem('CODE_DATE', date)
+          if (this.codeTime === CODE) {
+            this.codeTime = 60
+            this.countDown()
+            this.getsms()
+          }
+        } else {
+          this.$message({
+            duration: 1000,
+            message: `请${residue}秒后再试`
+          })
+        }
+      } else {
+        localStorage.setItem('CODE_DATE', date)
+        if (this.codeTime === CODE) {
+          this.codeTime = 60
+          this.countDown()
+          this.getsms()
+        }
+      }
+    },
+    countDown() {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      if (this.codeTime > 0) {
+        this.codeTime = this.codeTime - 1
+        this.timer = setTimeout(() => {
+          this.countDown()
+        }, 1000)
+        this.$once('hook:beforeDestroy', () => {
+          clearInterval(this.timer)
+        })
+      } else {
+        clearTimeout(this.timer)
+        this.codeTime = '获取验证码'
+      }
+    },
+    async getsms() {
+      await this.$store.dispatch('smsdata', {
+        mobile: this.formLabelAlign.mobile,
+        event: 'changemobile'
+      })
     }
   }
 }
@@ -55,14 +159,12 @@ export default {
     margin: 0 auto;
     display: flex;
     height: 96px;
-    border-bottom: 1px solid rgba(164, 176, 190, 1);
     width: 100%;
     position: relative;
     span {
       padding: 0 8px;
       height: 100%;
       display: inline-block;
-      line-height: 156px;
       width: 20%;
       color: rgba(87, 96, 111, 1);
     }
@@ -78,10 +180,11 @@ export default {
     }
     .obtain {
       position: absolute;
-      right: 0;
-      bottom: 10px;
-      color: rgba(0, 160, 233, 1);
+      right: -24px;
+      bottom: -7px;
+      color: #00a0e9;
       cursor: pointer;
+      width: 152px;
     }
   }
 }

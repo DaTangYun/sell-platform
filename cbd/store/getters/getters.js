@@ -304,6 +304,9 @@ const getters = {
   },
   addcommentnwwd: state => {
     return state.dishelpdo.addcommentnwwd
+  },
+  userresetpwd: state => {
+    return state.common.userresetpwd
   }
 }
 export default getters

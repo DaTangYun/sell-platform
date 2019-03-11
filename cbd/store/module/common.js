@@ -21,9 +21,13 @@ const common = {
     userinfo: {},
     changeinfo: {},
     exitdata: {},
-    useridenty: {}
+    useridenty: {},
+    userresetpwd: {}
   },
   mutations: {
+    setuserresetpwd(state, data) {
+      state.userresetpwd = data
+    },
     setSlider(state, data) {
       state.slider = data
     },
@@ -250,6 +254,17 @@ const common = {
       if (info.data.code === api.CODE_OK && info.data) {
         const useriden = info.data
         commit('seruseridenty', useriden)
+        return useriden
+      }
+    },
+    async userresetpwd({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.getuserresetpwd({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const useriden = info.data
+        commit('setuserresetpwd', useriden)
         return useriden
       }
     }

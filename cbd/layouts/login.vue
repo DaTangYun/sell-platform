@@ -1,7 +1,9 @@
 <template>
   <section class="container">
     <div class="container-box">
-      <div class="login-left"></div>
+      <div class="login-left">
+        <img src="../assets/images/loginbg.png" alt="">
+      </div>
       <div class="login-right">
         <nuxt />
       </div>
@@ -43,7 +45,12 @@ export default {
   .login-left {
     width: 50%;
     height: 100%;
-    background-color: pink;
+    position: relative;
+    img {
+      position: absolute;
+      top: -23px;
+      left: -29px;
+    }
   }
   .login-right {
     width: 50%;

@@ -60,6 +60,10 @@ const common = {
   // 用户认证
   getuseridenty(params) {
     return axios.post('/api/user/identy', qs.stringify(params))
+  },
+  // 重置密码
+  getuserresetpwd(params) {
+    return axios.post('/api/user/resetpwd', qs.stringify(params))
   }
 }
 export default common

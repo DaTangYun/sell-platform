@@ -68,18 +68,12 @@
             <el-form-item label="联系人">
               <el-input v-model="contact"></el-input>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="image" label="图片">
-              <div class="ima">
-                <img :src="image" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="image" label="图片">
+            <el-form-item v-model="image" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -203,7 +197,7 @@ export default {
       }
       this.title = info.row.title
       this.showcontent = info.row.desc
-      this.image = info.row.image
+      this.imageUrl = info.row.image
       this.content = info.row.content
       this.cateid = info.row.cate_id
       this.commission = info.row.commission
@@ -258,16 +252,6 @@ export default {
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
       this.image = file.response.data.url
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
     },
     initAction() {
       this.action = process.client ? '' : base.dev

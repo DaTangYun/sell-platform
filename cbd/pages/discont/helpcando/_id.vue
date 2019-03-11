@@ -58,7 +58,6 @@
             </ul>
             <pagination
               :total="total"
-              :length="pl.length"
               :pagesize="limit"
               @currentchange="handlecurrentchange"
               @prev="handlecurrentchange"
@@ -71,7 +70,7 @@
               发布
             </el-button>
             <ul class="ask">
-              <li v-for="(item,index) of abilitymessage" :key="index" class="askli">
+              <li v-for="(item,index) of abilitymessage" :key="index" class="askli" :data-fatherid="index">
                 <div class="bigli">
                   <div class="head">
                     <img :src="item.avatar" alt="">
@@ -89,12 +88,14 @@
                       {{ item.content }}
                     </div>
                     <span class="back" @click="firstly(index)">
-                      评论
+                      回复
                     </span>
-                    <el-input v-show="activeindex === index" v-model="replymsg" type="textarea"></el-input>
-                    <el-button v-show="activeindex === index" type="primary" small @click="sendfirst(index)">
-                      确定
-                    </el-button>
+                    <div v-show="inputindex" class="pl">
+                      <el-input v-show="activeindex === index" v-model="replymsg" type="textarea"></el-input>
+                      <el-button v-show="activeindex === index" type="primary" small @click="sendfirst(item)">
+                        确定
+                      </el-button>
+                    </div>
                   </div>
                 </div>
                 <ul class="reply">
@@ -113,10 +114,15 @@
                     <div class="reply-content">
                       {{ item1.reply_msg }}
                     </div>
-                    <span @click="showteaxtarea === true">
-                      评论
+                    <span @click="clickHandle(item1)">
+                      回复
                     </span>
-                    <el-input v-show="showteaxtarea" type="textarea" @onblur="handleblur"></el-input>
+                    <div v-show="item1.flag" class="secondpl">
+                      <el-input v-model="secondplmsg" type="textarea"></el-input>
+                      <el-button @click="sendsecondpl(item1)">
+                        确定
+                      </el-button>
+                    </div>
                     <img :src="item1.from_user_id.avatar" alt="">
                   </li>
                 </ul>
@@ -157,7 +163,13 @@ export default {
       showteaxtarea: false,
       commentid: '',
       replymsg: '',
-      touserid: 0
+      touserid: 0,
+      plindex: true,
+      inputindex: false,
+      showteaxtareaindex: -1,
+      showteaxtareafatherindex: -1,
+      showflag: false,
+      secondplmsg: ''
     }
   },
   computed: {
@@ -211,18 +223,53 @@ export default {
     fbcomment() {
       this.addmember()
     },
+    async sendsecondpl(item1) {
+      const fromid = item1.comment_id
+      const toid = item1.from_user_id.id
+      if (!this.secondplmsg) {
+        this.$message.error('请填写内容')
+      }
+      const info = await this.$store.dispatch('replyadd', {
+        comment_id: fromid,
+        reply_msg: this.secondplmsg,
+        to_user_id: toid
+      })
+      console.log(info)
+      if (info) {
+        this.$message.success('评论成功')
+        this.abdetails()
+        this.pinglun()
+        this.liuyanlist()
+      } else {
+        this.$message.error('评论频繁，请稍后')
+      }
+    },
     // 留言列表
     async liuyanlist() {
       const { page, limit } = this
-      const info = await this.$store.dispatch('abilitymessagelist', {
+      await this.$store.dispatch('abilitymessagelist', {
         page,
         limit,
         ability_id: this.$route.params.id
       })
-      console.log(info.total)
+    },
+    clickHandle(item1) {
+      if (typeof item1.flag === 'undefined') {
+        this.$set(item1, 'flag', true)
+      } else {
+        item1.flag = !item1.flag
+      }
     },
     firstly(index) {
       this.activeindex = index
+      // this.plform.plindex = index
+      this.plindex = !this.plindex
+      this.inputindex = !this.inputindex
+    },
+    backinputindex() {
+      this.inputindex = !this.inputindex
+      this.plindex = !this.plindex
+      this.replymsg = ''
     },
     handleblur() {
       this.showteaxtarea = false
@@ -241,21 +288,21 @@ export default {
       })
       if (info) {
         this.$message.success('评论成功')
+        this.abdetails()
         this.pinglun()
+        this.liuyanlist()
       } else {
         this.$message.error('评论频繁，请稍后')
       }
     },
     sendfirst(index) {
-      console.log(index)
       this.addnewreply(index)
       this.replymsg = ''
     },
     // 回复留言
     async addnewreply(index) {
-      const userinfo = JSON.parse(localStorage.getItem('USERINFO'))
-      this.commentid = userinfo.user_id
-      this.touserid = index
+      this.commentid = index.id
+      this.touserid = index.user_id
       if (!this.replymsg) {
         this.$message.error('请填写内容')
       }
@@ -270,6 +317,7 @@ export default {
         this.abdetails()
         this.pinglun()
         this.liuyanlist()
+        this.inputindex = false
       } else {
         this.$message.error('评论频繁，请稍后')
       }
