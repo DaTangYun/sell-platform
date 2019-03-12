@@ -142,6 +142,7 @@ export default {
   text-align: center;
   line-height: 47px;
   color: #fff;
+  cursor: pointer;
 }
 .mima {
   width: 376px;
@@ -152,16 +153,15 @@ export default {
 }
 .obtain {
   position: absolute;
-  // left: 10px;
-  // bottom: 0px;
   color: #fff;
   cursor: pointer;
   width: 130px;
-  height: 47px;
+  height: 40px;
   display: inline-block;
   background-color: #00a0e9;
   border-radius: 6px;
   text-align: center;
-  line-height: 47px;
+  line-height: 40px;
+  margin-left: 10px;
 }
 </style>

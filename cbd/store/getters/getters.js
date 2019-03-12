@@ -307,6 +307,9 @@ const getters = {
   },
   userresetpwd: state => {
     return state.common.userresetpwd
+  },
+  useractiveadd: state => {
+    return state.disactive.useractiveadd
   }
 }
 export default getters

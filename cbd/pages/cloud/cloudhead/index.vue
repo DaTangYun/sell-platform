@@ -54,7 +54,6 @@ export default {
   },
   watch: {
     $route(route) {
-      console.log(route.query.title)
       this.title = route.query.title
       this.headinfo()
     }
@@ -109,6 +108,7 @@ export default {
     border-radius: 6px;
     padding: 24px 24px 40px;
     box-sizing: border-box;
+    height: 1397px;
   }
 }
 .spaceimg {

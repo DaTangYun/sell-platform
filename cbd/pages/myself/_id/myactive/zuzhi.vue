@@ -154,7 +154,6 @@ export default {
       this.bjactivehq(vid)
       this.dialogFormVisible = true
       this.current = '编辑'
-      console.log(this.current)
       this.bcid = vid
     },
     async activeprofils() {
@@ -185,7 +184,6 @@ export default {
     addform() {
       this.dialogFormVisible = true
       this.current = '新增'
-      console.log(this.current)
       this.form = {}
     },
     // 编辑获取
@@ -193,7 +191,6 @@ export default {
       const info = await this.$store.dispatch('editacbj', {
         id: vid
       })
-      console.log(info)
       this.form = {
         title: info.active.title,
         name: info.active.coupon_name,
@@ -206,7 +203,7 @@ export default {
     },
     // 发送编辑过的内容
     async bjbcactive() {
-      const info = await this.$store.dispatch('editacbjbc', {
+      await this.$store.dispatch('editacbjbc', {
         id: this.bcid,
         title: this.form.title,
         coupon_name: this.form.name,
@@ -216,11 +213,10 @@ export default {
         end_time: this.form.jtime,
         desc: this.form.describe
       })
-      console.log(info)
     },
     // 添加新
     async addnewactive() {
-      const info = await this.$store.dispatch('addactive', {
+      await this.$store.dispatch('addactive', {
         title: this.form.title,
         coupon_name: this.form.name,
         min_amount: this.form.price,
@@ -229,7 +225,6 @@ export default {
         end_time: this.form.jtime,
         desc: this.form.describe
       })
-      console.log(info)
     },
     sendactive() {
       if (this.current === '编辑') {

@@ -47,7 +47,6 @@ export default {
   meta: {
     title: '能帮会干'
   },
-  middleware: 'auth',
   data() {
     return {
       help: [],

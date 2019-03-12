@@ -119,7 +119,6 @@ export default {
       const info = await this.$store.dispatch('headedit', {
         id: this.$route.query.id
       })
-      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -131,8 +130,6 @@ export default {
       const id = info.cate.map(item => {
         return item.id
       })
-      console.log(id.indexOf(info.row.topline_cate_id))
-      // console.log(info.cate[id.indexOf(info.row.topline_cate_id)])
       this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
       this.fl = info.cate
       this.title = info.row.title
@@ -188,7 +185,6 @@ export default {
       this.action = process.client ? '' : base.dev
     },
     handletext(val) {
-      // console.log(val)
       this.textcontent = val
     }
   }

@@ -320,7 +320,6 @@ export default {
       }
     },
     handletext(val) {
-      // console.log(val)
       this.textcontent = val
     }
   }
