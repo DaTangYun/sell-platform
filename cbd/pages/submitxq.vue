@@ -79,10 +79,10 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
+            <el-form-item label="内容">
               <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>       
-            <el-form-item label="内容">
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -125,12 +125,12 @@ export default {
       fl: [],
       flvalue: '',
       id: 34,
-      cateid: 0,
+      cateid: '',
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
@@ -163,7 +163,7 @@ export default {
     changez(val) {
       for (const item of this.newarr) {
         if (item.title === val) {
-          this.cate_id = item.id
+          this.cateid = item.id
         }
       }
     },
@@ -196,9 +196,10 @@ export default {
         }
       }
       this.title = info.row.title
-      this.showcontent = info.row.desc
+      this.showcontent = info.row.content
       this.imageUrl = info.row.image
-      this.content = info.row.content
+      this.image = info.row.image
+      this.content = info.row.desc
       this.cateid = info.row.cate_id
       this.commission = info.row.commission
       this.mobile = info.row.mobile
@@ -219,14 +220,14 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, content, commission, mobile, contact } = this
+      const { title, image, commission, mobile, contact } = this
       const info = await this.$store.dispatch('helpedit', {
         id: this.$route.query.id,
         title,
         cate_id: this.cateid,
         image,
-        desc: this.textcontent,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -239,12 +240,29 @@ export default {
         end_time: this.endtime,
         contact
       })
-      if (!info) {
-        this.$message.error('请检查内容完整')
+      if (this.content.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '描述必须'
+        })
+        return
+      }
+      if (this.textcontent.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '内容必须'
+        })
+        return
+      }
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
@@ -269,13 +287,13 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, content, commission, mobile, contact } = this
+      const { title, image, commission, mobile, contact } = this
       const info = await this.$store.dispatch('addhelplist', {
         title,
         cate_id: this.cateid,
         image,
-        desc: this.textcontent,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -288,12 +306,15 @@ export default {
         end_time: this.endtime,
         contact
       })
-      if (!info) {
-        this.$message.error('请检查内容完整')
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
@@ -319,7 +340,7 @@ export default {
     color: rgba(40, 45, 56, 1);
   }
   .form {
-    width: 610px;
+    width: 620px;
     .el-input__inner {
       height: 32px;
     }

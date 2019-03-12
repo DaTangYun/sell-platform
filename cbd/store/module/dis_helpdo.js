@@ -128,6 +128,10 @@ const dishelpdo = {
         const bjnbhg = info.data
         commit('setbgnbhg', bjnbhg)
         return bjnbhg
+      } else {
+        const bjnbhg = info.data
+        commit('setbgnbhg', bjnbhg)
+        return bjnbhg
       }
     },
     async addnewnbhgfl({ commit }, params) {
@@ -145,6 +149,10 @@ const dishelpdo = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
+        const newability = info.data
+        commit('setnewability', newability)
+        return newability
+      } else {
         const newability = info.data
         commit('setnewability', newability)
         return newability

@@ -41,10 +41,10 @@
                 </el-button>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
+            <el-form-item label="内容">
               <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>            
-            <el-form-item label="内容">
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -84,12 +84,12 @@ export default {
       fl: [],
       flvalue: '',
       id: 34,
-      toplinecateid: 0,
+      toplinecateid: '',
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
@@ -131,16 +131,19 @@ export default {
       const id = info.cate.map(item => {
         return item.id
       })
+      console.log(id.indexOf(info.row.topline_cate_id))
+      // console.log(info.cate[id.indexOf(info.row.topline_cate_id)])
       this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
       this.fl = info.cate
       this.title = info.row.title
-      this.showcontent = info.row.desc
+      this.content = info.row.desc
       this.imageUrl = info.row.cover
-      this.content = info.row.content
+      this.cover = info.row.cover
+      this.showcontent = info.row.content
       this.toplinecateid = info.row.topline_cate_id
     },
     async bceditlist() {
-      const { title, content } = this
+      const { title } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -153,13 +156,13 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('bcheadedit', {
+      const info = await this.$store.dispatch('bcheadedit', {
         id: this.$route.query.id,
         title,
         topline_cate_id: this.toplinecateid,
         cover: this.cover,
-        desc: this.textcontent,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -167,11 +170,15 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      })
-      window.history.back()
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message.success(info.msg)
+        window.history.back()
+      }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)

@@ -4,7 +4,7 @@
     <div class="s-login-title">
       <h1>重置密码</h1>
     </div>
-    <div class="s-form">
+    <el-form class="s-form">
       <div class="s-from-row">
         <span>手机号 ：</span>
         <el-input v-model="formLabelAlign.mobile" type="text"></el-input>
@@ -13,15 +13,17 @@
         <span>验证码 ：</span>
         <el-input v-model="formLabelAlign.captcha" type="text"></el-input>
         <span class="obtain" @click="getAuthCode">
-          {{codeTime}}
+          {{ codeTime }}
         </span>
-        <span v-show="codeTime > 0" class="obtain2">秒后获取验证码</span> 
+        <span v-show="codeTime > 0" class="obtain2">
+          秒后获取验证码
+        </span> 
       </div>
       <div class="s-from-row">
         <span>新密码 ：</span>
         <el-input v-model="formLabelAlign.newpassword" type="password"></el-input>
       </div>
-    </div>
+    </el-form>
     <button class="submit-btn" @click="submitpass">
       提交
     </button>
@@ -50,10 +52,12 @@ export default {
   },
   methods: {
     async submitpass() {
-      if (!Validate.required(this.formLabelAlign.mobile)) {
+      const phoneflag = Validate.validatePhone(this.formLabelAlign.mobile)
+      if (!phoneflag) {
         this.$message({
+          message: '请填写正确的手机号',
           type: 'warning',
-          message: '请填写手机号'
+          duration: 2000
         })
         return
       }
@@ -132,9 +136,13 @@ export default {
       }
     },
     async getsms() {
-      await this.$store.dispatch('smsdata', {
+      const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.mobile,
-        event: 'changemobile'
+        event: 'resetpwd'
+      })
+      this.$message({
+        type: 'warning',
+        message: info
       })
     }
   }

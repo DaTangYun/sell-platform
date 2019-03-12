@@ -52,10 +52,10 @@
                 </el-button>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
+            <el-form-item label="内容">
               <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
             </el-form-item>            
-            <el-form-item label="内容">
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -96,14 +96,14 @@ export default {
       flvalue: '',
       id: 34,
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
-      messagecateid: 0,
+      messagecateid: '',
       newarr: [],
       textcontent: '',
       showcontent: ''
@@ -152,7 +152,7 @@ export default {
       this.messagecateid = info.row.message_cate_id
     },
     async bceditlist() {
-      const { title, cover, content } = this
+      const { title, cover } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -170,8 +170,8 @@ export default {
         title,
         message_cate_id: this.messagecateid,
         cover,
-        desc: this.textcontent,
-        content,
+        desc: this.content,
+        content: this.showcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -179,12 +179,15 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (!info) {
-        this.$message.error('请设置地区')
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
@@ -197,7 +200,7 @@ export default {
       }
     },
     async addnewhead() {
-      const { title, content } = this
+      const { title } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -214,8 +217,8 @@ export default {
         title,
         message_cate_id: this.messagecateid,
         cover: this.cover,
-        desc: this.textcontent,
-        content,
+        desc: this.content,
+        content: this.showcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -223,14 +226,17 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (info) {
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
         this.$message({
           type: 'success',
-          message: '添加成功'
+          message: info.msg
         })
-        this.$router.push({ path: '/' })
-      } else {
-        this.$message.error('添加失败，请检查内容完整重新添加')
+        window.history.back()
       }
     },
     handleAvatarSuccess(res, file, index) {
@@ -242,7 +248,7 @@ export default {
     },
     handletext(val) {
       // console.log(val)
-      this.textcontent = val
+      this.showcontent = val
     }
   }
 }

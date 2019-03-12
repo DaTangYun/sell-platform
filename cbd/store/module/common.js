@@ -164,9 +164,12 @@ const common = {
       const info = await api.common.getsmssend({
         ...params
       })
-      console.log(info)
       if (info.data.code === api.CODE_OK) {
-        const sms = info.data
+        const sms = info.data.msg
+        commit('setsms', sms)
+        return sms
+      } else {
+        const sms = info.data.msg
         commit('setsms', sms)
         return sms
       }
@@ -263,6 +266,10 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const useriden = info.data
+        commit('setuserresetpwd', useriden)
+        return useriden
+      } else {
         const useriden = info.data
         commit('setuserresetpwd', useriden)
         return useriden

@@ -39,9 +39,9 @@ export default {
     }
   },
   mounted() {
-    this.content = this.showcontent
+    this.content = this.showcontent.trim()
     setTimeout(() => {
-      this.content = this.showcontent
+      this.content = this.showcontent.trim()
     }, 1000)
   },
   methods: {
@@ -59,7 +59,7 @@ export default {
     onEditorChange({ editor, html, text }) {
       // 内容改变事件
       // console.log(text)
-      this.content = html
+      this.content = html.trim()
       this.$emit('handletext', text)
     }
   }

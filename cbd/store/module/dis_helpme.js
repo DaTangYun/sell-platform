@@ -82,9 +82,13 @@ const dishelpme = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const helpedit = info.data.data
-        commit('sethelpedit', helpedit.data)
+        const helpedit = info.data
+        commit('sethelpedit', helpedit)
         return helpedit
+      } else {
+        const addhelp = info.data
+        commit('setaddhelp', addhelp)
+        return addhelp
       }
     },
     // 获取添加时候的分类
@@ -104,7 +108,11 @@ const dishelpme = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const addhelp = info.data.data
+        const addhelp = info.data
+        commit('setaddhelp', addhelp)
+        return addhelp
+      } else {
+        const addhelp = info.data
         commit('setaddhelp', addhelp)
         return addhelp
       }
