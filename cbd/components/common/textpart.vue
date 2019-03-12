@@ -6,10 +6,7 @@
       class="quill-editor"
       :content="content"
       :showcontent="showcontent"
-      @change="onEditorChange($event)"
-      @blur="onEditorBlur($event)"
-      @focus="onEditorFocus($event)"
-      @ready="onEditorReady($event)"   
+      @change="onEditorChange($event)" 
     >
     </div>
   </div>
@@ -45,22 +42,9 @@ export default {
     }, 1000)
   },
   methods: {
-    onEditorBlur(editor) {
-      // 失去焦点事件
-      // console.log('editor blur!', editor)
-    },
-    onEditorFocus(editor) {
-      // 获得焦点事件
-      // console.log('editor focus!', editor)
-    },
-    onEditorReady(editor) {
-      // console.log('editor ready!', editor)
-    },
     onEditorChange({ editor, html, text }) {
-      // 内容改变事件
-      // console.log(text)
       this.content = html.trim()
-      this.$emit('handletext', text)
+      this.$emit('handletext', html)
     }
   }
 }
