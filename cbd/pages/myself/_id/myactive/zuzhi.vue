@@ -30,7 +30,7 @@
           未使用
         </span>
         <div class="lidiv">
-          <div @click="deleteinfolist(item1.id)">
+          <div @click="deleteinfolist(item1.id, index1)">
             删除
           </div>
         </div>
@@ -90,7 +90,7 @@ export default {
       this.page = params
       this.activeprofils()
     },
-    async deleteinfolist(vid) {
+    async deleteinfolist(vid, index) {
       await this.$store
         .dispatch('deleteactive', {
           id: vid
@@ -100,6 +100,7 @@ export default {
             type: 'success',
             message: '删除成功'
           })
+          this.activeprofil.splice(index, 1)
           this.activeprofils()
         })
     }

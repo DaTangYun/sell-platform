@@ -3,6 +3,7 @@
   <div class="w">
     <div class="publish-right">
       <toptabs></toptabs>
+      <nuxt-child></nuxt-child>
     </div>
   </div>
 </template>

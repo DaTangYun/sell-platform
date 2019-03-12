@@ -1,4 +1,5 @@
 import qs from 'qs'
+// import fetch from '@nuxtjs/axios'
 import axios from './http'
 const disactive = {
   getdisactive(params) {
