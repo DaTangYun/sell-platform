@@ -22,7 +22,8 @@ const common = {
     changeinfo: {},
     exitdata: {},
     useridenty: {},
-    userresetpwd: {}
+    userresetpwd: {},
+    metaInfo: {}
   },
   mutations: {
     setuserresetpwd(state, data) {
@@ -84,6 +85,9 @@ const common = {
     },
     seruseridenty(state, data) {
       state.useridenty = data
+    },
+    setMetaInfo(state, data) {
+      state.metaInfo = data
     }
   },
   actions: {
@@ -273,6 +277,16 @@ const common = {
         const useriden = info.data
         commit('setuserresetpwd', useriden)
         return useriden
+      }
+    },
+    async getMetaInfo({ commit }, params) {
+      const info = await api.meta.commonSeo({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const { data } = info.data
+        console.log(data.seo)
+        commit('setMetaInfo', data.seo)
       }
     }
   }

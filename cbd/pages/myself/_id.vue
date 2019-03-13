@@ -16,7 +16,18 @@ export default {
   meta: {
     title: '个人中心'
   },
-  middleware: 'auth'
+  middleware: 'auth',
+  watch: {
+    $route(route) {
+      const { name } = route
+      const { id } = route.params
+      if (name === 'myself-id-myactive') {
+        this.$router.push({
+          path: `/myself/${id}/myactive/zuzhi`
+        })
+      }
+    }
+  }
 }
 </script>
 <style lang='less' scoped>

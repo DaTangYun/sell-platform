@@ -6,6 +6,10 @@ const getters = {
   slider: state => {
     return state.common.slider
   },
+  // 获取meta
+  metainfo: state => {
+    return state.common.metaInfo
+  },
   // 友情链接
   lianjie: state => {
     return state.common.lianjie

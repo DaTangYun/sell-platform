@@ -55,6 +55,7 @@ import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
 import { mapGetters } from 'vuex'
+import store from '@/store'
 export default {
   name: 'Home',
   components: {
@@ -83,8 +84,34 @@ export default {
       helpmelistss: []
     }
   },
+  head() {
+    return {
+      title: this.metainfo.seo_title,
+      meta: [
+        {
+          hid: 'description',
+          name: this.metainfo.seo_title,
+          content: this.metainfo.seo_desc,
+          keyword: this.metainfo.seo_keyword
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist', 'helpmelist'])
+    ...mapGetters([
+      'showme',
+      'dishelpdo',
+      'headlist',
+      'infolist',
+      'helpmelist',
+      'metainfo'
+    ])
+  },
+  asyncData() {
+    store().dispatch('getMetaInfo', {
+      scene: 'home',
+      id: 0
+    })
   },
   created() {
     this.setlist()
