@@ -41,17 +41,17 @@ export default {
       title: this.cloudMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'cloudMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.cloudMeta.seo_desc
         },
         {
-          hid: 'cloudMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.cloudMeta.seo_keyword
         },
         {
-          hid: 'cloudMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.cloudMeta.seo_content
         }

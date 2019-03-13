@@ -53,17 +53,17 @@ export default {
       title: this.loginMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'loginMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.loginMeta.seo_desc
         },
         {
-          hid: 'loginMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.loginMeta.seo_keyword
         },
         {
-          hid: 'loginMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.loginMeta.seo_content
         }

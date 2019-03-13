@@ -37,17 +37,17 @@ export default {
       title: this.showMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'showMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.showMeta.seo_desc
         },
         {
-          hid: 'showMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.showMeta.seo_keyword
         },
         {
-          hid: 'showMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.showMeta.seo_content
         }

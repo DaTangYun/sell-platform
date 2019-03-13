@@ -54,17 +54,17 @@ export default {
       title: this.helpmeMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'helpmeMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.helpmeMeta.seo_desc
         },
         {
-          hid: 'helpmeMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.helpmeMeta.seo_keyword
         },
         {
-          hid: 'helpmeMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.helpmeMeta.seo_content
         }

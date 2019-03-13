@@ -41,17 +41,17 @@ export default {
       title: this.messageDetailMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'messageDetailMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.messageDetailMeta.seo_desc
         },
         {
-          hid: 'messageDetailMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.messageDetailMeta.seo_keyword
         },
         {
-          hid: 'messageDetailMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.messageDetailMeta.seo_content
         }

@@ -93,7 +93,7 @@ const metaInfo = {
     }
   },
   actions: {
-    async nuxtServerInit({ commit }, { route }) {
+    async nuxtServerInit({ commit }, { app, route }) {
       let detailid, casesDetailid
       const flag = route.query.flag
       if (flag === '财经法规') {
@@ -200,6 +200,7 @@ const metaInfo = {
         commit('setMessage', message.seo)
         const messageDetail = info[5].data.data
         commit('setMessageDetail', messageDetail.seo)
+        console.log(messageDetail)
         const topline = info[6].data.data
         commit('setTopline', topline.seo)
         const toplineDetail = info[7].data.data
@@ -229,6 +230,7 @@ const metaInfo = {
         commit('setactiveMeta', active.seo)
         const profile = info[19].data.data
         commit('setprofileMeta', profile.seo)
+        app.router.go(-1)
         const page = info[20].data.data
         commit('setpageMeta', page.seo)
       } else {
