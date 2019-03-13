@@ -101,8 +101,6 @@ const common = {
         commit('setLianjie', lianjies.link)
         const banquans = info[2].data.data
         commit('setBanquan', banquans.site)
-        const { seo } = info[3].data.data
-        commit('setMetaInfo', seo)
       } else {
         const data = '请稍后再试'
         commit('catchError', data)

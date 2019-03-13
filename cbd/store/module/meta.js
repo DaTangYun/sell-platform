@@ -21,18 +21,18 @@ const metaInfo = {
     }
   },
   actions: {
-    async nuxtServerInit({ commit }, { route }) {
+    async nuxtServerInit({ commit }) {
       const info = await Promise.all([
         api.meta.commonSeo({
           scene: 'home',
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'login',
+          scene: 'register',
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'register',
+          scene: 'login',
           id: 0
         })
       ])

@@ -8,7 +8,7 @@
       <wisdomBank :wis="'财经法规'">
       </wisdomBank>
       <div class="e">
-        <helpme :helpmelist="hmlt"></helpme>
+        <helpme v-if="hmlt.length" :helpmelist="hmlt"></helpme>
       </div>
     </div>
     <div class="headindexhelp">

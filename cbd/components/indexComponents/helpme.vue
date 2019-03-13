@@ -9,14 +9,14 @@
         更多
       </nuxt-link>
     </div>
-    <nuxt-link class="topimg" :to="{name: 'discont-help-id',params: {id: helpmelist[0].id}}">
+    <nuxt-link class="topimg" :to="{ name: 'discont-help-id',params: { id: id } }">
       <img :src="url" alt="">
     </nuxt-link>
     <p>
       帮帮我
     </p>
     <ul v-if="list.length" class="wisdom-ul">
-      <nuxt-link v-for="item in list" :key="item.id" class="wisdom-li" :to="{name: 'discont-help-id',params: {id: item.id}}">
+      <nuxt-link v-for="item in list" :key="item.id" class="wisdom-li" :to="{ name: 'discont-help-id',params: {id: item.id} }">
         <div class="wisdom-tri">
           <img src="../../assets/images/right.png" alt="">
         </div>
@@ -51,6 +51,9 @@ export default {
     },
     url() {
       return this.helpmelist[0].image
+    },
+    id() {
+      return this.helpmelist[0].id
     }
   }
 }
