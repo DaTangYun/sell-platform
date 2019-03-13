@@ -67,25 +67,19 @@ export default {
   },
   head() {
     return {
-      title: this.metainfo.seo_title || '传帮带',
+      title: this.registerMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'description',
-          name: this.metainfo.seo_title,
-          content: this.metainfo.seo_desc,
-          keyword: this.metainfo.seo_keyword
+          hid: 'registerMeta',
+          name: this.registerMeta.seo_title,
+          content: this.registerMeta.seo_desc,
+          keyword: this.registerMeta.seo_keyword
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['usergister', 'sms', 'metainfo'])
-  },
-  asyncData({ store }) {
-    store.dispatch('getMetaInfo', {
-      scene: 'register',
-      id: 0
-    })
+    ...mapGetters(['usergister', 'sms', 'registerMeta'])
   },
   methods: {
     getLogin() {

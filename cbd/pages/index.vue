@@ -85,13 +85,13 @@ export default {
   },
   head() {
     return {
-      title: this.metainfo.seo_title || '传帮带',
+      title: this.homeMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'description',
-          name: this.metainfo.seo_title,
-          content: this.metainfo.seo_desc,
-          keyword: this.metainfo.seo_keyword
+          hid: 'home',
+          name: this.homeMeta.seo_title,
+          content: this.homeMeta.seo_desc,
+          keyword: this.homeMeta.seo_keyword
         }
       ]
     }
@@ -103,15 +103,9 @@ export default {
       'headlist',
       'infolist',
       'helpmelist',
-      'metainfo'
+      'homeMeta'
     ])
   },
-  // asyncData({ store }) {
-  //   store.dispatch('getMetaInfo', {
-  //     scene: 'home',
-  //     id: 0
-  //   })
-  // },
   created() {
     this.setlist()
   },
