@@ -41,24 +41,24 @@ export default {
     this.$nextTick(() => {
       this.initMeta()
       if (this.$route.query.flag === '财经法规') {
-        this.list = this.financedetail
         this.fince()
       } else {
-        this.list = this.casedetail
         this.case()
       }
     })
   },
   methods: {
     async fince() {
-      await this.$store.dispatch('financedetail', {
+      const info = await this.$store.dispatch('financedetail', {
         id: this.$route.params.id
       })
+      this.list = info.detail
     },
     async case() {
-      await this.$store.dispatch('addcasedetail', {
+      const info = await this.$store.dispatch('addcasedetail', {
         id: this.$route.params.id
       })
+      this.list = info.detail
     },
     initMeta() {
       if (this.$route.path === '/ruledetail') {

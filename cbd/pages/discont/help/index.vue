@@ -95,6 +95,7 @@ export default {
     ul {
       display: flex;
       flex-wrap: wrap;
+      width: 950px;
       li {
         margin-bottom: 32px;
         width: 284px;

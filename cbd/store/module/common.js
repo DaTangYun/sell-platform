@@ -259,6 +259,10 @@ const common = {
         const useriden = info.data
         commit('seruseridenty', useriden)
         return useriden
+      } else {
+        const useriden = info.data
+        commit('seruseridenty', useriden)
+        return useriden
       }
     },
     async userresetpwd({ commit }, params) {

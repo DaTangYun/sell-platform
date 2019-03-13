@@ -132,6 +132,38 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
+      if (this.form.name === '') {
+        this.$message.error('用户名称必须')
+        return
+      }
+      if (this.form.time === '') {
+        this.$message.error('过期时间必须')
+        return
+      }
+      if (this.provincecode === '') {
+        this.$message.error('省市区必须')
+        return
+      }
+      if (this.radio === '') {
+        this.$message.error('用户身份必须')
+        return
+      }
+      if (this.form.desc === '') {
+        this.$message.error('签名必须')
+        return
+      }
+      if (this.htheadimage === '') {
+        this.$message.error('头像必须')
+        return
+      }
+      if (this.htqyimage === '') {
+        this.$message.error('企业图像必须')
+        return
+      }
+      if (this.selected.length === 0) {
+        this.$message.error('省市区必须')
+        return
+      }
       const _this = this
       const info = await this.$store.dispatch('userind', {
         avatar: _this.htheadimage,
@@ -147,13 +179,11 @@ export default {
         area_code: _this.areacode,
         area: _this.area
       })
-      if (!info) {
-        this.$message.error('认证失败')
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        window.history.back()
       } else {
-        this.$message({
-          type: 'success',
-          message: '认证成功'
-        })
+        this.$message.error(info.msg)
         window.history.back()
       }
     },

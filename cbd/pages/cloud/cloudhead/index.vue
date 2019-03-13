@@ -112,9 +112,14 @@ export default {
   }
 }
 .spaceimg {
+  position: relative;
   img {
-    width: 950px;
-    height: 650px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
   }
 }
 </style>
