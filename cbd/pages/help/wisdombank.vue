@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import cases from 'components/wisdombank/cases.vue'
 import rules from 'components/wisdombank/rules.vue'
 import words from 'components/wisdombank/words.vue'
@@ -44,6 +45,31 @@ export default {
       bankindex: 1,
       activeIndex: '1'
     }
+  },
+  head() {
+    return {
+      title: this.libraMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'libraMetadesc',
+          name: 'description',
+          content: this.libraMeta.seo_desc
+        },
+        {
+          hid: 'libraMetaKeyword',
+          name: 'keyword',
+          content: this.libraMeta.seo_keyword
+        },
+        {
+          hid: 'libraMetaContent',
+          name: 'content',
+          content: this.libraMeta.seo_content
+        }
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters(['showme', 'libraMeta'])
   },
   methods: {
     handleSelect(index) {

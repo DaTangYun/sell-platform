@@ -172,8 +172,35 @@ export default {
       secondplmsg: ''
     }
   },
+  head() {
+    return {
+      title: this.abilityDetailMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'abilityDetailMetadesc',
+          name: 'description',
+          content: this.abilityDetailMeta.seo_desc
+        },
+        {
+          hid: 'abilityDetailMetaKeyword',
+          name: 'keyword',
+          content: this.abilityDetailMeta.seo_keyword
+        },
+        {
+          hid: 'abilityDetailMetaContent',
+          name: 'content',
+          content: this.abilityDetailMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['abilitydetail', 'abilitylists', 'abilitymessage'])
+    ...mapGetters([
+      'abilitydetail',
+      'abilitylists',
+      'abilitymessage',
+      'abilityDetailMeta'
+    ])
   },
   mounted() {
     this.$nextTick(() => {
@@ -181,7 +208,6 @@ export default {
       this.pinglun()
       this.liuyanlist()
     })
-    console.log(this.abilitymessage)
   },
   methods: {
     async abdetails() {

@@ -22,8 +22,30 @@ export default {
       id: 1
     }
   },
+  head() {
+    return {
+      title: this.pageMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'pageMetadesc',
+          name: 'description',
+          content: this.pageMeta.seo_desc
+        },
+        {
+          hid: 'pageMetaKeyword',
+          name: 'keyword',
+          content: this.pageMeta.seo_keyword
+        },
+        {
+          hid: 'pageMetaContent',
+          name: 'content',
+          content: this.pageMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['callme'])
+    ...mapGetters(['callme', 'pageMeta'])
   },
   watch: {
     $route(route) {
