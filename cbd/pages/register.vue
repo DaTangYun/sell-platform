@@ -65,8 +65,27 @@ export default {
       code: ''
     }
   },
+  head() {
+    return {
+      title: this.metainfo.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'description',
+          name: this.metainfo.seo_title,
+          content: this.metainfo.seo_desc,
+          keyword: this.metainfo.seo_keyword
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['usergister', 'sms'])
+    ...mapGetters(['usergister', 'sms', 'metainfo'])
+  },
+  asyncData({ store }) {
+    store.dispatch('getMetaInfo', {
+      scene: 'register',
+      id: 0
+    })
   },
   methods: {
     getLogin() {

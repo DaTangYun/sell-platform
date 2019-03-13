@@ -12,6 +12,7 @@ import disactive from './module/dis_active'
 import dishelpme from './module/dis_helpme'
 import dismyteam from './module/dis_myteam'
 import showme from './module/showme'
+import metaInfo from './module/meta'
 import getters from './getters/getters'
 Vue.use(Vuex)
 const store = () =>
@@ -27,7 +28,8 @@ const store = () =>
       helpwis,
       disactive,
       dishelpme,
-      dismyteam
+      dismyteam,
+      metaInfo
     },
     getters
   })

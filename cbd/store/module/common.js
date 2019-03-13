@@ -22,8 +22,7 @@ const common = {
     changeinfo: {},
     exitdata: {},
     useridenty: {},
-    userresetpwd: {},
-    metaInfo: {}
+    userresetpwd: {}
   },
   mutations: {
     setuserresetpwd(state, data) {
@@ -85,9 +84,6 @@ const common = {
     },
     seruseridenty(state, data) {
       state.useridenty = data
-    },
-    setMetaInfo(state, data) {
-      state.metaInfo = data
     }
   },
   actions: {
@@ -105,6 +101,8 @@ const common = {
         commit('setLianjie', lianjies.link)
         const banquans = info[2].data.data
         commit('setBanquan', banquans.site)
+        const { seo } = info[3].data.data
+        commit('setMetaInfo', seo)
       } else {
         const data = '请稍后再试'
         commit('catchError', data)
@@ -282,16 +280,6 @@ const common = {
         const useriden = info.data
         commit('setuserresetpwd', useriden)
         return useriden
-      }
-    },
-    async getMetaInfo({ commit }, params) {
-      const info = await api.meta.commonSeo({
-        ...params
-      })
-      if (info.data.code === api.CODE_OK && info.data.data) {
-        const { data } = info.data
-        console.log(data.seo)
-        commit('setMetaInfo', data.seo)
       }
     }
   }

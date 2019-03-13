@@ -55,7 +55,6 @@ import Cooperative from 'common/Cooperative'
 import PublishinTopic from 'common/PublishinTopic'
 import showmelist from 'common/showmelist'
 import { mapGetters } from 'vuex'
-import store from '@/store'
 export default {
   name: 'Home',
   components: {
@@ -86,7 +85,7 @@ export default {
   },
   head() {
     return {
-      title: this.metainfo.seo_title,
+      title: this.metainfo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
@@ -107,12 +106,12 @@ export default {
       'metainfo'
     ])
   },
-  asyncData() {
-    store().dispatch('getMetaInfo', {
-      scene: 'home',
-      id: 0
-    })
-  },
+  // asyncData({ store }) {
+  //   store.dispatch('getMetaInfo', {
+  //     scene: 'home',
+  //     id: 0
+  //   })
+  // },
   created() {
     this.setlist()
   },

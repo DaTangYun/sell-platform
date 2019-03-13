@@ -6,10 +6,6 @@ const getters = {
   slider: state => {
     return state.common.slider
   },
-  // 获取meta
-  metainfo: state => {
-    return state.common.metaInfo
-  },
   // 友情链接
   lianjie: state => {
     return state.common.lianjie
@@ -314,6 +310,16 @@ const getters = {
   },
   useractiveadd: state => {
     return state.disactive.useractiveadd
+  },
+  // 获取meta
+  homeMeta: state => {
+    return state.metaInfo.homeMeta
+  },
+  loginMeta: state => {
+    return state.metaInfo.loginMeta
+  },
+  registerMeta: state => {
+    return state.metaInfo.registerMeta
   }
 }
 export default getters
