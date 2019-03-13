@@ -4,6 +4,7 @@ const metaInfo = {
     homeMeta: {},
     loginMeta: {},
     registerMeta: {},
+    identMeta: {},
     errorMsg: ''
   },
   mutations: {
@@ -15,6 +16,9 @@ const metaInfo = {
     },
     setLogin(state, data) {
       state.loginMeta = data
+    },
+    setIdent(state, data) {
+      state.identMeta = data
     },
     catchError(state, data) {
       state.errorMsg = data
@@ -34,6 +38,10 @@ const metaInfo = {
         api.meta.commonSeo({
           scene: 'login',
           id: 0
+        }),
+        api.meta.commonSeo({
+          scene: 'ident',
+          id: 0
         })
       ])
       if (info.length) {
@@ -43,6 +51,9 @@ const metaInfo = {
         commit('setRegister', register.seo)
         const login = info[2].data.data
         commit('setLogin', login.seo)
+        const ident = info[3].data.data
+        console.log(ident.seo)
+        commit('setIdent', ident.seo)
       } else {
         const data = '请稍后再试'
         commit('catchError', data)

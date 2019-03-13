@@ -320,6 +320,9 @@ const getters = {
   },
   registerMeta: state => {
     return state.metaInfo.registerMeta
+  },
+  identMeta: state => {
+    return state.metaInfo.identMeta
   }
 }
 export default getters
