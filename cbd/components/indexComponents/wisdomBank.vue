@@ -80,7 +80,7 @@ export default {
       if (wis === '财经法规') {
         this.$router.push({
           path: `/ruledetail/${id}`,
-          query: { titel: itemid.title }
+          query: { titel: itemid.title, flag: '财经法规' }
         })
       } else {
         this.$router.push({
@@ -104,7 +104,6 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .wisdomBank {
-  width: 240px;
   background: rgba(255, 255, 255, 1);
   border-radius: 6px;
   padding: 0 15px 10px;

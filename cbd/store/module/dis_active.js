@@ -12,7 +12,8 @@ const disactive = {
     // 保存编辑
     bcbj: {},
     // 添加新活动
-    addactive: {}
+    addactive: {},
+    useractiveadd: {}
   },
   mutations: {
     setactivelist(state, data) {
@@ -41,6 +42,9 @@ const disactive = {
     },
     setaddactive(state, data) {
       state.addactive = data
+    },
+    setuseractiveadd(state, data) {
+      state.useractiveadd = data
     }
   },
   actions: {
@@ -95,10 +99,14 @@ const disactive = {
       }
     },
     async userduseractive({ commit }, params) {
-      const info = await api.disactive.getusedactive({
+      const info = await api.disactive.getuseractiveadd({
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const userdactive = info.data
+        commit('setuserdactive', userdactive)
+        return userdactive
+      } else {
         const userdactive = info.data
         commit('setuserdactive', userdactive)
         return userdactive
@@ -133,6 +141,20 @@ const disactive = {
       if (info.data.code === api.CODE_OK && info.data) {
         const activelist = info.data
         commit('setaddactive', activelist)
+        return activelist
+      }
+    },
+    async useractiveaddinfo({ commit }, params) {
+      const info = await api.disactive.getusedactive({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const activelist = info.data
+        commit('setuseractiveadd', activelist)
+        return activelist
+      } else {
+        const activelist = info.data
+        commit('setuseractiveadd', activelist)
         return activelist
       }
     }

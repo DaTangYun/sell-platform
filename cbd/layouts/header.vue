@@ -164,7 +164,8 @@ export default {
       userid: 0,
       name: '',
       searchcontent: '',
-      token: ''
+      token: '',
+      userinfo: ''
     }
   },
   computed: {
@@ -188,6 +189,7 @@ export default {
     }
   },
   mounted() {
+    this.userinfo = localStorage.getItem('USERINFO')
     this.token = Cookie.get().token
     this.getLocation()
     this.$nextTick(() => {

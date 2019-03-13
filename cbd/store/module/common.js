@@ -249,6 +249,7 @@ const common = {
       if (info.data.code === api.CODE_OK && info.data) {
         const exitdata = info.data
         commit('setexit', exitdata)
+        cookie.remove()
         localStorage.removeItem('USERINFO')
         return exitdata
       }
@@ -259,6 +260,10 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const useriden = info.data
+        commit('seruseridenty', useriden)
+        return useriden
+      } else {
         const useriden = info.data
         commit('seruseridenty', useriden)
         return useriden

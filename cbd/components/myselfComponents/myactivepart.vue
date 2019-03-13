@@ -12,14 +12,14 @@
         <span>
           {{ item1.start_time }}至{{ item1.end_time }}
         </span>
-        <span v-if="item1.status === '0'">
+        <span v-if="item1.status === '1'">
           已使用
         </span>
-        <span v-else-if="item1.status === '1'">
+        <span v-else>
           未使用
         </span>
         <div class="lidiv">
-          <div v-if="item1.status === '1'" @click="shiyong(item1)">
+          <div v-if="item1.status === '0'" @click="shiyong(item1)">
             使用
           </div>
           <div @click="deleteinfolist(item1.id)">
@@ -58,7 +58,21 @@ export default {
         })
     },
     shiyong(i) {
-      console.log(i)
+      this.getaddactive(i.id)
+    },
+    async getaddactive(vid) {
+      const info = await this.$store.dispatch('useractiveaddinfo', {
+        id: vid
+      })
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message.success('使用成功')
+        window.location.reload()
+      }
     }
   }
 }

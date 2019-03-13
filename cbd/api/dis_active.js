@@ -36,6 +36,10 @@ const disactive = {
   // 添加新活动
   getaddactivity(params) {
     return axios.post('/api/active/add', qs.stringify(params))
+  },
+  // 用户进行参加领取
+  getuseractiveadd(params) {
+    return axios.post('/api/user_active/add', qs.stringify(params))
   }
 }
 export default disactive

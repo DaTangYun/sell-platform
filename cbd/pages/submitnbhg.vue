@@ -195,7 +195,6 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      console.log(info)
       if (this.selected[0] === '0') {
         this.$message.error('请设置地区')
         return
@@ -226,11 +225,6 @@ export default {
         })
         window.history.back()
       }
-      // this.$message({
-      //   type: 'success',
-      //   message: '修改成功'
-      // })
-      // window.history.back()
     },
     changez(val) {
       for (const item of this.newnbhgfl) {
@@ -277,7 +271,6 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      console.log(info)
       if (this.content.trim() === '') {
         this.$message({
           type: 'warning',
@@ -322,7 +315,6 @@ export default {
       this.action = process.client ? '' : base.dev
     },
     handletext(val) {
-      // console.log(val)
       this.textcontent = val
     }
   }

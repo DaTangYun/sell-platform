@@ -58,6 +58,7 @@ export default {
         item.title = arr[index].title
         if (item.redirect) {
           item.newpath = this.pathCompile(item.redirect)
+          console.log(item.newpath)
         } else {
           item.newpath = this.pathCompile(item.path)
         }
@@ -83,10 +84,13 @@ export default {
         item.redirect = '/myself/:id?/myactive/zuzhi'
       }
       if (item.path === '/myself/:id?/myteam/mt/:teamid?') {
-        item.redirect = '/myself/:id?/myteam'
+        item.redirect = '/myself/:id/myteam'
       }
       if (item.path === '/myself/:id?/mypublish') {
-        item.redirect = '/myself/:id?/mypublish/myhead'
+        item.redirect = '/myself/:id/mypublish/myhead'
+      }
+      if (item.path === '/myself/:id?/myactive') {
+        item.redirect = '/myself/:id/myactive/zuzhi'
       }
       return item
     },
