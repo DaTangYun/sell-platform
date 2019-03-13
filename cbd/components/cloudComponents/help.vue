@@ -2,7 +2,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item,index) in helplist" :key="index" :style="{ width: wid + 'px' }">
+      <li v-for="(item,index) in helplist" :key="index" :style="{ width: wid + 'px' }" :to="{name: 'discont-help-id',params: {id: item.id}}">
         <div :style="{ height: hei + 'px' }">
           <img :src="item.image" alt="">
         </div>
@@ -46,6 +46,7 @@ ul {
     width: 284px;
     margin-right: 20px;
     box-sizing: border-box;
+    cursor: pointer;
     &:nth-child(3n) {
       margin-right: 0px;
     }

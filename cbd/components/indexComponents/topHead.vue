@@ -18,14 +18,14 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <ul>
-                  <li v-for="(item,index) in infolist" :key="index">
+                  <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: `cloud-cloudinfo-id`,params: {id: item.id}}">
                     <h4>
                       {{ item.title }}
                     </h4>
                     <p>
                       {{ item.desc }}
                     </p>
-                  </li>
+                  </nuxt-link>
                 </ul>
               </div>
             </div>
@@ -120,6 +120,7 @@ export default {
         border-bottom: 1px solid #dadfe6;
         box-sizing: border-box;
         padding-top: 10px;
+        cursor: pointer;
         h4 {
           font-size: 14px;
           color: #282d38;
@@ -146,6 +147,7 @@ export default {
       border-bottom: 1px solid #dadfe6;
       box-sizing: border-box;
       padding-top: 10px;
+      cursor: pointer;
       h4 {
         font-size: 14px;
         color: #282d38;

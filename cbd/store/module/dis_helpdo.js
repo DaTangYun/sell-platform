@@ -11,7 +11,9 @@ const dishelpdo = {
     newnbhgfl: {},
     newability: {},
     deleteability: {},
-    abilitymessage: {}
+    abilitymessage: {},
+    addcommentnwwd: {},
+    addreply: {}
   },
   mutations: {
     setdishelpdo(state, data) {
@@ -46,6 +48,13 @@ const dishelpdo = {
     },
     setabilitymessage(state, data) {
       state.abilitymessage = data
+    },
+    // 你问我答
+    setaddnwwdcomment(state, data) {
+      state.addcommentnwwd = data
+    },
+    setaddreply(state, data) {
+      state.addreply = data
     }
   },
   actions: {
@@ -119,6 +128,10 @@ const dishelpdo = {
         const bjnbhg = info.data
         commit('setbgnbhg', bjnbhg)
         return bjnbhg
+      } else {
+        const bjnbhg = info.data
+        commit('setbgnbhg', bjnbhg)
+        return bjnbhg
       }
     },
     async addnewnbhgfl({ commit }, params) {
@@ -136,6 +149,10 @@ const dishelpdo = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
+        const newability = info.data
+        commit('setnewability', newability)
+        return newability
+      } else {
         const newability = info.data
         commit('setnewability', newability)
         return newability
@@ -159,6 +176,26 @@ const dishelpdo = {
         const abilitymessage = info.data.data
         commit('setabilitymessage', abilitymessage.message)
         return abilitymessage
+      }
+    },
+    async addnewnbhg({ commit }, params) {
+      const info = await api.dishelpdo.getaddcomment({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteability = info.data
+        commit('setaddnwwdcomment', deleteability)
+        return deleteability
+      }
+    },
+    async replyadd({ commit }, params) {
+      const info = await api.dishelpdo.getaddreply({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteability = info.data
+        commit('setaddreply', deleteability)
+        return deleteability
       }
     }
   }

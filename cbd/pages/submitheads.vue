@@ -33,16 +33,18 @@
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
-            </el-form-item>            
             <el-form-item label="内容">
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
+            </el-form-item>            
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -60,15 +62,16 @@
 <script>
 import base from '@/api/base'
 // import Tinymce from '@/components/common/Tinymce'
+import textpart from 'common/Textpart'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
 export default {
   meta: {
     title: '发布头条'
   },
-  // components: {
-  //   Tinymce
-  // },
+  components: {
+    textpart
+  },
   data() {
     return {
       value: '',
@@ -82,15 +85,16 @@ export default {
       fl: [],
       flvalue: '',
       id: 34,
-      toplinecateid: 0,
+      toplinecateid: '',
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
-      action: ''
+      action: '',
+      showcontent: ''
     }
   },
   computed: {
@@ -108,7 +112,7 @@ export default {
       }
     },
     async addnewhead() {
-      const { title, desc, content } = this
+      const { title } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -121,12 +125,12 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('newhead', {
+      const info = await this.$store.dispatch('newhead', {
         title,
         topline_cate_id: this.toplinecateid,
-        cover: this.imageUrl,
-        desc,
-        content,
+        cover: this.cover,
+        desc: this.content,
+        content: this.showcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -134,28 +138,33 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      this.$message({
-        type: 'success',
-        message: '添加成功'
-      })
-      this.$router.push({ path: '/' })
+      if (this.toplinecateid === '') {
+        this.$message.error('分类必须')
+        return
+      }
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message({
+          type: 'success',
+          message: info.msg
+        })
+        this.$router.push({ path: '/' })
+      }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.showcontent = val
     }
   }
 }

@@ -12,7 +12,6 @@
             :action="`${action}/api/common/upload`"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :on-change="handleonchange"
           >
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -69,30 +68,17 @@ export default {
       const info = await this.$store.dispatch('userinfo')
       this.user = info.info
       this.imageUrl = info.info.avatar
-      console.log(this.imageUrl)
     },
     async changeuserinfo() {
-      const info = await this.$store.dispatch('changeuserinfo', {
+      await this.$store.dispatch('changeuserinfo', {
         avatar: this.image,
         nickname: this.formLabelAlign.name,
         bio: this.formLabelAlign.qianming
       })
-      console.log(info)
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.image = this.imageUrl
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.image = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev

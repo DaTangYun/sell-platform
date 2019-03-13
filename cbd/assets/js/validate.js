@@ -40,7 +40,7 @@ export default class Validate {
     return value === param
   }
   static validatePhone = phone => {
-    const reg = /^1[3456789]\d{9}/
+    const reg = /^(13[0-9]|14[0-9]|15[0-9]|16[6]|18[0-9]|19[6,9]|17[0-9])\d{8}$/i
     return reg.test(phone)
   }
   static validateSpace = telephone => {

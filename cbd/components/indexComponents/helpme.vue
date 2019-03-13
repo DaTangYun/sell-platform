@@ -5,7 +5,7 @@
       <h4>
         帮帮我
       </h4>
-      <nuxt-link to="" class="wisdomMore">
+      <nuxt-link :to="{name: 'discont-help'}" class="wisdomMore">
         更多
       </nuxt-link>
     </div>

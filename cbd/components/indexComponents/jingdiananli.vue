@@ -3,14 +3,14 @@
   <div v-if="caselist.length" class="wisdomBank">
     <div class="wisdomBank-title">
       <h4>
-        云智慧
+        经典案例
       </h4>
-      <nuxt-link to="" class="wisdomMore">
+      <nuxt-link :to="{name: 'help-cloudwisdom'}" class="wisdomMore">
         更多
       </nuxt-link>
     </div>
     <ul class="manyimg">
-      <li v-for="item of caselist" :key="item.id">
+      <li v-for="item of caselist" :key="item.id" @click="tiaozhuan(item)">
         <img :src="item.cover" alt="">
       </li>
     </ul>
@@ -38,6 +38,12 @@ export default {
         userId: ''
       })
       this.list = this.caselist
+    },
+    tiaozhuan(item) {
+      this.$router.push({
+        path: `/ruledetail/${item.id}`,
+        query: { titel: `${item.title}`, flag: '案例' }
+      })
     }
   }
 }
@@ -76,6 +82,7 @@ export default {
       height: 55px;
       margin-bottom: 10px;
       border-radius: 6px;
+      cursor: pointer;
       &:nth-child(2n-1) {
         margin-right: 10px;
       }

@@ -47,7 +47,10 @@ module.exports = {
     },
     'element-ui/lib/theme-chalk/index.css',
     'vue-area-linkage/dist/index.css',
-    'assets/less/index.less'
+    'assets/less/index.less',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
 
   /*
@@ -57,6 +60,10 @@ module.exports = {
     {
       src: '@/plugins/element-ui',
       ssr: true
+    },
+    {
+      src:'@/plugins/vue-quill-editor',
+      ssr: false
     },
     {
       src: '~/plugins/vue-swiper',
@@ -84,7 +91,7 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    // analyze: true,
+    analyze: true,
     babel: {
       'plugins': [
         ['component',

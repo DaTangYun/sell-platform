@@ -95,29 +95,27 @@ const cloudinfo = {
       const info = await api.cloudinfo.getsendedit({
         ...params
       })
-      if (info.data.code === api.CODE_ERROR) {
-        const addinfo = info.data.msg
-        commit('setbcinfoedit', addinfo)
-        return addinfo
-      }
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const bcinfoedit = info.data.data
+        const bcinfoedit = info.data
         commit('setbcinfoedit', bcinfoedit)
         return bcinfoedit
+      } else {
+        const addinfo = info.data
+        commit('setbcinfoedit', addinfo)
+        return addinfo
       }
     },
     async addinfolist({ commit }, params) {
       const info = await api.cloudinfo.getaddinfo({
         ...params
       })
-      if (info.data.code === api.CODE_ERROR && info.data.data) {
-        const addinfo = info.data.data
-        commit('setaddinfo', addinfo)
-        return addinfo
-      }
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const addinfo = info.data.data
+        const addinfo = info.data
         commit('setaddinfo', addinfo.msg)
+        return addinfo
+      } else {
+        const addinfo = info.data
+        commit('setaddinfo', addinfo)
         return addinfo
       }
     },

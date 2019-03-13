@@ -20,12 +20,12 @@
         </el-form-item>
         <el-form-item label="验证码">
           <el-input v-model="formLabelAlign.captcha"></el-input>
-          <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
-            获取验证码
+          <span class="obtain" @click="getAuthCode">
+            {{ codeTime }}
           </span>
-          <span v-show="!sendAuthCode" class="obtain">
-            {{ time }}秒后发送验证码
-          </span>
+          <span v-show="codeTime > 0" class="obtain2">
+            秒后获取验证码
+          </span> 
         </el-form-item>
       </el-form>
       <div class="checked">
@@ -41,6 +41,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import Validate from '../assets/js/validate'
 export default {
   layout: 'login',
   data() {
@@ -55,7 +56,13 @@ export default {
         password: '',
         repassword: '',
         captcha: ''
-      }
+      },
+      validateName: '',
+      vtime: '获取验证码',
+      timetimer: null,
+      codeTime: '获取验证码',
+      timer: null,
+      code: ''
     }
   },
   computed: {
@@ -69,19 +76,96 @@ export default {
           duration: 3000
         })
       }
+      const phoneflag = Validate.validatePhone(this.formLabelAlign.mobile)
+      if (!phoneflag) {
+        this.$message({
+          message: '请填写正确的手机号',
+          type: 'warning',
+          duration: 2000
+        })
+        return
+      }
+      if (
+        this.formLabelAlign.password.length === 0 ||
+        this.formLabelAlign.password.length < 6
+      ) {
+        this.$message({
+          type: 'warning',
+          message: '请填写6位以上密码'
+        })
+        return
+      }
+      if (
+        this.formLabelAlign.repassword.length === 0 ||
+        this.formLabelAlign.repassword.length < 6
+      ) {
+        this.$message({
+          type: 'warning',
+          message: '请填写6位以上新密码'
+        })
+        return
+      }
+      if (this.formLabelAlign.password !== this.formLabelAlign.repassword) {
+        this.$message({
+          type: 'warning',
+          message: '两次输入密码不同'
+        })
+      }
+      if (!Validate.required(this.formLabelAlign.captcha)) {
+        this.$message({
+          type: 'warning',
+          message: '请填写验证码'
+        })
+        return
+      }
       this.getregister()
     },
     getAuthCode() {
-      this.getsms()
-      this.sendAuthCode = false
-      this.time = 60
-      const timetimer = setInterval(() => {
-        this.time--
-        if (this.time <= 0) {
-          this.sendAuthCode = true
-          clearInterval(timetimer)
+      const CODE = '获取验证码'
+      const date = +new Date()
+      const minute = 1 * 60 * 1000
+      const codeDate = localStorage.getItem('CODE_DATE')
+      // const seconds = (date - codeDate) / 1000
+      const residue = Math.round(60 - (date - codeDate) / 1000)
+      if (codeDate != null) {
+        if (date - codeDate > minute) {
+          localStorage.setItem('CODE_DATE', date)
+          if (this.codeTime === CODE) {
+            this.codeTime = 60
+            this.countDown()
+            this.getsms()
+          }
+        } else {
+          this.$message({
+            duration: 1000,
+            message: `请${residue}秒后再试`
+          })
         }
-      }, 1000)
+      } else {
+        localStorage.setItem('CODE_DATE', date)
+        if (this.codeTime === CODE) {
+          this.codeTime = 60
+          this.countDown()
+          this.getsms()
+        }
+      }
+    },
+    countDown() {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      if (this.codeTime > 0) {
+        this.codeTime = this.codeTime - 1
+        this.timer = setTimeout(() => {
+          this.countDown()
+        }, 1000)
+        this.$once('hook:beforeDestroy', () => {
+          clearInterval(this.timer)
+        })
+      } else {
+        clearTimeout(this.timer)
+        this.codeTime = '获取验证码'
+      }
     },
     async getregister() {
       const { mobile, password, repassword, captcha } = this
@@ -91,14 +175,19 @@ export default {
         repassword,
         captcha
       })
-      console.log(info)
+      if (!info) {
+        this.$message.error('验证码错误')
+      }
     },
     async getsms() {
       const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.mobile,
         event: 'register'
       })
-      console.log(info)
+      this.$message({
+        type: 'warning',
+        message: info
+      })
     }
   }
 }
@@ -125,13 +214,17 @@ export default {
   padding: 0 71px;
   margin-top: 10px;
   position: relative;
-  .obtain {
+  .obtain,
+  .obtain2 {
     position: absolute;
     right: 0;
     bottom: 0px;
     color: rgba(0, 160, 233, 1);
     cursor: pointer;
     width: 131px;
+  }
+  .obtain2 {
+    right: -21px;
   }
   .checked {
     margin-top: 24px;

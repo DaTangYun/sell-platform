@@ -1,17 +1,27 @@
 <template>
   <section class="container">
     <div class="container-box">
-      <div class="login-left"></div>
+      <div class="login-left">
+        <img src="../assets/images/loginbg.png" alt="">
+      </div>
       <div class="login-right">
         <nuxt />
       </div>
     </div>
     <div class="tech-sup">
-      <p>大唐云提供技术支持</p>
-      <p>XXXX息科技有限责任公司 版权所有  京ICP备15003716号-0  京公网安备：110000000000号</p>
+      <p>{{ banquan.banquan }}</p>
+      <p>{{ banquan.beian }}</p>
     </div>
   </section>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['banquan'])
+  }
+}
+</script>
 <style lang="less" scoped>
 .container {
   position: absolute;
@@ -35,7 +45,12 @@
   .login-left {
     width: 50%;
     height: 100%;
-    background-color: pink;
+    position: relative;
+    img {
+      position: absolute;
+      top: -23px;
+      left: -29px;
+    }
   }
   .login-right {
     width: 50%;

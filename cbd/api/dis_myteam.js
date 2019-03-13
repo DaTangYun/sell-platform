@@ -36,6 +36,18 @@ const dismyteam = {
   // 点击组件新团队后保存信息
   getteamadd(params) {
     return axios.post('/api/team/add', qs.stringify(params))
+  },
+  // 申请加入团队
+  getaddnewteam(params) {
+    return axios.post('/api/team_apply/add', qs.stringify(params))
+  },
+  // 查询成员
+  getteammember(params) {
+    return axios.get('/api/team_apply/detail', { params })
+  },
+  // 审核成员
+  examine(params) {
+    return axios.post('/api/team_apply/examine', qs.stringify(params))
   }
 }
 export default dismyteam

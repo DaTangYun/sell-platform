@@ -4,22 +4,25 @@
     <h4>
       团队详情
     </h4>
+    <span class="shenqing" @click="tan">
+      申请加入团队
+    </span>
     <nuxt-link class="back" tag="div" :to="{name:'myqzone-id-team',params: {id: backid}}">
       <img src="@/assets/images/back.png" alt="">
     </nuxt-link>
     <div class="team-form">
       <el-form label-width="80px">
         <el-form-item label="团队名称">
-          {{ myteamdetail.team_name }}
+          {{ detail.team_name }}
         </el-form-item>
         <el-form-item label="团队图片">
           <div class="teamimg">
-            <img :src="myteamdetail.image" alt="">
+            <img :src="detail.image" alt="">
           </div>
         </el-form-item>
         <el-form-item label="团队简介">
           <p>
-            {{ myteamdetail.content }}
+            {{ detail.content }}
           </p>
         </el-form-item>
       </el-form>
@@ -55,6 +58,37 @@
         </div>
       </li>
     </ul>
+    <div v-show="flag" class="tuandui">
+      <div class="tuanc">
+        <div class="tuantop">
+          <h4>
+            申请加入团队
+          </h4>
+          <div class="tuanimg" @click.stop="close">
+            <img src="~assets/images/close.png" alt="">
+          </div>
+        </div>
+        <el-form label-width="80px" class="tuanduiform">
+          <el-form-item label="姓名">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="电话">
+            <el-input v-model="form.mobile"></el-input>
+          </el-form-item>
+          <el-form-item label="擅长">
+            <el-input v-model="form.excellence" type="textarea"></el-input>
+          </el-form-item>      
+          <el-form-item label="描述">
+            <el-input v-model="form.desc" type="textarea"></el-input>
+          </el-form-item>
+        </el-form>
+        <div class="button">
+          <el-button type="primary" @click="submit">
+            提交
+          </el-button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -71,11 +105,19 @@ export default {
     return {
       help: [],
       teamlist: [],
-      backid: 0
+      backid: 0,
+      flag: false,
+      form: {
+        name: '',
+        mobile: '',
+        excellence: '',
+        desc: ''
+      },
+      detail: []
     }
   },
   computed: {
-    ...mapGetters(['myteamdetail'])
+    ...mapGetters(['myteamdetail', 'addnewteam'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -84,20 +126,47 @@ export default {
   },
   methods: {
     async myteamdetai() {
-      this.backid = this.$route.params.td
-      console.log(this.myteamdetail)
-      await this.$store.dispatch('dismyteamdetail', {
+      this.backid = this.$route.params.id
+      const info = await this.$store.dispatch('dismyteamdetail', {
         id: this.$route.params.td
+      })
+      this.detail = info.detail
+    },
+    async addteam() {
+      await this.$store.dispatch('addnewteam', {
+        team_id: this.$route.params.td,
+        name: this.form.name,
+        mobile: this.form.mobile,
+        excellence: this.form.excellence,
+        desc: this.form.desc
       })
     },
     back() {
       this.$route.push('/')
+    },
+    close() {
+      this.flag = !this.flag
+    },
+    tan() {
+      this.flag = !this.flag
+    },
+    submit() {
+      this.addteam()
+      this.flag = !this.flag
     }
   }
 }
 </script>
 <style lang='less' scoped>
+.shenqing {
+  position: absolute;
+  top: 18px;
+  right: 186px;
+  color: #00a0e9;
+  cursor: pointer;
+}
 .teamdetail {
+  position: relative;
   // position: absolute;
   // top: 0;
   // left: 0;
@@ -159,6 +228,95 @@ export default {
       p {
         display: inline-block;
       }
+    }
+  }
+}
+.tuandui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  .tuanc {
+    width: 806px;
+    height: 741px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 25px;
+    .tuantop {
+      height: 75px;
+      border-bottom: 1px solid #e1e2e6;
+    }
+    .tuanimg {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+    }
+    .tuanduibo {
+      box-sizing: border-box;
+      padding-top: 20px;
+      .inputtext {
+        width: 580px;
+        height: 218px;
+      }
+      .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409eff;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
+      .input {
+        width: 284px;
+      }
+      .inputimg {
+        width: 284px;
+        height: 201px;
+        border: 1px solid #e1e2e6;
+      }
+    }
+    .button {
+      width: 376px;
+      height: 47px;
+      margin-left: 85px;
+      .el-button {
+        width: 100%;
+      }
+    }
+  }
+}
+.tuanduiform {
+  width: 500px;
+  margin-top: 20px;
+  .img {
+    width: 300px;
+    height: 200px;
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 }

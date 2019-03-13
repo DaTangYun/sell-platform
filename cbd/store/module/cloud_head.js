@@ -94,8 +94,12 @@ const cloudhead = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const bcheadedit = info.data.data
-        commit('setbcheadedit', bcheadedit.data)
+        const bcheadedit = info.data
+        commit('setbcheadedit', bcheadedit)
+        return bcheadedit
+      } else {
+        const bcheadedit = info.data
+        commit('setbcheadedit', bcheadedit)
         return bcheadedit
       }
     },
@@ -104,8 +108,12 @@ const cloudhead = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const newhead = info.data.data
+        const newhead = info.data
         commit('setnewhead', newhead.msg)
+        return newhead
+      } else {
+        const newhead = info.data
+        commit('setnewhead', newhead)
         return newhead
       }
     },

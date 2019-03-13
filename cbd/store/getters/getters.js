@@ -42,7 +42,7 @@ const getters = {
   dishelpdo: state => {
     return state.dishelpdo.dishelpdo
   },
-  activelist: state => {
+  activeyouhuilist: state => {
     return state.disactive.activelist
   },
   helpmelist: state => {
@@ -273,10 +273,40 @@ const getters = {
     return state.common.useridenty
   },
   abilitymessage: state => {
-    return state.common.abilitymessage
+    return state.dishelpdo.abilitymessage
   },
   userdactive: state => {
     return state.disactive.userdactive
+  },
+  // 案例详情
+  casedetail: state => {
+    return state.helpwis.casedetail
+  },
+  // 编辑活动获取内容
+  bjjqactivity: state => {
+    return state.disactive.bjjqactivity
+  },
+  bcbj: state => {
+    return state.disactive.bcbj
+  },
+  addactive: state => {
+    return state.disactive.addactive
+  },
+  // 申请加入团队
+  addnewteam: state => {
+    return state.dismyteam.addnewteam
+  },
+  teammember: state => {
+    return state.dismyteam.teammember
+  },
+  examine: state => {
+    return state.dismyteam.examine
+  },
+  addcommentnwwd: state => {
+    return state.dishelpdo.addcommentnwwd
+  },
+  userresetpwd: state => {
+    return state.common.userresetpwd
   }
 }
 export default getters

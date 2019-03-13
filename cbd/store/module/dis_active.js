@@ -6,7 +6,13 @@ const disactive = {
     activeprofil: {},
     deleteactive: {},
     deleteuseractive: {},
-    userdactive: {}
+    userdactive: {},
+    // 编辑获取活动内容
+    bjjqactivity: {},
+    // 保存编辑
+    bcbj: {},
+    // 添加新活动
+    addactive: {}
   },
   mutations: {
     setactivelist(state, data) {
@@ -26,6 +32,15 @@ const disactive = {
     },
     setuserdactive(state, data) {
       state.userdactive = data
+    },
+    seteditbj(state, data) {
+      state.bjjqactivity = data
+    },
+    seteditbjbc(state, data) {
+      state.bcbj = data
+    },
+    setaddactive(state, data) {
+      state.addactive = data
     }
   },
   actions: {
@@ -87,6 +102,38 @@ const disactive = {
         const userdactive = info.data
         commit('setuserdactive', userdactive)
         return userdactive
+      }
+    },
+    // 保存编辑获取内容
+    async editacbj({ commit }, params) {
+      const info = await api.disactive.getactivitybj({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const activelist = info.data.data
+        commit('seteditbj', activelist.data)
+        return activelist
+      }
+    },
+    // 保存编辑
+    async editacbjbc({ commit }, params) {
+      const info = await api.disactive.getactivebc({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const activelist = info.data
+        commit('seteditbjbc', activelist)
+        return activelist
+      }
+    },
+    async addactive({ commit }, params) {
+      const info = await api.disactive.getaddactivity({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const activelist = info.data
+        commit('setaddactive', activelist)
+        return activelist
       }
     }
   }

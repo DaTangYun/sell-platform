@@ -38,27 +38,24 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
-            </el-form-item>            
             <el-form-item label="内容">
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
+            </el-form-item>            
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -74,6 +71,7 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
 import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
@@ -81,9 +79,9 @@ export default {
   meta: {
     title: '发布信息'
   },
-  // components: {
-  //   Tinymce
-  // },
+  components: {
+    textpart
+  },
   data() {
     return {
       value: '',
@@ -98,15 +96,17 @@ export default {
       flvalue: '',
       id: 34,
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
-      messagecateid: 0,
-      newarr: []
+      messagecateid: '',
+      newarr: [],
+      textcontent: '',
+      showcontent: ''
     }
   },
   computed: {
@@ -131,7 +131,6 @@ export default {
       const info = await this.$store.dispatch('sendinfolist', {
         id: this.$route.query.id
       })
-      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -146,14 +145,14 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
       this.cover = info.row.cover
-      console.log(this.cover)
+      this.imageUrl = info.row.cover
       this.content = info.row.content
       this.messagecateid = info.row.message_cate_id
     },
     async bceditlist() {
-      const { title, cover, desc, content } = this
+      const { title, cover } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -171,8 +170,8 @@ export default {
         title,
         message_cate_id: this.messagecateid,
         cover,
-        desc,
-        content,
+        desc: this.content,
+        content: this.showcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -180,12 +179,15 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (!info) {
-        this.$message.error('请设置地区')
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
@@ -198,7 +200,7 @@ export default {
       }
     },
     async addnewhead() {
-      const { title, desc, content } = this
+      const { title } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -214,9 +216,9 @@ export default {
       const info = await this.$store.dispatch('addinfolist', {
         title,
         message_cate_id: this.messagecateid,
-        cover: this.imageUrl,
-        desc,
-        content,
+        cover: this.cover,
+        desc: this.content,
+        content: this.showcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -224,32 +226,28 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (info) {
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
         this.$message({
           type: 'success',
-          message: '添加成功'
+          message: info.msg
         })
-        this.$router.push({ path: '/' })
-      } else {
-        this.$message.error('添加失败，请检查内容完整重新添加')
+        window.history.back()
       }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      this.showcontent = val
     }
   }
 }

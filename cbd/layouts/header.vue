@@ -12,7 +12,7 @@
             <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
               认证
             </nuxt-link>
-            <div v-if="userid" style="color:#039be5" class="dengluname">
+            <div v-if="token" style="color:#039be5" class="dengluname">
               {{ name }}
               <ul class="user">
                 <nuxt-link :to="`/myself/${userid}/mypublish/myhead`" tag="li">
@@ -131,6 +131,7 @@
   </div>
 </template>
 <script>
+import Cookie from 'js-cookie'
 import { mapGetters } from 'vuex'
 import Dialog from 'components/indexComponents/Dialog'
 import band from 'components/common/band'
@@ -162,7 +163,8 @@ export default {
       },
       userid: 0,
       name: '',
-      searchcontent: ''
+      searchcontent: '',
+      token: ''
     }
   },
   computed: {
@@ -186,6 +188,7 @@ export default {
     }
   },
   mounted() {
+    this.token = Cookie.get().token
     this.getLocation()
     this.$nextTick(() => {
       this.loginda()

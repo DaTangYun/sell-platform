@@ -28,14 +28,23 @@
               </el-select>
             </el-form-item>
             <el-form-item v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
+              <el-upload
+                class="avatar-uploader my-uploader"
+                :action="`${action}/api/common/upload`"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+              >
+                <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
+              </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
-            </el-form-item>            
             <el-form-item label="内容">
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
+            </el-form-item>            
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -51,15 +60,17 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
+import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
 export default {
   meta: {
     title: '发布头条'
   },
-  // components: {
-  //   Tinymce
-  // },
+  components: {
+    textpart
+  },
   data() {
     return {
       value: '',
@@ -73,16 +84,18 @@ export default {
       fl: [],
       flvalue: '',
       id: 34,
-      toplinecateid: 0,
+      toplinecateid: '',
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
-      newarr: []
+      newarr: [],
+      showcontent: '',
+      textcontent: ''
     }
   },
   computed: {
@@ -106,6 +119,7 @@ export default {
       const info = await this.$store.dispatch('headedit', {
         id: this.$route.query.id
       })
+      console.log(info)
       this.newarr = info.cate
       if (info.row.province_code) {
         this.selected = [
@@ -117,16 +131,19 @@ export default {
       const id = info.cate.map(item => {
         return item.id
       })
+      console.log(id.indexOf(info.row.topline_cate_id))
+      // console.log(info.cate[id.indexOf(info.row.topline_cate_id)])
       this.flvalue = info.cate[id.indexOf(info.row.topline_cate_id)].cate_name
       this.fl = info.cate
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.content = info.row.desc
+      this.imageUrl = info.row.cover
       this.cover = info.row.cover
-      this.content = info.row.content
+      this.showcontent = info.row.content
       this.toplinecateid = info.row.topline_cate_id
     },
     async bceditlist() {
-      const { title, cover, desc, content } = this
+      const { title } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -139,13 +156,13 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('bcheadedit', {
+      const info = await this.$store.dispatch('bcheadedit', {
         id: this.$route.query.id,
         title,
         topline_cate_id: this.toplinecateid,
-        cover,
-        desc,
-        content,
+        cover: this.cover,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -153,11 +170,26 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      })
-      window.history.back()
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message.success(info.msg)
+        window.history.back()
+      }
+    },
+    handleAvatarSuccess(res, file, index) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+      this.cover = file.response.data.url
+    },
+    initAction() {
+      this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }

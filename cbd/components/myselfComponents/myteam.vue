@@ -39,6 +39,14 @@
           </div>
         </li>
       </ul>
+      <pagination
+        :total="total"
+        :length="teampro.length"
+        :pagesize="limit"
+        @currentchange="handlecurrentchange"
+        @prev="handlecurrentchange"
+        @next="handlecurrentchange"
+      ></pagination>
       <div v-show="flag == true" class="tuandui">
         <div class="tuanc">
           <div class="tuantop">
@@ -53,18 +61,12 @@
             <el-form-item label="团队名称">
               <el-input v-model="teamname" :placeholder="arr.team_name"></el-input>
             </el-form-item>
-            <el-form-item v-if="teamflag" label="团队图片">
-              <div class="img">
-                <img :src="image" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!teamflag" v-model="image" label="图片">
+            <el-form-item v-model="image" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -85,10 +87,14 @@
   </div>
 </template>
 <script>
+import pagination from 'components/cloudComponents/pagination.vue'
 import base from '@/api/base'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Myteam',
+  components: {
+    pagination
+  },
   data() {
     return {
       demand: ['团队名称', '团队人数', '组建时间', '操作'],
@@ -98,6 +104,7 @@ export default {
       labelPosition: 'left',
       teamname: '',
       content: '',
+      total: 0,
       first: {
         show: false
       },
@@ -131,10 +138,15 @@ export default {
   methods: {
     async dismyteamp() {
       const { page, limit } = this
-      await this.$store.dispatch('dismyteampro', {
+      const info = await this.$store.dispatch('dismyteampro', {
         page,
         limit
       })
+      this.total = info.total
+    },
+    handlecurrentchange(params) {
+      this.page = params
+      this.dismyteamp()
     },
     tanteam() {
       this.arr = []
@@ -163,22 +175,11 @@ export default {
       this.arr = info.row
       this.teamname = info.row.team_name
       this.content = info.row.content
-      this.image = info.row.image
+      this.imageUrl = info.row.image
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      this.image = this.imageUrl
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.image = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev

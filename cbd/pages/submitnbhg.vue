@@ -44,27 +44,24 @@
             <el-form-item label="电话">
               <el-input v-model="mobile"></el-input>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="cover" label="图片">
-              <div class="ima">
-                <img :src="cover" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <el-button size="small" type="info" plain>
+                  更换图片
+                </el-button>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
-            </el-form-item>
             <el-form-item label="内容">
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
+            </el-form-item>
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
           </el-form>
@@ -79,12 +76,16 @@
   </div>
 </template>
 <script>
+import textpart from 'common/Textpart'
 import base from '@/api/base'
 import { mapGetters } from 'vuex'
 import { pcaa } from 'area-data'
 export default {
   meta: {
     title: '发布能帮会干'
+  },
+  components: {
+    textpart
   },
   data() {
     return {
@@ -101,16 +102,18 @@ export default {
       flvalue: '',
       id: 34,
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
-      abilityid: 0,
+      abilityid: '',
       price: '',
-      mobile: ''
+      mobile: '',
+      showcontent: '',
+      textcontent: ''
     }
   },
   computed: {
@@ -154,7 +157,8 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.desc
+      this.imageUrl = info.row.image
       this.cover = info.row.image
       this.price = info.row.price
       this.mobile = info.row.mobile
@@ -162,7 +166,7 @@ export default {
       this.abilityid = info.row.ability_id
     },
     async bceditlist() {
-      const { title, price, mobile, desc, content } = this
+      const { title, price, mobile } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -175,15 +179,15 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      await this.$store.dispatch('changenbhg', {
+      const info = await this.$store.dispatch('changenbhg', {
         id: this.$route.query.id,
         title,
         ability_id: this.abilityid,
         image: this.cover,
-        desc,
+        desc: this.content,
         price,
         mobile,
-        content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -191,25 +195,52 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
+      console.log(info)
       if (this.selected[0] === '0') {
         this.$message.error('请设置地区')
         return
       }
-      this.$message({
-        type: 'success',
-        message: '修改成功'
-      })
-      window.history.back()
+      if (this.content.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '描述必须'
+        })
+        return
+      }
+      if (this.textcontent.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '描述必须'
+        })
+        return
+      }
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message({
+          type: 'success',
+          message: info.msg
+        })
+        window.history.back()
+      }
+      // this.$message({
+      //   type: 'success',
+      //   message: '修改成功'
+      // })
+      // window.history.back()
     },
     changez(val) {
       for (const item of this.newnbhgfl) {
-        if (item.cate_name === val) {
+        if (item.title === val) {
           this.abilityid = item.id
         }
       }
     },
     async addnewhead() {
-      const { title, desc, content, price, mobile } = this
+      const { title, price, mobile } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -222,14 +253,23 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
+      if (this.province === '') {
+        this.$message.error('请设置地区')
+        return
+      }
+      const regex = /^([0-9]*[1-9][0-9]*(.[0-9]+)?|[0]+.[0-9]*[1-9][0-9]*)$/
+      if (!regex.test(this.price)) {
+        this.$message.error('请设置大于0的金额')
+        return
+      }
       const info = await this.$store.dispatch('addnewabil', {
         price,
         title,
         ability_id: this.abilityid,
         image: this.cover,
         mobile,
-        desc,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -237,33 +277,53 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (info) {
+      console.log(info)
+      if (this.content.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '描述必须'
+        })
+        return
+      }
+      if (this.textcontent.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '内容必须'
+        })
+        return
+      }
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
         this.$message({
           type: 'success',
-          message: '添加成功'
+          message: info.msg
         })
         window.history.back()
-      } else {
-        this.$message.error('添加失败，请检查内容完整重新添加')
       }
+      // if (info) {
+      //   this.$message({
+      //     type: 'success',
+      //     message: '添加成功'
+      //   })
+      //   window.history.back()
+      // } else {
+      //   this.$message.error('添加失败，请检查内容完整重新添加')
+      // }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.cover = this.imageUrl
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.cover = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }

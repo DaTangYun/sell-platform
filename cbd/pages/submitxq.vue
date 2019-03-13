@@ -68,27 +68,21 @@
             <el-form-item label="联系人">
               <el-input v-model="contact"></el-input>
             </el-form-item>
-            <el-form-item v-if="$route.query.id" v-model="image" label="图片">
-              <div class="ima">
-                <img :src="image" alt="">
-              </div>
-            </el-form-item>
-            <el-form-item v-if="!$route.query.id" v-model="image" label="图片">
+            <el-form-item v-model="image" label="图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
-                :on-change="handleonchange"
               >
                 <img v-if="imageUrl.length" :src="imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload> 
             </el-form-item>
-            <el-form-item label="描述">
-              <el-input v-model="desc" type="textarea"></el-input>
-            </el-form-item>       
             <el-form-item label="内容">
+              <textpart class="textpart" :showcontent="showcontent" @handletext="handletext"></textpart>
+            </el-form-item>       
+            <el-form-item label="描述">
               <el-input v-model="content" type="textarea"></el-input>
             </el-form-item>
             <!-- <tinymce ref="editor" :height="500" v-model="content"/> -->
@@ -107,7 +101,11 @@
 import base from '@/api/base'
 import { pcaa } from 'area-data'
 import { mapGetters } from 'vuex'
+import textpart from 'common/Textpart'
 export default {
+  components: {
+    textpart
+  },
   meta: {
     title: '发布需求'
   },
@@ -127,12 +125,12 @@ export default {
       fl: [],
       flvalue: '',
       id: 34,
-      cateid: 0,
+      cateid: '',
       province: '',
-      provincecode: 0,
-      citycode: 0,
+      provincecode: '',
+      citycode: '',
       city: '',
-      areacode: 0,
+      areacode: '',
       area: '',
       imageUrl: '',
       action: '',
@@ -143,7 +141,10 @@ export default {
       time: '',
       starttime: '',
       endtime: '',
-      newarr: []
+      newarr: [],
+      htimage: '',
+      textcontent: '',
+      showcontent: ''
     }
   },
   computed: {
@@ -162,7 +163,7 @@ export default {
     changez(val) {
       for (const item of this.newarr) {
         if (item.title === val) {
-          this.cate_id = item.id
+          this.cateid = item.id
         }
       }
     },
@@ -195,9 +196,10 @@ export default {
         }
       }
       this.title = info.row.title
-      this.desc = info.row.desc
+      this.showcontent = info.row.content
+      this.imageUrl = info.row.image
       this.image = info.row.image
-      this.content = info.row.content
+      this.content = info.row.desc
       this.cateid = info.row.cate_id
       this.commission = info.row.commission
       this.mobile = info.row.mobile
@@ -218,14 +220,14 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, desc, content, commission, mobile, contact } = this
+      const { title, image, commission, mobile, contact } = this
       const info = await this.$store.dispatch('helpedit', {
         id: this.$route.query.id,
         title,
         cate_id: this.cateid,
         image,
-        desc,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -238,30 +240,36 @@ export default {
         end_time: this.endtime,
         contact
       })
-      if (!info) {
-        this.$message.error('请检查内容完整')
+      if (this.content.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '描述必须'
+        })
+        return
+      }
+      if (this.textcontent.trim() === '') {
+        this.$message({
+          type: 'warning',
+          message: '内容必须'
+        })
+        return
+      }
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
-      this.image = this.imageUrl
-    },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.uploadimage(file)
-    },
-    async uploadimage(file) {
-      this.$nuxt.$loading.start()
-      await this.$store.dispatch('uploadimages', {
-        file
-      })
-      this.$nuxt.$loading.finish()
+      this.image = file.response.data.url
     },
     initAction() {
       this.action = process.client ? '' : base.dev
@@ -279,13 +287,13 @@ export default {
           this.areacode = Object.keys(item)[0]
         }
       })
-      const { title, image, desc, content, commission, mobile, contact } = this
+      const { title, image, commission, mobile, contact } = this
       const info = await this.$store.dispatch('addhelplist', {
         title,
         cate_id: this.cateid,
         image,
-        desc,
-        content,
+        desc: this.content,
+        content: this.textcontent,
         province: this.province,
         province_code: this.provincecode,
         city_code: this.citycode,
@@ -298,15 +306,22 @@ export default {
         end_time: this.endtime,
         contact
       })
-      if (!info) {
-        this.$message.error('请检查内容完整')
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       } else {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: info.msg
         })
         window.history.back()
       }
+    },
+    handletext(val) {
+      // console.log(val)
+      this.textcontent = val
     }
   }
 }
@@ -325,7 +340,7 @@ export default {
     color: rgba(40, 45, 56, 1);
   }
   .form {
-    width: 610px;
+    width: 620px;
     .el-input__inner {
       height: 32px;
     }

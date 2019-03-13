@@ -11,7 +11,7 @@
     </div>
     <div ref="loginFormRef" class="s-form">
       <div class="s-from-row">
-        <el-input v-model="formmobile" type="number" placeholder="用户名/手机号" autocomplete="off">
+        <el-input v-model="formmobile" type="number" placeholder="手机号" autocomplete="off">
         </el-input>
       </div>
       <div class="s-from-row">
@@ -59,7 +59,6 @@ export default {
   methods: {
     initPath() {
       const path = decodeURI(this.$route.query.authUrl)
-      console.log(path)
       this.path = path
     },
     handleGoReset() {
@@ -88,7 +87,8 @@ export default {
         this.$message.error('账号或密码不正确')
       } else {
         this.$message.success('登录成功')
-        window.history.back()
+        // window.history.back()
+        this.$router.push({ path: '/' })
       }
     },
     async logout() {

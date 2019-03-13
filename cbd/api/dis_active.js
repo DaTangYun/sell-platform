@@ -24,6 +24,18 @@ const disactive = {
   // 用户使用优惠卷
   getusedactive(params) {
     return axios.post('/api/user_active/used', qs.stringify(params))
+  },
+  // 组织活动编辑获取
+  getactivitybj(params) {
+    return axios.get('/api/active/edit', { params })
+  },
+  // 编辑活动保存
+  getactivebc(params) {
+    return axios.post('/api/active/edit', qs.stringify(params))
+  },
+  // 添加新活动
+  getaddactivity(params) {
+    return axios.post('/api/active/add', qs.stringify(params))
   }
 }
 export default disactive
