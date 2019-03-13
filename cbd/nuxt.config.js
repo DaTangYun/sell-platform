@@ -6,21 +6,21 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
-    meta: [
-      {
-        charset: 'utf-8'
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: pkg.description
-      }
-    ],
+    // title: pkg.name,
+    // meta: [
+    //   {
+    //     charset: 'utf-8'
+    //   },
+    //   {
+    //     name: 'viewport',
+    //     content: 'width=device-width, initial-scale=1'
+    //   },
+    //   {
+    //     hid: 'description',
+    //     name: 'description',
+    //     content: pkg.description
+    //   }
+    // ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     // script: [{ src: path.resolve(__dirname, './static/tinymce4.7.5/tinymce.min.js'), type: 'text/javascript', charset: 'utf-8'}],
     // __dangerouslyDisableSanitizers: ['script']

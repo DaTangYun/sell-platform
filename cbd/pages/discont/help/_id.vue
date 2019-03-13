@@ -50,8 +50,30 @@ export default {
       details: []
     }
   },
+  head() {
+    return {
+      title: this.helpmeDetailMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'helpmeDetailMetadesc',
+          name: 'description',
+          content: this.helpmeDetailMeta.seo_desc
+        },
+        {
+          hid: 'helpmeDetailMetaKeyword',
+          name: 'keyword',
+          content: this.helpmeDetailMeta.seo_keyword
+        },
+        {
+          hid: 'helpmeDetailMetaContent',
+          name: 'content',
+          content: this.helpmeDetailMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['helpdetail'])
+    ...mapGetters(['helpdetail', 'helpmeDetailMeta'])
   },
   mounted() {
     this.$nextTick(() => {

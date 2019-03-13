@@ -51,28 +51,28 @@ export default {
   },
   head() {
     return {
-      title: this.cloudMeta.seo_title || '传帮带',
+      title: this.helpmeMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'cloudMetadesc',
+          hid: 'helpmeMetadesc',
           name: 'description',
-          content: this.cloudMeta.seo_desc
+          content: this.helpmeMeta.seo_desc
         },
         {
-          hid: 'cloudMetaKeyword',
+          hid: 'helpmeMetaKeyword',
           name: 'keyword',
-          content: this.cloudMeta.seo_keyword
+          content: this.helpmeMeta.seo_keyword
         },
         {
-          hid: 'cloudMetaContent',
+          hid: 'helpmeMetaContent',
           name: 'content',
-          content: this.cloudMeta.seo_content
+          content: this.helpmeMeta.seo_content
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['helpmelist', 'cloudMeta'])
+    ...mapGetters(['helpmelist', 'helpmeMeta'])
   },
   mounted() {
     this.$nextTick(() => {

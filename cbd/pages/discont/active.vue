@@ -38,8 +38,30 @@ export default {
       tpath: '/submitxq'
     }
   },
+  head() {
+    return {
+      title: this.activeMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'activeMetadesc',
+          name: 'description',
+          content: this.activeMeta.seo_desc
+        },
+        {
+          hid: 'activeMetaKeyword',
+          name: 'keyword',
+          content: this.activeMeta.seo_keyword
+        },
+        {
+          hid: 'activeMetaContent',
+          name: 'content',
+          content: this.activeMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['activeyouhuilist'])
+    ...mapGetters(['activeyouhuilist', 'activeMeta'])
   },
   mounted() {
     this.$nextTick(() => {

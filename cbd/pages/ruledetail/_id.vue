@@ -38,31 +38,40 @@ export default {
     return {
       title:
         this.$route.query.flag === '财经法规'
-          ? this.financeDetail.seo_title
+          ? this.financeDetailMeta.seo_title
           : this.casesDetailMeta.seo_title,
       meta: [
         {
-          hid: 'toplinedesc',
+          hid:
+            this.$route.query.flag === '财经法规'
+              ? 'financeDetailMetadesc'
+              : 'casesDetailMetadesc',
           name: 'description',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetail.seo_desc
+              ? this.financeDetailMeta.seo_desc
               : this.casesDetailMeta.seo_desc
         },
         {
-          hid: 'toplineKeyword',
+          hid:
+            this.$route.query.flag === '财经法规'
+              ? 'financeDetailMetaKeyword'
+              : 'casesDetailMetaKeyword',
           name: 'keyword',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetail.seo_keyword
+              ? this.financeDetailMeta.seo_keyword
               : this.casesDetailMeta.seo_keyword
         },
         {
-          hid: 'toplineContent',
+          hid:
+            this.$route.query.flag === '财经法规'
+              ? 'financeDetailMetaContent'
+              : 'casesDetailMetaContent',
           name: 'content',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetail.seo_content
+              ? this.financeDetailMeta.seo_content
               : this.casesDetailMeta.seo_content
         }
       ]
@@ -72,7 +81,7 @@ export default {
     ...mapGetters([
       'financedetail',
       'casedetail',
-      'financeDetail',
+      'financeDetailMeta',
       'casesDetailMeta'
     ])
   },

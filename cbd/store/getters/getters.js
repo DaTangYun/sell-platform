@@ -342,11 +342,38 @@ const getters = {
   libraMeta: state => {
     return state.metaInfo.libraMeta
   },
-  financeDetail: state => {
-    return state.metaInfo.financeDetail
+  financeDetailMeta: state => {
+    return state.metaInfo.financeDetailMeta
   },
   casesDetailMeta: state => {
     return state.metaInfo.casesDetailMeta
+  },
+  showMeta: state => {
+    return state.metaInfo.showMeta
+  },
+  showDetailMeta: state => {
+    return state.metaInfo.showDetailMeta
+  },
+  abilityMeta: state => {
+    return state.metaInfo.abilityMeta
+  },
+  abilityDetailMeta: state => {
+    return state.metaInfo.abilityDetailMeta
+  },
+  helpmeMeta: state => {
+    return state.metaInfo.helpmeMeta
+  },
+  helpmeDetailMeta: state => {
+    return state.metaInfo.helpmeDetailMeta
+  },
+  activeMeta: state => {
+    return state.metaInfo.activeMeta
+  },
+  profileMeta: state => {
+    return state.metaInfo.profileMeta
+  },
+  pageMeta: state => {
+    return state.metaInfo.pageMeta
   }
 }
 export default getters

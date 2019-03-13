@@ -59,8 +59,31 @@ export default {
       tpath: '/submitxq'
     }
   },
+
+  head() {
+    return {
+      title: this.abilityMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'abilityMetadesc',
+          name: 'description',
+          content: this.abilityMeta.seo_desc
+        },
+        {
+          hid: 'abilityMetaKeyword',
+          name: 'keyword',
+          content: this.abilityMeta.seo_keyword
+        },
+        {
+          hid: 'abilityMetaContent',
+          name: 'content',
+          content: this.abilityMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['dishelpdo'])
+    ...mapGetters(['dishelpdo', 'abilityMeta'])
   },
   mounted() {
     this.$nextTick(() => {

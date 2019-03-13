@@ -31,8 +31,31 @@ export default {
   meta: {
     title: '秀秀我'
   },
+
+  head() {
+    return {
+      title: this.showMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'showMetadesc',
+          name: 'description',
+          content: this.showMeta.seo_desc
+        },
+        {
+          hid: 'showMetaKeyword',
+          name: 'keyword',
+          content: this.showMeta.seo_keyword
+        },
+        {
+          hid: 'showMetaContent',
+          name: 'content',
+          content: this.showMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['showme'])
+    ...mapGetters(['showme', 'showMeta'])
   },
   mounted() {
     this.$nextTick(() => {
