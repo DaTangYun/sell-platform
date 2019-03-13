@@ -52,7 +52,7 @@ module.exports = {
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css'
   ],
-  render: { resourceHints: false },
+  // render: { resourceHints: false },
   /*
    ** Plugins to load before mounting the App
    */

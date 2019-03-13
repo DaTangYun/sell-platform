@@ -115,8 +115,21 @@ export default {
       htqyimage: ''
     }
   },
+  head() {
+    return {
+      title: this.identMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'identMeta',
+          name: this.identMeta.seo_title,
+          content: this.identMeta.seo_desc,
+          keyword: this.identMeta.seo_keyword
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['useridenty'])
+    ...mapGetters(['useridenty', 'identMeta'])
   },
   methods: {
     async sendinfo() {

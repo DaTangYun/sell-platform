@@ -74,10 +74,14 @@ export default {
         ].concat(matched)
       }
       this.levelList = matched
+      console.log(this.levelList)
     },
     fixredirect(item) {
       if (item.path === '/myself/:id?') {
         item.redirect = '/myself/:id/mypublish/myhead'
+      }
+      if (item.path === '/myself/:id?/myactive') {
+        item.redirect = '/myself/:id?/myactive/zuzhi'
       }
       if (item.path === '/myself/:id?/myteam/mt/:teamid?') {
         item.redirect = '/myself/:id/myteam'

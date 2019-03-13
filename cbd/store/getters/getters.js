@@ -310,6 +310,19 @@ const getters = {
   },
   useractiveadd: state => {
     return state.disactive.useractiveadd
+  },
+  // 获取meta
+  homeMeta: state => {
+    return state.metaInfo.homeMeta
+  },
+  loginMeta: state => {
+    return state.metaInfo.loginMeta
+  },
+  registerMeta: state => {
+    return state.metaInfo.registerMeta
+  },
+  identMeta: state => {
+    return state.metaInfo.identMeta
   }
 }
 export default getters

@@ -6,7 +6,7 @@
         {{ item }}
       </span>
     </div>
-    <myactivepart :useractiveprofile="useractiveprofile"></myactivepart>
+    <myactivepart v-if="useractiveprofile.length" :useractiveprofile="useractiveprofile"></myactivepart>
     <div class="pag">
       <pagination
         :total="total"
@@ -47,6 +47,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      console.log(11)
       this.userpro()
     })
   },
@@ -57,6 +58,7 @@ export default {
         page,
         limit
       })
+      console.log(info)
       this.total = info.total
     },
     handlecurrentchange(params) {

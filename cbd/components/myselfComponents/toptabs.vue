@@ -1,8 +1,8 @@
 <!--  -->
 <template>
   <div class="toptabs">
-    <ul>
-      <nuxt-link v-for="(item,index) of toplist" :key="index" tag="li" :to="`/myself/${id}/${item.par}${item.url}`">
+    <ul v-if="toplist.length">
+      <nuxt-link v-for="(item, index) of toplist" :key="index" tag="li" :to="`/myself/${id}/${item.par}${item.url}`">
         {{ item.name }}
       </nuxt-link>
       <!-- <div class="pub">

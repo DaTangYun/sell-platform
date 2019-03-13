@@ -83,8 +83,28 @@ export default {
       helpmelistss: []
     }
   },
+  head() {
+    return {
+      title: this.homeMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'home',
+          name: this.homeMeta.seo_title,
+          content: this.homeMeta.seo_desc,
+          keyword: this.homeMeta.seo_keyword
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['showme', 'dishelpdo', 'headlist', 'infolist', 'helpmelist'])
+    ...mapGetters([
+      'showme',
+      'dishelpdo',
+      'headlist',
+      'infolist',
+      'helpmelist',
+      'homeMeta'
+    ])
   },
   created() {
     this.setlist()

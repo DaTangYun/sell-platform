@@ -65,8 +65,21 @@ export default {
       code: ''
     }
   },
+  head() {
+    return {
+      title: this.registerMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'registerMeta',
+          name: this.registerMeta.seo_title,
+          content: this.registerMeta.seo_desc,
+          keyword: this.registerMeta.seo_keyword
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['usergister', 'sms'])
+    ...mapGetters(['usergister', 'sms', 'registerMeta'])
   },
   methods: {
     getLogin() {
