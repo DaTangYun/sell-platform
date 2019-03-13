@@ -80,7 +80,7 @@ export default {
       if (wis === '财经法规') {
         this.$router.push({
           path: `/ruledetail/${id}`,
-          query: { titel: itemid.title }
+          query: { titel: itemid.title, flag: '财经法规' }
         })
       } else {
         this.$router.push({
