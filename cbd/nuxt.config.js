@@ -52,7 +52,7 @@ module.exports = {
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css'
   ],
-
+  render: { resourceHints: false },
   /*
    ** Plugins to load before mounting the App
    */
@@ -134,13 +134,13 @@ module.exports = {
           vueswiper: {
             test: /node_modules[\\/]swiper/,
             chunks: 'all',
-            priority: 21,
+            priority: 20,
             name: true
           },
           vuearea: {
             test: /node_modules[\\/]vue-area-linkage/,
             chunks: 'all',
-            priority: 21,
+            priority: 20,
             name: true
           }
         }

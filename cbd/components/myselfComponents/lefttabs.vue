@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      activeid: 0
+      activeid: ''
     }
   },
   computed: {
@@ -46,9 +46,9 @@ export default {
   },
   methods: {
     async exit() {
-      const info = await this.$store.dispatch('exituser')
-      console.log(info)
+      await this.$store.dispatch('exituser')
       this.$router.push({ path: '/' })
+      window.location.reload()
     }
   }
 }

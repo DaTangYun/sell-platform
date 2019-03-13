@@ -47,7 +47,6 @@ export default {
   meta: {
     title: '能帮会干'
   },
-  middleware: 'auth',
   data() {
     return {
       help: [],
@@ -95,6 +94,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 40px;
+  width: 902px;
   .candoli {
     margin-right: 21px;
     cursor: pointer;

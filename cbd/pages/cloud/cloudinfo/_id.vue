@@ -58,6 +58,7 @@ export default {
 <style lang='less' scoped>
 .big {
   background-color: #fff;
+  height: 500px;
 }
 .headid {
   background-color: #fff;

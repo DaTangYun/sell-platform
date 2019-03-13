@@ -163,7 +163,6 @@ export default {
       this.action = process.client ? '' : base.dev
     },
     handletext(val) {
-      // console.log(val)
       this.showcontent = val
     }
   }

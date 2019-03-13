@@ -19,7 +19,7 @@
             {{ item.desc }}
           </div>
         </div>
-        <div class="activity-li-right" :class="item.status === '1' ? 'oldpage' : 'nowpage'" @click="lingqu(item.user_id)">
+        <div class="activity-li-right oldpage" @click="lingqu(item.id)">
           <div class="right-content">
             <div class="right-content-left">
               <h5>
@@ -34,8 +34,8 @@
             <div class="calc">
               满{{ item.min_amount }}减{{ item.prefer_acount }}
             </div>
-            <span v-if="item.status === '2' ? userd = '已领取' : userd ='领取'">
-              {{ userd }}
+            <span>
+              未领取
             </span>
           </div>
         </div>
@@ -87,13 +87,20 @@ export default {
     },
     async lingqu(vid) {
       const info = await this.$store.dispatch('userduseractive', {
-        id: vid
+        active_id: vid
       })
-      this.activelists()
-      if (!info) {
-        this.$message.error('已使用过')
+      if (info.code === 0) {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      } else {
+        this.$message({
+          type: 'success',
+          message: info.msg
+        })
       }
-      console.log(info)
+      this.activelists()
     }
   }
 }
@@ -102,10 +109,12 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .activity-ul {
+  width: 950px;
   box-sizing: border-box;
   padding: 0 24px 0;
   margin-bottom: 40px;
   .activity-li {
+    width: 950px;
     display: flex;
     height: 126px;
     border-bottom: 1px dashed #e6e6e6;

@@ -51,7 +51,6 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .wisdomBank {
-  width: 240px;
   background: rgba(255, 255, 255, 1);
   border-radius: 6px;
   padding: 0 15px 10px;

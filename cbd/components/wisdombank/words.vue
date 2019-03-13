@@ -17,7 +17,7 @@
             {{ item.username }}
           </span>
         </div>
-        <div class="word-img"></div>
+        <a v-show="item.url.length" class="word-img" :href="item.url"></a>
       </li>
     </ul>
     <pagination
@@ -109,6 +109,7 @@ export default {
         }
       }
       .word-img {
+        display: block;
         width: 32px;
         height: 28px;
         position: absolute;
