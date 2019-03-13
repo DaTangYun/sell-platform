@@ -36,8 +36,30 @@ export default {
   data() {
     return {}
   },
+  head() {
+    return {
+      title: this.messageDetailMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'messageDetailMetadesc',
+          name: 'description',
+          content: this.messageDetailMeta.seo_desc
+        },
+        {
+          hid: 'messageDetailMetaKeyword',
+          name: 'keyword',
+          content: this.messageDetailMeta.seo_keyword
+        },
+        {
+          hid: 'messageDetailMetaContent',
+          name: 'content',
+          content: this.messageDetailMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['infodetail'])
+    ...mapGetters(['infodetail', 'messageDetailMeta'])
   },
   mounted() {
     this.$nextTick(() => {

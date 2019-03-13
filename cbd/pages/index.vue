@@ -87,9 +87,21 @@ export default {
     return {
       title: this.homeMeta.seo_title || '传帮带',
       meta: [
-        { hid: 'homeMetadesc', name: 'description', content: this.homeMeta.seo_desc },
-        { hid: 'homeMetaKeyword', name: 'keyword', content: this.homeMeta.seo_keyword },
-        { hid: 'homeMetaContent', name: 'content', content: this.homeMeta.seo_content }
+        {
+          hid: 'homeMetadesc',
+          name: 'description',
+          content: this.homeMeta.seo_desc
+        },
+        {
+          hid: 'homeMetaKeyword',
+          name: 'keyword',
+          content: this.homeMeta.seo_keyword
+        },
+        {
+          hid: 'homeMetaContent',
+          name: 'content',
+          content: this.homeMeta.seo_content
+        }
       ]
     }
   },

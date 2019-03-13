@@ -120,10 +120,19 @@ export default {
       title: this.identMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'identMeta',
-          name: this.identMeta.seo_title,
-          content: this.identMeta.seo_desc,
-          keyword: this.identMeta.seo_keyword
+          hid: 'identMetadesc',
+          name: 'description',
+          content: this.identMeta.seo_desc
+        },
+        {
+          hid: 'identMetaKeyword',
+          name: 'keyword',
+          content: this.identMeta.seo_keyword
+        },
+        {
+          hid: 'identMetaContent',
+          name: 'content',
+          content: this.identMeta.seo_content
         }
       ]
     }

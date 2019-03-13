@@ -68,8 +68,30 @@ export default {
       tpath: '/submitxx'
     }
   },
+  head() {
+    return {
+      title: this.messageMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'messageMetadesc',
+          name: 'description',
+          content: this.messageMeta.seo_desc
+        },
+        {
+          hid: 'messageMetaKeyword',
+          name: 'keyword',
+          content: this.messageMeta.seo_keyword
+        },
+        {
+          hid: 'messageMetaContent',
+          name: 'content',
+          content: this.messageMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['infolist', 'infototal'])
+    ...mapGetters(['infolist', 'infototal', 'messageMeta'])
   },
   watch: {
     $route(route) {

@@ -49,8 +49,30 @@ export default {
       tpath: '/submitheads'
     }
   },
+  head() {
+    return {
+      title: this.topline.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'toplinedesc',
+          name: 'description',
+          content: this.topline.seo_desc
+        },
+        {
+          hid: 'toplineKeyword',
+          name: 'keyword',
+          content: this.topline.seo_keyword
+        },
+        {
+          hid: 'toplineContent',
+          name: 'content',
+          content: this.topline.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['headlist', 'headtotal'])
+    ...mapGetters(['headlist', 'headtotal', 'topline'])
   },
   watch: {
     $route(route) {
