@@ -69,12 +69,9 @@ export default {
     return {
       title: this.registerMeta.seo_title || '传帮带',
       meta: [
-        {
-          hid: 'registerMeta',
-          name: this.registerMeta.seo_title,
-          content: this.registerMeta.seo_desc,
-          keyword: this.registerMeta.seo_keyword
-        }
+        { hid: 'registerMetadesc', name: 'description', content: this.registerMeta.seo_desc },
+        { hid: 'registerMetaKeyword', name: 'keyword', content: this.registerMeta.seo_keyword },
+        { hid: 'registerMetaContent', name: 'content', content: this.registerMeta.seo_content }
       ]
     }
   },
