@@ -34,8 +34,47 @@ export default {
       list: []
     }
   },
+  head() {
+    return {
+      title:
+        this.$route.query.flag === '财经法规'
+          ? this.financeDetail.seo_title
+          : this.casesDetailMeta.seo_title,
+      meta: [
+        {
+          hid: 'toplinedesc',
+          name: 'description',
+          content:
+            this.$route.query.flag === '财经法规'
+              ? this.financeDetail.seo_desc
+              : this.casesDetailMeta.seo_desc
+        },
+        {
+          hid: 'toplineKeyword',
+          name: 'keyword',
+          content:
+            this.$route.query.flag === '财经法规'
+              ? this.financeDetail.seo_keyword
+              : this.casesDetailMeta.seo_keyword
+        },
+        {
+          hid: 'toplineContent',
+          name: 'content',
+          content:
+            this.$route.query.flag === '财经法规'
+              ? this.financeDetail.seo_content
+              : this.casesDetailMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['financedetail', 'casedetail'])
+    ...mapGetters([
+      'financedetail',
+      'casedetail',
+      'financeDetail',
+      'casesDetailMeta'
+    ])
   },
   mounted() {
     this.$nextTick(() => {

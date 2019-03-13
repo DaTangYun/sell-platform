@@ -49,8 +49,30 @@ export default {
       tpath: '/submitxq'
     }
   },
+  head() {
+    return {
+      title: this.cloudMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'cloudMetadesc',
+          name: 'description',
+          content: this.cloudMeta.seo_desc
+        },
+        {
+          hid: 'cloudMetaKeyword',
+          name: 'keyword',
+          content: this.cloudMeta.seo_keyword
+        },
+        {
+          hid: 'cloudMetaContent',
+          name: 'content',
+          content: this.cloudMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['helpmelist'])
+    ...mapGetters(['helpmelist', 'cloudMeta'])
   },
   mounted() {
     this.$nextTick(() => {

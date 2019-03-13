@@ -323,6 +323,30 @@ const getters = {
   },
   identMeta: state => {
     return state.metaInfo.identMeta
+  },
+  messageMeta: state => {
+    return state.metaInfo.messageMeta
+  },
+  messageDetailMeta: state => {
+    return state.metaInfo.messageDetail
+  },
+  topline: state => {
+    return state.metaInfo.topline
+  },
+  toplineDetailMeta: state => {
+    return state.metaInfo.toplineDetailMeta
+  },
+  cloudMeta: state => {
+    return state.metaInfo.cloudMeta
+  },
+  libraMeta: state => {
+    return state.metaInfo.libraMeta
+  },
+  financeDetail: state => {
+    return state.metaInfo.financeDetail
+  },
+  casesDetailMeta: state => {
+    return state.metaInfo.casesDetailMeta
   }
 }
 export default getters

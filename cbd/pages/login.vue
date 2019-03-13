@@ -48,8 +48,30 @@ export default {
       path: ''
     }
   },
+  head() {
+    return {
+      title: this.loginMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'loginMetadesc',
+          name: 'description',
+          content: this.loginMeta.seo_desc
+        },
+        {
+          hid: 'loginMetaKeyword',
+          name: 'keyword',
+          content: this.loginMeta.seo_keyword
+        },
+        {
+          hid: 'loginMetaContent',
+          name: 'content',
+          content: this.loginMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['logindata'])
+    ...mapGetters(['logindata', 'loginMeta'])
   },
   mounted() {
     this.$nextTick(() => {

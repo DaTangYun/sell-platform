@@ -36,14 +36,35 @@ export default {
       total: 0
     }
   },
+  head() {
+    return {
+      title: this.cloudMeta.seo_title || '传帮带',
+      meta: [
+        {
+          hid: 'cloudMetadesc',
+          name: 'description',
+          content: this.cloudMeta.seo_desc
+        },
+        {
+          hid: 'cloudMetaKeyword',
+          name: 'keyword',
+          content: this.cloudMeta.seo_keyword
+        },
+        {
+          hid: 'cloudMetaContent',
+          name: 'content',
+          content: this.cloudMeta.seo_content
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapGetters(['helpcloud'])
+    ...mapGetters(['helpcloud', 'cloudMeta'])
   },
   mounted() {
     this.$nextTick(() => {
       this.gethelpcloud()
     })
-    console.log(this.helpcloud)
   },
   methods: {
     async gethelpcloud() {
@@ -52,7 +73,6 @@ export default {
       const info = await this.$store.dispatch('helpcloudlist', { page, limit })
       this.$nuxt.$loading.finish()
       this.total = Number(info.total)
-      // console.log(this.total)
     },
     handlecurrentchange(params) {
       this.page = params
