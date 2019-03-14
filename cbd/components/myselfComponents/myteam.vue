@@ -200,7 +200,6 @@ export default {
         console.log('编辑')
         this.submitbjteam()
       } else {
-        console.log('组建新团队')
         this.submitaddteam()
       }
     },
@@ -227,12 +226,16 @@ export default {
         image,
         content
       })
-      if (info) {
+      if (info.code === 1) {
         this.$message({
           type: 'success',
           message: '添加成功'
         })
         this.flag = !this.flag
+      } else {
+        this.$message({
+          message: info.msg
+        })
       }
     }
   }

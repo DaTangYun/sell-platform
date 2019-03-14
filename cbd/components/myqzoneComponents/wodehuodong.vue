@@ -38,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activelist', 'useractiveprofile'])
+    ...mapGetters(['useractiveprofile'])
   },
   mounted() {
     this.$nextTick(() => {
@@ -55,7 +55,8 @@ export default {
         title: '',
         user_id: this.$route.params.id
       })
-      this.disactive = this.activelist.active
+      console.log(info)
+      this.disactive = info.active
       this.total = info.total
     },
     handlecurrentchange(params) {

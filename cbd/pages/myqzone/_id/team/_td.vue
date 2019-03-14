@@ -133,13 +133,25 @@ export default {
       this.detail = info.detail
     },
     async addteam() {
-      await this.$store.dispatch('addnewteam', {
+      const info = await this.$store.dispatch('addnewteam', {
         team_id: this.$route.params.td,
         name: this.form.name,
         mobile: this.form.mobile,
         excellence: this.form.excellence,
         desc: this.form.desc
       })
+      if (info.code === 1) {
+        this.$message.success({
+          message: info.msg,
+          duration: 1000
+        })
+        this.flag = false
+      } else {
+        this.$message({
+          message: info.msg,
+          duration: 1000
+        })
+      }
     },
     back() {
       this.$route.push('/')
@@ -152,7 +164,7 @@ export default {
     },
     submit() {
       this.addteam()
-      this.flag = !this.flag
+      // this.flag = !this.flag
     }
   }
 }

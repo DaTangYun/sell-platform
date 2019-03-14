@@ -41,11 +41,11 @@
     <div class="exh-right">
       <mybox>
         <ul class="mycase">
-          <li v-for="(item,index) in caselist" :key="index">
+          <nuxt-link v-for="(item,index) in caselist" :key="index" :to="{ name: 'ruledetail-id', params: { id: item.id }, query: { flag: '案例' } }" tag="li">
             <div>
               <img :src="item.cover" alt="">
             </div>
-          </li>
+          </nuxt-link>
         </ul>
       </mybox>
       <mybox :my="'团队'">
@@ -70,12 +70,12 @@
       </mybox>
       <mybox :my="'评价'">
         <ul class="myacti">
-          <li v-for="(item,index) in myacti" :key="index">
+          <li v-for="(item,index) in plarr" :key="index">
             <h4>
-              昵称
+              {{ item.nickname }}
             </h4>
             <p>
-              内容内容内容内容内容内容内容
+              {{ item.content }}
             </p>
           </li>
         </ul>
@@ -107,7 +107,8 @@ export default {
       headss: [],
       infoss: 0,
       help: [],
-      helpmelistss: []
+      helpmelistss: [],
+      plarr: []
     }
   },
   computed: {
@@ -132,10 +133,20 @@ export default {
       this.dishelpdos()
       this.caselists()
       this.myteam()
+      this.pinglun()
       this.activelists()
     })
   },
   methods: {
+    async pinglun() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('abilityls', {
+        page,
+        limit,
+        ability_id: this.$route.params.id
+      })
+      this.plarr = info.comment
+    },
     async headlists() {
       await this.$store.dispatch('headlist', {
         page: 1,

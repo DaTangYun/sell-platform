@@ -12,7 +12,7 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_axios_290925e5 from 'nuxt_plugin_axios_290925e5' // Source: ./axios.js
+import nuxt_plugin_axios_7b9f33b8 from 'nuxt_plugin_axios_7b9f33b8' // Source: ./axios.js
 import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ..\\plugins\\element-ui
 import nuxt_plugin_vuequilleditor_59693810 from 'nuxt_plugin_vuequilleditor_59693810' // Source: ..\\plugins\\vue-quill-editor (ssr: false)
 import nuxt_plugin_vueswiper_0a7132d6 from 'nuxt_plugin_vueswiper_0a7132d6' // Source: ..\\plugins\\vue-swiper (ssr: false)
@@ -156,7 +156,7 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_axios_290925e5 === 'function') await nuxt_plugin_axios_290925e5(app.context, inject)
+  if (typeof nuxt_plugin_axios_7b9f33b8 === 'function') await nuxt_plugin_axios_7b9f33b8(app.context, inject)
   if (typeof nuxt_plugin_elementui_d905880e === 'function') await nuxt_plugin_elementui_d905880e(app.context, inject)
   if (typeof nuxt_plugin_ellipsis_7928374f === 'function') await nuxt_plugin_ellipsis_7928374f(app.context, inject)
 

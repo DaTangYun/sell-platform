@@ -84,6 +84,7 @@ export default {
     li {
       margin-right: 22px;
       margin-bottom: 10px;
+      width: 284px;
       cursor: pointer;
       &:nth-child(3n) {
         margin-right: 0px;
@@ -97,6 +98,7 @@ export default {
         }
       }
       p {
+        width: 284px;
         .ellipsis();
         line-height: 30px;
       }

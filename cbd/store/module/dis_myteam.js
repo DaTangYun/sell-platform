@@ -143,6 +143,8 @@ const dismyteam = {
         const addteam = info.data
         commit('setaddteam', addteam)
         return addteam
+      } else {
+        return info.data
       }
     },
     // 申请加入团队
@@ -155,6 +157,8 @@ const dismyteam = {
         const addteam = info.data
         commit('setnewteam', addteam)
         return addteam
+      } else {
+        return info.data
       }
     },
     // 查询成员

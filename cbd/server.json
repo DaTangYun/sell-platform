@@ -1,9 +1,8 @@
 {
   "name": "cbd",
-  "script": ".nuxt/server.js",
+  "script": "./.nuxt/server.js",
   "cwd": "./",
-  "watch": [
-  ],
+  "watch": true,
   "ignore_watch": [
       "node_modules",
       "logs"

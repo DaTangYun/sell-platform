@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       page: 1,
-      limit: 3,
+      limit: 4,
       total: 0
     }
   },
