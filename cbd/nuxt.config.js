@@ -101,7 +101,7 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    analyze: true,
+    // analyze: true,
     babel: {
       'plugins': [
         ['component',
