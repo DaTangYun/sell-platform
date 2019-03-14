@@ -42,33 +42,21 @@ export default {
           : this.casesDetailMeta.seo_title,
       meta: [
         {
-          hid:
-            this.$route.query.flag === '财经法规'
-              ? 'financeDetailMetadesc'
-              : 'casesDetailMetadesc',
-          name: 'description',
+          hid: 'description',
           content:
             this.$route.query.flag === '财经法规'
               ? this.financeDetailMeta.seo_desc
               : this.casesDetailMeta.seo_desc
         },
         {
-          hid:
-            this.$route.query.flag === '财经法规'
-              ? 'financeDetailMetaKeyword'
-              : 'casesDetailMetaKeyword',
-          name: 'keyword',
+          hid: 'descriptionkeyword',
           content:
             this.$route.query.flag === '财经法规'
               ? this.financeDetailMeta.seo_keyword
               : this.casesDetailMeta.seo_keyword
         },
         {
-          hid:
-            this.$route.query.flag === '财经法规'
-              ? 'financeDetailMetaContent'
-              : 'casesDetailMetaContent',
-          name: 'content',
+          hid: 'descriptioncontent',
           content:
             this.$route.query.flag === '财经法规'
               ? this.financeDetailMeta.seo_content

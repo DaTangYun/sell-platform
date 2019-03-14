@@ -51,17 +51,17 @@ export default {
       title: this.libraMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'libraMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.libraMeta.seo_desc
         },
         {
-          hid: 'libraMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.libraMeta.seo_keyword
         },
         {
-          hid: 'libraMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.libraMeta.seo_content
         }

@@ -88,17 +88,17 @@ export default {
       title: this.homeMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'homeMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.homeMeta.seo_desc
         },
         {
-          hid: 'homeMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.homeMeta.seo_keyword
         },
         {
-          hid: 'homeMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.homeMeta.seo_content
         }

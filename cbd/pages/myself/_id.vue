@@ -23,17 +23,17 @@ export default {
       title: this.profileMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'profileMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.profileMeta.seo_desc
         },
         {
-          hid: 'profileMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.profileMeta.seo_keyword
         },
         {
-          hid: 'profileMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.profileMeta.seo_content
         }
@@ -52,6 +52,7 @@ export default {
           path: `/myself/${id}/myactive/zuzhi`
         })
       }
+      this.$router.go(0)
     }
   }
 }

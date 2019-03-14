@@ -70,17 +70,29 @@ export default {
       title: this.registerMeta.seo_title || '传帮带',
       meta: [
         {
+<<<<<<< HEAD
           hid: 'registerMetadesc',
+=======
+          hid: 'description',
+>>>>>>> 9c8802b98b2f4c67297dfbaecf1823eb524808f8
           name: 'description',
           content: this.registerMeta.seo_desc
         },
         {
+<<<<<<< HEAD
           hid: 'registerMetaKeyword',
+=======
+          hid: 'descriptionkeyword',
+>>>>>>> 9c8802b98b2f4c67297dfbaecf1823eb524808f8
           name: 'keyword',
           content: this.registerMeta.seo_keyword
         },
         {
+<<<<<<< HEAD
           hid: 'registerMetaContent',
+=======
+          hid: 'descriptioncontent',
+>>>>>>> 9c8802b98b2f4c67297dfbaecf1823eb524808f8
           name: 'content',
           content: this.registerMeta.seo_content
         }

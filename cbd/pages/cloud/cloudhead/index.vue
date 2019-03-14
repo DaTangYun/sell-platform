@@ -54,17 +54,17 @@ export default {
       title: this.topline.seo_title || '传帮带',
       meta: [
         {
-          hid: 'toplinedesc',
+          hid: 'description',
           name: 'description',
           content: this.topline.seo_desc
         },
         {
-          hid: 'toplineKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.topline.seo_keyword
         },
         {
-          hid: 'toplineContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.topline.seo_content
         }

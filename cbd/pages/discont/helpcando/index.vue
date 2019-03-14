@@ -65,17 +65,17 @@ export default {
       title: this.abilityMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'abilityMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.abilityMeta.seo_desc
         },
         {
-          hid: 'abilityMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.abilityMeta.seo_keyword
         },
         {
-          hid: 'abilityMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.abilityMeta.seo_content
         }

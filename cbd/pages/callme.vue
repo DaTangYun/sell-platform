@@ -27,17 +27,17 @@ export default {
       title: this.pageMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'pageMetadesc',
+          hid: 'description',
           name: 'description',
           content: this.pageMeta.seo_desc
         },
         {
-          hid: 'pageMetaKeyword',
+          hid: 'descriptionkeyword',
           name: 'keyword',
           content: this.pageMeta.seo_keyword
         },
         {
-          hid: 'pageMetaContent',
+          hid: 'descriptioncontent',
           name: 'content',
           content: this.pageMeta.seo_content
         }
