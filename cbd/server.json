@@ -1,6 +1,6 @@
 {
   "name": "cbd",
-  "script": "./server.js",
+  "script": "./server",
   "cwd": "./",
   "watch": true,
   "ignore_watch": [
