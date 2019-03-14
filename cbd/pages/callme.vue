@@ -24,33 +24,37 @@ export default {
   },
   head() {
     return {
-      title: this.pageMeta.seo_title || '传帮带',
+      title: this.callmeDetailtest.seo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.pageMeta.seo_desc
+          content: this.callmeDetailtest.seo.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           name: 'keyword',
-          content: this.pageMeta.seo_keyword
+          content: this.callmeDetailtest.seo.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           name: 'content',
-          content: this.pageMeta.seo_content
+          content: this.callmeDetailtest.seo.seo_content
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['callme', 'pageMeta'])
+    ...mapGetters(['callme', 'pageMeta', 'callmeDetailtest'])
   },
   watch: {
     $route(route) {
       const { id } = route.query
       this.getcontact(id)
+      this.$store.dispatch('callmetest', {
+        scene: 'page',
+        id
+      })
     }
   },
   mounted() {

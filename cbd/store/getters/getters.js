@@ -374,6 +374,31 @@ const getters = {
   },
   pageMeta: state => {
     return state.metaInfo.pageMeta
+  },
+  // 个人空间
+  test: state => {
+    return state.common.test
+  },
+  headDetailMeta: state => {
+    return state.common.headDetail
+  },
+  messagetest: state => {
+    return state.common.messageDetail
+  },
+  abilityDetailtest: state => {
+    return state.common.abilityDetailtest
+  },
+  helpmeDetailtest: state => {
+    return state.common.helpmeDetailtest
+  },
+  callmeDetailtest: state => {
+    return state.common.callmetest
+  },
+  caseDetailtest: state => {
+    return state.common.caseDetailtest
+  },
+  financeDetailtest: state => {
+    return state.common.financeDetailtest
   }
 }
 export default getters

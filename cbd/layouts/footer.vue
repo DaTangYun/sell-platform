@@ -82,9 +82,9 @@
             友情链接
           </div>
           <div class="link">            
-            <nuxt-link v-for="(item, index) in lianjie" :key="index" tag="span" class="lianjie" to="item.link_url">
+            <a v-for="(item, index) in lianjie" :key="index" class="lianjie" :href="item.link_url" target="blank">
               {{ item.link_name }}
-            </nuxt-link>
+            </a>
           </div>
         </div>
         <div class="footer-right">
@@ -205,8 +205,10 @@ footer {
             display: block;
             font-size: 14px;
           }
-          span {
+          a {
+            display: inline-block;
             margin-right: 10px;
+            color: #b3b3b3;
             cursor: pointer;
             font-size: 14px;
             &:hover {

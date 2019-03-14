@@ -124,7 +124,6 @@ export default {
     padding: 0 20px;
     box-sizing: border-box;
     position: relative;
-    height: 528px;
     .canDome-ul {
       padding: 0 25px;
       width: 100%;

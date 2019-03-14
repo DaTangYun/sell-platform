@@ -70,17 +70,17 @@ export default {
       title: this.registerMeta.seo_title || '传帮带',
       meta: [
         {
-          hid: 'description',
+          hid: 'registerMetadesc',
           name: 'description',
           content: this.registerMeta.seo_desc
         },
         {
-          hid: 'descriptionkeyword',
+          hid: 'registerMetaKeyword',
           name: 'keyword',
           content: this.registerMeta.seo_keyword
         },
         {
-          hid: 'descriptioncontent',
+          hid: 'registerMetaContent',
           name: 'content',
           content: this.registerMeta.seo_content
         }

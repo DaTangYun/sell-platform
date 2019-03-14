@@ -36,30 +36,37 @@ export default {
   data() {
     return {}
   },
+  async asyncData(context) {
+    await context.store.dispatch('messagetest', {
+      scene: 'messageDetail',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
+  },
   head() {
     return {
-      title: this.messageDetailMeta.seo_title || '传帮带',
+      title: this.messagetest.seo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.messageDetailMeta.seo_desc
+          content: this.messagetest.seo.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           name: 'keyword',
-          content: this.messageDetailMeta.seo_keyword
+          content: this.messagetest.seo.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           name: 'content',
-          content: this.messageDetailMeta.seo_content
+          content: this.messagetest.seo.seo_content
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['infodetail', 'messageDetailMeta'])
+    ...mapGetters(['infodetail', 'messageDetailMeta', 'messagetest'])
   },
   mounted() {
     this.$nextTick(() => {

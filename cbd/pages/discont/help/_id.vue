@@ -50,30 +50,37 @@ export default {
       details: []
     }
   },
+  async asyncData(context) {
+    await context.store.dispatch('helpmetest', {
+      scene: 'helpmeDetail',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
+  },
   head() {
     return {
-      title: this.helpmeDetailMeta.seo_title || '传帮带',
+      title: this.helpmeDetailtest.seo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.helpmeDetailMeta.seo_desc
+          content: this.helpmeDetailtest.seo.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           name: 'keyword',
-          content: this.helpmeDetailMeta.seo_keyword
+          content: this.helpmeDetailtest.seo.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           name: 'content',
-          content: this.helpmeDetailMeta.seo_content
+          content: this.helpmeDetailtest.seo.seo_content
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['helpdetail', 'helpmeDetailMeta'])
+    ...mapGetters(['helpdetail', 'helpmeDetailMeta', 'helpmeDetailtest'])
   },
   mounted() {
     this.$nextTick(() => {

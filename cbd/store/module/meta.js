@@ -94,13 +94,6 @@ const metaInfo = {
   },
   actions: {
     async nuxtServerInit({ commit }, { app, route }) {
-      let detailid, casesDetailid
-      const flag = route.query.flag
-      if (flag === '财经法规') {
-        detailid = route.params.id
-      } else {
-        casesDetailid = route.params.id
-      }
       const info = await Promise.all([
         api.meta.commonSeo({
           scene: 'home',
@@ -123,16 +116,8 @@ const metaInfo = {
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'messageDetail',
-          id: route.params.id
-        }),
-        api.meta.commonSeo({
           scene: 'topline',
           id: 0
-        }),
-        api.meta.commonSeo({
-          scene: 'toplineDetail',
-          id: route.params.id
         }),
         api.meta.commonSeo({
           scene: 'cloud',
@@ -143,48 +128,20 @@ const metaInfo = {
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'financeDetail',
-          id: detailid
-        }),
-        api.meta.commonSeo({
-          scene: 'casesDetail',
-          id: casesDetailid
-        }),
-        api.meta.commonSeo({
           scene: 'show',
           id: 0
-        }),
-        api.meta.commonSeo({
-          scene: 'showDetail',
-          id: route.params.id
         }),
         api.meta.commonSeo({
           scene: 'ability',
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'abilityDetail',
-          id: route.params.id
-        }),
-        api.meta.commonSeo({
           scene: 'helpme',
           id: 0
         }),
         api.meta.commonSeo({
-          scene: 'helpmeDetail',
-          id: route.params.id
-        }),
-        api.meta.commonSeo({
           scene: 'active',
           id: 0
-        }),
-        api.meta.commonSeo({
-          scene: 'profile',
-          id: route.params.id
-        }),
-        api.meta.commonSeo({
-          scene: 'page',
-          id: route.query.id
         })
       ])
       if (info.length) {
@@ -198,41 +155,20 @@ const metaInfo = {
         commit('setIdent', ident.seo)
         const message = info[4].data.data
         commit('setMessage', message.seo)
-        const messageDetail = info[5].data.data
-        commit('setMessageDetail', messageDetail.seo)
-        console.log(messageDetail)
-        const topline = info[6].data.data
+        const topline = info[5].data.data
         commit('setTopline', topline.seo)
-        const toplineDetail = info[7].data.data
-        commit('setToplineDetailMeta', toplineDetail.seo)
-        const cloud = info[8].data.data
+        const cloud = info[6].data.data
         commit('setcloudMeta', cloud.seo)
-        const libra = info[9].data.data
+        const libra = info[7].data.data
         commit('setlibraMeta', libra.seo)
-        const financeDetail = info[10].data.data
-        commit('setfinanceDetailMeta', financeDetail.seo)
-        const casesDetail = info[11].data.data
-        // console.log(casesDetail.seo)
-        commit('setcasesDetailMeta', casesDetail.seo)
-        const show = info[12].data.data
+        const show = info[8].data.data
         commit('setshowMeta', show.seo)
-        const showDetail = info[13].data.data
-        commit('setshowDetailMeta', showDetail.seo)
-        const ability = info[14].data.data
+        const ability = info[9].data.data
         commit('setabilityMeta', ability.seo)
-        const abilityDetail = info[15].data.data
-        commit('setabilityDetailMeta', abilityDetail.seo)
-        const helpme = info[16].data.data
+        const helpme = info[10].data.data
         commit('sethelpmeMeta', helpme.seo)
-        const helpmeDetail = info[17].data.data
-        commit('sethelpmeDetailMeta', helpmeDetail.seo)
-        const active = info[18].data.data
+        const active = info[11].data.data
         commit('setactiveMeta', active.seo)
-        const profile = info[19].data.data
-        commit('setprofileMeta', profile.seo)
-        app.router.go(-1)
-        const page = info[20].data.data
-        commit('setpageMeta', page.seo)
       } else {
         const data = '请稍后再试'
         commit('catchError', data)

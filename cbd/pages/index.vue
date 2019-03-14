@@ -216,7 +216,6 @@ export default {
     display: flex;
     .showMeRight {
       width: 248px;
-      height: 500px;
       .preferential {
         margin-top: 12px;
         width: 248px;

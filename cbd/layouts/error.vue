@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .container {
-  height: 442px;
+  height: 542px;
   margin: 0 auto;
   text-align: center;
 }
