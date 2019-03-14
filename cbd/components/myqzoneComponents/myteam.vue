@@ -84,6 +84,7 @@ export default {
     li {
       margin-right: 22px;
       margin-bottom: 10px;
+      cursor: pointer;
       &:nth-child(3n) {
         margin-right: 0px;
       }

@@ -2,7 +2,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(item,index) in helplist" :key="index" :style="{ width: wid + 'px' }" :to="{name: 'discont-help-id',params: {id: item.id}}">
+      <nuxt-link v-for="(item,index) in helplist" :key="index" tag="li" :style="{ width: wid + 'px' }" :to="{name: 'discont-help-id',params: {id: item.id}}">
         <div :style="{ height: hei + 'px' }">
           <img :src="item.image" alt="">
         </div>
@@ -12,7 +12,7 @@
         <span>
           {{ item.desc }}         
         </span>
-      </li>
+      </nuxt-link>
     </ul>
   </div>
 </template>
