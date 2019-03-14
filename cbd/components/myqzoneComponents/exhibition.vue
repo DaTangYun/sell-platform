@@ -5,19 +5,19 @@
       <helpbox>
         <div class="topLine-ul-top">
           <ul>
-            <li v-for="(item,index) in headlist" :key="index">
+            <nuxt-link v-for="(item,index) in headlist" :key="index" tag="li" :to="{name: 'cloud-cloudhead-id',params: {id: item.id}}">
               <div class="li-img">
                 <img :src="item.cover" alt="">
               </div>
               <p>
                 {{ item.title }}
               </p>
-            </li>
+            </nuxt-link>
           </ul>
         </div>
         <div class="topLine-ul-bottom">
           <ul>
-            <li v-for="(item,index) in newlist" :key="index">
+            <nuxt-link v-for="(item,index) in newlist" :key="index" tag="li" :to="{name: 'cloud-cloudhead-id',params: {id: item.id}}">
               <div>
                 {{ item.cate_name }}
               </div>
@@ -27,7 +27,7 @@
               <span>
                 {{ item.createtime }}
               </span>
-            </li>
+            </nuxt-link>
           </ul>
         </div>
       </helpbox>
@@ -50,22 +50,22 @@
       </mybox>
       <mybox :my="'团队'">
         <ul class="myteam">
-          <li v-for="(item,index) in dismyteam" :key="index">
+          <nuxt-link v-for="(item,index) in dismyteam" :key="index" tag="li" :to="{name: 'myqzone-id-team',params: {id: $route.params.id}}">
             <div class="img"></div>
             {{ item.team_name }}
-          </li>
+          </nuxt-link>
         </ul>
       </mybox>
       <mybox :my="'优惠活动'">
         <ul class="wisdom-ul">
-          <li v-for="(item,index) in activeyouhuilist.active" :key="index" class="wisdom-li">
+          <nuxt-link v-for="(item,index) in activeyouhuilist.active" :key="index" tag="li" :to="{name: 'discont-active',params: {id: item.id}}" class="wisdom-li">
             <div class="wisdom-tri">
               <img src="../../assets/images/right.png" alt="">
             </div>
             <p>
               {{ item.title }}
             </p>
-          </li>
+          </nuxt-link>
         </ul>        
       </mybox>
       <mybox :my="'评价'">
@@ -126,7 +126,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.dismyteam)
     this.$nextTick(() => {
       this.headlists()
       this.helpmelists()
