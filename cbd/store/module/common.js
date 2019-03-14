@@ -22,9 +22,38 @@ const common = {
     changeinfo: {},
     exitdata: {},
     useridenty: {},
-    userresetpwd: {}
+    userresetpwd: {},
+    test: {},
+    messageDetail: {},
+    headDetail: {},
+    abilityDetailtest: {},
+    helpmeDetailtest: {},
+    callmetest: {},
+    caseDetailtest: {},
+    financeDetailtest: {}
   },
   mutations: {
+    setfinanceDetailtest(state, data) {
+      state.financeDetailtest = data
+    },
+    setcaseDetailtest(state, data) {
+      state.caseDetailtest = data
+    },
+    setcallmetest(state, data) {
+      state.callmetest = data
+    },
+    sethelpmeDetailtest(state, data) {
+      state.helpmeDetailtest = data
+    },
+    setabilityDetailtest(state, data) {
+      state.abilityDetailtest = data
+    },
+    setheadDetail(state, data) {
+      state.headDetail = data
+    },
+    setMessageDetail(state, data) {
+      state.messageDetail = data
+    },
     setuserresetpwd(state, data) {
       state.userresetpwd = data
     },
@@ -84,6 +113,9 @@ const common = {
     },
     seruseridenty(state, data) {
       state.useridenty = data
+    },
+    settest(state, data) {
+      state.test = data
     }
   },
   actions: {
@@ -279,6 +311,70 @@ const common = {
         commit('setuserresetpwd', useriden)
         return useriden
       }
+    },
+    async test({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('settest', info.data.data)
+      return info.data.data
+    },
+    async messagetest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setMessageDetail', info.data.data)
+      return info.data.data
+    },
+    async headtest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setheadDetail', info.data.data)
+      return info.data.data
+    },
+    async abilitytest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setabilityDetailtest', info.data.data)
+      return info.data.data
+    },
+    async helpmetest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('sethelpmeDetailtest', info.data.data)
+      return info.data.data
+    },
+    async callmetest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setcallmetest', info.data.data)
+      return info.data.data
+    },
+    async casetest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setcaseDetailtest', info.data.data.seo)
+      return info.data.data
+    },
+    async fincetest({ commit }, params) {
+      // params = Object.assign({}, {params}, { cate_id: params.cate_id })
+      const info = await api.common.gettest({
+        ...params
+      })
+      commit('setfinanceDetailtest', info.data.data.seo)
+      return info.data.data
     }
   }
 }

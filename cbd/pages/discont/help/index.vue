@@ -123,6 +123,7 @@ export default {
         width: 284px;
         margin-right: 20px;
         box-sizing: border-box;
+        cursor: pointer;
         &:nth-child(3n) {
           margin-right: 0px;
         }

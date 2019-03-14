@@ -64,6 +64,9 @@ const common = {
   // 重置密码
   getuserresetpwd(params) {
     return axios.post('/api/user/resetpwd', qs.stringify(params))
+  },
+  gettest(params) {
+    return axios.post('/api/config/seo', qs.stringify(params))
   }
 }
 export default common

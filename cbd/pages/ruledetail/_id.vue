@@ -34,33 +34,46 @@ export default {
       list: []
     }
   },
+  async asyncData(context) {
+    if (context.query.flag === '财经法规') {
+      await context.store.dispatch('fincetest', {
+        scene: 'financeDetail',
+        id: context.params.id
+      })
+    } else {
+      await context.store.dispatch('casetest', {
+        scene: 'casesDetail',
+        id: context.params.id
+      })
+    }
+  },
   head() {
     return {
       title:
         this.$route.query.flag === '财经法规'
-          ? this.financeDetailMeta.seo_title
-          : this.casesDetailMeta.seo_title,
+          ? this.financeDetailtest.seo_title
+          : this.caseDetailtest.seo_title,
       meta: [
         {
           hid: 'description',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetailMeta.seo_desc
-              : this.casesDetailMeta.seo_desc
+              ? this.financeDetailtest.seo_desc
+              : this.caseDetailtest.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetailMeta.seo_keyword
-              : this.casesDetailMeta.seo_keyword
+              ? this.financeDetailtest.seo_keyword
+              : this.caseDetailtest.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           content:
             this.$route.query.flag === '财经法规'
-              ? this.financeDetailMeta.seo_content
-              : this.casesDetailMeta.seo_content
+              ? this.financeDetailtest.seo_content
+              : this.caseDetailtest.seo_content
         }
       ]
     }
@@ -70,7 +83,9 @@ export default {
       'financedetail',
       'casedetail',
       'financeDetailMeta',
-      'casesDetailMeta'
+      'casesDetailMeta',
+      'financeDetailtest',
+      'caseDetailtest'
     ])
   },
   mounted() {

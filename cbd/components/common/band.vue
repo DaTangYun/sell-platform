@@ -58,7 +58,6 @@ export default {
         item.title = arr[index].title
         if (item.redirect) {
           item.newpath = this.pathCompile(item.redirect)
-          console.log(item.newpath)
         } else {
           item.newpath = this.pathCompile(item.path)
         }
@@ -74,7 +73,6 @@ export default {
         ].concat(matched)
       }
       this.levelList = matched
-      console.log(this.levelList)
     },
     fixredirect(item) {
       if (item.path === '/myself/:id?') {

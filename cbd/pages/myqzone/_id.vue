@@ -44,33 +44,41 @@ export default {
       srcs: require('assets/images/vip.png'),
       nosrc: require('assets/images/vipm.png'),
       showteam: true,
-      detailid: 0
+      detailid: 0,
+      flag: {}
     }
+  },
+  async asyncData(context) {
+    await context.store.dispatch('test', {
+      scene: 'profile',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
   },
   head() {
     return {
-      title: this.showDetailMeta.seo_title || '传帮带',
+      title: this.test.seo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.showDetailMeta.seo_desc
+          content: this.test.seo.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           name: 'keyword',
-          content: this.showDetailMeta.seo_keyword
+          content: this.test.seo.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           name: 'content',
-          content: this.showDetailMeta.seo_content
+          content: this.test.seo.seo_content
         }
       ]
     }
   },
   computed: {
-    ...mapGetters(['usershowmeinfo', 'showDetailMeta'])
+    ...mapGetters(['usershowmeinfo', 'showDetailMeta', 'test'])
   },
   mounted() {
     this.$nextTick(() => {

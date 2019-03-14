@@ -172,24 +172,31 @@ export default {
       secondplmsg: ''
     }
   },
+  async asyncData(context) {
+    await context.store.dispatch('abilitytest', {
+      scene: 'abilityDetail',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
+  },
   head() {
     return {
-      title: this.abilityDetailMeta.seo_title || '传帮带',
+      title: this.abilityDetailtest.seo.seo_title || '传帮带',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.abilityDetailMeta.seo_desc
+          content: this.abilityDetailtest.seo.seo_desc
         },
         {
           hid: 'descriptionkeyword',
           name: 'keyword',
-          content: this.abilityDetailMeta.seo_keyword
+          content: this.abilityDetailtest.seo.seo_keyword
         },
         {
           hid: 'descriptioncontent',
           name: 'content',
-          content: this.abilityDetailMeta.seo_content
+          content: this.abilityDetailtest.seo.seo_content
         }
       ]
     }
@@ -199,7 +206,8 @@ export default {
       'abilitydetail',
       'abilitylists',
       'abilitymessage',
-      'abilityDetailMeta'
+      'abilityDetailMeta',
+      'abilityDetailtest'
     ])
   },
   mounted() {
