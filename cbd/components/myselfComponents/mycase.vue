@@ -267,7 +267,7 @@ export default {
       this.content = info.row.content
     },
     async bcbjinfo() {
-      const { title, author, content, source, cover } = this
+      const { title, author, content, source, imageUrl } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -284,7 +284,7 @@ export default {
         id: this.sendid,
         title,
         author,
-        cover,
+        cover: imageUrl,
         content,
         province: this.province,
         province_code: this.provincecode,

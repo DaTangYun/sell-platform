@@ -22,12 +22,12 @@
         </el-form-item>
         <el-form-item label="用户昵称">
           <div class="nich">
-            <el-input v-model="formLabelAlign.name" :placeholder="user.nickname"></el-input>
+            <el-input v-model="formLabelAlign.name" :placeholder="'请输入用户名'"></el-input>
           </div>
         </el-form-item>
         <el-form-item label="个人签名">
           <div class="nich">
-            <el-input v-model="formLabelAlign.qianming" type="textarea" :rows="7" :placeholder="user.bio"></el-input>
+            <el-input v-model="formLabelAlign.qianming" type="textarea" :rows="7" :placeholder="'签名'"></el-input>
           </div>
         </el-form-item>
       </el-form>
@@ -51,7 +51,7 @@ export default {
       image: '',
       action: '',
       imageUrl: '',
-      user: []
+      user: {}
     }
   },
   computed: {
@@ -67,6 +67,8 @@ export default {
     async getuser() {
       const info = await this.$store.dispatch('userinfo')
       this.user = info.info
+      this.formLabelAlign.name = info.info.nickname
+      this.formLabelAlign.qianming = info.info.bio
       this.imageUrl = info.info.avatar
     },
     async changeuserinfo() {

@@ -135,7 +135,7 @@ const disactive = {
       } else {
         const activelist = info.data
         commit('seteditbjbc', activelist)
-        return activelist        
+        return activelist
       }
     },
     async addactive({ commit }, params) {
@@ -149,7 +149,7 @@ const disactive = {
       } else {
         const activelist = info.data
         commit('setaddactive', activelist)
-        return activelist        
+        return activelist
       }
     },
     async useractiveaddinfo({ commit }, params) {

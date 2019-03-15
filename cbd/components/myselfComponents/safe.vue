@@ -83,6 +83,13 @@ export default {
   },
   methods: {
     getAuthCode() {
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入手机号'
+        })
+        return
+      }
       const CODE = '获取验证码'
       const date = +new Date()
       const minute = 1 * 60 * 1000
@@ -134,19 +141,23 @@ export default {
         this.$message({
           type: 'warning',
           message: '请输入手机号'
-        })    
-        return    
+        })
+        return
       }
       const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.tel,
-        event: 'register'
+        event: 'changemobile'
       })
       if (info.code === 1) {
-        this.$message.success(info.msg)
+        this.$message.success({
+          message: info.msg,
+          duration: 1000
+        })
       } else {
         this.$message({
           type: 'warning',
-          message: info.msg
+          message: info.msg,
+          duration: 1000
         })
       }
     },

@@ -2,69 +2,69 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _568d559a = () => interopDefault(import('..\\pages\\authentication.vue' /* webpackChunkName: "pages_authentication" */))
-const _7ddf7f31 = () => interopDefault(import('..\\pages\\callme.vue' /* webpackChunkName: "pages_callme" */))
-const _5916e495 = () => interopDefault(import('..\\pages\\discont.vue' /* webpackChunkName: "pages_discont" */))
-const _8ca861ca = () => interopDefault(import('..\\pages\\discont\\active.vue' /* webpackChunkName: "pages_discont_active" */))
-const _9177eaa8 = () => interopDefault(import('..\\pages\\discont\\help\\index.vue' /* webpackChunkName: "pages_discont_help_index" */))
-const _3e63fd2d = () => interopDefault(import('..\\pages\\discont\\helpcando\\index.vue' /* webpackChunkName: "pages_discont_helpcando_index" */))
-const _a1266fd8 = () => interopDefault(import('..\\pages\\discont\\help\\_id.vue' /* webpackChunkName: "pages_discont_help__id" */))
-const _118d3256 = () => interopDefault(import('..\\pages\\discont\\helpcando\\_id.vue' /* webpackChunkName: "pages_discont_helpcando__id" */))
-const _aca01588 = () => interopDefault(import('..\\pages\\help.vue' /* webpackChunkName: "pages_help" */))
-const _07c7cfac = () => interopDefault(import('..\\pages\\help\\cloudwisdom.vue' /* webpackChunkName: "pages_help_cloudwisdom" */))
-const _07235b29 = () => interopDefault(import('..\\pages\\help\\fuwu.vue' /* webpackChunkName: "pages_help_fuwu" */))
-const _df51eb8e = () => interopDefault(import('..\\pages\\help\\show.vue' /* webpackChunkName: "pages_help_show" */))
-const _091063b9 = () => interopDefault(import('..\\pages\\help\\wisdombank.vue' /* webpackChunkName: "pages_help_wisdombank" */))
-const _49bf7404 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _13441e0b = () => interopDefault(import('..\\pages\\messageComp.vue' /* webpackChunkName: "pages_messageComp" */))
-const _a1fbabc4 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages_register" */))
-const _211dcb72 = () => interopDefault(import('..\\pages\\releaseDemand.vue' /* webpackChunkName: "pages_releaseDemand" */))
-const _8b89de38 = () => interopDefault(import('..\\pages\\reset.vue' /* webpackChunkName: "pages_reset" */))
-const _29962d60 = () => interopDefault(import('..\\pages\\submitheads.vue' /* webpackChunkName: "pages_submitheads" */))
-const _6886f364 = () => interopDefault(import('..\\pages\\submitMessage.vue' /* webpackChunkName: "pages_submitMessage" */))
-const _1df70c86 = () => interopDefault(import('..\\pages\\submitnbhg.vue' /* webpackChunkName: "pages_submitnbhg" */))
-const _bb9884e8 = () => interopDefault(import('..\\pages\\submitxq.vue' /* webpackChunkName: "pages_submitxq" */))
-const _bad33bda = () => interopDefault(import('..\\pages\\submitxx.vue' /* webpackChunkName: "pages_submitxx" */))
-const _470c8532 = () => interopDefault(import('..\\pages\\cloud\\cloudhead\\index.vue' /* webpackChunkName: "pages_cloud_cloudhead_index" */))
-const _245279d9 = () => interopDefault(import('..\\pages\\cloud\\cloudinfo\\index.vue' /* webpackChunkName: "pages_cloud_cloudinfo_index" */))
-const _2b5424e2 = () => interopDefault(import('..\\pages\\cloud\\cloudhead\\_id.vue' /* webpackChunkName: "pages_cloud_cloudhead__id" */))
-const _f491c2fe = () => interopDefault(import('..\\pages\\cloud\\cloudinfo\\_id.vue' /* webpackChunkName: "pages_cloud_cloudinfo__id" */))
-const _717d1264 = () => interopDefault(import('..\\pages\\myqzone\\_id.vue' /* webpackChunkName: "pages_myqzone__id" */))
-const _122a842c = () => interopDefault(import('..\\pages\\myqzone\\_id\\active.vue' /* webpackChunkName: "pages_myqzone__id_active" */))
-const _0eea0fd8 = () => interopDefault(import('..\\pages\\myqzone\\_id\\case.vue' /* webpackChunkName: "pages_myqzone__id_case" */))
-const _14d25c86 = () => interopDefault(import('..\\pages\\myqzone\\_id\\helpcando.vue' /* webpackChunkName: "pages_myqzone__id_helpcando" */))
-const _1d476406 = () => interopDefault(import('..\\pages\\myqzone\\_id\\helpme.vue' /* webpackChunkName: "pages_myqzone__id_helpme" */))
-const _5232b170 = () => interopDefault(import('..\\pages\\myqzone\\_id\\myhead.vue' /* webpackChunkName: "pages_myqzone__id_myhead" */))
-const _c1619d84 = () => interopDefault(import('..\\pages\\myqzone\\_id\\myinfo.vue' /* webpackChunkName: "pages_myqzone__id_myinfo" */))
-const _c2347dc8 = () => interopDefault(import('..\\pages\\myqzone\\_id\\pingjia.vue' /* webpackChunkName: "pages_myqzone__id_pingjia" */))
-const _d85d3e7e = () => interopDefault(import('..\\pages\\myqzone\\_id\\team.vue' /* webpackChunkName: "pages_myqzone__id_team" */))
-const _72f7c8a1 = () => interopDefault(import('..\\pages\\myqzone\\_id\\team\\index.vue' /* webpackChunkName: "pages_myqzone__id_team_index" */))
-const _279263c4 = () => interopDefault(import('..\\pages\\myqzone\\_id\\team\\_td.vue' /* webpackChunkName: "pages_myqzone__id_team__td" */))
-const _5756bce2 = () => interopDefault(import('..\\pages\\myqzone\\_id\\zonghe.vue' /* webpackChunkName: "pages_myqzone__id_zonghe" */))
-const _57205a97 = () => interopDefault(import('..\\pages\\myself\\_id.vue' /* webpackChunkName: "pages_myself__id" */))
-const _4b93f31a = () => interopDefault(import('..\\pages\\myself\\_id\\helpcando.vue' /* webpackChunkName: "pages_myself__id_helpcando" */))
-const _637ce609 = () => interopDefault(import('..\\pages\\myself\\_id\\myactive.vue' /* webpackChunkName: "pages_myself__id_myactive" */))
-const _637c5773 = () => interopDefault(import('..\\pages\\myself\\_id\\myactive\\canyu.vue' /* webpackChunkName: "pages_myself__id_myactive_canyu" */))
-const _30591c67 = () => interopDefault(import('..\\pages\\myself\\_id\\myactive\\zuzhi.vue' /* webpackChunkName: "pages_myself__id_myactive_zuzhi" */))
-const _18959552 = () => interopDefault(import('..\\pages\\myself\\_id\\myjy.vue' /* webpackChunkName: "pages_myself__id_myjy" */))
-const _7782c203 = () => interopDefault(import('..\\pages\\myself\\_id\\myjy\\fwwendang.vue' /* webpackChunkName: "pages_myself__id_myjy_fwwendang" */))
-const _0e8f56db = () => interopDefault(import('..\\pages\\myself\\_id\\myjy\\xqwendang.vue' /* webpackChunkName: "pages_myself__id_myjy_xqwendang" */))
-const _21ff487d = () => interopDefault(import('..\\pages\\myself\\_id\\mypj.vue' /* webpackChunkName: "pages_myself__id_mypj" */))
-const _28c7761c = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish.vue' /* webpackChunkName: "pages_myself__id_mypublish" */))
-const _c28c9c68 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\case.vue' /* webpackChunkName: "pages_myself__id_mypublish_case" */))
-const _2799dd28 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\myhead.vue' /* webpackChunkName: "pages_myself__id_mypublish_myhead" */))
-const _74b65cf6 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\myinfo.vue' /* webpackChunkName: "pages_myself__id_mypublish_myinfo" */))
-const _a6bf512c = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\wendang.vue' /* webpackChunkName: "pages_myself__id_mypublish_wendang" */))
-const _207fe054 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\xuqiu.vue' /* webpackChunkName: "pages_myself__id_mypublish_xuqiu" */))
-const _ef36483c = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\index.vue' /* webpackChunkName: "pages_myself__id_myteam_index" */))
-const _eb4c4838 = () => interopDefault(import('..\\pages\\myself\\_id\\safe.vue' /* webpackChunkName: "pages_myself__id_safe" */))
-const _29b6bb28 = () => interopDefault(import('..\\pages\\myself\\_id\\zhsz.vue' /* webpackChunkName: "pages_myself__id_zhsz" */))
-const _0b9d13c0 = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid" */))
-const _3fea956a = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\jianjie.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_jianjie" */))
-const _1b08c73a = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\member.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_member" */))
-const _286e58af = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\shenqing.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_shenqing" */))
-const _341f4862 = () => interopDefault(import('..\\pages\\ruledetail\\_id.vue' /* webpackChunkName: "pages_ruledetail__id" */))
-const _1178a2e7 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _2e244bf5 = () => interopDefault(import('..\\pages\\authentication.vue' /* webpackChunkName: "pages_authentication" */))
+const _03c657f3 = () => interopDefault(import('..\\pages\\callme.vue' /* webpackChunkName: "pages_callme" */))
+const _dfe9b7da = () => interopDefault(import('..\\pages\\discont.vue' /* webpackChunkName: "pages_discont" */))
+const _e4c09ece = () => interopDefault(import('..\\pages\\discont\\active.vue' /* webpackChunkName: "pages_discont_active" */))
+const _2c9767ee = () => interopDefault(import('..\\pages\\discont\\help\\index.vue' /* webpackChunkName: "pages_discont_help_index" */))
+const _4842992b = () => interopDefault(import('..\\pages\\discont\\helpcando\\index.vue' /* webpackChunkName: "pages_discont_helpcando_index" */))
+const _4dcae454 = () => interopDefault(import('..\\pages\\discont\\help\\_id.vue' /* webpackChunkName: "pages_discont_help__id" */))
+const _476aea53 = () => interopDefault(import('..\\pages\\discont\\helpcando\\_id.vue' /* webpackChunkName: "pages_discont_helpcando__id" */))
+const _fccbd304 = () => interopDefault(import('..\\pages\\help.vue' /* webpackChunkName: "pages_help" */))
+const _bac4dbb0 = () => interopDefault(import('..\\pages\\help\\cloudwisdom.vue' /* webpackChunkName: "pages_help_cloudwisdom" */))
+const _188c02eb = () => interopDefault(import('..\\pages\\help\\fuwu.vue' /* webpackChunkName: "pages_help_fuwu" */))
+const _bc809c0a = () => interopDefault(import('..\\pages\\help\\show.vue' /* webpackChunkName: "pages_help_show" */))
+const _98ce9c0a = () => interopDefault(import('..\\pages\\help\\wisdombank.vue' /* webpackChunkName: "pages_help_wisdombank" */))
+const _007a4cfc = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
+const _2ef06e89 = () => interopDefault(import('..\\pages\\messageComp.vue' /* webpackChunkName: "pages_messageComp" */))
+const _5695da60 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages_register" */))
+const _5d697976 = () => interopDefault(import('..\\pages\\releaseDemand.vue' /* webpackChunkName: "pages_releaseDemand" */))
+const _40d5d03c = () => interopDefault(import('..\\pages\\reset.vue' /* webpackChunkName: "pages_reset" */))
+const _06e139ce = () => interopDefault(import('..\\pages\\submitheads.vue' /* webpackChunkName: "pages_submitheads" */))
+const _4a611c62 = () => interopDefault(import('..\\pages\\submitMessage.vue' /* webpackChunkName: "pages_submitMessage" */))
+const _2f5fb448 = () => interopDefault(import('..\\pages\\submitnbhg.vue' /* webpackChunkName: "pages_submitnbhg" */))
+const _49c76dce = () => interopDefault(import('..\\pages\\submitxq.vue' /* webpackChunkName: "pages_submitxq" */))
+const _4a2a1255 = () => interopDefault(import('..\\pages\\submitxx.vue' /* webpackChunkName: "pages_submitxx" */))
+const _2cab40e5 = () => interopDefault(import('..\\pages\\cloud\\cloudhead\\index.vue' /* webpackChunkName: "pages_cloud_cloudhead_index" */))
+const _7483fd57 = () => interopDefault(import('..\\pages\\cloud\\cloudinfo\\index.vue' /* webpackChunkName: "pages_cloud_cloudinfo_index" */))
+const _1f6e388d = () => interopDefault(import('..\\pages\\cloud\\cloudhead\\_id.vue' /* webpackChunkName: "pages_cloud_cloudhead__id" */))
+const _8a612d02 = () => interopDefault(import('..\\pages\\cloud\\cloudinfo\\_id.vue' /* webpackChunkName: "pages_cloud_cloudinfo__id" */))
+const _694a5cb4 = () => interopDefault(import('..\\pages\\myqzone\\_id.vue' /* webpackChunkName: "pages_myqzone__id" */))
+const _6c3e1b2c = () => interopDefault(import('..\\pages\\myqzone\\_id\\active.vue' /* webpackChunkName: "pages_myqzone__id_active" */))
+const _2238bdd6 = () => interopDefault(import('..\\pages\\myqzone\\_id\\case.vue' /* webpackChunkName: "pages_myqzone__id_case" */))
+const _6503e004 = () => interopDefault(import('..\\pages\\myqzone\\_id\\helpcando.vue' /* webpackChunkName: "pages_myqzone__id_helpcando" */))
+const _66afab3f = () => interopDefault(import('..\\pages\\myqzone\\_id\\helpme.vue' /* webpackChunkName: "pages_myqzone__id_helpme" */))
+const _70f3e29c = () => interopDefault(import('..\\pages\\myqzone\\_id\\myhead.vue' /* webpackChunkName: "pages_myqzone__id_myhead" */))
+const _14a28e80 = () => interopDefault(import('..\\pages\\myqzone\\_id\\myinfo.vue' /* webpackChunkName: "pages_myqzone__id_myinfo" */))
+const _5803e7cc = () => interopDefault(import('..\\pages\\myqzone\\_id\\pingjia.vue' /* webpackChunkName: "pages_myqzone__id_pingjia" */))
+const _8501b2fa = () => interopDefault(import('..\\pages\\myqzone\\_id\\team.vue' /* webpackChunkName: "pages_myqzone__id_team" */))
+const _7cd6649f = () => interopDefault(import('..\\pages\\myqzone\\_id\\team\\index.vue' /* webpackChunkName: "pages_myqzone__id_team_index" */))
+const _3c68519c = () => interopDefault(import('..\\pages\\myqzone\\_id\\team\\_td.vue' /* webpackChunkName: "pages_myqzone__id_team__td" */))
+const _49a7fed1 = () => interopDefault(import('..\\pages\\myqzone\\_id\\zonghe.vue' /* webpackChunkName: "pages_myqzone__id_zonghe" */))
+const _72ccab15 = () => interopDefault(import('..\\pages\\myself\\_id.vue' /* webpackChunkName: "pages_myself__id" */))
+const _48271b35 = () => interopDefault(import('..\\pages\\myself\\_id\\helpcando.vue' /* webpackChunkName: "pages_myself__id_helpcando" */))
+const _ced59df2 = () => interopDefault(import('..\\pages\\myself\\_id\\myactive.vue' /* webpackChunkName: "pages_myself__id_myactive" */))
+const _28715a96 = () => interopDefault(import('..\\pages\\myself\\_id\\myactive\\canyu.vue' /* webpackChunkName: "pages_myself__id_myactive_canyu" */))
+const _8eb7d0ae = () => interopDefault(import('..\\pages\\myself\\_id\\myactive\\zuzhi.vue' /* webpackChunkName: "pages_myself__id_myactive_zuzhi" */))
+const _81d1e160 = () => interopDefault(import('..\\pages\\myself\\_id\\myjy.vue' /* webpackChunkName: "pages_myself__id_myjy" */))
+const _00648576 = () => interopDefault(import('..\\pages\\myself\\_id\\myjy\\fwwendang.vue' /* webpackChunkName: "pages_myself__id_myjy_fwwendang" */))
+const _d24b5bc6 = () => interopDefault(import('..\\pages\\myself\\_id\\myjy\\xqwendang.vue' /* webpackChunkName: "pages_myself__id_myjy_xqwendang" */))
+const _6efe7b0a = () => interopDefault(import('..\\pages\\myself\\_id\\mypj.vue' /* webpackChunkName: "pages_myself__id_mypj" */))
+const _d28eea44 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish.vue' /* webpackChunkName: "pages_myself__id_mypublish" */))
+const _2704ad0e = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\case.vue' /* webpackChunkName: "pages_myself__id_mypublish_case" */))
+const _6dd9e02c = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\myhead.vue' /* webpackChunkName: "pages_myself__id_mypublish_myhead" */))
+const _162f8fb8 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\myinfo.vue' /* webpackChunkName: "pages_myself__id_mypublish_myinfo" */))
+const _3a4d7ce8 = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\wendang.vue' /* webpackChunkName: "pages_myself__id_mypublish_wendang" */))
+const _bcd7655c = () => interopDefault(import('..\\pages\\myself\\_id\\mypublish\\xuqiu.vue' /* webpackChunkName: "pages_myself__id_mypublish_xuqiu" */))
+const _8b4c80b8 = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\index.vue' /* webpackChunkName: "pages_myself__id_myteam_index" */))
+const _30db55e2 = () => interopDefault(import('..\\pages\\myself\\_id\\safe.vue' /* webpackChunkName: "pages_myself__id_safe" */))
+const _dcb3c72c = () => interopDefault(import('..\\pages\\myself\\_id\\zhsz.vue' /* webpackChunkName: "pages_myself__id_zhsz" */))
+const _22290062 = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid" */))
+const _a0851530 = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\jianjie.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_jianjie" */))
+const _797aef7c = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\member.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_member" */))
+const _9a110f1e = () => interopDefault(import('..\\pages\\myself\\_id\\myteam\\mt\\_teamid\\shenqing.vue' /* webpackChunkName: "pages_myself__id_myteam_mt__teamid_shenqing" */))
+const _081329e0 = () => interopDefault(import('..\\pages\\ruledetail\\_id.vue' /* webpackChunkName: "pages_ruledetail__id" */))
+const _36d2a9e5 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -125,263 +125,263 @@ export function createRouter() {
 
     routes: [{
       path: "/authentication",
-      component: _568d559a,
+      component: _2e244bf5,
       name: "authentication"
     }, {
       path: "/callme",
-      component: _7ddf7f31,
+      component: _03c657f3,
       name: "callme"
     }, {
       path: "/discont",
-      component: _5916e495,
+      component: _dfe9b7da,
       name: "discont",
       children: [{
         path: "active",
-        component: _8ca861ca,
+        component: _e4c09ece,
         name: "discont-active"
       }, {
         path: "help",
-        component: _9177eaa8,
+        component: _2c9767ee,
         name: "discont-help"
       }, {
         path: "helpcando",
-        component: _3e63fd2d,
+        component: _4842992b,
         name: "discont-helpcando"
       }, {
         path: "help/:id?",
-        component: _a1266fd8,
+        component: _4dcae454,
         name: "discont-help-id"
       }, {
         path: "helpcando/:id?",
-        component: _118d3256,
+        component: _476aea53,
         name: "discont-helpcando-id"
       }]
     }, {
       path: "/help",
-      component: _aca01588,
+      component: _fccbd304,
       name: "help",
       children: [{
         path: "cloudwisdom",
-        component: _07c7cfac,
+        component: _bac4dbb0,
         name: "help-cloudwisdom"
       }, {
         path: "fuwu",
-        component: _07235b29,
+        component: _188c02eb,
         name: "help-fuwu"
       }, {
         path: "show",
-        component: _df51eb8e,
+        component: _bc809c0a,
         name: "help-show"
       }, {
         path: "wisdombank",
-        component: _091063b9,
+        component: _98ce9c0a,
         name: "help-wisdombank"
       }]
     }, {
       path: "/login",
-      component: _49bf7404,
+      component: _007a4cfc,
       name: "login"
     }, {
       path: "/messageComp",
-      component: _13441e0b,
+      component: _2ef06e89,
       name: "messageComp"
     }, {
       path: "/register",
-      component: _a1fbabc4,
+      component: _5695da60,
       name: "register"
     }, {
       path: "/releaseDemand",
-      component: _211dcb72,
+      component: _5d697976,
       name: "releaseDemand"
     }, {
       path: "/reset",
-      component: _8b89de38,
+      component: _40d5d03c,
       name: "reset"
     }, {
       path: "/submitheads",
-      component: _29962d60,
+      component: _06e139ce,
       name: "submitheads"
     }, {
       path: "/submitMessage",
-      component: _6886f364,
+      component: _4a611c62,
       name: "submitMessage"
     }, {
       path: "/submitnbhg",
-      component: _1df70c86,
+      component: _2f5fb448,
       name: "submitnbhg"
     }, {
       path: "/submitxq",
-      component: _bb9884e8,
+      component: _49c76dce,
       name: "submitxq"
     }, {
       path: "/submitxx",
-      component: _bad33bda,
+      component: _4a2a1255,
       name: "submitxx"
     }, {
       path: "/cloud/cloudhead",
-      component: _470c8532,
+      component: _2cab40e5,
       name: "cloud-cloudhead"
     }, {
       path: "/cloud/cloudinfo",
-      component: _245279d9,
+      component: _7483fd57,
       name: "cloud-cloudinfo"
     }, {
       path: "/cloud/cloudhead/:id",
-      component: _2b5424e2,
+      component: _1f6e388d,
       name: "cloud-cloudhead-id"
     }, {
       path: "/cloud/cloudinfo/:id",
-      component: _f491c2fe,
+      component: _8a612d02,
       name: "cloud-cloudinfo-id"
     }, {
       path: "/myqzone/:id?",
-      component: _717d1264,
+      component: _694a5cb4,
       name: "myqzone-id",
       children: [{
         path: "active",
-        component: _122a842c,
+        component: _6c3e1b2c,
         name: "myqzone-id-active"
       }, {
         path: "case",
-        component: _0eea0fd8,
+        component: _2238bdd6,
         name: "myqzone-id-case"
       }, {
         path: "helpcando",
-        component: _14d25c86,
+        component: _6503e004,
         name: "myqzone-id-helpcando"
       }, {
         path: "helpme",
-        component: _1d476406,
+        component: _66afab3f,
         name: "myqzone-id-helpme"
       }, {
         path: "myhead",
-        component: _5232b170,
+        component: _70f3e29c,
         name: "myqzone-id-myhead"
       }, {
         path: "myinfo",
-        component: _c1619d84,
+        component: _14a28e80,
         name: "myqzone-id-myinfo"
       }, {
         path: "pingjia",
-        component: _c2347dc8,
+        component: _5803e7cc,
         name: "myqzone-id-pingjia"
       }, {
         path: "team",
-        component: _d85d3e7e,
+        component: _8501b2fa,
         children: [{
           path: "",
-          component: _72f7c8a1,
+          component: _7cd6649f,
           name: "myqzone-id-team"
         }, {
           path: ":td",
-          component: _279263c4,
+          component: _3c68519c,
           name: "myqzone-id-team-td"
         }]
       }, {
         path: "zonghe",
-        component: _5756bce2,
+        component: _49a7fed1,
         name: "myqzone-id-zonghe"
       }]
     }, {
       path: "/myself/:id?",
-      component: _57205a97,
+      component: _72ccab15,
       name: "myself-id",
       children: [{
         path: "helpcando",
-        component: _4b93f31a,
+        component: _48271b35,
         name: "myself-id-helpcando"
       }, {
         path: "myactive",
-        component: _637ce609,
+        component: _ced59df2,
         name: "myself-id-myactive",
         children: [{
           path: "canyu",
-          component: _637c5773,
+          component: _28715a96,
           name: "myself-id-myactive-canyu"
         }, {
           path: "zuzhi",
-          component: _30591c67,
+          component: _8eb7d0ae,
           name: "myself-id-myactive-zuzhi"
         }]
       }, {
         path: "myjy",
-        component: _18959552,
+        component: _81d1e160,
         name: "myself-id-myjy",
         children: [{
           path: "fwwendang",
-          component: _7782c203,
+          component: _00648576,
           name: "myself-id-myjy-fwwendang"
         }, {
           path: "xqwendang",
-          component: _0e8f56db,
+          component: _d24b5bc6,
           name: "myself-id-myjy-xqwendang"
         }]
       }, {
         path: "mypj",
-        component: _21ff487d,
+        component: _6efe7b0a,
         name: "myself-id-mypj"
       }, {
         path: "mypublish",
-        component: _28c7761c,
+        component: _d28eea44,
         name: "myself-id-mypublish",
         children: [{
           path: "case",
-          component: _c28c9c68,
+          component: _2704ad0e,
           name: "myself-id-mypublish-case"
         }, {
           path: "myhead",
-          component: _2799dd28,
+          component: _6dd9e02c,
           name: "myself-id-mypublish-myhead"
         }, {
           path: "myinfo",
-          component: _74b65cf6,
+          component: _162f8fb8,
           name: "myself-id-mypublish-myinfo"
         }, {
           path: "wendang",
-          component: _a6bf512c,
+          component: _3a4d7ce8,
           name: "myself-id-mypublish-wendang"
         }, {
           path: "xuqiu",
-          component: _207fe054,
+          component: _bcd7655c,
           name: "myself-id-mypublish-xuqiu"
         }]
       }, {
         path: "myteam",
-        component: _ef36483c,
+        component: _8b4c80b8,
         name: "myself-id-myteam"
       }, {
         path: "safe",
-        component: _eb4c4838,
+        component: _30db55e2,
         name: "myself-id-safe"
       }, {
         path: "zhsz",
-        component: _29b6bb28,
+        component: _dcb3c72c,
         name: "myself-id-zhsz"
       }, {
         path: "myteam/mt/:teamid?",
-        component: _0b9d13c0,
+        component: _22290062,
         name: "myself-id-myteam-mt-teamid",
         children: [{
           path: "jianjie",
-          component: _3fea956a,
+          component: _a0851530,
           name: "myself-id-myteam-mt-teamid-jianjie"
         }, {
           path: "member",
-          component: _1b08c73a,
+          component: _797aef7c,
           name: "myself-id-myteam-mt-teamid-member"
         }, {
           path: "shenqing",
-          component: _286e58af,
+          component: _9a110f1e,
           name: "myself-id-myteam-mt-teamid-shenqing"
         }]
       }]
     }, {
       path: "/ruledetail/:id?",
-      component: _341f4862,
+      component: _081329e0,
       name: "ruledetail-id"
     }, {
       path: "/",
-      component: _1178a2e7,
+      component: _36d2a9e5,
       name: "index"
     }],
 
