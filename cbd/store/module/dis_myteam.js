@@ -132,6 +132,8 @@ const dismyteam = {
         const bjteam = info.data
         commit('setbjteam', bjteam)
         return bjteam
+      } else {
+        return info.data
       }
     },
     async addteam({ commit }, params) {
