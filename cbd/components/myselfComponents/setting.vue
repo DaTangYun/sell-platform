@@ -70,11 +70,19 @@ export default {
       this.imageUrl = info.info.avatar
     },
     async changeuserinfo() {
-      await this.$store.dispatch('changeuserinfo', {
+      const info = await this.$store.dispatch('changeuserinfo', {
         avatar: this.image,
         nickname: this.formLabelAlign.name,
         bio: this.formLabelAlign.qianming
       })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)

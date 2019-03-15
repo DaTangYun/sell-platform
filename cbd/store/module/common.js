@@ -275,6 +275,10 @@ const common = {
         const changeinfo = info.data
         commit('setchangeinfo', changeinfo)
         return changeinfo
+      } else {
+        const changeinfo = info.data
+        commit('setchangeinfo', changeinfo)
+        return changeinfo        
       }
     },
     async exituser({ commit }, params) {

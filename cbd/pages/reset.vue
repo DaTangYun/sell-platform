@@ -83,9 +83,14 @@ export default {
         password: this.formLabelAlign.newpassword,
         captcha: this.formLabelAlign.captcha
       })
-      if (info) {
-        this.$message.success('设置成功')
+      if (info.code === 1) {
+        this.$message.success(info.msg)
         this.$router.push('/login')
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       }
     },
     getAuthCode() {
