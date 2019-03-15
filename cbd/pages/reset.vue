@@ -94,15 +94,24 @@ export default {
       }
     },
     getAuthCode() {
+      const phoneflag = Validate.validatePhone(this.formLabelAlign.mobile)
+      if (!phoneflag) {
+        this.$message({
+          message: '请填写正确的手机号',
+          type: 'warning',
+          duration: 2000
+        })
+        return
+      }
       const CODE = '获取验证码'
       const date = +new Date()
       const minute = 1 * 60 * 1000
-      const codeDate = localStorage.getItem('CODE_DATE')
+      const codeDate = localStorage.getItem('CODE_RESETDATA')
       // const seconds = (date - codeDate) / 1000
       const residue = Math.round(60 - (date - codeDate) / 1000)
       if (codeDate != null) {
         if (date - codeDate > minute) {
-          localStorage.setItem('CODE_DATE', date)
+          localStorage.setItem('CODE_RESETDATA', date)
           if (this.codeTime === CODE) {
             this.codeTime = 60
             this.countDown()
@@ -115,7 +124,7 @@ export default {
           })
         }
       } else {
-        localStorage.setItem('CODE_DATE', date)
+        localStorage.setItem('CODE_RESETDATA', date)
         if (this.codeTime === CODE) {
           this.codeTime = 60
           this.countDown()
@@ -141,14 +150,23 @@ export default {
       }
     },
     async getsms() {
+      if (this.formLabelAlign.mobile === '') {
+        this.$message.error('请输入手机号')
+        return
+      }
       const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.mobile,
         event: 'resetpwd'
       })
-      this.$message({
-        type: 'warning',
-        message: info
-      })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        this.$router.push('/login')
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     }
   }
 }
