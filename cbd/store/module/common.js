@@ -235,6 +235,10 @@ const common = {
         const changemobile = info.data
         commit('setchangemobile', changemobile)
         return changemobile
+      } else {
+        const changepass = info.data
+        commit('setchangemobile', changepass)
+        return changepass      
       }
     },
     async userchangepass({ commit }, params) {
@@ -245,6 +249,10 @@ const common = {
         const changepass = info.data
         commit('setchangepass', changepass)
         return changepass
+      } else {
+        const changepass = info.data
+        commit('setchangepass', changepass)
+        return changepass      
       }
     },
     async userinfo({ commit }, params) {
