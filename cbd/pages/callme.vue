@@ -57,6 +57,13 @@ export default {
       })
     }
   },
+  async asyncData({ route, store }) {
+    const { id } = route.query
+    await store.dispatch('callmetest', {
+      scene: 'page',
+      id
+    })
+  },
   mounted() {
     this.$nextTick(() => {
       const { id } = this.$route.query
