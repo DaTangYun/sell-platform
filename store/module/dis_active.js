@@ -132,6 +132,10 @@ const disactive = {
         const activelist = info.data
         commit('seteditbjbc', activelist)
         return activelist
+      } else {
+        const activelist = info.data
+        commit('seteditbjbc', activelist)
+        return activelist
       }
     },
     async addactive({ commit }, params) {
@@ -139,6 +143,10 @@ const disactive = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const activelist = info.data
+        commit('setaddactive', activelist)
+        return activelist
+      } else {
         const activelist = info.data
         commit('setaddactive', activelist)
         return activelist

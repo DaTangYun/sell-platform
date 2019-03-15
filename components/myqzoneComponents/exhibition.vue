@@ -235,6 +235,9 @@ export default {
     line-height: 21px;
     color: #57606f;
     font-family: SourceHanSansCN-Normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     cursor: pointer;
     &:hover {
       color: #00a0e9;

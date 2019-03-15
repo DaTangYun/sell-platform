@@ -42,6 +42,9 @@ export default {
       font-size: 24px;
       padding-left: 20px;
       margin-bottom: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 }

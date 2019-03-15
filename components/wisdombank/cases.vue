@@ -61,7 +61,6 @@ export default {
       this.caselists()
     },
     handledetail(item, index) {
-      console.log(item.id)
       const id = item.id
       this.$router.push({
         path: `/ruledetail/${id}`,
@@ -72,6 +71,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 ul {
   display: flex;
   flex-wrap: wrap;
@@ -97,6 +98,7 @@ ul {
     .case-title {
       color: #282d38;
       line-height: 25px;
+      .ellipsis();
     }
   }
 }

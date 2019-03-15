@@ -197,11 +197,11 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK) {
-        const sms = info.data.msg
+        const sms = info.data
         commit('setsms', sms)
         return sms
       } else {
-        const sms = info.data.msg
+        const sms = info.data
         commit('setsms', sms)
         return sms
       }
@@ -235,6 +235,10 @@ const common = {
         const changemobile = info.data
         commit('setchangemobile', changemobile)
         return changemobile
+      } else {
+        const changepass = info.data
+        commit('setchangemobile', changepass)
+        return changepass
       }
     },
     async userchangepass({ commit }, params) {
@@ -242,6 +246,10 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const changepass = info.data
+        commit('setchangepass', changepass)
+        return changepass
+      } else {
         const changepass = info.data
         commit('setchangepass', changepass)
         return changepass
@@ -264,6 +272,10 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data) {
+        const changeinfo = info.data
+        commit('setchangeinfo', changeinfo)
+        return changeinfo
+      } else {
         const changeinfo = info.data
         commit('setchangeinfo', changeinfo)
         return changeinfo

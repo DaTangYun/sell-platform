@@ -172,15 +172,6 @@ export default {
       secondplmsg: ''
     }
   },
-  computed: {
-    ...mapGetters([
-      'abilitydetail',
-      'abilitylists',
-      'abilitymessage',
-      'abilityDetailMeta',
-      'abilityDetailtest'
-    ])
-  },
   async asyncData(context) {
     await context.store.dispatch('abilitytest', {
       scene: 'abilityDetail',
@@ -209,6 +200,15 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'abilitydetail',
+      'abilitylists',
+      'abilitymessage',
+      'abilityDetailMeta',
+      'abilityDetailtest'
+    ])
   },
   mounted() {
     this.$nextTick(() => {

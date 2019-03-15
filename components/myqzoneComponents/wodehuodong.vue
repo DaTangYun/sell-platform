@@ -55,7 +55,6 @@ export default {
         title: '',
         user_id: this.$route.params.id
       })
-      console.log(info)
       this.disactive = info.active
       this.total = info.total
     },
@@ -69,13 +68,14 @@ export default {
         page,
         limit
       })
-      console.log(info)
       this.total = info.total
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .wode {
   background-color: #fff;
   box-sizing: border-box;
@@ -86,6 +86,7 @@ export default {
   h4 {
     font-size: 20px;
     padding-left: 20px;
+    .ellipsis();
   }
 }
 </style>

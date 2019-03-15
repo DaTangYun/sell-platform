@@ -70,6 +70,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 h4 {
   border-bottom: 1px solid #e1e2e6;
   padding-bottom: 20px;
@@ -97,6 +99,7 @@ h4 {
       p {
         color: #57606f;
         font-size: 14px;
+        .ellipsis();
       }
     }
   }

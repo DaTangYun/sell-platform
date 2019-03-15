@@ -13,12 +13,12 @@
             <div class="tel2">
               <el-input v-model="formLabelAlign.yan"></el-input>
             </div>
-            <span v-show="sendAuthCode" class="obtain" @click="getAuthCode">
-              获取验证码
+            <span class="obtain" @click="getAuthCode">
+              {{ codeTime }}
             </span>
-            <span v-show="!sendAuthCode" class="obtain">
-              {{ time }}秒后发送验证码
-            </span>
+            <span v-show="codeTime > 0" class="obtain2">
+              秒后获取验证码
+            </span> 
           </el-form-item>
         </el-form>
         <div class="button" @click="submitmobile">
@@ -70,7 +70,12 @@ export default {
         password: '',
         captcha: '',
         repassword: ''
-      }
+      },
+      vtime: '获取验证码',
+      timetimer: null,
+      codeTime: '获取验证码',
+      timer: null,
+      code: ''
     }
   },
   computed: {
@@ -78,38 +83,147 @@ export default {
   },
   methods: {
     getAuthCode() {
-      this.getsms()
-      this.sendAuthCode = false
-      this.time = 60
-      const timetimer = setInterval(() => {
-        this.time--
-        if (this.time <= 0) {
-          this.sendAuthCode = true
-          clearInterval(timetimer)
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入手机号'
+        })
+        return
+      }
+      const CODE = '获取验证码'
+      const date = +new Date()
+      const minute = 1 * 60 * 1000
+      const codeDate = localStorage.getItem('CODE_DATE')
+      // const seconds = (date - codeDate) / 1000
+      const residue = Math.round(60 - (date - codeDate) / 1000)
+      if (codeDate != null) {
+        if (date - codeDate > minute) {
+          localStorage.setItem('CODE_DATE', date)
+          if (this.codeTime === CODE) {
+            this.codeTime = 60
+            this.countDown()
+            this.getsms()
+          }
+        } else {
+          this.$message({
+            duration: 1000,
+            message: `请${residue}秒后再试`
+          })
         }
-      }, 1000)
+      } else {
+        localStorage.setItem('CODE_DATE', date)
+        if (this.codeTime === CODE) {
+          this.codeTime = 60
+          this.countDown()
+          this.getsms()
+        }
+      }
+    },
+    countDown() {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      if (this.codeTime > 0) {
+        this.codeTime = this.codeTime - 1
+        this.timer = setTimeout(() => {
+          this.countDown()
+        }, 1000)
+        this.$once('hook:beforeDestroy', () => {
+          clearInterval(this.timer)
+        })
+      } else {
+        clearTimeout(this.timer)
+        this.codeTime = '获取验证码'
+      }
     },
     async getsms() {
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入手机号'
+        })
+        return
+      }
       const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.tel,
-        event: 'register'
+        event: 'changemobile'
       })
-      console.log(info)
+      if (info.code === 1) {
+        this.$message.success({
+          message: info.msg,
+          duration: 1000
+        })
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg,
+          duration: 1000
+        })
+      }
     },
     async submitmobile() {
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写正确的手机号'
+        })
+        return
+      }
+      if (this.formLabelAlign.yan === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写验证码'
+        })
+        return
+      }
       const info = await this.$store.dispatch('userchangemobile', {
         mobile: this.formLabelAlign.tel,
         capthca: this.formLabelAlign.yan
       })
-      console.log(info)
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     },
     async submitpass() {
+      if (this.formLabelAlign.password === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写旧密码'
+        })
+        return
+      }
+      if (this.formLabelAlign.newpassword === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写新密码'
+        })
+        return
+      }
+      if (this.formLabelAlign.repassword === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写在输入密码'
+        })
+        return
+      }
       const info = await this.$store.dispatch('userchangepass', {
         oldpassword: this.formLabelAlign.password,
         password: this.formLabelAlign.newpassword,
         repassword: this.formLabelAlign.repassword
       })
-      console.log(info)
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     }
   }
 }
@@ -163,5 +277,11 @@ export default {
   text-align: center;
   line-height: 40px;
   margin-left: 10px;
+}
+.obtain2 {
+  position: absolute;
+  color: #fff;
+  right: 0;
+  bottom: 0;
 }
 </style>

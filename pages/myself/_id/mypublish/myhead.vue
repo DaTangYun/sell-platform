@@ -102,6 +102,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .myhead {
   position: relative;
 }
@@ -118,6 +120,7 @@ li {
 }
 h3 {
   line-height: 60px;
+  .ellipsis();
 }
 .headlist-left {
   width: 657px;

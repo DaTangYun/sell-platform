@@ -223,6 +223,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .file {
   .send {
     cursor: pointer;
@@ -263,6 +265,7 @@ export default {
         h4 {
           color: #282d38;
           width: 456px;
+          .ellipsis();
         }
       }
       .file-right {

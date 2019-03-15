@@ -22,12 +22,12 @@
         </el-form-item>
         <el-form-item label="用户昵称">
           <div class="nich">
-            <el-input v-model="formLabelAlign.name" :placeholder="user.nickname"></el-input>
+            <el-input v-model="formLabelAlign.name" :placeholder="'请输入用户名'"></el-input>
           </div>
         </el-form-item>
         <el-form-item label="个人签名">
           <div class="nich">
-            <el-input v-model="formLabelAlign.qianming" type="textarea" :rows="7" :placeholder="user.bio"></el-input>
+            <el-input v-model="formLabelAlign.qianming" type="textarea" :rows="7" :placeholder="'签名'"></el-input>
           </div>
         </el-form-item>
       </el-form>
@@ -51,7 +51,7 @@ export default {
       image: '',
       action: '',
       imageUrl: '',
-      user: []
+      user: {}
     }
   },
   computed: {
@@ -67,14 +67,38 @@ export default {
     async getuser() {
       const info = await this.$store.dispatch('userinfo')
       this.user = info.info
+      this.formLabelAlign.name = info.info.nickname
+      this.formLabelAlign.qianming = info.info.bio
       this.imageUrl = info.info.avatar
     },
     async changeuserinfo() {
-      await this.$store.dispatch('changeuserinfo', {
+      if (this.formLabelAlign.name === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写用户昵称'
+        })
+        return
+      }
+      if (this.formLabelAlign.qianming === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写用户签名'
+        })
+        return
+      }
+      const info = await this.$store.dispatch('changeuserinfo', {
         avatar: this.image,
         nickname: this.formLabelAlign.name,
         bio: this.formLabelAlign.qianming
       })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
@@ -96,6 +120,7 @@ export default {
   text-align: center;
   line-height: 47px;
   color: #fff;
+  cursor: pointer;
 }
 .nich {
   width: 376px;

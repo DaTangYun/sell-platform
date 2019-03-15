@@ -39,13 +39,14 @@ export default {
   },
   methods: {
     handlidetail(id) {
-      console.log(id)
       this.$router.push({ path: `/cloud/cloudhead/${id}` })
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 ul {
   margin-bottom: 20px;
   li {
@@ -69,6 +70,7 @@ ul {
     .headlinelic {
       h3 {
         line-height: 40px;
+        .ellipsis();
       }
       p {
         line-height: 26px;

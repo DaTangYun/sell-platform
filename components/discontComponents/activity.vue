@@ -127,6 +127,7 @@ export default {
         h4 {
           display: inline-block;
           width: 327px;
+          .ellipsis();
         }
         span {
           font-size: 14px;

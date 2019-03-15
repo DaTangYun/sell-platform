@@ -34,16 +34,6 @@ export default {
       list: []
     }
   },
-  computed: {
-    ...mapGetters([
-      'financedetail',
-      'casedetail',
-      'financeDetailMeta',
-      'casesDetailMeta',
-      'financeDetailtest',
-      'caseDetailtest'
-    ])
-  },
   async asyncData(context) {
     if (context.query.flag === '财经法规') {
       await context.store.dispatch('fincetest', {
@@ -87,6 +77,16 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'financedetail',
+      'casedetail',
+      'financeDetailMeta',
+      'casesDetailMeta',
+      'financeDetailtest',
+      'caseDetailtest'
+    ])
   },
   mounted() {
     this.$nextTick(() => {

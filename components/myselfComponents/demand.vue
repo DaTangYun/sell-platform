@@ -103,7 +103,6 @@ export default {
       this.helpmeprofiles()
     },
     async deletewd(vid) {
-      console.log(vid)
       await this.$store
         .dispatch('deletehelp', {
           id: vid
@@ -159,6 +158,8 @@ export default {
         }
         &:nth-child(3) {
           margin-right: 50px;
+          width: 97px;
+          .ellipsis();
         }
         &:nth-child(4) {
           width: 124px;

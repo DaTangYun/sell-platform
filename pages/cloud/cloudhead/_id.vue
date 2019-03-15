@@ -36,9 +36,6 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    ...mapGetters(['headdetail', 'toplineDetailMeta', 'headDetailMeta'])
-  },
   async asyncData(context) {
     await context.store.dispatch('headtest', {
       scene: 'toplineDetail',
@@ -67,6 +64,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['headdetail', 'toplineDetailMeta', 'headDetailMeta'])
   },
   mounted() {
     this.$nextTick(() => {

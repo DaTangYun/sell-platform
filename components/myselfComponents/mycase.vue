@@ -194,11 +194,9 @@ export default {
     addnewcase() {
       if (!this.edit) {
         // 编辑信息
-        console.log('编辑')
         this.addnewcase = true
         this.bcbjinfo()
       } else {
-        console.log('发布')
         // 发布新信息
         this.sendinfo()
       }
@@ -269,7 +267,7 @@ export default {
       this.content = info.row.content
     },
     async bcbjinfo() {
-      const { title, author, content, source, cover } = this
+      const { title, author, content, source, imageUrl } = this
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -286,7 +284,7 @@ export default {
         id: this.sendid,
         title,
         author,
-        cover,
+        cover: imageUrl,
         content,
         province: this.province,
         province_code: this.provincecode,
@@ -296,19 +294,23 @@ export default {
         area: this.area,
         source
       })
-      if (info) {
-        this.$message({
-          type: 'success',
-          message: info.msg
-        })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
         this.fbindex = true
         this.noIndex = 0
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       }
     }
   }
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .case {
   position: relative;
 }
@@ -348,6 +350,7 @@ export default {
         display: inline-block;
         line-height: 20px;
         margin-top: 25px;
+        .ellipsis();
       }
       &:nth-child(5) {
         margin-left: 37px;

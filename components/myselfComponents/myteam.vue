@@ -153,12 +153,10 @@ export default {
       this.teamname = ''
       this.content = ''
       this.image = ''
-      console.log('组建')
       this.flag = !this.flag
       this.teamflag = false
     },
     tan(item) {
-      console.log('编辑')
       this.flag = !this.flag
       this.bjid = item.id
       this.teamflag = true
@@ -171,7 +169,6 @@ export default {
       const info = await this.$store.dispatch('bjteamedit', {
         id: this.bjid
       })
-      console.log(info)
       this.arr = info.row
       this.teamname = info.row.team_name
       this.content = info.row.content
@@ -197,33 +194,36 @@ export default {
     },
     submit() {
       if (this.teamflag) {
-        console.log('编辑')
         this.submitbjteam()
       } else {
         this.submitaddteam()
       }
     },
     async submitbjteam() {
-      const { image, content } = this
+      const { imageUrl, content } = this
       const info = await this.$store.dispatch('bjteaminfo', {
         id: this.bjid,
         team_name: this.teamname,
-        image,
+        image: imageUrl,
         content
       })
-      if (info) {
+      if (info.code === 1) {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: '添加成功'
         })
         this.flag = !this.flag
+      } else {
+        this.$message({
+          message: info.msg
+        })
       }
     },
     async submitaddteam() {
-      const { image, content } = this
+      const { imageUrl, content } = this
       const info = await this.$store.dispatch('addteam', {
         team_name: this.teamname,
-        image,
+        image: imageUrl,
         content
       })
       if (info.code === 1) {
@@ -242,6 +242,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .secondpart-top {
   position: relative;
   height: 73px;
@@ -283,6 +285,7 @@ export default {
       line-height: 96px;
       width: 25%;
       text-align: center;
+      .ellipsis();
     }
     .lidiv {
       cursor: pointer;

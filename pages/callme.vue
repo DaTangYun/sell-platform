@@ -57,22 +57,9 @@ export default {
       })
     }
   },
-  async asyncData(context) {
-    const { id } = context.route.query
-    await context.store.dispatch('callmetest', {
-      scene: 'page',
-      id
-    })
-    // context.app.head.title = info.seo.seo_title
-  },
   mounted() {
     this.$nextTick(() => {
-      const { id } = this.$route.query
       this.initInfo()
-      this.$store.dispatch('callmetest', {
-        scene: 'page',
-        id
-      })
     })
   },
   methods: {
@@ -108,6 +95,9 @@ h3 {
   }
 }
 p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   &:first-child {
     margin-bottom: 0px;
   }

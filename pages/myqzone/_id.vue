@@ -48,9 +48,6 @@ export default {
       flag: {}
     }
   },
-  computed: {
-    ...mapGetters(['usershowmeinfo', 'showDetailMeta', 'test'])
-  },
   async asyncData(context) {
     await context.store.dispatch('test', {
       scene: 'profile',
@@ -79,6 +76,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['usershowmeinfo', 'showDetailMeta', 'test'])
   },
   mounted() {
     this.$nextTick(() => {

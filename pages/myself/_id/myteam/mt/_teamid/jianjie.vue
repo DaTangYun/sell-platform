@@ -74,6 +74,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .tuanduibo {
   box-sizing: border-box;
   padding: 20px 20px;
@@ -106,6 +108,7 @@ export default {
   }
   .input {
     width: 284px;
+    .ellipsis();
   }
   .inputimg {
     width: 284px;
