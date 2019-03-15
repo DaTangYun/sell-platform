@@ -165,6 +165,10 @@ const helpwis = {
         const addcase = info.data
         commit('setnewcase', addcase)
         return addcase
+      } else {
+        const addcase = info.data
+        commit('setnewcase', addcase)
+        return addcase        
       }
     },
     async getcaseinfo({ commit }, params) {
@@ -185,6 +189,10 @@ const helpwis = {
         const qdcase = info.data
         commit('setqdcase', qdcase)
         return qdcase
+      } else {
+        const qdcase = info.data
+        commit('setqdcase', qdcase)
+        return qdcase        
       }
     },
     async addcasedetail({ commit }, params) {

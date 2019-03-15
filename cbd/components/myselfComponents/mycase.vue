@@ -181,12 +181,14 @@ export default {
         area: this.area,
         source
       })
-      if (info) {
-        this.$message({
-          type: 'success',
-          message: '发布成功'
-        })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
         this.noIndex = 0
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       }
     },
     addnewcase() {
@@ -292,13 +294,15 @@ export default {
         area: this.area,
         source
       })
-      if (info) {
-        this.$message({
-          type: 'success',
-          message: info.msg
-        })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
         this.fbindex = true
         this.noIndex = 0
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       }
     }
   }
