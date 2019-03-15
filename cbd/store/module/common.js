@@ -238,7 +238,7 @@ const common = {
       } else {
         const changepass = info.data
         commit('setchangemobile', changepass)
-        return changepass      
+        return changepass
       }
     },
     async userchangepass({ commit }, params) {
@@ -252,7 +252,7 @@ const common = {
       } else {
         const changepass = info.data
         commit('setchangepass', changepass)
-        return changepass      
+        return changepass
       }
     },
     async userinfo({ commit }, params) {

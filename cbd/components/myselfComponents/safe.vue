@@ -144,6 +144,20 @@ export default {
       }
     },
     async submitmobile() {
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写正确的手机号'
+        })
+        return
+      }
+      if (this.formLabelAlign.yan === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写验证码'
+        })
+        return
+      }
       const info = await this.$store.dispatch('userchangemobile', {
         mobile: this.formLabelAlign.tel,
         capthca: this.formLabelAlign.yan
@@ -158,6 +172,27 @@ export default {
       }
     },
     async submitpass() {
+      if (this.formLabelAlign.password === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写旧密码'
+        })
+        return
+      }
+      if (this.formLabelAlign.newpassword === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写新密码'
+        })
+        return
+      }
+      if (this.formLabelAlign.repassword === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写在输入密码'
+        })
+        return
+      }
       const info = await this.$store.dispatch('userchangepass', {
         oldpassword: this.formLabelAlign.password,
         password: this.formLabelAlign.newpassword,
@@ -224,5 +259,11 @@ export default {
   text-align: center;
   line-height: 40px;
   margin-left: 10px;
+}
+.obtain2 {
+  position: absolute;
+  color: #fff;
+  right: 0;
+  bottom: 0;
 }
 </style>
