@@ -70,6 +70,20 @@ export default {
       this.imageUrl = info.info.avatar
     },
     async changeuserinfo() {
+      if (this.formLabelAlign.name === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写用户昵称'
+        })
+        return
+      }
+      if (this.formLabelAlign.qianming === '') {
+        this.$message({
+          type: 'warning',
+          message: '请填写用户签名'
+        })
+        return
+      }
       const info = await this.$store.dispatch('changeuserinfo', {
         avatar: this.image,
         nickname: this.formLabelAlign.name,
@@ -104,6 +118,7 @@ export default {
   text-align: center;
   line-height: 47px;
   color: #fff;
+  cursor: pointer;
 }
 .nich {
   width: 376px;

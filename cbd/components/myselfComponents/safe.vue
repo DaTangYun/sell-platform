@@ -130,6 +130,13 @@ export default {
       }
     },
     async getsms() {
+      if (this.formLabelAlign.tel === '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入手机号'
+        })    
+        return    
+      }
       const info = await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.tel,
         event: 'register'

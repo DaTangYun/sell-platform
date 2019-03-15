@@ -204,7 +204,7 @@ export default {
     },
     // 发送编辑过的内容
     async bjbcactive() {
-      await this.$store.dispatch('editacbjbc', {
+      const info = await this.$store.dispatch('editacbjbc', {
         id: this.bcid,
         title: this.form.title,
         coupon_name: this.form.name,
@@ -214,10 +214,19 @@ export default {
         end_time: this.form.jtime,
         desc: this.form.describe
       })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        this.dialogFormVisible = false
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     },
     // 添加新
     async addnewactive() {
-      await this.$store.dispatch('addactive', {
+      const info = await this.$store.dispatch('addactive', {
         title: this.form.title,
         coupon_name: this.form.name,
         min_amount: this.form.price,
@@ -226,14 +235,21 @@ export default {
         end_time: this.form.jtime,
         desc: this.form.describe
       })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        this.dialogFormVisible = false
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
     },
     sendactive() {
       if (this.current === '编辑') {
         this.bjbcactive()
-        this.dialogFormVisible = false
       } else {
         this.addnewactive()
-        this.dialogFormVisible = false
       }
     }
   }
