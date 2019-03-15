@@ -36,6 +36,9 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    ...mapGetters(['infodetail', 'messageDetailMeta', 'messagetest'])
+  },
   async asyncData(context) {
     await context.store.dispatch('messagetest', {
       scene: 'messageDetail',
@@ -64,9 +67,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    ...mapGetters(['infodetail', 'messageDetailMeta', 'messagetest'])
   },
   mounted() {
     this.$nextTick(() => {

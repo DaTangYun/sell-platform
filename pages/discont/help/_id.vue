@@ -50,6 +50,9 @@ export default {
       details: []
     }
   },
+  computed: {
+    ...mapGetters(['helpdetail', 'helpmeDetailMeta', 'helpmeDetailtest'])
+  },
   async asyncData(context) {
     await context.store.dispatch('helpmetest', {
       scene: 'helpmeDetail',
@@ -78,9 +81,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    ...mapGetters(['helpdetail', 'helpmeDetailMeta', 'helpmeDetailtest'])
   },
   mounted() {
     this.$nextTick(() => {
