@@ -241,10 +241,6 @@ export default {
       this.imageUrl = URL.createObjectURL(file.raw)
       this.cover = file.response.data.url
     },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.cover = file.response.data.url
-    },
     initAction() {
       this.action = process.client ? '' : base.dev
     },
@@ -264,6 +260,7 @@ export default {
       this.title = info.row.title
       this.desc = info.row.desc
       this.imageUrl = info.row.cover
+      this.cover = info.row.cover
       this.content = info.row.content
     },
     async bcbjinfo() {
