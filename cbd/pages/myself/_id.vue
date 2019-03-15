@@ -52,7 +52,6 @@ export default {
           path: `/myself/${id}/myactive/zuzhi`
         })
       }
-      this.$router.go(0)
     }
   }
 }
