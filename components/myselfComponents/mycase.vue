@@ -190,7 +190,6 @@ export default {
           message: info.msg
         })
       }
-
     },
     addnewcase() {
       if (!this.edit) {
