@@ -90,26 +90,23 @@ export default {
       }, 1000)
     },
     async getsms() {
-      const info = await this.$store.dispatch('smsdata', {
+      await this.$store.dispatch('smsdata', {
         mobile: this.formLabelAlign.tel,
         event: 'register'
       })
-      console.log(info)
     },
     async submitmobile() {
-      const info = await this.$store.dispatch('userchangemobile', {
+      await this.$store.dispatch('userchangemobile', {
         mobile: this.formLabelAlign.tel,
         capthca: this.formLabelAlign.yan
       })
-      console.log(info)
     },
     async submitpass() {
-      const info = await this.$store.dispatch('userchangepass', {
+      await this.$store.dispatch('userchangepass', {
         oldpassword: this.formLabelAlign.password,
         password: this.formLabelAlign.newpassword,
         repassword: this.formLabelAlign.repassword
       })
-      console.log(info)
     }
   }
 }

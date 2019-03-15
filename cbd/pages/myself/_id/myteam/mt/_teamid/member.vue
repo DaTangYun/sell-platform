@@ -106,7 +106,6 @@ export default {
       const info = await this.$store.dispatch('cxmember', {
         id: ti
       })
-      console.log(info)
       this.member = info.detail
     },
     close() {
@@ -116,6 +115,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .shenqingtop {
   background-color: #f1f2f6;
   display: flex;
@@ -136,6 +137,7 @@ export default {
       width: 153px;
       text-align: center;
       line-height: 62px;
+      .ellipsis();
     }
     .mbutton {
       display: flex;

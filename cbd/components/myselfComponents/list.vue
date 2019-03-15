@@ -107,6 +107,7 @@ export default {
       text-align: center;
       box-sizing: border-box;
       padding: 30px 10px 0;
+      .ellipsis();
       &:nth-child(2) {
         color: #ff6b81;
       }

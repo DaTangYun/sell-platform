@@ -38,6 +38,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 ul {
   display: flex;
   flex-wrap: wrap;
@@ -62,10 +64,12 @@ ul {
     h5 {
       color: #282d38;
       line-height: 20px;
+      .ellipsis();
     }
     span {
       color: #77808f;
       font-size: 14px;
+      .ellipsis();
     }
   }
 }

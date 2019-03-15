@@ -131,6 +131,7 @@ export default {
           color: #77808f;
           font-size: 14px;
           height: 30px;
+          .ellipsis();
         }
       }
     }

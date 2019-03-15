@@ -192,11 +192,9 @@ export default {
     addnewcase() {
       if (!this.edit) {
         // 编辑信息
-        console.log('编辑')
         this.addnewcase = true
         this.bcbjinfo()
       } else {
-        console.log('发布')
         // 发布新信息
         this.sendinfo()
       }
@@ -307,6 +305,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .case {
   position: relative;
 }
@@ -346,6 +346,7 @@ export default {
         display: inline-block;
         line-height: 20px;
         margin-top: 25px;
+        .ellipsis();
       }
       &:nth-child(5) {
         margin-left: 37px;

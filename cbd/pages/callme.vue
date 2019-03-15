@@ -95,6 +95,9 @@ h3 {
   }
 }
 p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   &:first-child {
     margin-bottom: 0px;
   }

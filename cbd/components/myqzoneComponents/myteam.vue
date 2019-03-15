@@ -10,7 +10,6 @@
             </div>
             <p>
               {{ item.content }}
-              {{ item.id }}
             </p>
           </nuxt-link>
         </ul>

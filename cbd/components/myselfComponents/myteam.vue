@@ -153,12 +153,10 @@ export default {
       this.teamname = ''
       this.content = ''
       this.image = ''
-      console.log('组建')
       this.flag = !this.flag
       this.teamflag = false
     },
     tan(item) {
-      console.log('编辑')
       this.flag = !this.flag
       this.bjid = item.id
       this.teamflag = true
@@ -171,7 +169,6 @@ export default {
       const info = await this.$store.dispatch('bjteamedit', {
         id: this.bjid
       })
-      console.log(info)
       this.arr = info.row
       this.teamname = info.row.team_name
       this.content = info.row.content
@@ -197,7 +194,6 @@ export default {
     },
     submit() {
       if (this.teamflag) {
-        console.log('编辑')
         this.submitbjteam()
       } else {
         this.submitaddteam()
@@ -242,6 +238,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .secondpart-top {
   position: relative;
   height: 73px;
@@ -283,6 +281,7 @@ export default {
       line-height: 96px;
       width: 25%;
       text-align: center;
+      .ellipsis();
     }
     .lidiv {
       cursor: pointer;

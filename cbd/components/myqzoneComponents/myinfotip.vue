@@ -86,6 +86,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 ul {
   margin-bottom: 20px;
   min-height: 1040px;
@@ -109,6 +111,7 @@ ul {
     .headlinelic {
       h3 {
         line-height: 40px;
+        .ellipsis();
       }
       p {
         line-height: 26px;

@@ -25,6 +25,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .exh-head {
   width: 690px;
   box-sizing: border-box;
@@ -36,6 +38,7 @@ export default {
     height: 60px;
     font-size: 24px;
     line-height: 60px;
+    .ellipsis();
   }
 }
 </style>
