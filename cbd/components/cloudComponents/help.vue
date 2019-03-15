@@ -67,6 +67,8 @@ ul {
       .ellipsis();
     }
     span {
+      display: block;
+      width: 284px;
       color: #77808f;
       font-size: 14px;
       .ellipsis();

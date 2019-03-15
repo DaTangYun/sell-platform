@@ -77,7 +77,6 @@ ul {
         width: 657px;
         min-height: 80px;
         overflow: hidden;
-        .ellipsis();
       }
       .headlispan {
         margin-top: 20px;
