@@ -59,7 +59,12 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      const { id } = this.$route.query
       this.initInfo()
+      this.$store.dispatch('callmetest', {
+        scene: 'page',
+        id
+      })
     })
   },
   methods: {
