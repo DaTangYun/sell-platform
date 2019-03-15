@@ -197,11 +197,11 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK) {
-        const sms = info.data.msg
+        const sms = info.data
         commit('setsms', sms)
         return sms
       } else {
-        const sms = info.data.msg
+        const sms = info.data
         commit('setsms', sms)
         return sms
       }
@@ -278,7 +278,7 @@ const common = {
       } else {
         const changeinfo = info.data
         commit('setchangeinfo', changeinfo)
-        return changeinfo        
+        return changeinfo
       }
     },
     async exituser({ commit }, params) {
