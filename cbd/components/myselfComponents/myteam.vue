@@ -200,26 +200,30 @@ export default {
       }
     },
     async submitbjteam() {
-      const { image, content } = this
+      const { imageUrl, content } = this
       const info = await this.$store.dispatch('bjteaminfo', {
         id: this.bjid,
         team_name: this.teamname,
-        image,
+        image: imageUrl,
         content
       })
-      if (info) {
+      if (info.code === 1) {
         this.$message({
           type: 'success',
-          message: '修改成功'
+          message: '添加成功'
         })
         this.flag = !this.flag
+      } else {
+        this.$message({
+          message: info.msg
+        })
       }
     },
     async submitaddteam() {
-      const { image, content } = this
+      const { imageUrl, content } = this
       const info = await this.$store.dispatch('addteam', {
         team_name: this.teamname,
-        image,
+        image: imageUrl,
         content
       })
       if (info.code === 1) {
