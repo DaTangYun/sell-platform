@@ -72,7 +72,7 @@ export default {
       const info = await this.$store.dispatch('infolist', {
         page,
         limit,
-        cate_id: this.$route.params.id,
+        user_id: this.$route.params.id,
         title: ''
       })
       this.total = info.total

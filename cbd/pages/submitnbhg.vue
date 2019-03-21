@@ -325,6 +325,7 @@ export default {
 .submit-center {
   box-sizing: border-box;
   padding-left: 203px;
+  width: 1000px;
   .messageCon-title {
     width: 100%;
     line-height: 108px;

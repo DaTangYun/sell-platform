@@ -72,7 +72,7 @@ export default {
       const info = await this.$store.dispatch('headlist', {
         page,
         limit,
-        cate_id: this.$route.params.id
+        user_id: this.$route.params.id
       })
       this.total = info.total
       this.$nuxt.$loading.finish()
