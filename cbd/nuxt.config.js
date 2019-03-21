@@ -58,6 +58,7 @@ module.exports = {
     'element-ui/lib/theme-chalk/index.css',
     'vue-area-linkage/dist/index.css',
     'assets/less/index.less',
+    'assets/less/font.less',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css'

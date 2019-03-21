@@ -12,6 +12,20 @@
   </div>
 </template>
 <script>
+import * as Quill from 'quill'
+const fonts = [
+  'SimSun',
+  'SimHei',
+  'Microsoft-YaHei',
+  'KaiTi',
+  'FangSong',
+  'Arial',
+  'Times-New-Roman',
+  'sans-serif'
+]
+const Font = Quill.import('formats/font')
+Font.whitelist = fonts
+Quill.register(Font, true)
 export default {
   name: 'Textpart',
   props: {
@@ -32,6 +46,7 @@ export default {
             [{ header: 1 }, { header: 2 }], // 1、2 级标题
             ['image'], // 链接、图片、视频
             [{ color: [] }],
+            [{ font: fonts }],
             [{ size: ['small', false, 'large', 'huge'] }]
           ]
         }
