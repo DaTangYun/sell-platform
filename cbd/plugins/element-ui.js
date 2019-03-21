@@ -29,12 +29,16 @@ import {
   Checkbox,
   CheckboxButton,
   CheckboxGroup,
-  DatePicker
+  DatePicker,
+  Icon
 } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 
 export default () => {
   Vue.use(Tabs, {
+    locale
+  })
+  Vue.use(Icon, {
     locale
   })
   Vue.use(DatePicker, {

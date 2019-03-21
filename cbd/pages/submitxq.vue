@@ -68,7 +68,7 @@
             <el-form-item label="联系人">
               <el-input v-model="contact"></el-input>
             </el-form-item>
-            <el-form-item v-model="image" label="图片">
+            <el-form-item v-model="image" label="封面图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"

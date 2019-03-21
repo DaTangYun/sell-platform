@@ -27,7 +27,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="封面图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
@@ -71,6 +71,7 @@ export default {
   components: {
     textpart
   },
+  middleware: 'auth',
   data() {
     return {
       value: '',
@@ -213,7 +214,7 @@ export default {
   }
   .form {
     .el-input__inner {
-      width: 527px;
+      width: 100%;
       height: 32px;
     }
     .tupian {

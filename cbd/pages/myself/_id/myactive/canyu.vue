@@ -47,7 +47,6 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.log(11)
       this.userpro()
     })
   },
@@ -58,7 +57,6 @@ export default {
         page,
         limit
       })
-      console.log(info)
       this.total = info.total
     },
     handlecurrentchange(params) {

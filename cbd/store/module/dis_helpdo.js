@@ -166,6 +166,10 @@ const dishelpdo = {
         const deleteability = info.data
         commit('setdeleteability', deleteability)
         return deleteability
+      } else {
+        const deleteability = info.data
+        commit('setdeleteability', deleteability)
+        return deleteability
       }
     },
     async abilitymessagelist({ commit }, params) {

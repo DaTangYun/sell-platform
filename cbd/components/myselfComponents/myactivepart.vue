@@ -42,7 +42,11 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      page: 1,
+      limit: 6,
+      total: 0
+    }
   },
   methods: {
     async deleteinfolist(vid) {
@@ -56,6 +60,14 @@ export default {
             message: '删除成功'
           })
         })
+    },
+    async userpro() {
+      const { page, limit } = this
+      const info = await this.$store.dispatch('useractiveprofile', {
+        page,
+        limit
+      })
+      this.total = info.total
     },
     shiyong(i) {
       this.getaddactive(i.id)
@@ -71,7 +83,7 @@ export default {
         })
       } else {
         this.$message.success('使用成功')
-        window.location.reload()
+        this.userpro()
       }
     }
   }
@@ -81,7 +93,6 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .demand-bottom {
-  height: 904px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

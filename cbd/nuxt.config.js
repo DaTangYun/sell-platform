@@ -93,7 +93,11 @@ module.exports = {
   axios: {
     proxy: true
   },
-  proxy: [['/api', { target: 'http://cbd.zyuu.cn' }]],
+  // server: {
+  //   port: 80,
+  //   host: 'www.123cbd.net'
+  // },
+  proxy: [['/api', { target: 'http://admin.123cbd.net' }]],
   /*
    ** Build configuration
    */
@@ -102,6 +106,7 @@ module.exports = {
      ** You can extend webpack config here
      */
     // analyze: true,
+    publicPath: '',
     babel: {
       'plugins': [
         ['component',

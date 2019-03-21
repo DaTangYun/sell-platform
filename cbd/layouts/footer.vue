@@ -119,6 +119,9 @@
       <p class="copyright">
         {{ banquan.banquan }}
       </p>
+      <p class="copyright">
+        {{ banquan.beian }}&nbsp;&nbsp;&nbsp;{{ banquan.beianhao }}
+      </p>
     </div>
   </footer>
 </template>

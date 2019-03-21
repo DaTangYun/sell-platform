@@ -36,7 +36,7 @@ const dishelpdo = {
     return axios.post('/api/ability/add', qs.stringify(params))
   },
   getdeleteability(params) {
-    return axios.get('/api/ability/del', { params })
+    return axios.post('/api/ability/del', qs.stringify(params))
   },
   // 留言列表
   getabilitymessagelist(params) {

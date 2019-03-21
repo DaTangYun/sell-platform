@@ -46,14 +46,14 @@
               </el-button>
             </el-upload> 
           </div>
-          <el-form-item label="过期时间:" class="yonghumingcheng">
+          <!-- <el-form-item label="过期时间:" class="yonghumingcheng">
             <el-date-picker
               v-model="form.time"
               type="date"
               placeholder="选择日期"
             >
             </el-date-picker>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="所在地区:" class="yonghumingcheng">  
             <no-ssr>
               <area-select
@@ -86,6 +86,7 @@ export default {
   meta: {
     title: '认证会员'
   },
+  middleware: 'auth',
   data() {
     return {
       form: {
@@ -158,10 +159,10 @@ export default {
         this.$message.error('用户名称必须')
         return
       }
-      if (this.form.time === '') {
-        this.$message.error('过期时间必须')
-        return
-      }
+      // if (this.form.time === '') {
+      //   this.$message.error('过期时间必须')
+      //   return
+      // }
       if (this.provincecode === '') {
         this.$message.error('省市区必须')
         return

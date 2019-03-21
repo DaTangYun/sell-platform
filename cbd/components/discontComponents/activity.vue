@@ -35,7 +35,7 @@
               满{{ item.min_amount }}减{{ item.prefer_acount }}
             </div>
             <span>
-              未领取
+              领取
             </span>
           </div>
         </div>
@@ -169,12 +169,13 @@ export default {
       .right-content-right {
         width: 77px;
         height: 66px;
-        margin-left: 30px;
+        margin-left: 24px;
         box-sizing: border-box;
         padding-right: 3px;
         div {
           color: #fff;
           font-size: 14px;
+          overflow: hidden;
         }
         span {
           color: #fff;

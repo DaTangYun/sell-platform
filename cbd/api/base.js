@@ -1,5 +1,5 @@
 const base = {
-  dev: 'http://cbd.zyuu.cn',
+  dev: 'http://admin.123cbd.net',
   pro: ''
 }
 export default base

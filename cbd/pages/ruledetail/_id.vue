@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="rd-bo">
-        <p>
-          {{ list.content }}
+        <!-- eslint-disable-next-line -->
+        <p v-html="list.content">
         </p>
       </div>
     </div>
@@ -32,19 +32,6 @@ export default {
   data() {
     return {
       list: []
-    }
-  },
-  async asyncData(context) {
-    if (context.query.flag === '财经法规') {
-      await context.store.dispatch('fincetest', {
-        scene: 'financeDetail',
-        id: context.params.id
-      })
-    } else {
-      await context.store.dispatch('casetest', {
-        scene: 'casesDetail',
-        id: context.params.id
-      })
     }
   },
   head() {
@@ -87,6 +74,19 @@ export default {
       'financeDetailtest',
       'caseDetailtest'
     ])
+  },
+  async asyncData(context) {
+    if (context.query.flag === '财经法规') {
+      await context.store.dispatch('fincetest', {
+        scene: 'financeDetail',
+        id: context.params.id
+      })
+    } else {
+      await context.store.dispatch('casetest', {
+        scene: 'casesDetail',
+        id: context.params.id
+      })
+    }
   },
   mounted() {
     this.$nextTick(() => {

@@ -190,9 +190,9 @@ const getters = {
   deletedata: state => {
     return state.helpwis.deletedata
   },
-  docuadd: state => {
-    return state.helpwis.docuadd
-  },
+  // docuadd: state => {
+  //   return state.helpwis.docuadd
+  // },
   doerror: state => {
     return state.helpwis.error
   },

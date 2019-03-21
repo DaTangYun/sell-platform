@@ -93,17 +93,20 @@ export default {
       this.abilityprofiles()
     },
     async deleteinfolist(vid) {
-      await this.$store
-        .dispatch('deleteability', {
-          id: vid
+      const info = await this.$store.dispatch('deleteability', {
+        id: vid
+      })
+      console.log(info)
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        this.abilityprofiles()
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg,
+          duration: 1000
         })
-        .then(res => {
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.abilityprofiles()
-        })
+      }
     }
   }
 }

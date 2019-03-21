@@ -1,6 +1,6 @@
 {
   "name": "cbd",
-  "script": "./server",
+  "script": "node_modules/nuxt/bin/nuxt.js",
   "cwd": "./",
   "watch": true,
   "ignore_watch": [

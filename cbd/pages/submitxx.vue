@@ -38,7 +38,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item v-model="cover" label="图片">
+            <el-form-item v-model="cover" label="封面图片">
               <el-upload
                 class="avatar-uploader my-uploader"
                 :action="`${action}/api/common/upload`"
@@ -82,6 +82,7 @@ export default {
   components: {
     textpart
   },
+  middleware: 'auth',
   data() {
     return {
       value: '',
@@ -257,6 +258,7 @@ export default {
 .submit-center {
   box-sizing: border-box;
   padding-left: 203px;
+  width: 1000px;
   .messageCon-title {
     width: 100%;
     line-height: 108px;
@@ -267,7 +269,7 @@ export default {
   }
   .form {
     .el-input__inner {
-      width: 345px;
+      width: 100%;
       height: 32px;
     }
     .tupian {

@@ -25,11 +25,14 @@ export default {
       content: '',
       editorOption: {
         // some quill options
+        placeholder: '请输入内容...',
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'], // 加粗 斜体 下划线 删除线
             [{ header: 1 }, { header: 2 }], // 1、2 级标题
-            ['image'] // 链接、图片、视频
+            ['image'], // 链接、图片、视频
+            [{ color: [] }],
+            [{ size: ['small', false, 'large', 'huge'] }]
           ]
         }
       }

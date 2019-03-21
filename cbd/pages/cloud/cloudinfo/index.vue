@@ -39,6 +39,9 @@
           @next="handlecurrentchange"
         ></pagination>
       </div>
+      <div v-show="!infolist.length" class="spaceimg">
+        <img src="@/assets/images/space.png" alt="">
+      </div>
     </div>
     <RightComponent :publish="publish" :tpath="tpath"></RightComponent>
   </div>
@@ -252,6 +255,17 @@ export default {
     width: 902px;
     margin-top: 95px;
     text-align: center;
+  }
+}
+.spaceimg {
+  position: relative;
+  img {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
   }
 }
 </style>

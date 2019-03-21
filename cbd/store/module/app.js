@@ -1,10 +1,3 @@
-// let defaultcity = '切换城市'
-// try {
-//   if (sessionStorage.xian) {
-//     defaultcity = sessionStorage.xian
-//   }
-// } catch (error) {}
-
 const app = {
   state: {
     city: ''

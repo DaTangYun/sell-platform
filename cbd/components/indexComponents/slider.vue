@@ -85,7 +85,6 @@ ul {
       font-size: 14px;
       height: 40px;
       overflow: hidden;
-      .ellipsis();
     }
   }
 }

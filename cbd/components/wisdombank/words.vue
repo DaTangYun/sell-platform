@@ -93,6 +93,8 @@ export default {
         color: #747d8c;
         line-height: 30px;
         font-size: 14px;
+        width: 140px;
+        overflow: hidden;
       }
       .word-content {
         width: 630px;

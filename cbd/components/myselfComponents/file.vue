@@ -14,7 +14,7 @@
             {{ item.title }}
           </h4>
           <span>
-            {{ item.name }}
+            {{ item.username }}
           </span>
         </div>
         <div class="file-right">
@@ -47,7 +47,7 @@
         </el-form-item>
         <el-form-item v-model="cateid" label="标签" class="bq">
           <!-- eslint-disable-next-line -->
-          <a v-for="(item1,index1) in docuadd" :key="index1" @click="fenleiid(item1,index1)" :class="activeid === index1 ? 'activelink' : ''">
+          <a v-for="(item1,index1) in docu" :key="index1" @click="fenleiid(item1,index1)" :class="activeid === index1 ? 'activelink' : ''">
             {{ item1.name }}
           </a>
         </el-form-item>
@@ -113,16 +113,16 @@ export default {
       areacode: 0,
       area: '',
       action: '',
-      activeid: 0
+      activeid: 0,
+      docu: []
     }
   },
   computed: {
-    ...mapGetters(['documentprofile', 'docuadd', 'doerror', 'document'])
+    ...mapGetters(['documentprofile', 'doerror', 'document'])
   },
   mounted() {
     this.$nextTick(() => {
       this.documentprofiles()
-      this.documentadd()
       this.initAction()
     })
   },
@@ -146,6 +146,7 @@ export default {
     },
     changeindex(index) {
       this.noIndex = 1
+      this.documentadd()
     },
     async deletewd(vid) {
       await this.$store
@@ -161,7 +162,9 @@ export default {
         })
     },
     async documentadd() {
-      await this.$store.dispatch('docuadd')
+      const info = await this.$store.dispatch('docuadd')
+      // console.log(info)
+      this.docu = info.cate
     },
     handleAvatarSuccess(file, fileList) {
       if (file.code === 0) {
@@ -176,7 +179,21 @@ export default {
       }
     },
     async addnewdocu() {
-      this.noIndex = 0
+      // this.noIndex = 0
+      if (this.title === '') {
+        this.$message({
+          type: 'warning',
+          message: '标题必须'
+        })
+        return
+      }
+      if (this.url === '') {
+        this.$message({
+          type: 'warning',
+          message: '文件必须'
+        })
+        return
+      }
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -201,7 +218,7 @@ export default {
         area_code: this.areacode,
         area: this.area
       })
-      if (info) {
+      if (info.code === 1) {
         this.$message({
           type: 'success',
           message: '添加成功'
@@ -212,8 +229,10 @@ export default {
         this.province = ''
         this.city = ''
         this.area = ''
+        this.noIndex = 0
+        this.documentprofiles()
       } else {
-        this.$message.error('添加失败，请检查内容完整重新添加')
+        this.$message.error(info.msg)
       }
     },
     initAction() {
@@ -234,7 +253,6 @@ export default {
     color: #00a0e9;
   }
   ul {
-    height: 960px;
     li {
       display: flex;
       box-sizing: border-box;
@@ -248,6 +266,12 @@ export default {
         span {
           color: #747d8c;
           font-size: 14px;
+          display: block;
+          width: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 101px;
           &:first-child {
             padding: 0 25px;
             // width: 78px;
@@ -264,7 +288,7 @@ export default {
         }
         h4 {
           color: #282d38;
-          width: 456px;
+          width: 400px;
           .ellipsis();
         }
       }

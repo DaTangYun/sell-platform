@@ -160,7 +160,6 @@ export default {
       })
       if (info.code === 1) {
         this.$message.success(info.msg)
-        this.$router.push('/login')
       } else {
         this.$message({
           type: 'warning',

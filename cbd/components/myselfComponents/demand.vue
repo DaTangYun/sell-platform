@@ -122,7 +122,6 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .demand {
-  height: 904px;
   position: relative;
   .demand-top {
     background-color: #f1f2f6;

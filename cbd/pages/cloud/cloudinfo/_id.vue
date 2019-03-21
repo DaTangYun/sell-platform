@@ -20,8 +20,8 @@
         </div>
       </div>
       <div class="headbot">
-        <p>
-          {{ infodetail.content }}             
+        <!-- eslint-disable-next-line -->
+        <p v-html="infodetail.content">          
         </p>
       </div>
     </div>
@@ -35,13 +35,6 @@ export default {
   },
   data() {
     return {}
-  },
-  async asyncData(context) {
-    await context.store.dispatch('messagetest', {
-      scene: 'messageDetail',
-      id: context.params.id
-    })
-    // context.app.head.title = info.seo.seo_title
   },
   head() {
     return {
@@ -67,6 +60,13 @@ export default {
   },
   computed: {
     ...mapGetters(['infodetail', 'messageDetailMeta', 'messagetest'])
+  },
+  async asyncData(context) {
+    await context.store.dispatch('messagetest', {
+      scene: 'messageDetail',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
   },
   mounted() {
     this.$nextTick(() => {

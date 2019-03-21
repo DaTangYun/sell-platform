@@ -94,7 +94,6 @@ export default {
   }
 }
 .demand-bottom {
-  height: 904px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

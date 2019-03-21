@@ -172,13 +172,6 @@ export default {
       secondplmsg: ''
     }
   },
-  async asyncData(context) {
-    await context.store.dispatch('abilitytest', {
-      scene: 'abilityDetail',
-      id: context.params.id
-    })
-    // context.app.head.title = info.seo.seo_title
-  },
   head() {
     return {
       title: this.abilityDetailtest.seo.seo_title || '传帮带',
@@ -209,6 +202,13 @@ export default {
       'abilityDetailMeta',
       'abilityDetailtest'
     ])
+  },
+  async asyncData(context) {
+    await context.store.dispatch('abilitytest', {
+      scene: 'abilityDetail',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
   },
   mounted() {
     this.$nextTick(() => {

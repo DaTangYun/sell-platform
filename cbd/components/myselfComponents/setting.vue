@@ -70,6 +70,7 @@ export default {
       this.formLabelAlign.name = info.info.nickname
       this.formLabelAlign.qianming = info.info.bio
       this.imageUrl = info.info.avatar
+      this.image = info.info.avatar
     },
     async changeuserinfo() {
       if (this.formLabelAlign.name === '') {

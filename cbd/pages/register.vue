@@ -28,11 +28,11 @@
           </span> 
         </el-form-item>
       </el-form>
-      <div class="checked">
+      <!-- <div class="checked">
         <el-checkbox v-model="checked">
           同意网站服务条款
         </el-checkbox>
-      </div>
+      </div> -->
     </div>
     <button class="submit-btn" @click="getLogin">
       注册
@@ -92,12 +92,6 @@ export default {
   },
   methods: {
     getLogin() {
-      if (!this.checked) {
-        this.$message({
-          message: '请勾选服务条款',
-          duration: 3000
-        })
-      }
       const phoneflag = Validate.validatePhone(this.formLabelAlign.mobile)
       if (!phoneflag) {
         this.$message({
@@ -199,15 +193,21 @@ export default {
       }
     },
     async getregister() {
-      const { mobile, password, repassword, captcha } = this
-      const info = await this.$store.dispatch('logindata', {
+      const { mobile, password, repassword, captcha } = this.formLabelAlign
+      const info = await this.$store.dispatch('usergister', {
         mobile,
         password,
         repassword,
         captcha
       })
-      if (!info) {
-        this.$message.error('验证码错误')
+      console.log(info)
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
       }
     },
     async getsms() {
@@ -221,7 +221,6 @@ export default {
       })
       if (info.code === 1) {
         this.$message.success(info.msg)
-        this.$router.push('/login')
       } else {
         this.$message({
           type: 'warning',

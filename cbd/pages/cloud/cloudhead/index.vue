@@ -16,6 +16,7 @@
       </div>
       <div v-show="!headlist.length" class="spaceimg">
         <img src="@/assets/images/space.png" alt="">
+        空空如也哦
       </div>
     </div>
     <RightComponent :publish="publish" :tpath="tpath"></RightComponent>

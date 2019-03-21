@@ -48,13 +48,6 @@ export default {
       flag: {}
     }
   },
-  async asyncData(context) {
-    await context.store.dispatch('test', {
-      scene: 'profile',
-      id: context.params.id
-    })
-    // context.app.head.title = info.seo.seo_title
-  },
   head() {
     return {
       title: this.test.seo.seo_title || '传帮带',
@@ -79,6 +72,13 @@ export default {
   },
   computed: {
     ...mapGetters(['usershowmeinfo', 'showDetailMeta', 'test'])
+  },
+  async asyncData(context) {
+    await context.store.dispatch('test', {
+      scene: 'profile',
+      id: context.params.id
+    })
+    // context.app.head.title = info.seo.seo_title
   },
   mounted() {
     this.$nextTick(() => {

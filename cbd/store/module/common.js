@@ -154,7 +154,11 @@ const common = {
         ...params
       })
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const usergister = info.data.data
+        const usergister = info.data
+        commit('setusergister', usergister)
+        return usergister
+      } else {
+        const usergister = info.data
         commit('setusergister', usergister)
         return usergister
       }
@@ -173,7 +177,6 @@ const common = {
       const info = await api.common.uploadimage({
         ...params
       })
-      console.log(info)
       if (info.data.code === api.CODE_OK && info.data) {
         const images = info.data
         commit('setimages', images)

@@ -25,10 +25,10 @@
             未审核
           </span>
           <div class="lidiv">
-            <div @click="bianji(item1.id)">
+            <div @click="bianjii(item1.id)">
               编辑
             </div>
-            <div>
+            <div @click="del(item1.id)">
               删除
             </div>
           </div>
@@ -75,7 +75,7 @@
         </el-form-item>
       </el-form>
       <div class="button">
-        <el-button type="primary" @click="addnewcase">
+        <el-button type="primary" @click="addnewcases">
           确定
         </el-button>
         <el-button type="info" @click="cancel">
@@ -144,6 +144,20 @@ export default {
     })
   },
   methods: {
+    async del(vid) {
+      const info = await this.$store.dispatch('delcase', {
+        id: vid
+      })
+      if (info.code === 1) {
+        this.$message.success(info.msg)
+        this.caseprofiles()
+      } else {
+        this.$message({
+          type: 'warning',
+          message: info.msg
+        })
+      }
+    },
     async caseprofiles() {
       const { page, limit, title } = this
       const info = await this.$store.dispatch('caseprofile', {
@@ -191,14 +205,18 @@ export default {
         })
       }
     },
-    addnewcase() {
+    addnewcases() {
       if (!this.edit) {
         // 编辑信息
         this.addnewcase = true
         this.bcbjinfo()
+        this.title = ''
+        this.caseprofiles()
       } else {
         // 发布新信息
         this.sendinfo()
+        this.title = ''
+        this.caseprofiles()
       }
     },
     handlecurrentchange(params) {
@@ -206,6 +224,7 @@ export default {
       this.caseprofiles()
     },
     changeindex() {
+      this.imageUrl = ''
       this.noIndex = 1
       this.selected = []
       this.edit = true
@@ -229,26 +248,23 @@ export default {
       this.noIndex = 0
       this.fbindex = true
     },
-    bianji(vid) {
+    bianjii(vid) {
       this.fbindex = false
       this.edit = false
       this.noIndex = 1
       this.bjindex = true
-      this.bjcaseinfo(vid)
+      this.selected = []
+      this.bjcaseinfoo(vid)
       this.sendid = vid
     },
     handleAvatarSuccess(res, file, index) {
       this.imageUrl = URL.createObjectURL(file.raw)
       this.cover = file.response.data.url
     },
-    handleonchange(file, fileList) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-      this.cover = file.response.data.url
-    },
     initAction() {
       this.action = process.client ? '' : base.dev
     },
-    async bjcaseinfo(vid) {
+    async bjcaseinfoo(vid) {
       const info = await this.$store.dispatch('getcaseinfo', {
         id: vid
       })
@@ -335,7 +351,6 @@ export default {
   }
 }
 .demand-bottom {
-  height: 904px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

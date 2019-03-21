@@ -16,7 +16,7 @@
         </span>
       </div>
       <ul class="demand-bottom">
-        <li v-for="(item,index1) in teampro" :key="index1">
+        <li v-for="(item,index1) in teamlist" :key="index1">
           <span>
             {{ item.team_name }}
           </span>
@@ -120,7 +120,8 @@ export default {
       image: '',
       bgid: 0,
       teamflag: '',
-      arr: []
+      arr: [],
+      teamlist: []
     }
   },
   computed: {
@@ -142,6 +143,7 @@ export default {
         page,
         limit
       })
+      this.teamlist = info.team
       this.total = info.total
     },
     handlecurrentchange(params) {
@@ -153,6 +155,7 @@ export default {
       this.teamname = ''
       this.content = ''
       this.image = ''
+      this.imageUrl = ''
       this.flag = !this.flag
       this.teamflag = false
     },
@@ -197,6 +200,7 @@ export default {
         this.submitbjteam()
       } else {
         this.submitaddteam()
+        this.dismyteamp()
       }
     },
     async submitbjteam() {
@@ -273,7 +277,6 @@ export default {
   }
 }
 .demand-bottom {
-  height: 904px;
   li {
     border-bottom: 1px dashed #e6e6e6;
     height: 96px;

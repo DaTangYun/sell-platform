@@ -93,6 +93,8 @@ export default {
       border-right: 2px solid #282d38;
       box-sizing: border-box;
       padding-right: 18px;
+      font-size: 18px;
+      font-weight: 700;
       cursor: pointer;
       &:last-child {
         border: none;

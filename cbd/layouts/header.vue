@@ -9,14 +9,14 @@
             <Dialog v-show="showDialog" @changeQQQ="showDialog = false" @sendXian="sendXian"></Dialog>
           </div>
           <div class="login-register">
-            <nuxt-link to="/authentication" style="color:#039be5;margin-right:61px">
+            <nuxt-link v-if="token" to="/authentication" style="color:#039be5;margin-right:61px">
               认证
             </nuxt-link>
             <div v-if="token" style="color:#039be5" class="dengluname">
               {{ name }}
               <ul class="user">
                 <nuxt-link :to="`/myself/${userid}/mypublish/myhead`" tag="li">
-                  个人中心
+                  会员中心
                 </nuxt-link>
                 <li @click="getloginout">
                   退出
@@ -328,9 +328,17 @@ header {
     .header-logo {
       width: 103px;
       height: 100%;
-      padding: 12px 0;
       box-sizing: border-box;
       margin-right: 197px;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
     .header-classification {
       width: 428px;

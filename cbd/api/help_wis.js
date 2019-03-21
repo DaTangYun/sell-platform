@@ -51,6 +51,10 @@ const helpwis = {
   // 案例详情
   getcasedetail(params) {
     return axios.get('/api/cases/detail', { params })
+  },
+  // 删除案例
+  getcasedel(params) {
+    return axios.post('/api/cases/del', qs.stringify(params))
   }
 }
 export default helpwis

@@ -14,9 +14,13 @@ const helpwis = {
     addcase: {},
     caseinfo: {},
     qdcase: {},
-    casedetail: {}
+    casedetail: {},
+    casedel: {}
   },
   mutations: {
+    setcasedel(state, data) {
+      state.casedel = data
+    },
     sethelpwis(state, data) {
       state.helpwis = data
     },
@@ -146,14 +150,13 @@ const helpwis = {
       const info = await api.helpwis.getdocument({
         ...params
       })
-      if (info.data.code === api.CODE_ERROR) {
-        const error = info.data
-        commit('seterror', error)
-        return error
-      }
       if (info.data.code === api.CODE_OK && info.data.data) {
-        const document = info.data.data
-        commit('setdocument', document.cate)
+        const document = info.data
+        commit('setdocument', document)
+        return document
+      } else {
+        const document = info.data
+        commit('setdocument', document)
         return document
       }
     },
@@ -192,6 +195,20 @@ const helpwis = {
       } else {
         const qdcase = info.data
         commit('setqdcase', qdcase)
+        return qdcase
+      }
+    },
+    async delcase({ commit }, params) {
+      const info = await api.helpwis.getcasedel({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const qdcase = info.data
+        commit('setcasedel', qdcase)
+        return qdcase
+      } else {
+        const qdcase = info.data
+        commit('setcasedel', qdcase)
         return qdcase
       }
     },
