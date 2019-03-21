@@ -113,6 +113,8 @@ export default {
   }
 }
 .headbot {
+  box-sizing: border-box;
+  padding-bottom: 50px;
   p {
     line-height: 30px;
   }
