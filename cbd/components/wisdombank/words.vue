@@ -73,6 +73,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .word {
   ul {
     margin: 24px 16px;
@@ -103,6 +105,7 @@ export default {
         .word-title {
           color: #282d38;
           margin-bottom: 10px;
+          .ellipsis();
         }
         span {
           font-size: 14px;

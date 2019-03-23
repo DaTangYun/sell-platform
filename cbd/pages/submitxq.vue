@@ -45,6 +45,7 @@
                 placeholder="选择日期"
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd"
+                :picker-options="pickerOptions0"
               >
               </el-date-picker>
               <span>
@@ -56,6 +57,7 @@
                 placeholder="选择日期"
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd"
+                :picker-options="pickerOptions1"
               >
               </el-date-picker>
             </el-form-item>
@@ -144,7 +146,17 @@ export default {
       newarr: [],
       htimage: '',
       textcontent: '',
-      showcontent: ''
+      showcontent: '',
+      pickerOptions0: {
+        disabledDate: time => {
+          return time.getTime() < Date.now() - 8.64e7
+        }
+      },
+      pickerOptions1: {
+        disabledDate: time => {
+          return time.getTime() < Date.now()
+        }
+      }
     }
   },
   computed: {
@@ -208,6 +220,32 @@ export default {
       this.endtime = info.row.end_time
     },
     async bceditlist() {
+      const endD = new Date(Date.parse(this.endtime.replace(/-/g, '/')))
+      const star = new Date(Date.parse(this.starttime.replace(/-/g, '/')))
+      const day = parseInt(
+        (endD.getTime() - star.getTime()) / (1000 * 60 * 60 * 24)
+      )
+      if (day > 30) {
+        this.$message({
+          type: 'warning',
+          message: '有效期范围大于30天'
+        })
+        return
+      }
+      if (day < 0) {
+        this.$message({
+          type: 'warning',
+          message: '结束时间须大于起始时间'
+        })
+        return
+      }
+      if (day === 0) {
+        this.$message({
+          type: 'warning',
+          message: '结束时间须大于起始时间'
+        })
+        return
+      }
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]
@@ -275,6 +313,33 @@ export default {
       this.action = process.client ? '' : base.dev
     },
     async addnewhelp() {
+      const endD = new Date(Date.parse(this.endtime.replace(/-/g, '/')))
+      const star = new Date(Date.parse(this.starttime.replace(/-/g, '/')))
+      const day = parseInt(
+        (endD.getTime() - star.getTime()) / (1000 * 60 * 60 * 24)
+      )
+      console.log(day)
+      if (day > 30) {
+        this.$message({
+          type: 'warning',
+          message: '有效期范围大于30天'
+        })
+        return
+      }
+      if (day < 0) {
+        this.$message({
+          type: 'warning',
+          message: '结束时间须大于起始时间'
+        })
+        return
+      }
+      if (day === 0) {
+        this.$message({
+          type: 'warning',
+          message: '结束时间须大于起始时间'
+        })
+        return
+      }
       this.selected.map((item, index) => {
         if (index === 0) {
           this.province = Object.values(item)[0]

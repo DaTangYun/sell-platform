@@ -77,7 +77,7 @@ ul {
     h4 {
       font-size: 14px;
       color: #282d38;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
       .ellipsis();
     }
     p {

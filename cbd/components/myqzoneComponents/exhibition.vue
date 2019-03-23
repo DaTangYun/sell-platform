@@ -294,10 +294,15 @@ export default {
     }
     h4 {
       margin-bottom: 10px;
+      .ellipsis();
+      width: 216px;
     }
     p {
       color: #57606f;
+      display: block;
+      width: 216px;
       font-size: 14px;
+      .ellipsis();
     }
   }
 }

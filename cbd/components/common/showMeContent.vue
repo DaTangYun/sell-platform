@@ -37,6 +37,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .showMeContent {
   width: 187px;
   height: 80px;
@@ -58,10 +60,14 @@ export default {
     .showMe-title {
       line-height: 30px;
       color: rgba(40, 45, 56, 1);
+      .ellipsis();
     }
     .showMetext {
       color: rgba(119, 128, 143, 1);
       font-size: 14px;
+      width: 98px;
+      height: 38px;
+      overflow: hidden;
     }
   }
 }

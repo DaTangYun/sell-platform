@@ -128,17 +128,25 @@ export default {
           display: inline-block;
           width: 327px;
           .ellipsis();
+          height: 21px;
         }
         span {
           font-size: 14px;
           color: #616975;
           &:last-child {
-            margin-left: 115px;
+            margin-left: 64px;
+          }
+          &:nth-child(2) {
+            display: inline-block;
+            width: 100px;
+            .ellipsis();
           }
         }
       }
       .bottom {
         color: #616975;
+        overflow: hidden;
+        height: 42px;
       }
     }
     .activity-li-right {

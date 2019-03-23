@@ -49,6 +49,7 @@ ul {
     margin-right: 20px;
     box-sizing: border-box;
     cursor: pointer;
+    overflow: hidden;
     &:nth-child(3n) {
       margin-right: 0px;
     }
@@ -68,7 +69,7 @@ ul {
     }
     span {
       display: block;
-      width: 284px;
+      width: 100%;
       color: #77808f;
       font-size: 14px;
       .ellipsis();

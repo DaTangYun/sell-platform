@@ -99,6 +99,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .help {
   display: flex;
   margin-bottom: 56px;
@@ -137,12 +139,17 @@ export default {
           }
         }
         h5 {
+          width: 284px;
           color: #282d38;
           line-height: 20px;
+          .ellipsis();
         }
         span {
+          display: block;
+          width: 284px;
           color: #77808f;
           font-size: 14px;
+          .ellipsis();
         }
       }
     }

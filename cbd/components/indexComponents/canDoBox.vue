@@ -46,6 +46,11 @@ export default {
       showIndex: 0
     }
   },
+  // computed: {
+  //   tzurl() {
+  //     if ()
+  //   }
+  // },
   methods: {
     showMe(index) {
       this.$emit('showMe', index)

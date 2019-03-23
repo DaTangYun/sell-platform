@@ -18,9 +18,9 @@
               {{ item.createtime }}
             </span>
           </div>
-          <div class="pjcontent">
+          <p class="pjcontent">
             {{ item.content }}
-          </div>
+          </p>
         </li>
       </ul>
       <pagination
@@ -104,6 +104,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .textarea {
   width: 902px;
   border-radius: 6px;
@@ -120,11 +122,13 @@ export default {
     padding-bottom: 24px;
     padding-top: 10px;
     box-sizing: border-box;
+    overflow: hidden;
     .pjtitle {
       margin-bottom: 14px;
       display: flex;
       h5 {
         padding-right: 68px;
+        .ellipsis();
       }
       span {
         font-size: 14px;
@@ -134,6 +138,7 @@ export default {
     .pjcontent {
       font-size: 14px;
       color: #57606f;
+      // .ellipsis();
     }
   }
 }

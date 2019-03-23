@@ -140,6 +140,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .head {
   width: 1210px;
   height: 100%;
@@ -181,6 +183,7 @@ export default {
       text-align: center;
       line-height: 31px;
       cursor: pointer;
+      .ellipsis();
       &:hover {
         background-color: #00a0e9;
         color: #fff;
@@ -218,10 +221,14 @@ export default {
       .headlinelic {
         h3 {
           line-height: 40px;
+          .ellipsis();
         }
         p {
           line-height: 26px;
           width: 657px;
+          display: block;
+          overflow: hidden;
+          height: 78px;
         }
         .headlispan {
           margin-top: 20px;

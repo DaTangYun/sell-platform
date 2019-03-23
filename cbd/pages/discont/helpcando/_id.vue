@@ -360,6 +360,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+@import '~style/variable.less';
+@import '~style/mixin.less';
 .fuwu-top {
   height: 268px;
   background: #fff;
@@ -497,6 +499,7 @@ export default {
       .askcontent {
         font-size: 14px;
         color: #57606f;
+        .ellipsis();
       }
       .back {
         font-size: 14px;
