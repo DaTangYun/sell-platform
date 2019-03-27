@@ -207,7 +207,6 @@ export default {
         window.history.back()
       } else {
         this.$message.error(info.msg)
-        window.history.back()
       }
     },
     handleHeadS(res, index) {

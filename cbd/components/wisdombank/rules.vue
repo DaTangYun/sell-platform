@@ -112,6 +112,7 @@ export default {
   .rules-span {
     box-sizing: border-box;
     display: flex;
+    flex-wrap: wrap;
     li {
       height: 30px;
       background-color: #f1f2f6;
@@ -120,6 +121,7 @@ export default {
       color: #747d8c;
       font-size: 14px;
       line-height: 30px;
+      margin-bottom: 10px;
       cursor: pointer;
       &:hover {
         background-color: #00a0e9;

@@ -94,18 +94,22 @@ export default {
 <style lang='less' scoped>
 .headline-category {
   width: 950px;
-  height: 98px;
+  // height: 98px;
   background: rgba(255, 255, 255, 1);
   border-radius: 6px;
   margin: 0 0 20px 0;
   box-sizing: border-box;
   display: flex;
+  // flex-wrap: wrap;
   padding-top: 16px;
   padding-left: 16px;
   span {
     color: #282d38;
     margin-right: 23px;
     line-height: 30px;
+    display: inline-block;
+    width: 82px;
+    overflow: hidden;
     &:nth-child(2) {
       width: 82px;
       height: 31px;
@@ -124,6 +128,8 @@ export default {
   }
   ul {
     display: flex;
+    flex-wrap: wrap;
+    width: 840px;
     li {
       width: 82px;
       height: 31px;
@@ -133,6 +139,7 @@ export default {
       text-align: center;
       line-height: 31px;
       padding: 0 5px;
+      margin-bottom: 10px;
       cursor: pointer;
       &:hover {
         background-color: #00a0e9;

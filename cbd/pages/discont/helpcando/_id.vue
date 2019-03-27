@@ -145,7 +145,7 @@ export default {
   meta: {
     title: '能帮会干服务详情'
   },
-  middleware: 'auth',
+  // middleware: 'auth',
   data() {
     return {
       activeName: 'first',

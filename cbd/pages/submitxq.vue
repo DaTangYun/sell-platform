@@ -322,7 +322,7 @@ export default {
       if (day > 30) {
         this.$message({
           type: 'warning',
-          message: '有效期范围大于30天'
+          message: '最长有效期为30天'
         })
         return
       }

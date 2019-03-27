@@ -99,7 +99,7 @@ export default {
   }
   .bank-right {
     width: 950px;
-    height: 655px;
+    min-height: 655px;
     background: #fff;
     border-radius: 6px;
     box-sizing: border-box;
