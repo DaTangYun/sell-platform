@@ -140,12 +140,12 @@ export default {
   methods: {
     async pinglun() {
       const { page, limit } = this
-      const info = await this.$store.dispatch('abilityls', {
+      const info = await this.$store.dispatch('usercomment', {
         page,
         limit,
-        ability_id: this.$route.params.id
+        user_id: this.$route.params.id
       })
-      this.plarr = info.comment
+      this.plarr = info.data.comment
     },
     async headlists() {
       await this.$store.dispatch('headlist', {

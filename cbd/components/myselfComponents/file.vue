@@ -221,7 +221,7 @@ export default {
       if (info.code === 1) {
         this.$message({
           type: 'success',
-          message: '添加成功'
+          message: '您发布的内容已提交后台审核请等待'
         })
         this.title = ''
         this.cateid = 0

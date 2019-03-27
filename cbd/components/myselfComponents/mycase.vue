@@ -149,7 +149,7 @@ export default {
         id: vid
       })
       if (info.code === 1) {
-        this.$message.success(info.msg)
+        this.$message.success('您发布的内容已提交后台审核请等待')
         this.caseprofiles()
       } else {
         this.$message({
@@ -196,8 +196,9 @@ export default {
         source
       })
       if (info.code === 1) {
-        this.$message.success(info.msg)
+        this.$message.success('您发布的内容已提交后台审核请等待')
         this.noIndex = 0
+        this.caseprofiles()
       } else {
         this.$message({
           type: 'warning',
@@ -311,7 +312,7 @@ export default {
         source
       })
       if (info.code === 1) {
-        this.$message.success(info.msg)
+        this.$message.success('您发布的内容已提交后台审核请等待')
         this.fbindex = true
         this.noIndex = 0
       } else {

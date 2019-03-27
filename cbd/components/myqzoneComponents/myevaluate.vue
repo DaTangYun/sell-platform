@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <helpbox :head="'他的评价'" :wid="'950'">
+    <helpbox :head="'我的评价'" :wid="'950'">
       <div class="textarea">
         <el-input v-model="contentyh" type="textarea" :placeholder="'请输入内容'" :rows="'7'"></el-input>
         <el-button type="primary" class="publish-btn" @click="fbcomment">
@@ -70,13 +70,14 @@ export default {
   methods: {
     async pinglun() {
       const { page, limit } = this
-      const info = await this.$store.dispatch('abilityls', {
+      const info = await this.$store.dispatch('usercomment', {
         page,
         limit,
-        ability_id: this.$route.params.id
+        user_id: this.$route.params.id
       })
-      this.total = info.total
-      this.pl = info.comment
+      this.total = info.data.total
+      this.pl = info.data.comment
+      // console.log(this.pl)
     },
     handlecurrentchange(params) {
       this.page = params
@@ -86,15 +87,16 @@ export default {
       if (!this.contentyh) {
         this.$message.error('请填写内容')
       }
-      const info = await this.$store.dispatch('addcom', {
+      const info = await this.$store.dispatch('szusercomment', {
         content: this.contentyh,
-        ability_id: this.$route.params.id
+        user_id: this.$route.params.id
       })
-      if (info) {
+      if (info.code === 1) {
         this.$message.success('评论成功')
         this.pinglun()
+        this.content = ''
       } else {
-        this.$message.error('评论频繁，请稍后')
+        this.$message.error(info.msg)
       }
     },
     fbcomment() {

@@ -14,22 +14,24 @@
           </no-ssr>
         </div>
         <div v-if="show == 1" class="topMeaage">
-          <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <ul>
-                  <nuxt-link v-for="(item,index) in infolist" :key="index" tag="li" :to="{name: `cloud-cloudinfo-id`,params: {id: item.id}}">
-                    <h4>
-                      {{ item.title }}
-                    </h4>
-                    <p>
-                      {{ item.desc }}
-                    </p>
-                  </nuxt-link>
-                </ul>
+          <no-ssr>
+            <div v-swiper:mySwiper="swiperOption">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(item,index) in infolist" :key="index">
+                  <ul>
+                    <nuxt-link tag="li" :to="{name: `cloud-cloudinfo-id`,params: {id: item.id}}">
+                      <h4>
+                        {{ item.title }}
+                      </h4>
+                      <p>
+                        {{ item.desc }}
+                      </p>
+                    </nuxt-link>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          </no-ssr>
         </div>
       </div>
     </div>
@@ -50,11 +52,16 @@ export default {
       show: 0,
       activeName: '',
       swiperOption: {
-        slidePerView: 2,
-        loop: true,
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 30
+        direction: 'vertical',
+        // slidePerView: 3.5,
+        // loop: true,
+        autoplay: true,
+        // slidesPerView: 'auto',
+        // centeredSlides: true,
+        // spaceBetween: 0,
+        observer: true,
+        observeParents: true,
+        height: 87
       }
     }
   },
@@ -140,6 +147,7 @@ export default {
   }
 }
 .topMeaage {
+  height: 294px;
   ul {
     height: 294px;
     width: 100%;
@@ -154,13 +162,13 @@ export default {
       h4 {
         font-size: 14px;
         color: #282d38;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
         .ellipsis();
       }
       p {
         color: #77808f;
         font-size: 14px;
-        height: 41px;
+        height: 40px;
         overflow: hidden;
       }
     }

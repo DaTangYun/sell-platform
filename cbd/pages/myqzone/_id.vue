@@ -8,7 +8,7 @@
           首页
         </nuxt-link>
         >
-        个人空间
+        会员空间
       </div>
       <div class="myqzone-top">
         <div class="mqzone-t">
@@ -166,7 +166,8 @@ export default {
     margin-right: 23px;
   }
   p {
-    display: block;
+    display: inline-block;
+    width: 700px;
     color: #fff;
   }
 }

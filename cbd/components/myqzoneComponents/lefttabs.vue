@@ -20,14 +20,14 @@ export default {
       default() {
         return [
           { name: '综合展示', url: '/zonghe' },
-          { name: '他的头条', url: '/myhead' },
-          { name: '他的信息', url: '/myinfo' },
+          { name: '我的头条', url: '/myhead' },
+          { name: '我的信息', url: '/myinfo' },
           { name: '帮帮我', url: '/helpme' },
           { name: '能帮会干', url: '/helpcando' },
           { name: '案例展示', url: '/case' },
           { name: '团队展示', url: '/team' },
           { name: '优惠活动', url: '/active' },
-          { name: '他的评价', url: '/pingjia' }
+          { name: '我的评价', url: '/pingjia' }
         ]
       }
     }

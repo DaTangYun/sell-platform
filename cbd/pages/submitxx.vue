@@ -188,7 +188,7 @@ export default {
       } else {
         this.$message({
           type: 'success',
-          message: info.msg
+          message: '您发布的内容已提交后台审核请等待'
         })
         window.history.back()
       }
@@ -235,7 +235,7 @@ export default {
       } else {
         this.$message({
           type: 'success',
-          message: info.msg
+          message: '您发布的内容已提交后台审核请等待'
         })
         window.history.back()
       }

@@ -121,6 +121,9 @@
       </p>
       <p class="copyright">
         {{ banquan.beian }}&nbsp;&nbsp;&nbsp;{{ banquan.beianhao }}
+        <a target="blank" href="http://www.miit.gov.cn/" class="copy">
+          <img src="../assets/images/beian.png" alt="">
+        </a>
       </p>
     </div>
   </footer>
@@ -255,10 +258,24 @@ footer {
       }
     }
     .copyright {
+      display: inline-block;
+      position: relative;
       width: 100%;
       text-align: center;
       color: rgba(128, 128, 128, 1);
       font-size: 14px;
+    }
+    .copy {
+      position: absolute;
+      right: 35%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .img {

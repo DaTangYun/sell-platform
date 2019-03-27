@@ -13,9 +13,17 @@ const dishelpdo = {
     deleteability: {},
     abilitymessage: {},
     addcommentnwwd: {},
-    addreply: {}
+    addreply: {},
+    usercomment: {},
+    usercom: {}
   },
   mutations: {
+    setusercom(state, data) {
+      state.usercom = data
+    },
+    setusercomment(state, data) {
+      state.usercomment = data
+    },
     setdishelpdo(state, data) {
       state.dishelpdo = data
     },
@@ -199,6 +207,30 @@ const dishelpdo = {
       if (info.data.code === api.CODE_OK && info.data) {
         const deleteability = info.data
         commit('setaddreply', deleteability)
+        return deleteability
+      }
+    },
+    async usercomment({ commit }, params) {
+      const info = await api.dishelpdo.getusercomment({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data) {
+        const deleteability = info.data
+        commit('setusercomment', deleteability)
+        return deleteability
+      }
+    },
+    async szusercomment({ commit }, params) {
+      const info = await api.dishelpdo.commentuser({
+        ...params
+      })
+      if (info.data.code === api.CODE_OK && info.data.data) {
+        const deleteability = info.data
+        commit('setusercom', deleteability)
+        return deleteability
+      } else {
+        const deleteability = info.data
+        commit('setusercom', deleteability)
         return deleteability
       }
     }

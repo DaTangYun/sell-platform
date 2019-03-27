@@ -174,7 +174,7 @@ export default {
           message: info.msg
         })
       } else {
-        this.$message.success(info.msg)
+        this.$message.success('您发布的内容已提交后台审核请等待')
         window.history.back()
       }
     },

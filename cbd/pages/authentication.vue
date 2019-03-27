@@ -203,7 +203,7 @@ export default {
         area: _this.area
       })
       if (info.code === 1) {
-        this.$message.success(info.msg)
+        this.$message.success('已提交后台认证请等待')
         window.history.back()
       } else {
         this.$message.error(info.msg)

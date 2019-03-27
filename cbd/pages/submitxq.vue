@@ -137,7 +137,7 @@ export default {
       imageUrl: '',
       action: '',
       catefl: [],
-      commission: '',
+      commission: '面议',
       mobile: '',
       contact: '',
       time: '',
@@ -228,7 +228,7 @@ export default {
       if (day > 30) {
         this.$message({
           type: 'warning',
-          message: '有效期范围大于30天'
+          message: '最长有效期为30天'
         })
         return
       }
@@ -300,7 +300,7 @@ export default {
       } else {
         this.$message({
           type: 'success',
-          message: info.msg
+          message: '您发布的内容已提交后台审核请等待'
         })
         window.history.back()
       }
@@ -379,7 +379,7 @@ export default {
       } else {
         this.$message({
           type: 'success',
-          message: info.msg
+          message: '您发布的内容已提交后台审核请等待'
         })
         window.history.back()
       }

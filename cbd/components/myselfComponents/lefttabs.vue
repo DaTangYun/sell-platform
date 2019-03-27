@@ -2,7 +2,7 @@
 <template>
   <div class="lefttabs">
     <h3>
-      个人中心
+      会员中心
     </h3>
     <ul>
       <nuxt-link v-for="(item,index) of leftlist" :key="index" tag="li" :to="`/myself/${id}${item.url}`">

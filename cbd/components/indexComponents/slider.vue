@@ -1,22 +1,25 @@
 <!--  -->
 <template>
   <div v-loading="loading" class="slider">
-    <div v-if="headlist.length" v-swiper:mySwiper="swiperOption">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <ul>
-            <nuxt-link v-for="(item,index) in headlist" :key="index" tag="li" :to="{name: `cloud-cloudhead-id`,params: {id: item.id}}">
-              <h4>
-                {{ item.title }}
-              </h4>
-              <p>
-                {{ item.desc }}
-              </p>
-            </nuxt-link>
-          </ul>
+    <div class="heightbox">
+      <div v-if="headlist.length" v-swiper:mySwiper="swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item,index) in headlist" :key="index">
+            <ul>
+              <nuxt-link tag="li" :to="{name: `cloud-cloudhead-id`,params: {id: item.id}}">
+                <h4>
+                  {{ item.title }}
+                </h4>
+                <p>
+                  {{ item.desc }}
+                </p>
+              </nuxt-link>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -25,15 +28,17 @@ export default {
   name: 'Slider',
   data() {
     return {
-      swiperlist: [0, 1, 2, 3],
       swiperOption: {
-        slidePerView: 2,
-        loop: true,
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 30,
+        direction: 'vertical',
+        // slidePerView: 3.5,
+        // loop: true,
+        autoplay: true,
+        // slidesPerView: 'auto',
+        // centeredSlides: true,
+        // spaceBetween: 0,
         observer: true,
-        observeParents: true
+        observeParents: true,
+        height: 87
       },
       loading: true
     }
@@ -61,10 +66,13 @@ export default {
 @import '~style/variable.less';
 @import '~style/mixin.less';
 .slider {
-  height: 294px;
+  height: 100%;
+  .heightbox {
+    height: 290px;
+  }
 }
 ul {
-  height: 294px;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   li {

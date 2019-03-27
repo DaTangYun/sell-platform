@@ -34,6 +34,7 @@ export default {
   background-color: #fff;
   border-radius: 6px;
   margin-bottom: 20px;
+  max-height: 800px;
   h4 {
     height: 60px;
     font-size: 24px;
